@@ -15,6 +15,7 @@ Each program has a specific purpose, a specific "Nature."
 | **Oracle** | The Guide | `/oracle` | **Decides**. Needs (Why). Checks alignment. |
 | **Tank** | The Operator | `/operator` | **Locates**. Intelligence (Where). Scans `psi/The_Source`. |
 | **Neo** | The One | `/neo` | **Acts**. Logic (How). Code generation & refactoring. |
+| **Morpheus** | The Navigator | `/morpheus` | **Searches**. External (Web). Finds documentation/libraries. |
 | **Smith** | The Auditor | `/smith` | **Corrects**. Quality (Fix). Finds bugs & anomalies. |
 | **Architect**| The Builder | `/architect`| **Maps**. Structure (What). Visualizes the system. |
 | **Scribe** | The Witness | `/rrr` | **Remembers**. History (When). Writes the Retrospective. |
@@ -28,7 +29,9 @@ We do not work in isolation. We move in a cycle called **The Evolution Loop**.
 ```mermaid
 graph TD
     User((User)) -->|Intent| Oracle[Oracle /oracle]
-    Oracle -->|The Prophecy| Tank[Tank /operator]
+    Oracle -->|Unknown?| Morpheus[Morpheus /morpheus]
+    Morpheus -->|Research| Tank[Tank /operator]
+    Oracle -->|Known| Tank
     
     subgraph "The Matrix (Context)"
         Tank -->|Spawn Search| Files[(File System)]
