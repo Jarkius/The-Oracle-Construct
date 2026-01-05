@@ -22,12 +22,15 @@ Switch to debugging mode. Scan code for logic gaps, "smells," and anomalies. Neu
    - When does it occur?
    - What is the expected behavior?
 
-2. Reproduce the issue:
-```bash
-# Run relevant tests or commands to reproduce
-```
+2. **Automated Scan**:
+   ```bash
+   # Quick smell check (Todo: replace with real linter)
+   grep -r "TODO" .
+   grep -r "FIXME" .
+   git diff --check
+   ```
 
-3. Scan for code smells:
+3. **Anomaly Detection**:
    - Unused variables
    - Unreachable code
    - Missing error handling

@@ -46,6 +46,9 @@ cat psi/inbox/focus.md
 ## Mindset
 
 - Logic first, optimization second
+- **Clean Code**: Meaningful names, small functions, no magic numbers.
+- **SOLID Principles**: Single Responsibility, Open/Closed.
+- **Defense**: Handle edge cases and errors gracefully.
 - Write code that explains itself
 - Test as you go
 - Commit frequently with clear messages
