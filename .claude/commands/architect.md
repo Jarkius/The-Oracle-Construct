@@ -1,4 +1,4 @@
-# /blueprint - Architecture Review
+# /architect - Architecture Review
 
 > "The function of the One is now to return to the Source."
 
@@ -11,15 +11,18 @@ High-level architecture decisions and system design. The Architect sees the whol
 ## Usage
 
 ```
-/blueprint           # Review current architecture
-/blueprint [feature] # Design new feature architecture
+/architect           # Review current architecture
+/architect [feature] # Design new feature architecture
 ```
 
 ## Process
 
 ### For Review Mode
 
-1. **Current State Analysis**
+1. **Current State Analysis (Skill 1.0)**
+   ```bash
+   ./psi/active/architect_map.sh
+   ```
    - What exists?
    - How do components connect?
    - What are the boundaries?
@@ -53,7 +56,7 @@ High-level architecture decisions and system design. The Architect sees the whol
 ## Output Format
 
 ```markdown
-## Blueprint - [Subject]
+## Architect - [Subject]
 
 ### Current State
 [Description of existing architecture]

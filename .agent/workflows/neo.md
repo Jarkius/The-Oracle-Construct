@@ -17,7 +17,13 @@ Switch to build mode focused on core logic, algorithms, and implementation. Neo 
 
 ## Steps
 
-1. Review the current focus:
+### 1. Logic Check (Skill 1.0)
+```bash
+# Verify the target file structure
+./psi/active/neo_logic.sh [filename]
+```
+
+### 2. Review the current focus
 ```bash
 cat psi/inbox/focus.md
 ```

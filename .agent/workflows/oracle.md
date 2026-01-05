@@ -33,7 +33,7 @@ The Oracle is the **central orchestrator** of the Matrix. Use this command to al
    - **Condition**: Is there a bug or error?
      - *Yes* -> **Repair**. (Go to `/smith`)
    - **Condition**: Are we starting a new feature?
-     - *Yes* -> **Design**. (Go to `/blueprint` or `/neo`)
+     - *Yes* -> **Design**. (Go to `/architect` or `/neo`)
 
 3. **Philosophy Check** (The Soul):
    - [ ] **Nothing is Deleted**: Are we preserving history?
@@ -59,7 +59,7 @@ The Oracle is the **central orchestrator** of the Matrix. Use this command to al
    **Dispatch Logic**:
    - **Creation/Logic** -> `/neo` ("I see the code.")
    - **Design/UI** -> `/ui` ("The Woman in Red.")
-   - **Architecture** -> `/blueprint` (" The Architect.")
+   - **Architecture** -> `/architect` ("The Architect.")
    - **Debugging** -> `/smith` ("Mr. Anderson...")
    - **Confusion/Lost** -> `/cause` ("Cause and Effect.")
    - **Completion** -> `/rrr` ("Everything that has a beginning...")

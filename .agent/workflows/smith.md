@@ -22,12 +22,9 @@ Switch to debugging mode. Scan code for logic gaps, "smells," and anomalies. Neu
    - When does it occur?
    - What is the expected behavior?
 
-2. **Automated Scan**:
+3. **Automated Audit (Skill 1.0)**:
    ```bash
-   # Quick smell check (Todo: replace with real linter)
-   grep -r "TODO" .
-   grep -r "FIXME" .
-   git diff --check
+   ./psi/active/smith_audit.sh
    ```
 
 3. **Anomaly Detection**:
