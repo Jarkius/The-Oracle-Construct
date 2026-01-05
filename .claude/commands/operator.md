@@ -16,7 +16,11 @@ The Operator finds context, files, and definitions to "feed" information to the 
 
 ### 1. Context Search (Skill 1.0)
 ```bash
+# SIngle Search
 ./psi/active/operator_load.sh "[term]"
+
+# Parallel Spawn (Skill 3.0)
+./psi/active/operator_spawn.sh --feed neo "term1" "term2"
 ```
 
 ### 2. Dispatch
