@@ -15,19 +15,22 @@ git log --oneline -20
 git diff --stat
 ```
 
-2. Create the retrospective directory:
+2. **Summon The Scribe (Skill 1.0)**:
 ```bash
-YEAR_MONTH=$(date +"%Y-%m")
-DAY=$(date +"%d")
-mkdir -p "psi/memory/retrospectives/${YEAR_MONTH}/${DAY}"
+# Scribe generates the draft from Git reality
+FILE=$(./psi/active/scribe_record.sh "session_focus")
+echo "Editing $FILE..."
 ```
 
 3. Write the retrospective with these **Required Sections**:
    - **Session Info** - Date, duration, focus
    - **What Happened** - Actual events (not plans)
    - **Key Decisions** - What was decided and why
-   - **AI Diary** - Genuine reflection (minimum 150 words, must be vulnerable)
-   - **Honest Feedback** - Real challenges and friction points
+   - **AI Diary** - Genuine reflection using the **3 Core Phrases**:
+     1. "I assumed X but learned Y..."
+     2. "I was confused about X until..."
+     3. "I expected X but got Y because..."
+   - **Honest Feedback** - Real challenges (Frustrated/Delighted)
    - **Next Actions** - What's next
 
 4. Save with timestamp to `psi/memory/retrospectives/YYYY-MM/DD/HH.MM_[slug].md`:

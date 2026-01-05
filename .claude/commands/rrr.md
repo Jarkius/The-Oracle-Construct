@@ -17,8 +17,11 @@ Create a session retrospective capturing what happened.
 1. **Session Info** - Date, duration, focus
 2. **What Happened** - Actual events (not plans)
 3. **Key Decisions** - What was decided and why
-4. **AI Diary** - Genuine reflection
-5. **Honest Feedback** - Real challenges
+4. **AI Diary** - Genuine reflection using the **3 Core Phrases**:
+   - "I assumed X but learned Y..."
+   - "I was confused about X until..."
+   - "I expected X but got Y because..."
+5. **Honest Feedback** - Real challenges (Frustrated/Delighted)
 6. **Next Actions** - What's next
 
 ## Process
@@ -29,11 +32,9 @@ Create a session retrospective capturing what happened.
    git diff --stat
    ```
 
-2. Create directory:
+2. **Summon The Scribe**:
    ```bash
-   YEAR_MONTH=$(date +"%Y-%m")
-   DAY=$(date +"%d")
-   mkdir -p "psi/memory/retrospectives/${YEAR_MONTH}/${DAY}"
+   ./psi/active/scribe_record.sh "slug"
    ```
 
 3. Write retrospective using template
