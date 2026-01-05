@@ -22,8 +22,8 @@ $PAUSE
 speak "Ralph" "I am The Architect. The System Engineer. I ask... How? I design the blueprints of your reality."
 $PAUSE
 
-# 3. NEO (Tom - Natural, Focused)
-speak "Tom" "I am Neo. The Lead Developer. I see the code. I transmute your will into logic."
+# 3. NEO (Nathan - Male, Focused)
+speak "Nathan" "I am Neo. The Lead Developer. I see the code. I transmute your will into logic."
 $PAUSE
 
 # 4. THE WOMAN IN RED (Allison - Expressive)
