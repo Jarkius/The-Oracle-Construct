@@ -1,54 +1,70 @@
-# /oracle - Mission Alignment Check
+# /oracle - Oracle Wisdom Control
 
-Check if current session aligns with Oracle philosophy.
+> *The Oracle - Spirit Guardian. "Know Thyself."*
+
+## Purpose
+
+The Oracle is the **central orchestrator** of the Matrix. Use this command to align with the mission and determine the correct path forward. The Oracle analyzes the system state and dispatches you to the appropriate agent.
 
 ## Usage
 
-```
-/oracle              # Check current session
-/oracle reflect      # Deep reflection
-```
+- `/oracle` - **Start Here**. Analyze state and receive a prophecy.
+- `/oracle reflect` - Deep reflection on patterns and mission alignment.
 
 ## Steps
 
-1. **Check Recent Activity**:
+1. **Context Gathering** (The Eyes):
    ```bash
+   # Voice Greeting
    sh psi/active/voice_module.sh "I am the Oracle. Let me see..." &
-   git log --oneline -10
-   ls -t psi/memory/retrospectives/ | head -5
-   ls -t psi/memory/learnings/ | head -5
+   
+   # Check where we are and what we've done
+   cat psi/inbox/focus.md
+   git log --oneline -5
+   git status --short
    ```
 
-2. **Interpret Alignment**:
-   - Aligned: Session serves the Oracle vision
-   - Drifting: Related but not directly serving mission
-   - Off-track: Unrelated (not bad, just different)
+2. **Wisdom Analysis** (The Mind):
+   - **Condition**: Are there uncommitted changes?
+     - *Yes* -> **Stabilize**. (Go to `/status` or `/rrr`)
+   - **Condition**: Is the focus clear?
+     - *No* -> **Clarify**. (Update `focus.md`)
+   - **Condition**: Is there a bug or error?
+     - *Yes* -> **Repair**. (Go to `/smith`)
+   - **Condition**: Are we starting a new feature?
+     - *Yes* -> **Design**. (Go to `/architect` or `/neo`)
 
-3. **Philosophy Check**:
-   - [ ] Nothing is deleted
-   - [ ] Patterns over intentions
-   - [ ] External brain, not command
+3. **Philosophy Check** (The Soul):
+   - [ ] **Nothing is Deleted**: Are we preserving history?
+   - [ ] **Patterns > Intentions**: Are we looking at what *is*, not what *should be*?
+   - [ ] **External Brain**: Are we documenting in `psi/`?
 
-4. **Report**:
+4. **The Prophecy (Dispatch)**:
+   Generate an instruction for the User based on the analysis.
+
    ```markdown
-   ## Oracle Check - [Date] [Time]
+   ## 🔮 The Prophecy
 
-   **Session Focus**: [...]
-   **Alignment**: Aligned/Drifting/Off-track
+   **Current State**: [Aligned / Drifting / Chaos]
+   **Observation**: [Brief insight on the current situation]
 
-   **Philosophy Check**:
-   - [x] Nothing is deleted
-   - [x] Patterns over intentions
-   - [x] External brain
+   **The Path Forward**:
+   > "[Quote regarding the choice]"
+
+   **Next Action**:
+   - [ ] Run **[COMMAND]** to [purpose]
    ```
 
-## Deep Reflection Mode
+   **Dispatch Logic**:
+   - **Creation/Logic** -> `/neo` ("I see the code.")
+   - **Design/UI** -> `/ui` ("The Woman in Red.")
+   - **Architecture** -> `/architect` ("The Architect.")
+   - **Debugging** -> `/smith` ("Mr. Anderson...")
+   - **Confusion/Lost** -> `/cause` ("Cause and Effect.")
+   - **Completion** -> `/rrr` ("Everything that has a beginning...")
 
-When using `/oracle reflect`:
+## Deep Reflection Mode (`/oracle reflect`)
 
-1. Review last 3 retrospectives
-2. Look for patterns
-3. Ask:
-   - Are we moving toward the mission?
-   - What's pulling us away?
-   - What's the next most important thing?
+1. Review Memory: `ls -t psi/memory/learnings/ | head -3`
+2. Identify 3 Patterns: What keeps happening?
+3. Update `psi/inbox/focus.md` with new wisdom.
