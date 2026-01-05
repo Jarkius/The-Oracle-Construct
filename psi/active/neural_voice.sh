@@ -23,4 +23,5 @@ if [ ! -f "$AUDIO_FILE" ]; then
 fi
 
 # Play Audio
+echo "🕶️  Neo (Neural): \"$TEXT\""
 afplay "$AUDIO_FILE"

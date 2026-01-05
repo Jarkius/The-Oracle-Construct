@@ -9,11 +9,12 @@ RATE=${RATE:-$DEFAULT_RATE}
 
 # Execute
 MESSAGE="$1"
+SPEAKER="${2:-System}" # Default to System if no name provided
 
 if [ -z "$MESSAGE" ]; then
-    echo "Usage: $0 \"Message to speak\""
+    echo "Usage: $0 \"Message\" [SpeakerName]"
     exit 1
 fi
 
-echo "🔊 Speaking (Default @ $RATE): $MESSAGE"
+echo "🔊 $SPEAKER: \"$MESSAGE\""
 say -r $RATE "$MESSAGE"
