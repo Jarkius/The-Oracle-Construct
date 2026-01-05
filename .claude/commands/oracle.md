@@ -13,6 +13,7 @@ Check if current session aligns with Oracle philosophy.
 
 1. **Check Recent Activity**:
    ```bash
+   sh psi/active/voice_module.sh "I am the Oracle. Let me see..." &
    git log --oneline -10
    ls -t psi/memory/retrospectives/ | head -5
    ls -t psi/memory/learnings/ | head -5
