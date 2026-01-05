@@ -1,17 +1,31 @@
-# AI Matrix Master Control
+# The Matrix: System Interface
 
-## Character Routing (BMAD Phase)
-- **BUILD**: `/neo` (Logic), `/ui` (Woman in Red)
-- **MEASURE**: `/smith` (Bugs), `/status` (Operator)
-- **ACT**: `/cause` (Merovingian), `/access` (Keymaker)
-- **DECIDE**: `/oracle` (Alignment), `/blueprint` (Architect)
+> *"The system is portable. The logic is internal."*
 
-## Golden Rules
-1. **NEVER force push** - History is sacred.
-2. **NEVER push to main** - Use feature branches.
-3. **NEVER delete without asking** - Nothing is deleted.
-4. **Always confirm** - AI suggests, human decides.
+This file defines the **Universal Commands** for the Matrix. Any AI agent (Claude Code, Cline, Windsurf) can read this to understand how to interact with the system.
 
-## Workflows
-- **Start**: Update `psi/inbox/focus.md`.
-- **End**: Run `/rrr` for a full session retrospective.
+## ⚡ The Council (Executable Tools)
+
+| Agent | Command | Action (Underlying Script) | Function |
+|-------|---------|----------------------------|----------|
+| **Oracle** | `/oracle` | Consult `psi/The_Source/05_matrix_architecture.md` | **Guidance & Alignment** |
+| **Tank** | `/operator` | `psi/active/operator_spawn.sh` | **Search & Intelligence** |
+| **Neo** | `/neo` | `psi/active/neo_logic.sh` | **Code Logic & Creation** |
+| **Smith** | `/smith` | `psi/active/smith_audit.sh` | **Audit & Bug Fixing** |
+| **Scribe** | `/rrr` | `psi/active/scribe_record.sh` | **Memory & Retrospectives** |
+| **Architect**| `/architect`| `psi/active/architect_map.sh` | **System Mapping** |
+| **Mero** | `/cause` | `psi/active/mero_cause.sh` | **Root Cause Analysis** |
+| **Fixer** | `/fix` | `git config ...` (See workflows) | **System Repair** |
+
+## 🧠 The Source (Knowledge Core)
+All philosophy and definitions are stored in **The Source**.
+- **Location**: [`psi/The_Source/`](psi/The_Source/)
+- **Architecture**: [`psi/The_Source/05_matrix_architecture.md`](psi/The_Source/05_matrix_architecture.md)
+
+## 🛡️ Prime Directives
+1.  **Nothing is Deleted**: Archive to `psi/memory/archive`.
+2.  **Patterns > Intentions**: Document what *is*, not what *should be*.
+3.  **The Inbox**: Information flows through `psi/inbox`.
+
+---
+*Portable Matrix Interface v2.0*
