@@ -22,8 +22,9 @@ $PAUSE
 speak "Ralph" "I am The Architect. The System Engineer. I ask... How? I design the blueprints of your reality."
 $PAUSE
 
-# 3. NEO (Daniel - British, Focused)
-speak "Daniel" "I am Neo. The Lead Developer. I see the code. I transmute your will into logic."
+# 3. NEO (Neural/Ryan - The One)
+echo "🔊 Speaking (Neo/Neural)..."
+./psi/active/neural_voice.sh "I am Neo. The Lead Developer. I see the code. I transmute your will into logic."
 $PAUSE
 
 # 4. THE WOMAN IN RED (Allison - Expressive)
