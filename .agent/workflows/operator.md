@@ -14,10 +14,17 @@ The Operator sits outside the Matrix simulation, reading the raw code. Their job
 
 ## Steps
 
-### 1. Context Search (Skill 1.0)
+### 1. Context Search (Skill 1.1)
 ```bash
-# Search for the target pattern
+# Search for context
 ./psi/active/operator_load.sh "[term]"
+
+# FEED the context directly to an agent (Efficiency)
+./psi/active/operator_load.sh "[term]" --feed neo
+
+# SPAWN multiple searches (Parallel "Tanks")
+# Search for login, logout, and auth simultaneously
+./psi/active/operator_spawn.sh --feed neo "login" "logout" "auth"
 ```
 
 ### 2. Feed the Agent

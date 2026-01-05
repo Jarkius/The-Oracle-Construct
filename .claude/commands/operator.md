@@ -9,6 +9,7 @@ The Operator finds context, files, and definitions to "feed" information to the 
 ## Usage
 
 - `/operator find [term]` - Search the codebase
+- `/operator spawn [terms...]` - Parallel search multiple items
 - `/operator load [topic]` - Retrieve knowledge
 
 ## Steps
