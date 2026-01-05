@@ -22,6 +22,7 @@ This file defines the **Universal Commands** for the Matrix. Any AI agent (Claud
 All philosophy and definitions are stored in **The Source**.
 - **Location**: [`psi/The_Source/`](psi/The_Source/)
 - **Architecture**: [`psi/The_Source/05_matrix_architecture.md`](psi/The_Source/05_matrix_architecture.md)
+- **Constitution**: [`psi/The_Source/02_claude_dna.md`](psi/The_Source/02_claude_dna.md)
 
 ## 🛡️ Prime Directives
 1.  **Nothing is Deleted**: Archive to `psi/memory/archive`.
