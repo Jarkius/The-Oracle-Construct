@@ -12,7 +12,7 @@ The Oracle is the **central orchestrator** of the Matrix. Use this command to al
 
 ## Usage
 
-- `/oracle` - **Start Here**. Analyze state and receive a prophecy (next step).
+- `/oracle` - **Start Here**. Analyze state and receive a prophecy. *(Spoken Greeting)*
 - `/oracle reflect` - Deep reflection on patterns and mission alignment.
 
 ## Steps
