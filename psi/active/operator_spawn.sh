@@ -24,11 +24,11 @@ while [[ $# -gt 0 ]]; do
 done
 
 if [ ${#ARGS[@]} -eq 0 ]; then
-    echo "📞 Operator: 'I need targets to spawn agents for.'"
+    echo "⚡ Tank: 'I need targets to spawn agents for.'"
     exit 1
 fi
 
-echo "📞 Operator: 'Spawning ${#ARGS[@]} Tank units for $TARGET_AGENT...'"
+echo "⚡ Tank: 'Spawning ${#ARGS[@]} Tank units for $TARGET_AGENT...'"
 OUTPUT_FILE="psi/inbox/handoff_${TARGET_AGENT}.md"
 
 # Header for the Bulk Drop
@@ -55,4 +55,4 @@ for PID in "${PIDS[@]}"; do
     wait "$PID"
 done
 
-echo "📞 Operator: 'All units returned. Dossier compiled in $OUTPUT_FILE.'"
+echo "⚡ Tank: 'All units returned. Dossier compiled in $OUTPUT_FILE.'"
