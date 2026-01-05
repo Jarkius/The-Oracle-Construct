@@ -8,12 +8,13 @@ This file defines the **Universal Commands** for the Matrix. Any AI agent (Claud
 
 | Agent | Command | Action (Underlying Script) | Function |
 |-------|---------|----------------------------|----------|
-| **Oracle** | `/oracle` | Consult `psi/The_Source/05_matrix_architecture.md` | **Guidance & Alignment** |
+| **Oracle** | `/oracle` | `psi/active/oracle_prophecy.sh` | **Council Alignment (Unified)** |
 | **Tank** | `/operator` | `psi/active/operator_spawn.sh` | **Search & Intelligence** |
 | **Neo** | `/neo` | `psi/active/neo_logic.sh` | **Code Logic & Creation** |
 | **Smith** | `/smith` | `psi/active/smith_audit.sh` | **Audit & Bug Fixing** |
 | **Scribe** | `/rrr` | `psi/active/scribe_record.sh` | **Memory & Retrospectives** |
 | **Architect**| `/architect`| `psi/active/architect_map.sh` | **System Mapping** |
+| **Morpheus** | `/morpheus` | `psi/active/morpheus_signal.sh` | **External Research (Web)** |
 | **Mero** | `/cause` | `psi/active/mero_cause.sh` | **Root Cause Analysis** |
 | **Fixer** | `/fix` | `git config ...` (See workflows) | **System Repair** |
 

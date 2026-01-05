@@ -60,8 +60,12 @@ How do we speak? We use **Handoff Files**. We do not "chat"; we transfer **State
     *   *He does not keep the data.* He dumps it into `psi/inbox/handoff_neo.md`.
 3.  **The Action**: **Neo** wakes up.
     *   He does not search. He reads `psi/inbox/handoff_neo.md`.
+    *   He does not search. He reads `psi/inbox/handoff_neo.md`.
     *   He executes the code changes.
-4.  **The Audit**: **Smith** runs `smith_audit.sh`.
+4.  **The Design**: **The Woman in Red** (`/ui`) intervenes.
+    *   She reviews Neo's structure for User Experience.
+    *   She demands Mobile Responsiveness and Accessibility.
+5.  **The Audit**: **Smith** runs `smith_audit.sh`.
     *   If he sees anomalies (untracked files, TODOs), he blocks the merge.
 5.  **The Memory**: **The Scribe** runs `scribe_record.sh`.
     *   He writes the session to `psi/memory/retrospectives/`.
