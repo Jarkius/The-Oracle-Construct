@@ -11,6 +11,7 @@ description: Voice of the Matrix - Speak to the user
 - `/voice say [message]` - Speak a specific message.
 - `/voice greet` - Speak a standard greeting.
 - `/voice announce [message]` - Speak an announcement (attention capture).
+- `/voice rollcall` - Summon the Council to introduce themselves.
 
 ## Philosophy (Updated)
 
@@ -34,4 +35,9 @@ sh psi/active/voice_module.sh "Welcome to the Oracle Construct. System online."
 # Slower rate for announcements
 export RATE=250
 sh psi/active/voice_module.sh "Attention. [message]"
+```
+
+### Roll Call (The Council)
+```bash
+sh psi/active/council_rollcall.sh
 ```
