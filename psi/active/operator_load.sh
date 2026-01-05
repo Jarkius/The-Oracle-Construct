@@ -65,12 +65,12 @@ else
 fi
 
 echo ""
-echo "## 🧠 Knowledge Base"
+echo "## 🧠 The Source (Knowledge)"
 # 3. Knowledge Check
 if [ -n "$HAS_RG" ]; then
-    rg -l "$QUERY" .claude/knowledge | sed 's/^/- Referenced in /'
+    rg -l "$QUERY" psi/The_Source .claude/knowledge | sed 's/^/- /'
 else
-    grep -r -l "$QUERY" .claude/knowledge 2>/dev/null | sed 's/^/- Referenced in /'
+    grep -r -l "$QUERY" psi/The_Source .claude/knowledge 2>/dev/null | sed 's/^/- /'
 fi
 
 if [ "$OPTION" == "--feed" ]; then
