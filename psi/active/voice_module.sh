@@ -4,7 +4,7 @@
 # - Rate: 300 (1.5x)
 # - Voice: System Default (Safest)
 
-DEFAULT_RATE=300
+DEFAULT_RATE=210
 RATE=${RATE:-$DEFAULT_RATE}
 
 # Execute

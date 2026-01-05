@@ -17,11 +17,10 @@
 
 ## Configuration
 
-- **Voice**: `Kanya` (Thai) - Preferred for its "presence".
-- **Speed**: `Rate 300` (~1.5x) - The balance between machine efficiency and human listening limits.
-    - Rate 200 (1x): Too slow, patronizing.
-    - Rate 400 (2x): Too fast, incomprehensible.
-    - Rate 300 (1.5x): **Perfect flow.**
+- **Voice**: System Default (Reliable) or `Kanya` (if available).
+- **Speed**: `Rate 210` (~1x) - Adjusted for clarity and presence.
+    - Rate 210: **Default Flow** (Clear, composed).
+    - Rate 300: High-speed (only for brief alerts).
 
 ## Usage
 

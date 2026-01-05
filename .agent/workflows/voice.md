@@ -12,10 +12,9 @@ description: Voice of the Matrix - Speak to the user
 - `/voice greet` - Speak a standard greeting.
 - `/voice announce [message]` - Speak an announcement (attention capture).
 
-## Philosophy (Chapter 6)
+## Philosophy (Updated)
 
-- **Rate**: 300 (~1.5x speed). Fast but clear.
-- **Voice**: Kanya (Presence).
+- **Rate**: 210 (Normal flow). Clarified for better comprehension.
 - **Rule**: "Voice for moments. Text for information."
 
 ## Steps
