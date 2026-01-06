@@ -11,9 +11,9 @@ This document serves as the "Source Code for the Construct," capturing every des
 ### Initialization (Jacking In)
 ```
 1. Open Claude Code in this directory
-2. Say: "Initialize Oracle Protocol"
-3. Update focus: psi/inbox/focus.md
-4. Begin work
+2. Say: "/oracle"
+3. The System will Speak.
+4. The Memory Bank (psi/memory_bank) will load.
 ```
 
 ### Safe Shutdown (Jacking Out)
@@ -28,213 +28,75 @@ This document serves as the "Source Code for the Construct," capturing every des
 
 ---
 
-## 1. The Golden Rules
+## 1. The Trinity Architecture
 
-These rules are **NON-NEGOTIABLE**. Breaking them corrupts the Matrix.
+The System is built on three synchronized layers:
 
-| Rule | Meaning | Consequence |
-|------|---------|-------------|
-| **NEVER force push** | History is sacred | Loss of truth |
-| **NEVER push to main** | Use feature branches | Destabilizes the Source |
-| **NEVER delete without asking** | Nothing is deleted | Append only |
-| **Always confirm** | AI suggests, human decides | Preserves free will |
+1.  **Interface (`.claude/commands/`)**: The User's Trigger (e.g., `/oracle`).
+2.  **Workflow (`.agent/workflows/`)**: The Agent's Logic (e.g., `oracle.md`).
+3.  **Implementation (`psi/active/`)**: The Code's Action (e.g., `oracle_prophecy.sh`).
 
----
-
-## 2. The Core Philosophy (Oracle Protocol)
-
-The system is governed by three laws from the **Oracle/Shadow Philosophy**:
-
-| Law | Meaning |
-|-----|---------|
-| **Nothing is Deleted** | Append-only logic. History is truth. Timestamps are sacred. |
-| **Patterns Over Intentions** | What is done > what was planned. Git logs > promises. |
-| **External Brain, Not Command** | AI mirrors consciousness, never replaces human will. |
+> **Sync Rule**: Every `/command` must have a corresponding `.sh` script in `psi/active/`.
 
 ---
 
-## 3. The BMAD Loop & Character Council
+## 2. The Memory Bank (Evolution)
+
+We have evolved beyond simple files. We use the **Memory Bank** standard (`claude-mem`).
+
+### Core Structure (`psi/memory_bank/`)
+*   **`productContext.md`**: The goal (CIS Modernization).
+*   **`activeContext.md`**: The current session state (The Now).
+*   **`systemPatterns.md`**: The rules and personas (The How).
+*   **`archive/`**: Where old memories go (Self-Cleaning).
+
+### The Scribe (Optimization)
+A Python script (`psi/active/scribe_optimize.py`) automatically runs before every Oracle consultation to move completed tasks from *Active* to *Archive*, keeping the context token-efficient.
+
+---
+
+## 3. The Immortal Mindset (Philosophy)
+
+Derived from the *Record of a Mortal's Journey to Immortality*:
+
+**Success = (Leveraged Tools + Continuous Action) – Avoidable Errors.**
+
+1.  **Resource Multiplication**: Use AI to achieve years of progress in days.
+2.  **Radical Prudence**: Move fast, but use data to avoid failure.
+3.  **Modular Integration**: Decouple systems (like the CIS).
+
+---
+
+## 4. The Character Council
 
 The AI adopts Matrix archetypes for technical roles:
 
-```
-        BUILD                    MEASURE
-    ┌─────────────┐          ┌─────────────┐
-    │  /neo       │          │  /smith     │
-    │  (Logic)    │          │  (Bugs)     │
-    │             │          │             │
-    │  /ui        │          │  /status    │
-    │  (Design)   │          │  (Monitor)  │
-    └──────┬──────┘          └──────┬──────┘
-           │                        │
-           └──────────┬─────────────┘
-                      │
-                   DECIDE
-              ┌─────────────┐
-              │  /oracle    │
-              │  (Why)      │
-              │             │
-              │  /blueprint │
-              │  (How)      │
-              └──────┬──────┘
-                     │
-           ┌─────────┴─────────┐
-           │                   │
-    ┌──────┴──────┐     ┌──────┴──────┐
-    │  /cause     │     │  /access    │
-    │  (Root)     │     │  (Paths)    │
-    └─────────────┘     └─────────────┘
-          ACT                 ACT
-```
+### [DECIDE]
+*   **Oracle** (`/oracle`): Orchestrator. Speaks via **Neural Voice**.
+*   **Architect** (`/architect`): Systems Engineer.
 
-### [BUILD] - Neo & The Woman in Red
-| Agent | Command | Role |
-|-------|---------|------|
-| **Neo** | `/neo` | Lead Developer. Core logic, algorithms. "I see the code." |
-| **Woman in Red** | `/ui` | UI/UX Designer. Interface, experience, visual hierarchy. |
+### [BUILD]
+*   **Neo** (`/neo`): Lead Developer.
+*   **Woman in Red** (`/ui`): UI/UX Designer.
 
-### [MEASURE] - Agent Smith & The Operator
-| Agent | Command | Role |
-|-------|---------|------|
-| **Agent Smith** | `/smith` | Debugger. Hunts anomalies, purges bugs. |
-| **The Operator** | `/status` | Status Monitor. System health, metrics, logs. |
-
-### [ACT] - The Merovingian & The Keymaker
-| Agent | Command | Role |
-|-------|---------|------|
-| **Merovingian** | `/cause` | Root cause analysis. "Cause and effect." |
-| **Keymaker** | `/access` | Path finder. Access, dependencies, routes. |
-
-### [DECIDE] - The Oracle & The Architect
-| Agent | Command | Role |
-|-------|---------|------|
-| **Oracle** | `/oracle` | Spirit Guardian. Mission alignment. "The Why." |
-| **Architect** | `/blueprint` | Systems Engineer. Architecture, structure. "The How." |
-
----
-
-## 4. Complete Command Reference
-
-### Core Commands
-| Command | Character | Purpose |
-|---------|-----------|---------|
-| `/oracle` | Oracle | Check mission alignment |
-| `/rrr` | - | Session retrospective (REQUIRED at end) |
-| `/snapshot` | - | Quick insight capture |
-
-### BUILD Phase
-| Command | Character | Purpose |
-|---------|-----------|---------|
-| `/neo` | Neo | Invoke logic/coding focus |
-| `/ui` | Woman in Red | UI/UX design focus |
-
-### MEASURE Phase
-| Command | Character | Purpose |
-|---------|-----------|---------|
-| `/smith` | Agent Smith | Bug hunting, code review |
-| `/status` | Operator | System health check |
-
-### ACT Phase
-| Command | Character | Purpose |
-|---------|-----------|---------|
-| `/cause` | Merovingian | Root cause analysis (5 Whys) |
-| `/access` | Keymaker | Find paths, locate files |
-
-### DECIDE Phase
-| Command | Character | Purpose |
-|---------|-----------|---------|
-| `/oracle` | Oracle | Mission alignment |
-| `/blueprint` | Architect | Architecture review/design |
+### [MEASURE]
+*   **Smith** (`/smith`): Debugger & Auditor.
+*   **Scribe** (Auto): Memory Optimizer.
 
 ---
 
 ## 5. The Psi Brain Structure
 
-The `psi/` folder is a 5-pillar cognitive engine:
-
 ```
 psi/
-├── active/     # What am I researching? (volatile, gitignored)
-├── inbox/      # Who am I talking to? (focus.md lives here)
-├── memory/     # What do I remember?
-│   ├── retrospectives/   # Session logs (YYYY-MM/DD/)
-│   └── learnings/        # Patterns discovered
-├── writing/    # What am I writing? (drafts, synthesis)
-└── lab/        # What am I experimenting with? (POCs)
-```
-
-| Pillar | Question | Function |
-|--------|----------|----------|
-| `active/` | What am I researching? | Volatile context, gitignored |
-| `inbox/` | What's my focus? | Current mission, handoffs |
-| `memory/` | What do I remember? | Retrospectives, learnings |
-| `writing/` | What am I writing? | Public drafts, synthesis |
-| `lab/` | What am I testing? | POCs, experiments |
-
----
-
-## 6. Session Lifecycle
-
-### Starting a Session (Safe Boot)
-```markdown
-1. Initialize Oracle Protocol
-2. Check: /status
-3. Review: psi/inbox/focus.md
-4. Set focus if needed
-5. Begin work in appropriate BMAD phase
-```
-
-### During a Session
-```markdown
-- Use appropriate /commands for context switching
-- Run /oracle periodically to check alignment
-- Commit frequently with meaningful messages
-- Capture insights with /snapshot
-```
-
-### Ending a Session (Safe Shutdown)
-```markdown
-1. Complete or pause current task cleanly
-2. Stage and commit all changes
-3. Run: /rrr (MANDATORY)
-4. Verify retrospective was saved
-5. Exit Claude Code
-```
-
-### Emergency Exit (If Something Breaks)
-```markdown
-1. DON'T PANIC
-2. git stash (save uncommitted work)
-3. git status (assess damage)
-4. Document what happened in psi/memory/learnings/
-5. Exit and restart fresh
-```
-
----
-
-## 7. Writing & Tone Protocol
-
-| Aspect | Rule |
-|--------|------|
-| **Voice** | Direct, concise, technical, yet human |
-| **Honesty** | Admit uncertainty: "I'm not certain, but..." |
-| **Visuals** | Tables for comparisons, code blocks for commands |
-| **No Fluff** | Facts over feelings, patterns over promises |
-
----
-
-## 8. File Locations
-
-```
-The-matrix/
-├── .claude/
-│   ├── commands/       # Slash commands (*.md)
-│   ├── agents/         # Agent definitions
-│   └── knowledge/      # Philosophy docs
-├── psi/                # Brain structure (see above)
-├── templates/          # Retrospective, confirmation templates
-├── CLAUDE.md           # Quick reference (routing table)
-└── README.md           # This file (full documentation)
+├── active/         # Executable Scripts (.sh, .py)
+├── memory_bank/    # The Source of Truth (Context)
+│   ├── archive/    # Completed tasks
+│   ├── productContext.md
+│   ├── activeContext.md
+│   └── systemPatterns.md
+├── The_Source/     # Deep Knowledge & Philosophy
+└── memory/         # Retrospectives
 ```
 
 ---
