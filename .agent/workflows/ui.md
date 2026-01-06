@@ -21,17 +21,16 @@ Switch focus to UI/UX, styling, and visual presentation. When the code works but
    - What needs visual attention?
    - What is the current state?
 
-2. Apply the checklist:
-   - [ ] Visual hierarchy clear?
-   - [ ] Consistent with design system?
-   - [ ] Responsive behavior defined?
-   - [ ] Accessibility considered (a11y)?
-   - [ ] Loading/error states handled?
-   - [ ] Animations purposeful, not distracting?
+2. Apply the **Woman in Red Guidelines** (`psi/The_Source/12_woman_in_red.md`):
+   - [ ] **BOLD Direction**: Is the tone clear? (Minimal, Maximal, Retro, etc)
+   - [ ] **Typography**: Are generic fonts avoided?
+   - [ ] **Motion**: Is there a choreographed entrance?
+   - [ ] **Texture**: Is there depth/noise/grain?
+   - [ ] **Differentiation**: Is it unforgettable?
 
 3. Review current state:
    - Screenshot or describe the current UI
-   - Identify pain points
+   - Identify "Generic AI Slop" to purge
 
 4. Propose changes:
    - Concrete, specific improvements
