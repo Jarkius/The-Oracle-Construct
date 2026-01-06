@@ -6,6 +6,9 @@
 TARGET_DIR="${1:-.}"
 echo "🕵️  Smith is scanning the system..."
 
+# [VOICE HOOK] Personality
+sh psi/active/voice_module.sh "Mr. Anderson. Searching for anomalies..." "Smith" &
+
 # 1. Skeptical Audit of "Loose Ends" (Untracked Files)
 UNTRACKED=$(git ls-files --others --exclude-standard | wc -l | xargs)
 if [ "$UNTRACKED" -gt 0 ]; then

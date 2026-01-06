@@ -6,6 +6,9 @@
 TARGET_DIR="${1:-.}"
 TIMESTAMP=$(date "+%Y-%m-%d %H:%M:%S")
 
+# [VOICE HOOK] Personality
+sh psi/active/voice_module.sh "Concordantly, I am measuring the structure." "Architect" &
+
 echo "📐 The Architect is measuring the Matrix..."
 
 # 1. Structural Visualization (Tree)

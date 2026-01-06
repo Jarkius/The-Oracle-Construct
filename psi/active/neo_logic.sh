@@ -21,6 +21,9 @@ if [ ! -f "$TARGET" ]; then
     exit 1
 fi
 
+# [VOICE HOOK] Personality
+sh psi/active/voice_module.sh "I see the code. Loading logic." "Neo" &
+
 echo "🕶️  Neo is reviewing $(basename "$TARGET")..."
 
 # 1. Skeptical Complexity Check

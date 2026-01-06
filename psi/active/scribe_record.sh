@@ -11,6 +11,9 @@ TARGET_FILE="${TARGET_DIR}/${TIME_DOT}_${SLUG}.md"
 
 mkdir -p "$TARGET_DIR"
 
+# [VOICE HOOK] Personality
+sh psi/active/voice_module.sh "The timeline is secure. Recording memory." "Scribe" &
+
 echo "📜 Scribe: 'Opening new memory at $TARGET_FILE...'"
 
 # Load Template
