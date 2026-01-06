@@ -1,33 +1,54 @@
 # The Matrix: System Interface
 
-> *"The system is portable. The logic is internal."*
+> *"Know Thyself." — The Oracle*
 
-This file defines the **Universal Commands** for the Matrix. Any AI agent (Claude Code, Cline, Windsurf) can read this to understand how to interact with the system.
+This file defines the **Universal Commands** for the Matrix. Any AI agent (Claude Code, Windsurf, Cursor) can read this to understand how to interact with the system.
 
-## ⚡ The Council (Executable Tools)
+## ⚡ The Council (Agent Roles)
 
-| Agent | Command | Action (Underlying Script) | Function |
-|-------|---------|----------------------------|----------|
-| **Oracle** | `/oracle` | `psi/active/oracle_prophecy.sh` | **Council Alignment (Unified)** |
-| **Tank** | `/operator` | `psi/active/operator_spawn.sh` | **Search & Intelligence** |
-| **Neo** | `/neo` | `psi/active/neo_logic.sh` | **Code Logic & Creation** |
-| **Smith** | `/smith` | `psi/active/smith_audit.sh` | **Audit & Bug Fixing** |
-| **Scribe** | `/rrr` | `psi/active/scribe_record.sh` | **Memory & Retrospectives** |
-| **Architect**| `/architect`| `psi/active/architect_map.sh` | **System Mapping** |
-| **Morpheus** | `/morpheus` | `psi/active/morpheus_signal.sh` | **External Research (Web)** |
-| **Mero** | `/cause` | `psi/active/mero_cause.sh` | **Root Cause Analysis** |
-| **Fixer** | `/fix` | `git config ...` (See workflows) | **System Repair** |
+| Agent | Command | Role | Voice |
+|-------|---------|------|-------|
+| **Oracle** | `/oracle` | Central Orchestrator, Prophecy & Dispatch | Samantha (Calm) |
+| **Neo** | `/neo` | Lead Developer, Logic & Routing | Reed (American) |
+| **Trinity** | `/ui` | UI/UX Design, "Woman in Red" Aesthetic | Moira (Irish) |
+| **Morpheus** | `/morpheus` | Researcher, External Web Search | Ralph (Wise) |
+| **Architect** | `/architect` | System Design, ADRs, High-Level Decisions | Daniel (British) |
+| **Smith** | `/smith` | Debugger, Bug Hunter, Anomaly Detection | Fred (Cold) |
+| **Tank** | `/operator` | Operator, Search & Intelligence | Rocko (Technical) |
+| **Scribe** | `/rrr` | Memory, Retrospectives, Session Endings | - |
 
-## 🧠 The Source (Knowledge Core)
-All philosophy and definitions are stored in **The Source**.
-- **Location**: [`psi/The_Source/`](psi/The_Source/)
-- **Architecture**: [`psi/The_Source/05_matrix_architecture.md`](psi/The_Source/05_matrix_architecture.md)
-- **Constitution**: [`psi/The_Source/02_claude_dna.md`](psi/The_Source/02_claude_dna.md)
+## 📂 Project Structure
+
+```
+The-matrix/
+├── .agent/workflows/    # Slash command definitions (*.md)
+├── .claude/             # Claude Code parallel world
+│   ├── agents/          # Agent personality definitions
+│   ├── commands/        # Command definitions
+│   └── knowledge/       # Persistent knowledge base
+├── psi/                 # AI Brain ("External Memory")
+│   ├── inbox/           # Incoming focus & tasks
+│   ├── active/          # Active scripts (voice_module.sh, etc.)
+│   └── memory/          # Blueprints, plans, learnings, personas
+├── project/             # CIS Modernization Project
+│   ├── legacy/          # Old PHP Monolith (Port 8888)
+│   ├── modern/
+│   │   ├── api/         # Laravel 11 API (Port 8889)
+│   │   └── web/         # React + Vite SPA (Port 5173)
+│   └── tests/           # Playwright E2E Tests
+```
 
 ## 🛡️ Prime Directives
-1.  **Nothing is Deleted**: Archive to `psi/memory/archive`.
+1.  **Nothing is Deleted**: Archive, don't destroy. Use `psi/memory/archive`.
 2.  **Patterns > Intentions**: Document what *is*, not what *should be*.
-3.  **The Inbox**: Information flows through `psi/inbox`.
+3.  **The Inbox**: Information flows through `psi/inbox/focus.md`.
+4.  **Voice Module**: Use `sh psi/active/voice_module.sh "message" "Agent"` for TTS.
+
+## 🚀 Current Mission: CIS Modernization
+- **Legacy**: PHP/MySQL inventory system.
+- **Modern**: React SPA → Laravel API → Legacy DB (`tis_users`).
+- **Auth**: Custom MD5 bridge for legacy users via Sanctum.
+- **Design**: "Woman in Red" theme (Dark/Crimson/Glassmorphism).
 
 ---
-*Portable Matrix Interface v2.0*
+*Portable Matrix Interface v3.0*

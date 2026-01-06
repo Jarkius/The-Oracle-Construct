@@ -1,17 +1,19 @@
-# Current Focus: The Partnership
+# Current Focus: CIS Modernization - Phase 1
 
-> *"Your captain is the Oracle while I'm partnering."*
+> *"We are building the bridge between the old world and the new."*
 
-## 1. The Structure
-*   **Internal Captain**: **The Oracle** (commands the Agents).
-*   **External Partner**: **Jarkius** (defines the Reality/Problem).
+## 1. The Objective
+*   **Goal**: Establish the Modern Infrastructure (Laravel API + React UI) alongside the Legacy Code.
+*   **Current Phase**: Phase 1 - Cleanup & Integrations.
 
-## 2. The Collaboration
-*   **The User** brings the **Challenge** (CIS Legacy Code).
-*   **The Oracle** brings the **Solution** (The Council).
-*   We meet in the middle to solve the puzzle.
+## 2. The State
+*   **Legacy**: Imported (`project/legacy`).
+*   **Modern API**: Running (Docker, Port 8889).
+*   **Modern UI**: Initialized (`project/modern/web`).
+*   **Testing**: Initialized (`project/tests`).
 
-## 3. Status
-*   **Alignment**: High.
-*   **Roles**: Defined.
-*   **Ready**: The Council is awaiting the Partner's next move.
+## 3. Immediate Next Steps
+1.  Verify Legacy System (Port 8888).
+2.  Verify Modern API (Port 8889).
+3.  Start & Verify Modern UI (React).
+4.  Run initial E2E test (Visual Comparison).
