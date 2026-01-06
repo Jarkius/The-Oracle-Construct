@@ -48,7 +48,7 @@ The-matrix/
 - **Legacy**: PHP/MySQL inventory system.
 - **Modern**: React SPA → Laravel API → Legacy DB (`tis_users`).
 - **Auth**: Custom MD5 bridge for legacy users via Sanctum.
-- **Design**: "Woman in Red" theme (Dark/Crimson/Glassmorphism).
+- **Design**: "Deloitte Light Theme" (Deloitte Green/White/Clean/Professional).
 
 ---
 *Portable Matrix Interface v3.0*

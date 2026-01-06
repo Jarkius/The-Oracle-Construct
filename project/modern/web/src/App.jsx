@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import LoginForm from './components/Login/LoginForm';
 import Dashboard from './pages/Dashboard';
+import UsersPage from './pages/UsersPage';
 import ProtectedRoute from './components/Auth/ProtectedRoute';
 import './App.css';
 
@@ -12,12 +13,21 @@ function App() {
           {/* Public Route: Login */}
           <Route path="/" element={<LoginForm />} />
 
-          {/* Protected Route: Dashboard */}
+          {/* Protected Routes */}
           <Route
             path="/dashboard"
             element={
               <ProtectedRoute>
                 <Dashboard />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/users"
+            element={
+              <ProtectedRoute>
+                <UsersPage />
               </ProtectedRoute>
             }
           />
