@@ -6,6 +6,10 @@ echo "---------------------------------------------------"
 echo "🔮 ORACLE: Convening The Council..."
 echo "---------------------------------------------------"
 
+# [VOICE HOOK] Identity
+sh psi/active/voice_module.sh "The Council connects. Monitoring systems..." "Oracle" &
+
+
 # 1. MORPHEUS [Research]
 echo "🕶️ Morpheus: Checking External Reality..."
 if [ -f "psi/inbox/research_request.md" ]; then
@@ -15,14 +19,20 @@ else
 fi
 
 # 2. TANK [Context]
-echo "⚡ Tank: Scanning Internal Matrix..."
+# [SCRIBE OPTIMIZATION] Compaction
+python3 psi/active/scribe_optimize.py
+
+echo "⚡ Tank: Scanning Internal Matrix (Memory Bank)..."
+
+cat psi/memory_bank/activeContext.md
 git status --short | head -3
 
 # 3. ARCHITECT [Structure]
 echo "📐 Architect: Reviewing Blueprint..."
-if [ -f "psi/inbox/Blueprint_CIS_2026.md" ]; then
-    echo "   -> Blueprint Valid: CIS 2026"
+if [ -f "psi/memory_bank/productContext.md" ]; then
+    echo "   -> Blueprint Valid: CIS 2026 (Product Context)"
 else
+
     echo "   -> Warning: No active blueprint."
 fi
 
@@ -51,3 +61,7 @@ fi
 echo "---------------------------------------------------"
 echo "🔮 ORACLE: The Council is Aligned. What is your will?"
 echo "---------------------------------------------------"
+
+# [VOICE HOOK] Completion
+sh psi/active/voice_module.sh "The Council is Aligned. What is your will?" "Oracle" &
+
