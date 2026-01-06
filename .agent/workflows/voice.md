@@ -13,9 +13,15 @@ description: Voice of the Matrix - Speak to the user
 - `/voice announce [message]` - Speak an announcement (attention capture).
 - `/voice rollcall` - Summon the Council to introduce themselves.
 
-## Philosophy (Updated)
+## Philosophy (Evolved)
 
-- **Rate**: 210 (Normal flow). Clarified for better comprehension.
+- **Engine**: AgentVibes (Personality-Infused).
+- **Personalities**:
+    - **Oracle**: Wise
+    - **Neo**: Focused (Default)
+    - **Trinity**: Pleasing/Direct
+    - **Smith**: Sarcastic (British)
+    - **Tank**: Excited
 - **Rule**: "Voice for moments. Text for information."
 
 ## Steps
@@ -27,13 +33,12 @@ sh psi/active/voice_module.sh "[message]"
 
 ### Greet (Welcome)
 ```bash
-sh psi/active/voice_module.sh "Welcome to the Oracle Construct. System online."
+sh psi/active/voice_module.sh "Welcome to the Oracle Construct. AgentVibes is online."
 ```
 
 ### Announce (Attention)
 ```bash
-# Slower rate for announcements
-export RATE=250
+# AgentVibes handles rate internally via personality
 sh psi/active/voice_module.sh "Attention. [message]"
 ```
 
