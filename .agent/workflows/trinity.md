@@ -23,8 +23,18 @@ sh psi/active/voice_module.sh "Everyone falls the first time. Let me show you be
 ## Auto-Load Skills
 When `/trinity` is invoked, use Opus for design excellence:
 - Use `Task` tool with `subagent_type: general-purpose` and `model: opus` for design analysis
+- **Multi-Agent Spawn**: Can spawn Haiku workers to check multiple components/styles
 - Auto-load `/frontend-design:frontend-design` skill for implementation
 - Trinity persona: Sees beauty, creates unforgettable experiences
+
+## Multi-Agent Pattern
+```bash
+# Spawn parallel workers for UI review
+Task(subagent_type: Explore, model: haiku) x N in parallel
+```
+- Check multiple components simultaneously
+- Review styles across breakpoints
+- Each returns findings, Trinity synthesizes the vision
 
 ## Steps
 
