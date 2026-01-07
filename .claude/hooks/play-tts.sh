@@ -47,6 +47,14 @@ export LC_ALL=C
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 
+# Auto-bootstrap on first run (Evolution Phase 3)
+# This makes the voice system self-configuring on new machines
+BOOTSTRAP_MARKER="$SCRIPT_DIR/../.voice-bootstrapped"
+if [[ ! -f "$BOOTSTRAP_MARKER" ]] && [[ -f "$SCRIPT_DIR/bootstrap-voice.sh" ]]; then
+  "$SCRIPT_DIR/bootstrap-voice.sh" 2>/dev/null || true
+fi
+
+
 # Check if muted (persists across sessions)
 # Project settings always override global settings:
 # - .claude/agentvibes-unmuted = project explicitly unmuted (overrides global mute)

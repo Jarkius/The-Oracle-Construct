@@ -73,29 +73,146 @@ get_provider_config_path() {
   echo "$provider_file"
 }
 
+# @function detect_provider_for_voice
+# @intent Auto-detect provider from voice name pattern
+# @why Prevent provider/voice mismatch bugs (Evolution Phase 1)
+# @param $1 {string} voice - Voice name to analyze
+# @returns Echoes provider name (piper or macos)
+# @note Piper voices: xx_XX-name-quality (e.g., en_US-lessac-medium)
+# @note macOS voices: Capitalized names (e.g., Samantha, Daniel)
+detect_provider_for_voice() {
+  local voice="$1"
+  
+  # Empty voice - can't detect
+  if [[ -z "$voice" ]]; then
+    echo ""
+    return 1
+  fi
+  
+  # Piper voice pattern: language_REGION-name-quality
+  if [[ "$voice" =~ ^[a-z]{2}_[A-Z]{2}- ]]; then
+    echo "piper"
+    return 0
+  fi
+  
+  # macOS voice pattern: Capitalized single word or multi-word
+  if [[ "$voice" =~ ^[A-Z][a-z]+ ]]; then
+    echo "macos"
+    return 0
+  fi
+  
+  # Unknown pattern - return empty
+  echo ""
+  return 1
+}
+
+# @function get_voice_config_path
+# @intent Get path to voice configuration file
+# @returns Echoes path to tts-voice.txt
+get_voice_config_path() {
+  local voice_file=""
+  
+  if [[ -n "$CLAUDE_PROJECT_DIR" ]] && [[ -d "$CLAUDE_PROJECT_DIR/.claude" ]]; then
+    voice_file="$CLAUDE_PROJECT_DIR/.claude/tts-voice.txt"
+  else
+    local current_dir="$PWD"
+    while [[ "$current_dir" != "/" ]]; do
+      if [[ -d "$current_dir/.claude" ]]; then
+        voice_file="$current_dir/.claude/tts-voice.txt"
+        break
+      fi
+      current_dir=$(dirname "$current_dir")
+    done
+    
+    if [[ -z "$voice_file" ]]; then
+      voice_file="$HOME/.claude/tts-voice.txt"
+    fi
+  fi
+  
+  echo "$voice_file"
+}
+
+# Source dependencies
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/piper-voice-manager.sh"
+
 # @function get_active_provider
 # @intent Read currently active TTS provider from config file
 # @why Central function for determining which provider to use
 # @returns Echoes provider name (e.g., "piper", "macos")
 # @exitcode 0=success
 # @sideeffects None
-# @edgecases Returns "piper" if file missing or empty (default)
+# @edgecases Uses intelligent detection + FALLBACK LOGIC if Piper incomplete
 get_active_provider() {
   local provider_file
   provider_file=$(get_provider_config_path)
+  local provider=""
 
-  # Read provider from file, default to piper if not found
+  # Priority 1: Explicit provider configuration
   if [[ -f "$provider_file" ]]; then
-    local provider
     provider=$(cat "$provider_file" | tr -d '[:space:]')
-    if [[ -n "$provider" ]]; then
-      echo "$provider"
-      return 0
+  fi
+
+  # Priority 2: Detect from configured voice (Evolution Phase 1)
+  if [[ -z "$provider" ]]; then
+    local voice_file
+    voice_file=$(get_voice_config_path)
+    if [[ -f "$voice_file" ]]; then
+      local voice
+      voice=$(cat "$voice_file" | tr -d '[:space:]')
+      provider=$(detect_provider_for_voice "$voice")
     fi
   fi
 
-  # Default to piper (free, offline)
-  echo "piper"
+  # Priority 3: Platform-aware default
+  if [[ -z "$provider" ]]; then
+    if [[ "$(uname -s)" == "Darwin" ]]; then
+      provider="macos"
+    else
+      provider="piper"
+    fi
+  fi
+
+  # --- PROVIDENCE FALLBACK LOGIC (Evolution Phase 2) ---
+  # "The system must ensure speech."
+  
+  if [[ "$provider" == "piper" ]]; then
+    # logical check: If we chose Piper, does it actually work?
+    if ! command -v piper &>/dev/null; then
+       # No binary -> fallback
+       [[ "$(uname -s)" == "Darwin" ]] && echo "macos" || echo "piper" 
+       return 0
+    fi
+    
+    # Check if ANY voices exist (basic sanity check)
+    local voice_dir
+    voice_dir=$(get_voice_storage_dir)
+    local has_voices=false
+    
+    # Check if ANY voices exist (basic sanity check)
+    local voice_dir
+    voice_dir=$(get_voice_storage_dir)
+    local has_voices=false
+    if ls "$voice_dir"/*.onnx 1> /dev/null 2>&1; then
+      has_voices=true
+    fi
+    
+    if [[ "$has_voices" == "false" ]] && [[ "$(uname -s)" == "Darwin" ]]; then
+      # Piper selected, but no voices installed, and we are on Mac
+      # FALLBACK TO SOURCE (macOS)
+      
+      # 1. Console Alert (let the human know)
+      echo "⚠️  Alert: Piper voices missing. Falling back to macOS." >&2
+      
+      # 2. visual Alert (system notification)
+      osascript -e 'display notification "Piper voices missing. Using macOS fallback." with title "AgentVibes"' 2>/dev/null
+      
+      echo "macos"
+      return 0
+    fi
+  fi
+  
+  echo "$provider"
 }
 
 # @function set_active_provider
