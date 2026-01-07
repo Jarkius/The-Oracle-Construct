@@ -1,36 +1,24 @@
-# Current Focus: Matrix Evolution Complete
+# Current Focus: Expansion Phase
 
-**Status**: All Agents Configured ✅
-**Last Session**: January 7, 2026 - Matrix Evolution
-**Handoff**: Ready for next operator
+**Status**: Voice System Stabilized ✅ | Awaiting Design OS Ingestion 📥
+**Last Session**: January 7, 2026 @ 22:27 - System Stabilization
+**Handoff**: Active
 
 ## What Was Done
-- All 7 agents configured with voices, skills, models
-- Spawn roles defined (Tank/Morpheus/Trinity spawn, others focused)
-- nnn/gogogo utilities added
-- 10 orphaned scripts archived
-- Oracle auto-greet enabled
+- **Voice Restoration**:
+  - Centralized voice config in `.claude/config/voices.json`
+  - Fixed all agent workflow scripts (`.agent/workflows/*.md`)
+  - Standardized `council_rollcall.sh`
+- **System Cleanup**:
+  - Purged 10+ obsolete `psi/active` scripts
+- **Workflow Visibility**:
+  - Fixed slash command metadata
 
-## Agent Matrix
+## Immediate Priorities
+1. [ ] **Ingest Design OS**: Run `/morpheus` on the design-os repo
+2. [ ] **Modernize UI**: Apply Design OS principles to `project/modern/web`
+3. [ ] **Verify Stack**: Ensure Laravel/Vue/Tailwind integration is solid
 
-| Agent | Model | Spawn | Skills |
-|-------|-------|-------|--------|
-| Oracle | opus | ❌ | wisdom, dispatch |
-| Neo | opus | ❌ | focused dev |
-| Architect | opus | ❌ | Plan agent |
-| Smith | opus | ❌ | Playwright |
-| Trinity | opus | ✅ | frontend-design |
-| Tank | haiku | ✅ | Explore (local) |
-| Morpheus | haiku | ✅ | WebSearch (external) |
-
-## Next Session Priorities
-1. [ ] Verify Legacy CIS (http://localhost:8888)
-2. [ ] Verify Modern API (http://localhost:8889)
-3. [ ] Verify Modern UI (http://localhost:5173)
-4. [ ] Test agent invocations with new voices
-5. [ ] Test nnn/gogogo workflow
-
-## Notes
-- "unplug" = "handoff" (session ending, context transfer)
-- Retrospective: `psi/memory/retrospectives/2026-01/07/18.15_matrix_evolution_complete.md`
-- Oracle will auto-greet on next SessionStart
+## Active Context
+- The user is "The Operator" (Jarkius)
+- We are moving from "Fixing" to "Building"
