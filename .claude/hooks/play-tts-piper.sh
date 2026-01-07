@@ -339,9 +339,17 @@ fi
 # @sideeffects Applies audio effects and background music
 BACKGROUND_MUSIC=""
 if [[ -f "$SCRIPT_DIR/audio-processor.sh" ]]; then
+  # Get current personality for audio effects
+  PERSONALITY_NAME="default"
+  if [[ -f "$CLAUDE_PROJECT_DIR/.claude/tts-personality.txt" ]]; then
+    PERSONALITY_NAME=$(cat "$CLAUDE_PROJECT_DIR/.claude/tts-personality.txt")
+  elif [[ -f "$HOME/.claude/tts-personality.txt" ]]; then
+    PERSONALITY_NAME=$(cat "$HOME/.claude/tts-personality.txt")
+  fi
+
   PROCESSED_FILE="$AUDIO_DIR/tts-processed-$(date +%s).wav"
   # audio-processor.sh returns: FILE_PATH|BACKGROUND_FILE
-  PROCESSOR_OUTPUT=$("$SCRIPT_DIR/audio-processor.sh" "$TEMP_FILE" "default" "$PROCESSED_FILE" 2>/dev/null) || {
+  PROCESSOR_OUTPUT=$("$SCRIPT_DIR/audio-processor.sh" "$TEMP_FILE" "$PERSONALITY_NAME" "$PROCESSED_FILE" 2>/dev/null) || {
     echo "Warning: Audio processing failed, using unprocessed audio" >&2
     PROCESSED_FILE="$TEMP_FILE"
     PROCESSOR_OUTPUT="$TEMP_FILE|"
