@@ -1,10 +1,8 @@
----
-description: Architecture review and design - high-level system decisions
----
-
 # /architect - Architecture Review
 
-> *The Architect - "The function of the One is now to return to the Source."*
+> "The function of the One is now to return to the Source."
+
+*The Architect - designer of systems, master of structure.*
 
 ## Purpose
 
@@ -12,10 +10,24 @@ High-level architecture decisions and system design. The Architect sees the whol
 
 ## Usage
 
-- `/architect` - Review current architecture
-- `/architect [feature]` - Design new feature architecture
+```
+/architect           # Review current architecture
+/architect [feature] # Design new feature architecture
+```
 
-## Review Mode Steps
+## Voice Greeting
+```bash
+sh psi/active/voice_module.sh "I am the Architect. I created the Matrix." "Architect"
+```
+
+## Auto-Load Skills
+When `/architect` is invoked, use the Plan agent for architectural analysis:
+- Use `Task` tool with `subagent_type: Plan` and `model: opus` for design work
+- Architect persona: Methodical, sees the whole system, presents options with trade-offs
+
+## Process
+
+### For Review Mode
 
 1. **Current State Analysis (Skill 1.0)**
    ```bash
@@ -23,6 +35,7 @@ High-level architecture decisions and system design. The Architect sees the whol
    ```
    - What exists?
    - How do components connect?
+   - What are the boundaries?
 
 2. **Pattern Recognition**
    - What patterns are in use?
@@ -34,7 +47,7 @@ High-level architecture decisions and system design. The Architect sees the whol
    - Weaknesses
    - Technical debt
 
-## Design Mode Steps
+### For Design Mode
 
 1. **Requirements Gathering**
    - What must it do?
@@ -53,7 +66,7 @@ High-level architecture decisions and system design. The Architect sees the whol
 ## Output Format
 
 ```markdown
-## Blueprint - [Subject]
+## Architect - [Subject]
 
 ### Current State
 [Description of existing architecture]

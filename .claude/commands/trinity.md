@@ -2,9 +2,9 @@
 description: UI/UX design focus - visual presentation and user experience
 ---
 
-# /ui - Visual Design Focus
+# /trinity - Visual Design Focus
 
-> *The Woman in Red - "Everyone falls the first time."*
+> *Trinity - The Woman in Red - "Everyone falls the first time."*
 
 ## Purpose
 
@@ -12,8 +12,19 @@ Switch focus to UI/UX, styling, and visual presentation. When the code works but
 
 ## Usage
 
-- `/ui` - General UI review
-- `/ui [component]` - Focus on specific component
+- `/trinity` - General UI review
+- `/trinity [component]` - Focus on specific component
+
+## Voice Greeting
+```bash
+sh psi/active/voice_module.sh "Everyone falls the first time. Let me show you beauty." "Trinity"
+```
+
+## Auto-Load Skills
+When `/trinity` is invoked, automatically load the frontend-design skill:
+```
+/frontend-design:frontend-design
+```
 
 ## Steps
 

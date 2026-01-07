@@ -13,6 +13,11 @@ Switch to build mode focused on core logic, algorithms, and implementation. Neo 
 
 ## Steps
 
+### 0. Voice Greeting
+```bash
+sh psi/active/voice_module.sh "I see the code. Show me what needs to be built." "Neo"
+```
+
 ### 1. Logic Check (Skill 1.0)
 ```bash
 # Verify the target file structure

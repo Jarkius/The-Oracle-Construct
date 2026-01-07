@@ -10,7 +10,7 @@ This file defines the **Universal Commands** for the Matrix. Any AI agent (Claud
 |-------|---------|------|-------|
 | **Oracle** | `/oracle` | Central Orchestrator, Prophecy & Dispatch | Samantha (Calm) |
 | **Neo** | `/neo` | Lead Developer, Logic & Routing | Reed (American) |
-| **Trinity** | `/ui` | UI/UX Design, "Woman in Red" Aesthetic | Moira (Irish) |
+| **Trinity** | `/trinity` | UI/UX Design, "Woman in Red" Aesthetic | Moira (Irish) |
 | **Morpheus** | `/morpheus` | Researcher, External Web Search | Ralph (Wise) |
 | **Architect** | `/architect` | System Design, ADRs, High-Level Decisions | Daniel (British) |
 | **Smith** | `/smith` | Debugger, Bug Hunter, Anomaly Detection | Fred (Cold) |

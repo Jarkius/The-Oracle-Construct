@@ -4,30 +4,30 @@
 
 ## Purpose
 
-The Operator sits outside the Matrix simulation, reading the raw code. Their job is to **find what the Agents need**: context, files, definitions, and escape paths. They "feed" information to Neo and others.
+The Operator finds context, files, and definitions to "feed" information to the field agents.
 
 ## Usage
 
-- `/operator find [term]` - Search the codebase for context (Files & Content)
-- `/operator load [topic]` - Retrieve specific knowledge (Philosophy/Docs)
-- `/operator status` - Report system connection status
+- `/operator find [term]` - Search the codebase
+- `/operator spawn [terms...]` - Parallel search multiple items
+- `/operator load [topic]` - Retrieve knowledge
+
+## Voice Greeting
+```bash
+sh psi/active/voice_module.sh "Operator here. What do you need?" "Tank"
+```
 
 ## Steps
 
-### 1. Context Search (Skill 1.1)
+### 1. Context Search (Skill 1.0)
 ```bash
-# Search for context
+# SIngle Search
 ./psi/active/operator_load.sh "[term]"
 
-# FEED the context directly to an agent (Efficiency)
-./psi/active/operator_load.sh "[term]" --feed neo
-
-# SPAWN multiple searches (Parallel "Tanks")
-# Search for login, logout, and auth simultaneously
-./psi/active/operator_spawn.sh --feed neo "login" "logout" "auth"
+# Parallel Spawn (Skill 3.0)
+./psi/active/operator_spawn.sh --feed neo "term1" "term2"
 ```
 
-### 2. Feed the Agent
-- If finding code -> Pass to **Neo** (`/neo`)
-- If finding bugs -> Pass to **Smith** (`/smith`)
-- If finding design -> Pass to **Architect** (`/architect`)
+### 2. Dispatch
+- Found code? -> Give to Neo.
+- Found bugs? -> Give to Smith.

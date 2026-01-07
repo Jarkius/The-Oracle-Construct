@@ -1,11 +1,18 @@
 # /rrr - Session Retrospective
 
+> *The Scribe - "Everything that has a beginning has an end."*
+
 Create a session retrospective capturing what happened.
 
 ## Usage
 
 ```
 /rrr              # Create retrospective for current session
+```
+
+## Voice Greeting
+```bash
+sh psi/active/voice_module.sh "Recording session memory. What happened today?" "System"
 ```
 
 ## Output Location

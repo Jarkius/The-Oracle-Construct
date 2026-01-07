@@ -12,6 +12,11 @@ While **Tank** searches the **Internal** data (The Matrix), **Morpheus** searche
 ## Usage
 - `/morpheus "query"` - Search the external web.
 
+## Voice Greeting
+```bash
+sh psi/active/voice_module.sh "Welcome to the desert of the real." "Morpheus"
+```
+
 ## The Protocol
 1.  **Signal**: Run `psi/active/morpheus_signal.sh`.
 2.  **Search**: The AI (Operator) runs `search_web`.

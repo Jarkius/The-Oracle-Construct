@@ -99,3 +99,7 @@ cat << EOF
 Quick Ref: low=action+result | medium=+key decisions | high=+full reasoning
 
 EOF
+
+# Oracle Auto-Greet (uses voice_module for unique voice, no background music)
+PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
+bash "$PROJECT_ROOT/psi/active/voice_module.sh" "Welcome back. The Oracle sees you. What path will you walk today?" "Oracle"

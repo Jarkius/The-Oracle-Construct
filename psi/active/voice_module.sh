@@ -28,8 +28,8 @@ case "$SPEAKER" in
         ;;
     "Smith")
         PERSONALITY="sarcastic"
-        # Using Alan (British) for distinct, sophisticated/evil tone
-        VOICE_OVERRIDE="en_GB-alan-medium"
+        # Using Danny Low for cold, menacing tone (distinct from Architect's Alan)
+        VOICE_OVERRIDE="en_US-danny-low"
         ;;
     "Neo")
         PERSONALITY="focused"
@@ -62,7 +62,7 @@ case "$SPEAKER" in
         ;;
     "System"|"Computer")
         PERSONALITY="robotic"
-        VOICE_OVERRIDE="en_GB-alan-medium"
+        VOICE_OVERRIDE="en_US-ryan-medium"
         ;;
     *)
         PERSONALITY="default"
@@ -89,7 +89,7 @@ if [ "$SPEAKER" = "Smith" ]; then
     echo "   $MESSAGE"
     echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
     echo ""
-    echo "$MESSAGE" | /Users/jarkius/.local/bin/piper --model /Users/jarkius/.claude/piper-voices/en_GB-alan-medium.onnx --output_file /tmp/smith_speech.wav 2>/dev/null
+    echo "$MESSAGE" | /Users/jarkius/.local/bin/piper --model /Users/jarkius/.claude/piper-voices/en_US-danny-low.onnx --output_file /tmp/smith_speech.wav 2>/dev/null
     if [ -f /tmp/smith_speech.wav ]; then
         # Apply Bass Boost manually (since we bypass the main processor)
         if command -v sox >/dev/null 2>&1; then

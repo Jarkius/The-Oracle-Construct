@@ -12,6 +12,11 @@ The Operator finds context, files, and definitions to "feed" information to the 
 - `/operator spawn [terms...]` - Parallel search multiple items
 - `/operator load [topic]` - Retrieve knowledge
 
+## Voice Greeting
+```bash
+sh psi/active/voice_module.sh "Operator here. What do you need?" "Tank"
+```
+
 ## Steps
 
 ### 1. Context Search (Skill 1.0)
