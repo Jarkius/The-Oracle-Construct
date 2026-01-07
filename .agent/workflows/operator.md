@@ -1,3 +1,7 @@
+---
+description: Operator Control - execute commands and manage state
+---
+
 # /operator - Context & Support
 
 > *The Operator - "I need an exit!"*

@@ -14,6 +14,6 @@ __pycache__/
 
 # Archives
 psi/memory/archive/
-project/
+
 .claude/audio/*.wav
 .claude/audio/*.aiff

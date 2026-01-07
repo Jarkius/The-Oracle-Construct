@@ -1,3 +1,7 @@
+---
+description: Bug Hunter Focus - debugging, anomalies, and surgical fixes
+---
+
 # /smith - Bug Hunter Focus
 
 > *Agent Smith - "I'm looking for an anomaly."*

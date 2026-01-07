@@ -1,0 +1,47 @@
+{
+  "Oracle": {
+    "voice": "en_US-kristin-medium",
+    "personality": "wise"
+  },
+  "Smith": {
+    "voice": "en_US-danny-low",
+    "personality": "sarcastic"
+  },
+  "Neo": {
+    "voice": "en_US-ryan-high",
+    "personality": "focused",
+    "fallback_macos": "Nathan"
+  },
+  "Trinity": {
+    "voice": "jenny",
+    "personality": "pleasing"
+  },
+  "Woman in Red": {
+    "voice": "jenny",
+    "personality": "pleasing"
+  },
+  "Morpheus": {
+    "voice": "en_US-carlin-high",
+    "personality": "wise"
+  },
+  "Tank": {
+    "voice": "en_US-bryce-medium",
+    "personality": "excited"
+  },
+  "Architect": {
+    "voice": "en_GB-alan-medium",
+    "personality": "commanding"
+  },
+  "Trump": {
+    "voice": "en_US-trump-high",
+    "personality": "commanding"
+  },
+  "System": {
+    "voice": "en_US-ryan-medium",
+    "personality": "robotic"
+  },
+  "Computer": {
+    "voice": "en_US-ryan-medium",
+    "personality": "robotic"
+  }
+}

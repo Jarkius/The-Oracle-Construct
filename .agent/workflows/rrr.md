@@ -1,3 +1,7 @@
+---
+description: Rest, Reflect, Record - session shutdown and documentation
+---
+
 # /rrr - Session Retrospective
 
 > *The Scribe - "Everything that has a beginning has an end."*

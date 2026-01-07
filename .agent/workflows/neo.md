@@ -1,3 +1,7 @@
+---
+description: Lead Developer Focus - logic, algorithms, and core implementation
+---
+
 # /neo - Lead Developer Focus
 
 > *Neo - "I see the code."*

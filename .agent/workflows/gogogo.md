@@ -1,3 +1,7 @@
+---
+description: Start the development cycle - automated build and test
+---
+
 # /gogogo - Execute the Plan
 
 > *"Stop asking, start doing."*

@@ -1,3 +1,7 @@
+---
+description: No-Nonsense Notes - quick logging to daily journal
+---
+
 # /nnn - New Issue Plan
 
 > *"Create the plan before the work."*

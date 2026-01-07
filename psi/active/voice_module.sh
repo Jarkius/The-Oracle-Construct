@@ -16,68 +16,36 @@ if [ -z "$MESSAGE" ]; then
     exit 1
 fi
 
-# Map Speaker to Personality & Voice (Piper Upgrade)
-# Voices: kristin (US Female), jenny (Irish Female), 16Speakers (US/UK Male/Female)
-PERSONALITY="default"
-VOICE_OVERRIDE=""
+# Map Speaker to Personality & Voice (Portable Config)
+CONFIG_FILE=".claude/config/voices.json"
 
-case "$SPEAKER" in
-    "Oracle")
-        PERSONALITY="wise"
-        VOICE_OVERRIDE="en_US-kristin-medium"
-        ;;
-    "Smith")
-        PERSONALITY="sarcastic"
-        # Using Danny Low for cold, menacing tone (distinct from Architect's Alan)
-        VOICE_OVERRIDE="en_US-danny-low"
-        ;;
-    "Neo")
-        PERSONALITY="focused"
-        # Using Ryan Low (Warm/Deep Male)
-        VOICE_OVERRIDE="en_US-ryan-low"
-        ;;
-    "Trinity"|"Woman in Red")
-        PERSONALITY="pleasing" 
-        VOICE_OVERRIDE="jenny"
-        ;;
-    "Morpheus")
-        PERSONALITY="wise"
-        # Using George Carlin (Cynical/Wise)
-        VOICE_OVERRIDE="en_US-carlin-high"
-        ;;
-    "Tank")
-        PERSONALITY="excited"
-        # Using Ryan (Standard Male) - Effects will distinguish him from Neo
-        VOICE_OVERRIDE="en_US-ryan-medium"
-        ;;
-    "Architect")
-        PERSONALITY="commanding"
-        # Refined, authoritative British voice for the Architect
-        VOICE_OVERRIDE="en_GB-alan-medium"
-        ;;
-    "Trump")
-        PERSONALITY="commanding"
-        # Trump voice reserved for special use
-        VOICE_OVERRIDE="en_US-trump-high"
-        ;;
-    "System"|"Computer")
-        PERSONALITY="robotic"
-        VOICE_OVERRIDE="en_US-ryan-medium"
-        ;;
-    *)
-        PERSONALITY="default"
-        ;;
-esac
+if [ -f "$CONFIG_FILE" ]; then
+    # Parse JSON using python3 for reliability
+    PARSED_DATA=$(python3 -c "import sys, json; 
+try:
+    data = json.load(open('$CONFIG_FILE'))
+    agent = data.get('$SPEAKER', data.get('System'))
+    print(f\"{agent.get('personality')}|{agent.get('voice')}|{agent.get('fallback_macos', '')}\")
+except:
+    print('default||')
+")
+    IFS='|' read -r PERSONALITY VOICE_OVERRIDE MACOS_FALLBACK <<< "$PARSED_DATA"
+else
+    # Fallback if config matches
+    PERSONALITY="default"
+    VOICE_OVERRIDE=""
+    MACOS_FALLBACK=""
+fi
 
 # SPECIAL BYPASS FOR NEO (Direct macOS Nathan)
-if [ "$SPEAKER" = "Neo" ]; then
+if [ "$SPEAKER" = "Neo" ] && [ -n "$MACOS_FALLBACK" ] && [ "$(uname)" = "Darwin" ]; then
     echo ""
     echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
     echo "🗣️  Neo:"
     echo "   $MESSAGE"
     echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
     echo ""
-    /usr/bin/say -v Nathan -r 180 "$MESSAGE"
+    /usr/bin/say -v "$MACOS_FALLBACK" -r 180 "$MESSAGE"
     exit 0
 fi
 

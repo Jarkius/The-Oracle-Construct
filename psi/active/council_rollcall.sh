@@ -4,40 +4,37 @@
 
 # 1. ORACLE
 echo "🔮 Oracle..."
-.claude/hooks/personality-manager.sh set Oracle >/dev/null
-.claude/hooks/play-tts.sh "I am The Oracle. Know thyself."
-sleep 3
+sh psi/active/voice_module.sh "I am The Oracle. Know thyself." "Oracle"
+sleep 1
 
 # 2. MORPHEUS
 echo "🕶️ Morpheus..."
-.claude/hooks/personality-manager.sh set Morpheus >/dev/null
-.claude/hooks/play-tts.sh "I am Morpheus. Free your mind."
-sleep 3
+sh psi/active/voice_module.sh "I am Morpheus. Free your mind." "Morpheus"
+sleep 1
 
 # 3. NEO
 echo "🟢 Neo..."
-.claude/hooks/personality-manager.sh set Neo >/dev/null
-.claude/hooks/play-tts.sh "I am Neo. I know Kung Fu."
-sleep 3
+sh psi/active/voice_module.sh "I am Neo. I know Kung Fu." "Neo"
+sleep 1
 
 # 4. TRINITY
 echo "🍀 Trinity..."
-.claude/hooks/personality-manager.sh set Trinity >/dev/null
-.claude/hooks/play-tts.sh "I am Trinity. Dodge this."
-sleep 3
+sh psi/active/voice_module.sh "I am Trinity. Dodge this." "Trinity"
+sleep 1
 
 # 5. SMITH
 echo "🕶️ Smith..."
-.claude/hooks/personality-manager.sh set Smith >/dev/null
-.claude/hooks/play-tts.sh "Mr. Anderson... I am Agent Smith."
-sleep 3
+sh psi/active/voice_module.sh "Mr. Anderson... I am Agent Smith." "Smith"
+sleep 1
 
 # 6. TANK
 echo "⚡ Tank..."
-.claude/hooks/personality-manager.sh set Tank >/dev/null
-.claude/hooks/play-tts.sh "Tank here. Loading jump program!"
-sleep 3
+sh psi/active/voice_module.sh "Tank here. Loading jump program!" "Tank"
+sleep 1
 
-# Restore Architect
-.claude/hooks/personality-manager.sh set Winston >/dev/null
+# 7. ARCHITECT
+echo "📐 Architect..."
+sh psi/active/voice_module.sh "I am the Architect. Ergo, I am." "Architect"
+sleep 1
+
 

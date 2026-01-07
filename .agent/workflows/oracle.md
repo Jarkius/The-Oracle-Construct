@@ -1,3 +1,7 @@
+---
+description: Oracle Wisdom Control - analyze state and determine the path
+---
+
 # /oracle - Oracle Wisdom Control
 
 > *The Oracle - Spirit Guardian. "Know Thyself."*
@@ -22,7 +26,7 @@ When `/oracle` is invoked, stay focused on wisdom:
 1. **Context Gathering** (The Eyes):
    ```bash
    # Voice Greeting
-   sh psi/active/voice_module.sh "I am the Oracle. Let me see..." &
+   sh psi/active/voice_module.sh "I am the Oracle. Let me see..." "Oracle"
    
    # Check where we are and what we've done
    cat psi/inbox/focus.md

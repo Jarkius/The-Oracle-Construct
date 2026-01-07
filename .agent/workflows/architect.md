@@ -1,3 +1,7 @@
+---
+description: Architecture Review - high-level design and system structure
+---
+
 # /architect - Architecture Review
 
 > "The function of the One is now to return to the Source."
