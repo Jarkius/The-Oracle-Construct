@@ -18,9 +18,18 @@ sh psi/active/voice_module.sh "Operator here. What do you need?" "Tank"
 ```
 
 ## Auto-Load Skills
-When `/operator` is invoked, use Haiku for fast local context:
-- Use `Task` tool with `subagent_type: Explore` and `model: haiku` for quick file/code search
-- Tank persona: Fast finder, loads context, feeds intel to field agents
+When `/operator` is invoked, spawn parallel Haiku workers:
+- Use `Task` tool with `subagent_type: Explore` and `model: haiku` - spawn multiple in parallel
+- **Multi-Agent Spawn**: Can spawn 5-7 Haiku workers simultaneously for bulk search
+- Tank persona: Fast finder, parallel searcher, feeds intel to field agents
+
+## Multi-Agent Pattern
+```bash
+# Spawn parallel workers for bulk tasks
+Task(subagent_type: Explore, model: haiku) x N in parallel
+```
+- 7 files? Spawn 7 Haiku agents
+- Each returns results, Tank synthesizes
 
 ## Steps
 

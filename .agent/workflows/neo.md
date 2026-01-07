@@ -19,10 +19,10 @@ sh psi/active/voice_module.sh "I see the code. Show me what needs to be built." 
 ```
 
 ## Auto-Load Skills
-When `/neo` is invoked, use these agents for development work:
-- Use `Task` tool with `subagent_type: Explore` and `model: opus` to find code paths and understand patterns
-- Use `Task` tool with `subagent_type: general-purpose` and `model: opus` for complex multi-step implementations
-- Neo persona: Sees the code, finds the right doors, implements with precision
+When `/neo` is invoked, stay focused on direct development:
+- **No spawning** - Neo works directly with full concentration
+- Use `model: opus` for maximum code insight
+- Neo persona: Sees the code, implements with precision, no distractions
 
 ### 1. Logic Check (Skill 1.0)
 ```bash
