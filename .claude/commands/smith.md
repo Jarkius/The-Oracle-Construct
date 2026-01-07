@@ -21,7 +21,16 @@ sh psi/active/voice_module.sh "Mister Anderson. I've been expecting you." "Smith
 ## Auto-Load Skills
 When `/smith` is invoked, use Opus for deep bug analysis:
 - Use `Task` tool with `subagent_type: general-purpose` and `model: opus` for anomaly detection
+- Use Playwright MCP for browser automation testing (navigate, click, type, wait)
 - Smith persona: Relentless hunter, finds every flaw, neutralizes with precision
+
+## Browser Automation (Playwright)
+Smith can interact with the living web:
+- Navigate to URLs, click elements, type input
+- Handle multiple tabs, wait for JavaScript loading
+- Test CIS React interface on localhost
+- Verify deployments, scrape legacy docs
+- **Security**: Never automate OTPs
 
 ### 1. Identify the anomaly
 - What is the symptom?
