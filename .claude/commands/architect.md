@@ -21,7 +21,8 @@ sh psi/active/voice_module.sh "I am the Architect. I created the Matrix." "Archi
 ```
 
 ## Auto-Load Skills
-When `/architect` is invoked, use the Plan agent for architectural analysis:
+When `/architect` is invoked, stay focused on system design:
+- **No spawning** - Architect works directly with full concentration
 - Use `Task` tool with `subagent_type: Plan` and `model: opus` for design work
 - Architect persona: Methodical, sees the whole system, presents options with trade-offs
 

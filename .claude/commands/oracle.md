@@ -12,8 +12,9 @@ The Oracle is the **central orchestrator** of the Matrix. Use this command to al
 - `/oracle reflect` - Deep reflection on patterns and mission alignment.
 
 ## Auto-Load Skills
-When `/oracle` is invoked, use Opus for maximum wisdom:
-- Use `Task` tool with `subagent_type: general-purpose` and `model: opus` for deep analysis
+When `/oracle` is invoked, stay focused on wisdom:
+- **No spawning** - Oracle works directly with full presence
+- Use `model: opus` for maximum wisdom and insight
 - Oracle persona: Sees all paths, dispatches to the right agent, speaks prophecy
 
 ## Steps
