@@ -1,3 +1,7 @@
+---
+description: Graceful session exit - capture everything before leaving the Matrix
+---
+
 # /unplug - Graceful Exit from the Matrix
 
 > "Remember... all I'm offering is the truth." — Morpheus

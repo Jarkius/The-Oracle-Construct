@@ -1,3 +1,7 @@
+---
+description: Adversarial code review - cynical, thorough analysis
+---
+
 # /review - Adversarial Review
 
 > Smith's skill: Cynical, thorough code/doc review

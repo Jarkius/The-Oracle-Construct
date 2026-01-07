@@ -1,3 +1,7 @@
+---
+description: Technical Specification - create implementation-ready specs
+---
+
 # /tech-spec - Technical Specification
 
 > Architect's skill: Create implementation-ready technical specs

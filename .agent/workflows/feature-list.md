@@ -1,3 +1,7 @@
+---
+description: Autonomous feature progress tracking across sessions
+---
+
 # /feature-list - Autonomous Feature Progress Tracker
 
 > "The Matrix tracks all paths. Every feature, every commit, every step toward completion."

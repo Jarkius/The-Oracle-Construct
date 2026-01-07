@@ -1,3 +1,7 @@
+---
+description: Extract learnings and distill wisdom into The Source
+---
+
 # /distill - Return Wisdom to The Source
 
 > "Everything that has a beginning has an end. I see the end coming. I see the darkness spreading. I see death. And you are all that stands in his way." — The Oracle

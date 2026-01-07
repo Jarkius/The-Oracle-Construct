@@ -1,3 +1,7 @@
+---
+description: Implementation readiness check before coding starts
+---
+
 # /ready - Implementation Readiness Check
 
 > Architect's skill: Verify everything is ready before coding starts

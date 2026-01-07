@@ -1,3 +1,7 @@
+---
+description: Search git history, retrospectives, issues, and codebase for context
+---
+
 # /context-finder - Search Context
 
 > Tank's fast search through git history, retrospectives, issues, and codebase.

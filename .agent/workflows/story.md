@@ -1,3 +1,7 @@
+---
+description: Create developer-ready user stories with acceptance criteria
+---
+
 # /story - Create Dev Story
 
 > Neo's skill: Generate developer-ready user stories

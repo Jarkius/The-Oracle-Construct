@@ -1,3 +1,7 @@
+---
+description: Architecture Decision Record - document significant technical decisions
+---
+
 # /adr - Architecture Decision Record
 
 > Architect's skill: Document significant technical decisions

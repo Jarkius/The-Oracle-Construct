@@ -1,3 +1,7 @@
+---
+description: Fast execution mode - skip confirmations, execute autonomously
+---
+
 # /yolo - Fast Execution Mode
 
 > All agents: Skip confirmations, execute autonomously

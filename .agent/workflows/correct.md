@@ -1,3 +1,7 @@
+---
+description: Course correction - navigate when things go off-track
+---
+
 # /correct - Course Correction
 
 > Smith/Oracle skill: Navigate when things go off-track
