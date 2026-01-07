@@ -66,19 +66,29 @@ esac
 
 # SPECIAL BYPASS FOR NEO (Direct macOS Nathan)
 if [ "$SPEAKER" = "Neo" ]; then
-    echo "🔊 NEO (Native): $MESSAGE"
+    echo ""
+    echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    echo "🗣️  Neo:"
+    echo "   $MESSAGE"
+    echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    echo ""
     /usr/bin/say -v Nathan -r 180 "$MESSAGE"
     exit 0
 fi
 
-# SPECIAL BYPASS FOR SMITH (Direct Pipeline) - Moved to top to avoid hangs
+# SPECIAL BYPASS FOR SMITH (Direct Pipeline)
 if [ "$SPEAKER" = "Smith" ]; then
-    echo "🔊 SMITH (Direct): $MESSAGE"
-    echo "$MESSAGE" | /Users/jarkius/.local/bin/piper --model /Users/jarkius/.claude/piper-voices/en_GB-alan-medium.onnx --output_file /tmp/smith_speech.wav
+    echo ""
+    echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    echo "🗣️  Smith:"
+    echo "   $MESSAGE"
+    echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    echo ""
+    echo "$MESSAGE" | /Users/jarkius/.local/bin/piper --model /Users/jarkius/.claude/piper-voices/en_GB-alan-medium.onnx --output_file /tmp/smith_speech.wav 2>/dev/null
     if [ -f /tmp/smith_speech.wav ]; then
         # Apply Bass Boost manually (since we bypass the main processor)
         if command -v sox >/dev/null 2>&1; then
-             sox /tmp/smith_speech.wav /tmp/smith_speech_fx.wav bass +10
+             sox /tmp/smith_speech.wav /tmp/smith_speech_fx.wav bass +10 2>/dev/null
              mv /tmp/smith_speech_fx.wav /tmp/smith_speech.wav
         fi
         afplay /tmp/smith_speech.wav
@@ -87,25 +97,30 @@ if [ "$SPEAKER" = "Smith" ]; then
     exit 0
 fi
 
+
 # 1. Set Personality
 bash "$PERSONALITY_MGR" set "$PERSONALITY" > /dev/null 2>&1
 
-# 2. Speak
+# 2. ALWAYS echo text to terminal (text + voice communication)
+echo ""
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo "🗣️  $SPEAKER:"
+echo "   $MESSAGE"
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo ""
+
+# 3. Speak with voice
 if [ -n "$VOICE_OVERRIDE" ]; then
-    # Select voice (using override or default)
-    
     # Export Agent Name for audio-processor context
     export AGENTVIBES_AGENT_NAME="$SPEAKER"
 
     # Play TTS (Hybrid Provider Support)
     if [ "$PROVIDER_OVERRIDE" = "macos" ]; then
-        # Direct fallback to macOS say for specific characters
-        echo "DEBUG: Using MacOS Native Provider for $VOICE_OVERRIDE"
-        /usr/bin/say -v "$VOICE_OVERRIDE" "🔊 $SPEAKER: $MESSAGE"
+        /usr/bin/say -v "$VOICE_OVERRIDE" "$MESSAGE"
     else
         # Default to AgentVibes/Piper
-        bash "$PLAY_TTS" "🔊 $SPEAKER: $MESSAGE" "$VOICE_OVERRIDE"
+        bash "$PLAY_TTS" "$MESSAGE" "$VOICE_OVERRIDE"
     fi
 else
-    bash "$PLAY_TTS" "🔊 $SPEAKER: $MESSAGE"
+    bash "$PLAY_TTS" "$MESSAGE"
 fi
