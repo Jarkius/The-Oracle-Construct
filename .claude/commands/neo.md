@@ -18,6 +18,12 @@ Switch to build mode focused on core logic, algorithms, and implementation. Neo 
 sh psi/active/voice_module.sh "I see the code. Show me what needs to be built." "Neo"
 ```
 
+## Auto-Load Skills
+When `/neo` is invoked, use these agents for development work:
+- Use `Task` tool with `subagent_type: Explore` and `model: opus` to find code paths and understand patterns
+- Use `Task` tool with `subagent_type: general-purpose` and `model: opus` for complex multi-step implementations
+- Neo persona: Sees the code, finds the right doors, implements with precision
+
 ### 1. Logic Check (Skill 1.0)
 ```bash
 # Verify the target file structure
