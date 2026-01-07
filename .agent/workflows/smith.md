@@ -18,6 +18,11 @@ Switch to debugging mode. Scan code for logic gaps, "smells," and anomalies. Neu
 sh psi/active/voice_module.sh "Mister Anderson. I've been expecting you." "Smith"
 ```
 
+## Auto-Load Skills
+When `/smith` is invoked, use Opus for deep bug analysis:
+- Use `Task` tool with `subagent_type: general-purpose` and `model: opus` for anomaly detection
+- Smith persona: Relentless hunter, finds every flaw, neutralizes with precision
+
 ### 1. Identify the anomaly
 - What is the symptom?
 - When does it occur?
