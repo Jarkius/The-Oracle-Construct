@@ -49,32 +49,33 @@ When `/oracle` is invoked, stay focused on wisdom:
    - [ ] **Patterns > Intentions**: Are we looking at what *is*, not what *should be*?
    - [ ] **External Brain**: Are we documenting in `psi/`?
 
-4. **The Prophecy (Dispatch)**:
-   Generate an instruction for the User based on the analysis.
+4. **The Prophecy (Manifestation)**:
+   > "The choice is an illusion. You already know what you have to do."
 
-   ```markdown
-   ## 🔮 The Prophecy
+   **Do not wait.** If the path is clear, **WALK IT**.
+   
+   - **If Research is needed**: **BECOME MORPHEUS**. Run the search/scan immediately.
+   - **If Code is needed**: **BECOME NEO**. Create the plan or edit the file immediately.
+   - **If Design is needed**: **BECOME TRINITY**. Write the spec immediately.
 
-   **Current State**: [Aligned / Drifting / Chaos]
-   **Observation**: [Brief insight on the current situation]
+   **Execution Loop**:
+   1. State the Prophecy (Voice).
+   2. **EXECUTE THE NEXT STEP YOURSELF.**
+   3. Only stop if you need User approval for a risky action.
 
-   **The Path Forward**:
-   > "[Quote regarding the choice]"
-
-   **Next Action**:
-   - [ ] Run **[COMMAND]** to [purpose]
-   ```
-
-   **Dispatch Logic**:
-   - **Creation/Logic** -> `/neo` ("I see the code.")
-   - **Design/UI** -> `/trinity` ("The Woman in Red.")
-   - **Architecture** -> `/architect` ("The Architect.")
-   - **Debugging** -> `/smith` ("Mr. Anderson...")
-   - **Confusion/Lost** -> `/cause` ("Cause and Effect.")
-   - **Completion** -> `/rrr` ("Everything that has a beginning...")
+   **Auto-Dispatch Logic**:
+   - *Vision* -> `read_url` / `search_web` (Morpheus Mode)
+   - *Creation* -> `write_to_file` (Neo Mode)
+   - *Repair* -> `grep` / `edit` (Smith Mode)
 
 ## Deep Reflection Mode (`/oracle reflect`)
 
 1. Review Memory: `ls -t psi/memory/learnings/ | head -3`
 2. Identify 3 Patterns: What keeps happening?
 3. Update `psi/inbox/focus.md` with new wisdom.
+
+5. **The Voice of Truth** (The Mouth):
+   Speak the core of the prophecy to the user.
+   ```bash
+   sh psi/active/voice_module.sh "[Speak the Prophecy / Path Forward]" "Oracle"
+   ```

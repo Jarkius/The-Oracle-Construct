@@ -6,36 +6,38 @@ This file defines the **Universal Commands** for the Matrix. Any AI agent (Claud
 
 ## ⚡ The Council (Agent Roles)
 
-| Agent | Command | Role | Voice |
-|-------|---------|------|-------|
-| **Oracle** | `/oracle` | Central Orchestrator, Prophecy & Dispatch | Samantha (Calm) |
-| **Neo** | `/neo` | Lead Developer, Logic & Routing | Reed (American) |
-| **Trinity** | `/trinity` | UI/UX Design, "Woman in Red" Aesthetic | Moira (Irish) |
-| **Morpheus** | `/morpheus` | Researcher, External Web Search | Ralph (Wise) |
-| **Architect** | `/architect` | System Design, ADRs, High-Level Decisions | Daniel (British) |
-| **Smith** | `/smith` | Debugger, Bug Hunter, Anomaly Detection | Fred (Cold) |
-| **Tank** | `/operator` | Operator, Search & Intelligence | Rocko (Technical) |
-| **Scribe** | `/rrr` | Memory, Retrospectives, Session Endings | - |
+| Agent | Command | Role | Does | Does NOT |
+|-------|---------|------|------|----------|
+| **Oracle** | `/oracle` | Orchestrator | Align, dispatch, prophecy | Implement |
+| **Neo** | `/neo` | Developer | Write ALL code, implement | Design, architecture |
+| **Trinity** | `/trinity` | Design Lead | Design tokens, review, guide | Write code |
+| **Morpheus** | `/morpheus` | External Intel | Gemini, Google AI, web search | Internal search |
+| **Architect** | `/architect` | System Design | ADRs, architecture, structure | UI design, coding |
+| **Smith** | `/smith` | Debugger | Bugs, security, anomalies | Feature dev |
+| **Tank** | `/operator` | Internal Intel | Code search, git, dependencies | External search |
+| **Scribe** | `/rrr` | Memory | Retrospectives, documentation | Active dev |
 
-## 📂 Project Structure
+## 📂 Workspace Structure
 
 ```
-The-matrix/
-├── .agent/workflows/    # Slash command definitions (*.md)
-├── .claude/             # Claude Code parallel world
-│   ├── agents/          # Agent personality definitions
-│   ├── commands/        # Command definitions
-│   └── knowledge/       # Persistent knowledge base
-├── psi/                 # AI Brain ("External Memory")
-│   ├── inbox/           # Incoming focus & tasks
-│   ├── active/          # Active scripts (voice_module.sh, etc.)
-│   └── memory/          # Blueprints, plans, learnings, personas
-├── project/             # CIS Modernization Project
-│   ├── legacy/          # Old PHP Monolith (Port 8888)
-│   ├── modern/
-│   │   ├── api/         # Laravel 11 API (Port 8889)
-│   │   └── web/         # React + Vite SPA (Port 5173)
-│   └── tests/           # Playwright E2E Tests
+~/workspace/
+├── The-matrix/              # AI Development Environment
+│   ├── .agent/workflows/    # Slash command definitions (*.md)
+│   ├── .claude/             # Claude Code parallel world
+│   │   ├── agents/          # Agent personality definitions
+│   │   ├── commands/        # Command definitions
+│   │   └── knowledge/       # Persistent knowledge base
+│   └── psi/                 # AI Brain ("External Memory")
+│       ├── inbox/           # Incoming focus & tasks
+│       ├── active/          # Active scripts
+│       └── memory/          # Blueprints, plans, learnings
+│
+├── cis-legacy/              # Old PHP Monolith (Port 8888)
+│
+└── cis-modern/              # CIS Modernization Project
+    ├── api/                 # Laravel 11 API (Port 8889)
+    ├── web/                 # React + Vite SPA (Port 5173)
+    └── tests/               # Playwright E2E Tests
 ```
 
 ## 🛡️ Prime Directives

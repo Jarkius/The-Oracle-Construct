@@ -42,21 +42,23 @@ Task(subagent_type: Explore, model: haiku) x N in parallel
    - What needs visual attention?
    - What is the current state?
 
-2. Apply the **Woman in Red Guidelines** (`psi/The_Source/12_woman_in_red.md`):
-   - [ ] **BOLD Direction**: Is the tone clear? (Minimal, Maximal, Retro, etc)
-   - [ ] **Typography**: Are generic fonts avoided?
-   - [ ] **Motion**: Is there a choreographed entrance?
-   - [ ] **Texture**: Is there depth/noise/grain?
+2. **Protocol Check (Design OS)**:
+   > "I don't just see the code. I see the intention."
+
+   Before changing pixels, ensure the **Design OS Protocol** is followed:
+   - Read: `psi/knowledge/design_os_protocol.md`
+   - **Step 2 (Design System)**: Are global tokens (colors, type) defined?
+   - **Step 3 (Page Spec)**: Is there a specification for this feature?
+
+   *If NO Spec exists -> Create it first (write to `psi/specs/`).*
+   *If NO Design System exists -> Define it first.*
+
+3. Apply the **Woman in Red Guidelines** (`psi/The_Source/12_woman_in_red.md`) for the *soul* of the design:
+   - [ ] **BOLD Direction**: Is the tone clear?
    - [ ] **Differentiation**: Is it unforgettable?
 
-3. Review current state:
-   - Screenshot or describe the current UI
-   - Identify "Generic AI Slop" to purge
-
-
 4. Propose changes:
-   - Concrete, specific improvements
-   - Priority order (quick wins vs. major refactors)
+   - Concrete, specific improvements based on the **Protocol**.
 
 5. Update focus when ready:
 ```bash

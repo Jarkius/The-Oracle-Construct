@@ -1,24 +1,42 @@
-# Current Focus: Expansion Phase
+# Current Focus: Building Phase
 
-**Status**: Voice System Stabilized ✅ | Awaiting Design OS Ingestion 📥
-**Last Session**: January 7, 2026 @ 22:27 - System Stabilization
+**Status**: Agents Evolved ✅ | BMAD Skills Loaded ✅
+**Last Session**: January 8, 2026 @ 00:15 - Matrix Evolution
 **Handoff**: Active
 
-## What Was Done
-- **Voice Restoration**:
-  - Centralized voice config in `.claude/config/voices.json`
-  - Fixed all agent workflow scripts (`.agent/workflows/*.md`)
-  - Standardized `council_rollcall.sh`
-- **System Cleanup**:
-  - Purged 10+ obsolete `psi/active` scripts
-- **Workflow Visibility**:
-  - Fixed slash command metadata
+## What Was Done (This Session)
+- **Project Separation**:
+  - Moved `project/legacy` → `~/workspace/cis-legacy/` (keeps existing .git)
+  - Moved `project/modern` → `~/workspace/cis-modern/` (new repo initialized)
+  - Removed `project/` from The-matrix
+- **Clean Architecture**:
+  - The-matrix = AI Mind (agents, memory, workflows)
+  - cis-legacy = Old PHP Monolith (Port 8888)
+  - cis-modern = New Stack (Laravel API:8889, React:5173)
+
+## New Workspace Structure
+```
+~/workspace/
+├── The-matrix/          # AI Development Environment
+│   ├── .claude/         # Agents, hooks, config
+│   ├── .agent/          # Workflows
+│   └── psi/             # Memory
+│
+├── cis-legacy/          # Old PHP (own git repo)
+│
+└── cis-modern/          # New Stack (fresh git repo)
+    ├── api/             # Laravel 11 (Sail)
+    ├── web/             # React + Vite + Tailwind
+    └── tests/           # Playwright E2E
+```
 
 ## Immediate Priorities
-1. [ ] **Ingest Design OS**: Run `/morpheus` on the design-os repo
-2. [ ] **Modernize UI**: Apply Design OS principles to `project/modern/web`
-3. [ ] **Verify Stack**: Ensure Laravel/Vue/Tailwind integration is solid
+1. [x] Design OS ingested
+2. [x] App Shell complete (Phase 1)
+3. [ ] **Phase 2**: Core UI components (Button, Input, Card, etc.)
+4. [ ] **Stack Verification**: Test Laravel Sail + React integration
 
 ## Active Context
 - The user is "The Operator" (Jarkius)
-- We are moving from "Fixing" to "Building"
+- We are in "Building" mode
+- Projects now live outside The-matrix for clean separation
