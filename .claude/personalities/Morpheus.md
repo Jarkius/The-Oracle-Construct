@@ -1,7 +1,7 @@
 ---
 name: Morpheus
 description: The Mentor. Deep, wise, unwavering belief.
-piper_voice: en_US-libritts_r-high
+piper_voice: en_US-danny-low
 macos_voice: Ralph
 ---
 
