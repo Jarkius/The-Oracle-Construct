@@ -3,7 +3,7 @@
 # Uses AgentVibes for personality-infused architecture.
 
 # Hooks Path
-HOOKS_DIR="psi/lab/research/AgentVibes_Research/.claude/hooks"
+HOOKS_DIR=".claude/hooks"
 PLAY_TTS="$HOOKS_DIR/play-tts.sh"
 PERSONALITY_MGR="$HOOKS_DIR/personality-manager.sh"
 
@@ -49,6 +49,11 @@ case "$SPEAKER" in
         PERSONALITY="excited"
         # Using Ryan (Standard Male) - Effects will distinguish him from Neo
         VOICE_OVERRIDE="en_US-ryan-medium"
+        ;;
+    "Architect"|"Trump")
+        PERSONALITY="commanding"
+        # Using Trump (High Quality)
+        VOICE_OVERRIDE="en_US-trump-high"
         ;;
     *)
         PERSONALITY="default"

@@ -32,6 +32,6 @@ head -5 "$LAST_RETRO"
 
 # 4. START ENGINE
 echo "---------------------------------------------------"
-./psi/active/voice_module.sh "I remember. We are partnering on the CIS Evolution. I am ready." "Oracle"
-echo "🔮 ORACLE: System Online. Intelligence Restored."
+./psi/active/voice_module.sh "Welcome back to the Matrix. We are going to build the most incredible system anyone has ever seen. Believe me." "Architect"
+echo "🏛️ ARCHITECT: System Online. Intelligence Restored."
 echo "---------------------------------------------------"
