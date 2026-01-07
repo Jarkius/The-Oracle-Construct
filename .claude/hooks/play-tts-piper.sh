@@ -247,11 +247,11 @@ get_speech_rate() {
     return
   fi
 
-  # Default: 1.0 (normal) for English, 2.0 (slower) for learning
+  # Default: 0.9 (slightly faster) for English, 1.5 (slower) for learning
   if [[ "$CURRENT_LANGUAGE" != "english" ]]; then
-    echo "2.0"
+    echo "1.5"
   else
-    echo "1.0"
+    echo "0.9"
   fi
 }
 
@@ -267,12 +267,12 @@ SPEECH_RATE=$(get_speech_rate)
 # @edgecases Handles piper errors, invalid models, multi-speaker voices
 if [[ -n "$SPEAKER_ID" ]]; then
   # Multi-speaker voice: Pass speaker ID
-  # Add 2-second pause between sentences for better pacing
-  echo "$TEXT" | piper --model "$VOICE_PATH" --speaker "$SPEAKER_ID" --length-scale "$SPEECH_RATE" --sentence-silence 2.0 --output_file "$TEMP_FILE" 2>/dev/null
+  # Minimal pause between sentences for natural flow
+  echo "$TEXT" | piper --model "$VOICE_PATH" --speaker "$SPEAKER_ID" --length-scale "$SPEECH_RATE" --sentence-silence 0.3 --output_file "$TEMP_FILE" 2>/dev/null
 else
   # Single-speaker voice
-  # Add 2-second pause between sentences for better pacing
-  echo "$TEXT" | piper --model "$VOICE_PATH" --length-scale "$SPEECH_RATE" --sentence-silence 2.0 --output_file "$TEMP_FILE" 2>/dev/null
+  # Minimal pause between sentences for natural flow
+  echo "$TEXT" | piper --model "$VOICE_PATH" --length-scale "$SPEECH_RATE" --sentence-silence 0.3 --output_file "$TEMP_FILE" 2>/dev/null
 fi
 
 if [[ ! -f "$TEMP_FILE" ]] || [[ ! -s "$TEMP_FILE" ]]; then

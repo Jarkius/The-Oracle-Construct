@@ -50,9 +50,14 @@ case "$SPEAKER" in
         # Using Ryan (Standard Male) - Effects will distinguish him from Neo
         VOICE_OVERRIDE="en_US-ryan-medium"
         ;;
-    "Architect"|"Trump")
+    "Architect")
         PERSONALITY="commanding"
-        # Using Trump (High Quality)
+        # Refined, authoritative British voice for the Architect
+        VOICE_OVERRIDE="en_GB-alan-medium"
+        ;;
+    "Trump")
+        PERSONALITY="commanding"
+        # Trump voice reserved for special use
         VOICE_OVERRIDE="en_US-trump-high"
         ;;
     "System"|"Computer")
