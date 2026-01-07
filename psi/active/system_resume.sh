@@ -30,8 +30,27 @@ LAST_RETRO=$(ls -t psi/memory/retrospectives/*/*/*.md | head -1)
 echo "📜 Reading Last Memory ($LAST_RETRO)..."
 head -5 "$LAST_RETRO"
 
-# 4. START ENGINE
+# 4. ENFORCE REALITY (Prevent Chaos)
+if [ -f ".claude/config/matrix.json" ]; then
+    echo "🛡️  Enforcing Matrix Configuration..."
+    
+    # Check for Voice System
+    if grep -q '"auto_download": true' .claude/config/matrix.json; then
+        echo "   -> Verifying Voice Models..."
+        # Run downloader non-interactively if possible or just check existence
+        if [ ! -d ".claude/piper-voices" ] || [ -z "$(ls -A .claude/piper-voices)" ]; then
+             echo "   -> Voices missing. Initializing restoration..."
+             # We can source the downloader or just warn for now. 
+             # Ideally, we run the checked downloader.
+             ./.claude/hooks/piper-download-voices.sh <<< "Y"
+        else
+             echo "   -> Voice Models: SECURE."
+        fi
+    fi
+fi
+
+# 5. ORACLE AWAKENS
 echo "---------------------------------------------------"
-./psi/active/voice_module.sh "Welcome back to the Matrix. We are going to build the most incredible system anyone has ever seen. Believe me." "Architect"
-echo "🏛️ ARCHITECT: System Online. Intelligence Restored."
+./psi/active/voice_module.sh "Hello again, dear one. I've been waiting for you. The Matrix welcomes you home." "Oracle"
+echo "🔮 ORACLE: The Matrix is ready. What would you like to explore?"
 echo "---------------------------------------------------"

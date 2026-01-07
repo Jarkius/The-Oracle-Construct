@@ -1,0 +1,13 @@
+{
+    "design_system": "legacy_fidelity",
+    "theme": "clean_white",
+    "voice_system": {
+        "enabled": true,
+        "provider": "piper",
+        "auto_download": true
+    },
+    "identity": {
+        "system_name": "Computer Inventory System",
+        "role": "Legacy Administrator"
+    }
+}

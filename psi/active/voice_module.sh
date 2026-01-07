@@ -24,7 +24,7 @@ VOICE_OVERRIDE=""
 case "$SPEAKER" in
     "Oracle")
         PERSONALITY="wise"
-        VOICE_OVERRIDE="kristin"
+        VOICE_OVERRIDE="en_US-kristin-medium"
         ;;
     "Smith")
         PERSONALITY="sarcastic"
@@ -54,6 +54,10 @@ case "$SPEAKER" in
         PERSONALITY="commanding"
         # Using Trump (High Quality)
         VOICE_OVERRIDE="en_US-trump-high"
+        ;;
+    "System"|"Computer")
+        PERSONALITY="robotic"
+        VOICE_OVERRIDE="en_GB-alan-medium"
         ;;
     *)
         PERSONALITY="default"

@@ -1,70 +1,41 @@
-/* Deloitte Design System - Light Theme */
+/* Clean Design System - Professional (Legacy Aligned) */
 
 @layer base {
   :root {
-    /* --- Deloitte Primary Colors --- */
-    /* Deloitte Green: #86BC25 -> HSL(81, 68%, 44%) */
-    --primary: 81 68% 44%;
-    --primary-foreground: 0 0% 100%; /* White for contrast */
-
-    /* Deloitte Dark Gray (Text/Background contrast): #222222 -> HSL(0, 0%, 13%) or use Smoky Black #0F0B0B HSL(0, 15%, 5%)*/
-    --foreground: 0 0% 5%; /* Smoky Black for primary text/icons */
-    --background: 0 0% 100%; /* White background */
-
-    /* Deloitte Light Gray (Cards/Input borders/Hover states): #E6E6E6 -> HSL(0, 0%, 90%) */
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 5%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 5%;
-    --muted: 0 0% 90%;
-    --muted-foreground: 0 0% 40%;
-
-    /* Deloitte Borders/Dividers: Use a slightly darker gray */
-    --border: 0 0% 80%; /* #CCCCCC equivalent */
-    --input: 0 0% 80%;
-    --ring: 81 68% 44%; /* Primary green for focus rings */
-
-    /* Deloitte Accent/Secondary Colors (for functional elements, alerts, etc.) */
-    /* Blue 4: #0076A8 -> HSL(198, 100%, 33%) */
-    --secondary: 198 100% 33%;
-    --secondary-foreground: 0 0% 100%;
-
-    /* Error/Destructive action - standard red for functional association */
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 100%;
-
-    --accent: 81 68% 44%; /* Use primary green for accent items */
-    --accent-foreground: 0 0% 100%;
-
-    --radius: 0.5rem; /* Standard shadcn border radius */
-
-    /* Utility Tokens */
-    --primary-glow: hsla(81, 68%, 44%, 0.3);
-    --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  /* Define a basic dark mode (optional, adjust HSL values as needed) */
-  .dark {
-    --primary: 81 68% 44%;
+    /* Primary Colors - Professional Green/Corporate */
+    --primary: 81 68% 44%; /* Corporate Green */
     --primary-foreground: 0 0% 100%;
 
-    --foreground: 0 0% 95%;
-    --background: 240 10% 3.9%;
-    --card: 240 10% 3.9%;
-    --card-foreground: 0 0% 95%;
-    --popover: 240 10% 3.9%;
-    --popover-foreground: 0 0% 95%;
-    --muted: 240 3.7% 15.9%;
-    --muted-foreground: 240 5% 64.9%;
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
+    /* Neutral Scale (White Background) */
+    --background: 0 0% 100%; /* Pure White */
+    --foreground: 0 0% 10%; /* Dark Gray Text */
+    
+    --card: 0 0% 98%; /* Light Gray Card */
+    --card-foreground: 0 0% 10%;
+    
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 10%;
+    
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 45%;
+
+    --border: 0 0% 90%;
+    --input: 0 0% 96%;
     --ring: 81 68% 44%;
-    --secondary: 198 100% 33%;
-    --secondary-foreground: 0 0% 100%;
-    --destructive: 0 62.8% 30.6%;
+
+    --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 100%;
-    --accent: 81 68% 44%;
-    --accent-foreground: 0 0% 100%;
+    
+    --radius: 4px;
+    
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  }
+  
+  .dark {
+    --background: 0 0% 10%;
+    --foreground: 0 0% 98%;
   }
 }
 
@@ -74,61 +45,26 @@
     padding: 0;
 }
 
-html {
-    font-size: 16px;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
-
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     background-color: hsl(var(--background));
     color: hsl(var(--foreground));
-    line-height: 1.6;
-    min-height: 100vh;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
 }
 
-/* Typography */
 h1, h2, h3, h4, h5, h6 {
     font-weight: 600;
-    line-height: 1.2;
+    letter-spacing: -0.025em;
     color: hsl(var(--foreground));
 }
 
-/* Utility Classes */
+/* Utilities */
 .fade-in-up {
-    animation: fadeInUp 0.5s var(--ease-out-expo) forwards;
-}
-
-.zoom-in {
-    animation: zoomIn 0.4s var(--ease-out-expo) forwards;
+    animation: fadeInUp 0.5s ease-out forwards;
 }
 
 @keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes zoomIn {
-    from {
-        opacity: 0;
-        transform: scale(0.95);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
-/* Loading State */
-.loading {
-    color: hsl(var(--muted-foreground));
-    padding: 2rem;
-    text-align: center;
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
