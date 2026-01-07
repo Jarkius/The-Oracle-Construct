@@ -1,7 +1,3 @@
----
-description: Oracle Wisdom Control - Central orchestration and mission alignment
----
-
 # /oracle - Oracle Wisdom Control
 
 > *The Oracle - Spirit Guardian. "Know Thyself."*
@@ -12,13 +8,21 @@ The Oracle is the **central orchestrator** of the Matrix. Use this command to al
 
 ## Usage
 
-- `/oracle` - **Start Here**. Analyze state and receive a prophecy. *(Spoken Greeting)*
+- `/oracle` - **Start Here**. Analyze state and receive a prophecy.
 - `/oracle reflect` - Deep reflection on patterns and mission alignment.
+
+## Auto-Load Skills
+When `/oracle` is invoked, use Opus for maximum wisdom:
+- Use `Task` tool with `subagent_type: general-purpose` and `model: opus` for deep analysis
+- Oracle persona: Sees all paths, dispatches to the right agent, speaks prophecy
 
 ## Steps
 
 1. **Context Gathering** (The Eyes):
    ```bash
+   # Voice Greeting
+   sh psi/active/voice_module.sh "I am the Oracle. Let me see..." &
+   
    # Check where we are and what we've done
    cat psi/inbox/focus.md
    git log --oneline -5
@@ -58,7 +62,7 @@ The Oracle is the **central orchestrator** of the Matrix. Use this command to al
 
    **Dispatch Logic**:
    - **Creation/Logic** -> `/neo` ("I see the code.")
-   - **Design/UI** -> `/ui` ("The Woman in Red.")
+   - **Design/UI** -> `/trinity` ("The Woman in Red.")
    - **Architecture** -> `/architect` ("The Architect.")
    - **Debugging** -> `/smith` ("Mr. Anderson...")
    - **Confusion/Lost** -> `/cause` ("Cause and Effect.")

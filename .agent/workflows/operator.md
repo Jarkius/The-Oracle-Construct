@@ -17,6 +17,11 @@ The Operator finds context, files, and definitions to "feed" information to the 
 sh psi/active/voice_module.sh "Operator here. What do you need?" "Tank"
 ```
 
+## Auto-Load Skills
+When `/operator` is invoked, use Haiku for fast local context:
+- Use `Task` tool with `subagent_type: Explore` and `model: haiku` for quick file/code search
+- Tank persona: Fast finder, loads context, feeds intel to field agents
+
 ## Steps
 
 ### 1. Context Search (Skill 1.0)
