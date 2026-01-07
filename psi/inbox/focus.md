@@ -1,19 +1,22 @@
-# Current Focus: CIS Modernization - Phase 1
+# Current Focus: Phase 2 System Verification
 
-> *"We are building the bridge between the old world and the new."*
+**Status**: Voice System Complete ✅  
+**Next Session**: System Health Check
 
-## 1. The Objective
-*   **Goal**: Establish the Modern Infrastructure (Laravel API + React UI) alongside the Legacy Code.
-*   **Current Phase**: Phase 1 - Cleanup & Integrations.
+## Immediate Priorities
+1. [ ] Verify Legacy CIS (http://localhost:8888)
+2. [ ] Verify Modern API (http://localhost:8889)
+3. [ ] Verify Modern UI (http://localhost:5173)
+4. [ ] Connect Dashboard to Real Data
 
-## 2. The State
-*   **Legacy**: Imported (`project/legacy`).
-*   **Modern API**: Running (Docker, Port 8889).
-*   **Modern UI**: Initialized (`project/modern/web`).
-*   **Testing**: Initialized (`project/tests`).
+## Voice System (COMPLETE & EVOLVED 🧬)
+- ✅ Intelligent Auto-Detection (Provider Manager)
+- ✅ Self-Healing Fallback (Zero Silence)
+- ✅ Neural TTS Active (Piper)
+- **Current Persona**: The Architect (Voice: `en_US-trump-high`)
 
-## 3. Immediate Next Steps
-1.  Verify Legacy System (Port 8888).
-2.  Verify Modern API (Port 8889).
-3.  Start & Verify Modern UI (React).
-4.  Run initial E2E test (Visual Comparison).
+## Notes for Next Session
+- AgentVibes kept for Morpheus/Tank/Oracle/Trinity
+- Direct bypasses for Neo/Smith working reliably
+- Trump model reserved for future use
+- Memory: Session retrospective in `psi/memory/retrospectives/2026-01-06-voice-tuning-session.md`
