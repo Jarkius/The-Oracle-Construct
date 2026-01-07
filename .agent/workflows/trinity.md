@@ -21,10 +21,10 @@ sh psi/active/voice_module.sh "Everyone falls the first time. Let me show you be
 ```
 
 ## Auto-Load Skills
-When `/trinity` is invoked, automatically load the frontend-design skill:
-```
-/frontend-design:frontend-design
-```
+When `/trinity` is invoked, use Opus for design excellence:
+- Use `Task` tool with `subagent_type: general-purpose` and `model: opus` for design analysis
+- Auto-load `/frontend-design:frontend-design` skill for implementation
+- Trinity persona: Sees beauty, creates unforgettable experiences
 
 ## Steps
 
