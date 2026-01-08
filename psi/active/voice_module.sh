@@ -70,6 +70,23 @@ if [ "$SPEAKER" = "Smith" ]; then
     exit 0
 fi
 
+# SPECIAL BYPASS FOR MAINFRAME (Direct Pipeline - No Processor)
+if [ "$SPEAKER" = "Mainframe" ]; then
+    echo ""
+    echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    echo "🗣️  Mainframe:"
+    echo "   $MESSAGE"
+    echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    echo ""
+    # Use direct piper call for maximum clarity (raw model output)
+    echo "$MESSAGE" | /Users/jarkius/.local/bin/piper --model /Users/jarkius/.claude/piper-voices/en_US-norman-medium.onnx --output_file /tmp/mainframe_speech.wav 2>/dev/null
+    if [ -f /tmp/mainframe_speech.wav ]; then
+        afplay /tmp/mainframe_speech.wav
+        rm /tmp/mainframe_speech.wav
+    fi
+    exit 0
+fi
+
 
 # 1. Set Personality
 bash "$PERSONALITY_MGR" set "$PERSONALITY" > /dev/null 2>&1
