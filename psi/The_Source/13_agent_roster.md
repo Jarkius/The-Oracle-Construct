@@ -13,7 +13,7 @@ This document is the **single source of truth** for agent identities. The Oracle
 | Agent | Voice | Role | Command |
 |-------|-------|------|---------|
 | **Oracle** | `en_US-kristin-medium` | Central Orchestrator | `/oracle` |
-| **Neo** | `en_US-joe-medium` | Lead Developer | `/neo` |
+| **Neo** | `en_US-ryan-high` | Lead Developer | `/neo` |
 | **Trinity** | `jenny` | First Officer / UI Lead | `/trinity` |
 | **Smith** | `en_US-danny-low` | Bug Hunter / Auditor | `/smith` |
 | **Morpheus** | `en_US-carlin-high` | Researcher | `/morpheus` |
