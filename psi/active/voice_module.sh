@@ -70,7 +70,7 @@ if [ "$SPEAKER" = "Smith" ]; then
     exit 0
 fi
 
-# SPECIAL BYPASS FOR MAINFRAME (Direct Pipeline - No Processor)
+# SPECIAL BYPASS FOR MAINFRAME (Direct Pipeline - Clarity Guarantee)
 if [ "$SPEAKER" = "Mainframe" ]; then
     echo ""
     echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
@@ -86,6 +86,7 @@ if [ "$SPEAKER" = "Mainframe" ]; then
     fi
     exit 0
 fi
+
 
 
 # 1. Set Personality

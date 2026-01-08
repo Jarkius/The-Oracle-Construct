@@ -314,12 +314,41 @@ main() {
     # Clean up on exit using explicit paths
     trap 'rm -f /tmp/agentvibes-effects-'"$$"'.wav /tmp/agentvibes-final-'"$$"'.wav' EXIT
 
-    # Step 1: Apply sox effects
+    # Step 1: Detect sample rate and upsample if needed (Smart Evolution)
+    local working_input="$INPUT_FILE"
+    local sample_rate
+    
+    # Detect sample rate
+    if command -v soxi &> /dev/null; then
+        sample_rate=$(soxi -r "$INPUT_FILE")
+    elif command -v ffprobe &> /dev/null; then
+        sample_rate=$(ffprobe -v error -show_entries stream=sample_rate -of default=noprint_wrappers=1:nokey=1 "$INPUT_FILE")
+    fi
+    
+    # Default to 48000 if detection fails to avoid breaking
+    sample_rate=${sample_rate:-48000}
+    
+    # If sample rate is low (e.g. 22050Hz), upsample to 48kHz for high-quality effects processing
+    if (( $(echo "$sample_rate < 44100" | bc -l 2>/dev/null || awk "BEGIN {print ($sample_rate < 44100)}") )); then
+        echo "  → Upsampling: ${sample_rate}Hz -> 48000Hz (High Fidelity)" >&2
+        local temp_upsampled="/tmp/agentvibes-upsampled-$$.wav"
+        
+        # Use SoX for high-quality resampling (rate -v -I = very high quality, intermediate phase)
+        # This prevents the "AM Radio" aliasing when effects are applied later
+        if command -v sox &> /dev/null; then
+            sox "$INPUT_FILE" -r 48000 "$temp_upsampled" rate -v -I 2>/dev/null || cp "$INPUT_FILE" "$temp_upsampled"
+            working_input="$temp_upsampled"
+            # Add to cleanup trap
+            trap 'rm -f /tmp/agentvibes-effects-'"$$"'.wav /tmp/agentvibes-final-'"$$"'.wav /tmp/agentvibes-upsampled-'"$$"'.wav' EXIT
+        fi
+    fi
+
+    # Step 2: Apply sox effects
     if [[ -n "$sox_effects" ]]; then
         echo "  → Applying effects: $sox_effects" >&2
-        apply_sox_effects "$INPUT_FILE" "$temp_effects" "$sox_effects"
+        apply_sox_effects "$working_input" "$temp_effects" "$sox_effects"
     else
-        cp "$INPUT_FILE" "$temp_effects"
+        cp "$working_input" "$temp_effects"
     fi
 
     # Step 2: Mix background if configured AND enabled
