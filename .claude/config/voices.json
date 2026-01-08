@@ -8,9 +8,8 @@
     "personality": "sarcastic"
   },
   "Neo": {
-    "voice": "en_US-ryan-high",
-    "personality": "focused",
-    "fallback_macos": "Nathan"
+    "voice": "en_US-joe-medium",
+    "personality": "focused"
   },
   "Trinity": {
     "voice": "jenny",
@@ -37,11 +36,11 @@
     "personality": "commanding"
   },
   "System": {
-    "voice": "en_US-ryan-medium",
+    "voice": "en_US-hfc_male-medium",
     "personality": "robotic"
   },
   "Mainframe": {
-    "voice": "en_US-ryan-medium",
+    "voice": "en_US-glados-high",
     "personality": "robotic"
   },
   "Scribe": {

@@ -13,7 +13,7 @@ This document is the **single source of truth** for agent identities. The Oracle
 | Agent | Voice | Role | Command |
 |-------|-------|------|---------|
 | **Oracle** | `en_US-kristin-medium` | Central Orchestrator | `/oracle` |
-| **Neo** | `en_US-ryan-high` | Lead Developer | `/neo` |
+| **Neo** | `en_US-joe-medium` | Lead Developer | `/neo` |
 | **Trinity** | `jenny` | First Officer / UI Lead | `/trinity` |
 | **Smith** | `en_US-danny-low` | Bug Hunter / Auditor | `/smith` |
 | **Morpheus** | `en_US-carlin-high` | Researcher | `/morpheus` |
@@ -46,11 +46,11 @@ Some agents have **alternate personas** - same identity, different focus.
 
 | Voice | Sound | Purpose |
 |-------|-------|---------|
-| **System** | `en_US-ryan-medium` + 🎵 Music | **The Matrix speaking** - session start, major announcements |
-| **Mainframe** | `en_US-ryan-medium` + 🎵 Music | **Robotic utility** - task status, command confirmations |
+| **System** | `en_US-hfc_male-medium` + 🎵 Music | **The Matrix speaking** - session start, major announcements |
+| **Mainframe** | `en_US-glados-high` + 🔇 None | **Robotic AI utility** - task status, command confirmations (GLaDOS voice!) |
 | **Trump** | `en_US-trump-high` | Easter egg / humor |
 
-> **Note**: System and Mainframe share the same voice intentionally - both represent the machine layer. The distinction is semantic: **System** is the Matrix as entity, **Mainframe** is mechanical feedback.
+> **Note**: Every agent now has a **unique voice speaker**. No two agents share the same base voice.
 
 ---
 
