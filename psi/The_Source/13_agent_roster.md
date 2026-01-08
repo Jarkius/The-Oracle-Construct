@@ -47,7 +47,7 @@ Some agents have **alternate personas** - same identity, different focus.
 | Voice | Sound | Purpose |
 |-------|-------|---------|
 | **System** | `en_US-hfc_male-medium` + 🎵 Music | **The Matrix speaking** - session start, major announcements |
-| **Mainframe** | `en_US-amy-medium` + 🔇 None | **Robotic utility** - task status, Amy voice @ 200 WPM |
+| **Mainframe** | `en_US-norman-medium` + 🔇 None | **Robotic utility** - task status, Norman voice |
 | **Trump** | `en_US-trump-high` | Easter egg / humor |
 
 > **Note**: Every agent now has a **unique voice speaker**. No two agents share the same base voice.
