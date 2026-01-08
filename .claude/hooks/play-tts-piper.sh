@@ -319,10 +319,23 @@ fi
 # @returns Updates $TEMP_FILE to padded version
 # @sideeffects Modifies audio file
 # AI NOTE: Use ffmpeg if available, otherwise skip padding (degraded experience)
+# FIX: Match silence sample rate/channels to source to avoid resampling artifacts
 if command -v ffmpeg &> /dev/null; then
   PADDED_FILE="$AUDIO_DIR/tts-padded-$(date +%s).wav"
-  # Add 200ms of silence at the beginning
-  ffmpeg -f lavfi -i anullsrc=r=44100:cl=stereo:d=0.2 -i "$TEMP_FILE" \
+
+  # Detect source audio properties to match silence
+  SRC_RATE=$(ffprobe -v error -select_streams a:0 -show_entries stream=sample_rate -of default=noprint_wrappers=1:nokey=1 "$TEMP_FILE" 2>/dev/null || echo "22050")
+  SRC_CHANNELS=$(ffprobe -v error -select_streams a:0 -show_entries stream=channels -of default=noprint_wrappers=1:nokey=1 "$TEMP_FILE" 2>/dev/null || echo "1")
+
+  # Map channels to ffmpeg layout
+  if [[ "$SRC_CHANNELS" == "1" ]]; then
+    CHANNEL_LAYOUT="mono"
+  else
+    CHANNEL_LAYOUT="stereo"
+  fi
+
+  # Add 200ms of silence matching source format (no resampling needed)
+  ffmpeg -f lavfi -i "anullsrc=r=${SRC_RATE}:cl=${CHANNEL_LAYOUT}:d=0.2" -i "$TEMP_FILE" \
     -filter_complex "[0:a][1:a]concat=n=2:v=0:a=1[out]" \
     -map "[out]" -y "$PADDED_FILE" 2>/dev/null
 
