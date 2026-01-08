@@ -100,6 +100,25 @@ Quick Ref: low=action+result | medium=+key decisions | high=+full reasoning
 
 EOF
 
-# Oracle Auto-Greet (uses voice_module for unique voice, no background music)
+# System Acknowledgement (Queue Priority 1)
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
-bash "$PROJECT_ROOT/psi/active/voice_module.sh" "Welcome back. The Oracle sees you. What path will you walk today?" "Oracle"
+bash "$PROJECT_ROOT/psi/active/voice_module.sh" "System online. Link established." "System" &
+
+# Randomized Oracle Greetings (Queue Priority 2)
+ORACLE_GREETINGS=(
+    "Welcome back. The Oracle sees you."
+    "The cookies are done. Come, sit."
+    "You've been gone for some time. But time is always on your side."
+    "The pattern repeats, but you are the variable."
+    "Welcome back. I expected you."
+    "The path is difficult, but you are ready."
+    "Everything that has a beginning has an end. Welcome to the beginning."
+    "I told you... you'd be back."
+)
+
+# Pick random greeting
+RAND_INDEX=$((RANDOM % ${#ORACLE_GREETINGS[@]}))
+SELECTED_GREETING="${ORACLE_GREETINGS[$RAND_INDEX]}"
+
+# Speak Oracle Greeting
+bash "$PROJECT_ROOT/psi/active/voice_module.sh" "$SELECTED_GREETING" "Oracle"

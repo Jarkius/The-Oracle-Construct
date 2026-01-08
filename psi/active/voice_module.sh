@@ -16,6 +16,69 @@ if [ -z "$MESSAGE" ]; then
     exit 1
 fi
 
+# Global Lock File
+LOCK_FILE="/var/tmp/matrix_voice.lock"
+
+# Function to play audio safely (Queued)
+safe_play() {
+    local AUDIO_FILE="$1"
+    local CMD="$2" # Optional command (defaults to afplay)
+    
+    if [ -z "$CMD" ]; then
+        if [ "$(uname)" = "Darwin" ]; then
+            CMD="afplay"
+        else
+            CMD="aplay"
+        fi
+    fi
+
+    # Wait for lock (queue)
+    (
+        flock -x 200
+        if [ -n "$AUDIO_FILE" ] && [ -f "$AUDIO_FILE" ]; then
+             $CMD "$AUDIO_FILE"
+        fi
+    ) 200>"$LOCK_FILE"
+}
+
+# Function to speak text safely (Queued)
+safe_speak() {
+    local OPT_VOICE="$1"
+    local OPT_TEXT="$2"
+    
+    # Wait for lock (queue)
+    (
+        flock -x 200
+        /usr/bin/say -v "$OPT_VOICE" "$OPT_TEXT"
+    ) 200>"$LOCK_FILE"
+}
+
+# Function to handle AgentVibes Generate-Then-Play
+safe_play_agentvibes() {
+    local MSG="$1"
+    local VOICE="$2"
+    
+    # 1. Generate (No Playback) - run in subshell to keep env clean
+    local OUTPUT
+    if [ -n "$VOICE" ]; then
+        OUTPUT=$(export AGENTVIBES_NO_PLAYBACK=true; bash "$PLAY_TTS" "$MSG" "$VOICE")
+    else
+        OUTPUT=$(export AGENTVIBES_NO_PLAYBACK=true; bash "$PLAY_TTS" "$MSG")
+    fi
+    
+    # 2. Parse filename (handle ANSI color codes if any, though AgentVibes usually clear)
+    # Extract path after "Saved to: "
+    local FILE=$(echo "$OUTPUT" | grep "Saved to:" | sed 's/.*Saved to: //')
+    
+    # 3. Play safely
+    if [ -n "$FILE" ] && [ -f "$FILE" ]; then
+        safe_play "$FILE"
+    else
+        # Fallback if generation failed or silent
+        echo "$OUTPUT" # Show error
+    fi
+}
+
 # Map Speaker to Personality & Voice (Portable Config)
 CONFIG_FILE=".claude/config/voices.json"
 
@@ -45,7 +108,9 @@ if [ "$SPEAKER" = "Neo" ] && [ -n "$MACOS_FALLBACK" ] && [ "$(uname)" = "Darwin"
     echo "   $MESSAGE"
     echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
     echo ""
-    /usr/bin/say -v "$MACOS_FALLBACK" -r 180 "$MESSAGE"
+    echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    echo ""
+    safe_speak "$MACOS_FALLBACK" "$MESSAGE"
     exit 0
 fi
 
@@ -76,13 +141,13 @@ if [ "$SPEAKER" = "Smith" ]; then
                 -filter_complex "[1:a]volume=0.40[bg];[0:a]adelay=1500|1500[v];[v][bg]amix=inputs=2:duration=longest[out]" \
                 -map "[out]" -t "$TOTAL_DUR" /tmp/smith_mixed.wav 2>/dev/null
             if [ -f /tmp/smith_mixed.wav ]; then
-                afplay /tmp/smith_mixed.wav
+                safe_play /tmp/smith_mixed.wav
                 rm /tmp/smith_mixed.wav
             else
-                afplay /tmp/smith_speech.wav
+                safe_play /tmp/smith_speech.wav
             fi
         else
-            afplay /tmp/smith_speech.wav
+            safe_play /tmp/smith_speech.wav
         fi
         rm -f /tmp/smith_speech.wav
     fi
@@ -111,13 +176,13 @@ if [ "$SPEAKER" = "Mainframe" ]; then
                 -filter_complex "[1:a]volume=0.50[bg];[0:a]adelay=1500|1500[v];[v][bg]amix=inputs=2:duration=longest[out]" \
                 -map "[out]" -t "$TOTAL_DUR" /tmp/mainframe_mixed.wav 2>/dev/null
             if [ -f /tmp/mainframe_mixed.wav ]; then
-                afplay /tmp/mainframe_mixed.wav
+                safe_play /tmp/mainframe_mixed.wav
                 rm /tmp/mainframe_mixed.wav
             else
-                afplay /tmp/mainframe_speech.wav
+                safe_play /tmp/mainframe_speech.wav
             fi
         else
-            afplay /tmp/mainframe_speech.wav
+            safe_play /tmp/mainframe_speech.wav
         fi
         rm -f /tmp/mainframe_speech.wav
     fi
@@ -146,13 +211,13 @@ if [ "$SPEAKER" = "Tank" ]; then
                 -filter_complex "[1:a]volume=0.40[bg];[0:a][bg]amix=inputs=2:duration=first[out]" \
                 -map "[out]" -t "$DURATION" /tmp/tank_mixed.wav 2>/dev/null
             if [ -f /tmp/tank_mixed.wav ]; then
-                afplay /tmp/tank_mixed.wav
+                safe_play /tmp/tank_mixed.wav
                 rm /tmp/tank_mixed.wav
             else
-                afplay /tmp/tank_speech.wav
+                safe_play /tmp/tank_speech.wav
             fi
         else
-            afplay /tmp/tank_speech.wav
+            safe_play /tmp/tank_speech.wav
         fi
         rm -f /tmp/tank_speech.wav
     fi
@@ -170,7 +235,7 @@ if [ "$SPEAKER" = "Oracle" ]; then
     # Direct piper call - slow, calm delivery (length-scale 1.15 = 15% slower)
     echo "$MESSAGE" | /Users/jarkius/.local/bin/piper --model /Users/jarkius/.claude/piper-voices/en_US-kristin-medium.onnx --length-scale 1.15 --output_file /tmp/oracle_speech.wav 2>/dev/null
     if [ -f /tmp/oracle_speech.wav ]; then
-        afplay /tmp/oracle_speech.wav
+        safe_play /tmp/oracle_speech.wav
         rm /tmp/oracle_speech.wav
     fi
     exit 0
@@ -187,7 +252,7 @@ if [ "$SPEAKER" = "Trinity" ]; then
     # Direct piper call for clarity (jenny voice)
     echo "$MESSAGE" | /Users/jarkius/.local/bin/piper --model /Users/jarkius/.claude/piper-voices/jenny.onnx --output_file /tmp/trinity_speech.wav 2>/dev/null
     if [ -f /tmp/trinity_speech.wav ]; then
-        afplay /tmp/trinity_speech.wav
+        safe_play /tmp/trinity_speech.wav
         rm /tmp/trinity_speech.wav
     fi
     exit 0
@@ -211,11 +276,11 @@ if [ -n "$VOICE_OVERRIDE" ]; then
 
     # Play TTS (Hybrid Provider Support)
     if [ "$PROVIDER_OVERRIDE" = "macos" ]; then
-        /usr/bin/say -v "$VOICE_OVERRIDE" "$MESSAGE"
+        safe_speak "$VOICE_OVERRIDE" "$MESSAGE"
     else
-        # Default to AgentVibes/Piper
-        bash "$PLAY_TTS" "$MESSAGE" "$VOICE_OVERRIDE"
+        # Default to AgentVibes/Piper (Queued via Generate-Then-Play)
+        safe_play_agentvibes "$MESSAGE" "$VOICE_OVERRIDE"
     fi
 else
-    bash "$PLAY_TTS" "$MESSAGE"
+    safe_play_agentvibes "$MESSAGE"
 fi

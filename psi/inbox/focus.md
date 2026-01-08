@@ -16,8 +16,9 @@
 - **Issue #6**: Voice Queue + HTTP API (planned, ready to implement)
 
 ## Next Session Priorities
-1. [ ] Implement Issue #6 Phase 1 (voice queue with `flock`)
-2. [ ] Consider Issue #4 (Multi-Agent Spawn)
+1. [x] Implement Issue #6 Phase 1 (voice queue with `flock`) - COMPLETE
+2. [ ] Implement Issue #6 Phase 2 (HTTP API)
+3. [ ] Consider Issue #4 (Multi-Agent Spawn)
 3. [ ] CIS Dashboard when ready
 
 ## Current Branch
