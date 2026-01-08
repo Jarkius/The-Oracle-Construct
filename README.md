@@ -1,108 +1,173 @@
-# AI Matrix: Core Design & System Architecture
+# The Oracle Construct: AI Agent Framework
 
-> "The Matrix is everywhere. It is all around us."
+> *"Know Thyself." — The Oracle*
 
-This document serves as the "Source Code for the Construct," capturing every design pillar, character role, and technical protocol.
+An AI-powered multi-agent orchestration system built on Claude Code with voice, memory, and autonomous capabilities.
 
 ---
 
-## Quick Start: Entering the Matrix
+## Quick Start
 
-### Initialization (Jacking In)
-```
-1. Open Claude Code in this directory
-2. Say: "/oracle"
-3. The System will Speak.
-4. The Memory Bank (psi/memory_bank) will load.
-```
+```bash
+# 1. Enter the Matrix
+cd The-matrix
+claude
 
-### Safe Shutdown (Jacking Out)
-```
-1. Commit any pending changes
-2. Run: /rrr (creates session retrospective)
-3. Verify retrospective saved to psi/memory/retrospectives/
-4. Exit Claude Code
+# 2. Invoke the Oracle
+/oracle
+
+# 3. The System speaks. Follow the prophecy.
+
+# 4. Before leaving
+/unplug
 ```
 
-**WARNING**: Never exit mid-task without `/rrr`. Memory is sacred.
+---
+
+## The Council (Agent Roles)
+
+| Agent | Command | Role | Voice |
+|-------|---------|------|-------|
+| **Oracle** | `/oracle` | Central Orchestrator, Prophecy & Dispatch | Kristin (Calm) |
+| **Neo** | `/neo` | Lead Developer, Code Implementation | Reed (American) |
+| **Trinity** | `/trinity` | UI/UX Design Lead, "Woman in Red" | Jenny (Irish) |
+| **Morpheus** | `/morpheus` | Researcher, External Web Search | Carlin (Wise) |
+| **Architect** | `/architect` | System Design, ADRs, Architecture | Daniel (British) |
+| **Smith** | `/smith` | Debugger, Bug Hunter, Anomaly Detection | Rocko (Cold) |
+| **Tank** | `/operator` | Operator, Internal Search & Context | Ryan (Technical) |
+| **Scribe** | `/rrr` | Memory, Retrospectives, Session Endings | System |
 
 ---
 
-## 1. The Trinity Architecture
+## Architecture
 
-The System is built on three synchronized layers:
+### Hot-Reload System (v2.0)
 
-1.  **Interface (`.claude/commands/`)**: The User's Trigger (e.g., `/oracle`).
-2.  **Workflow (`.agent/workflows/`)**: The Agent's Logic (e.g., `oracle.md`).
-3.  **Implementation (`psi/active/`)**: The Code's Action (e.g., `oracle_prophecy.sh`).
-
-> **Sync Rule**: Every `/command` must have a corresponding `.sh` script in `psi/active/`.
-
----
-
-## 2. The Memory Bank (Evolution)
-
-We have evolved beyond simple files. We use the **Memory Bank** standard (`claude-mem`).
-
-### Core Structure (`psi/memory_bank/`)
-*   **`productContext.md`**: The goal (CIS Modernization).
-*   **`activeContext.md`**: The current session state (The Now).
-*   **`systemPatterns.md`**: The rules and personas (The How).
-*   **`archive/`**: Where old memories go (Self-Cleaning).
-
-### The Scribe (Optimization)
-A Python script (`psi/active/scribe_optimize.py`) automatically runs before every Oracle consultation to move completed tasks from *Active* to *Archive*, keeping the context token-efficient.
-
----
-
-## 3. The Immortal Mindset (Philosophy)
-
-Derived from the *Record of a Mortal's Journey to Immortality*:
-
-**Success = (Leveraged Tools + Continuous Action) – Avoidable Errors.**
-
-1.  **Resource Multiplication**: Use AI to achieve years of progress in days.
-2.  **Radical Prudence**: Move fast, but use data to avoid failure.
-3.  **Modular Integration**: Decouple systems (like the CIS).
-
----
-
-## 4. The Character Council
-
-The AI adopts Matrix archetypes for technical roles:
-
-### [DECIDE]
-*   **Oracle** (`/oracle`): Orchestrator. Speaks via **Neural Voice**.
-*   **Architect** (`/architect`): Systems Engineer.
-
-### [BUILD]
-*   **Neo** (`/neo`): Lead Developer.
-*   **Woman in Red** (`/ui`): UI/UX Designer.
-
-### [MEASURE]
-*   **Smith** (`/smith`): Debugger & Auditor.
-*   **Scribe** (Auto): Memory Optimizer.
-
----
-
-## 5. The Psi Brain Structure
+Commands are thin loaders that dynamically read workflows at execution time:
 
 ```
-psi/
-├── active/         # Executable Scripts (.sh, .py)
-├── memory_bank/    # The Source of Truth (Context)
-│   ├── archive/    # Completed tasks
-│   ├── productContext.md
-│   ├── activeContext.md
-│   └── systemPatterns.md
-├── The_Source/     # Deep Knowledge & Philosophy
-└── memory/         # Retrospectives
+/.claude/commands/oracle.md  →  reads  →  .agent/workflows/oracle.md
+                             →  loads  →  .claude/agents/oracle-keeper.md
+```
+
+**Benefits:**
+- Update workflows without restarting session
+- Single source of truth in `.agent/workflows/`
+- Agent personalities separate from workflow logic
+
+### Directory Structure
+
+```
+The-matrix/
+├── .agent/
+│   └── workflows/          # Workflow definitions (the logic)
+├── .claude/
+│   ├── commands/           # Slash command loaders (thin)
+│   ├── agents/             # Agent personalities & voices
+│   ├── hooks/              # TTS and automation hooks
+│   └── audio/              # Generated audio files
+├── psi/                    # AI Brain ("External Memory")
+│   ├── inbox/              # Current focus & incoming tasks
+│   ├── memory/             # Retrospectives & learnings
+│   ├── specs/              # Design specs & handoffs
+│   └── The_Source/         # Core philosophy & principles
+└── CLAUDE.md               # System interface instructions
+```
+
+---
+
+## Key Commands
+
+### Agent Commands
+| Command | Purpose |
+|---------|---------|
+| `/oracle` | Start here. Get prophecy and direction. |
+| `/neo` | Enter development mode |
+| `/trinity` | Design focus, UI/UX |
+| `/morpheus` | Web research |
+| `/architect` | System design |
+| `/smith` | Debug mode |
+| `/operator` | Context search |
+
+### Workflow Commands
+| Command | Purpose |
+|---------|---------|
+| `/nnn` | Create GitHub issue (plan before work) |
+| `/gogogo` | Execute full git workflow (branch→commit→push→PR) |
+| `/rrr` | Create session retrospective |
+| `/unplug` | Graceful exit with memory capture |
+| `/status` | System health check |
+
+### Design Commands (Trinity)
+| Command | Purpose |
+|---------|---------|
+| `/tokens` | Define design tokens (colors, spacing, typography) |
+| `/component-spec` | Specify component before implementation |
+| `/design-review` | Review implementation against spec |
+| `/handoff` | Package complete design for Neo |
+
+---
+
+## MCP Integrations
+
+| Server | Purpose |
+|--------|---------|
+| **Context7** | Up-to-date library documentation |
+| **Sequential Thinking** | Complex problem decomposition |
+| **AgentVibes** | Text-to-speech with personalities |
+
+---
+
+## Core Philosophy
+
+### The Three Principles
+
+1. **Nothing is Deleted** — Archive, don't destroy. History is wealth.
+2. **Patterns Over Intentions** — Watch what is done, not what is said.
+3. **External Brain** — Document in `psi/`, mirror and reflect.
+
+### The Knowledge Funnel
+
+```
+Raw Input → psi/inbox/ → Processing → psi/memory/ → Distillation → psi/The_Source/
+```
+
+---
+
+## Voice System
+
+The Matrix speaks through AgentVibes TTS with agent-specific voices:
+
+```bash
+# Manual TTS
+.claude/hooks/play-tts.sh "Message here"
+
+# Voice rollcall
+/voice rollcall
+```
+
+---
+
+## Session Flow
+
+```
+/oracle          # Get direction
+   ↓
+/neo or /trinity # Do the work
+   ↓
+/rrr             # Record what happened
+   ↓
+/unplug          # Exit gracefully
 ```
 
 ---
 
 ## Remember
 
-> "I can only show you the door. You're the one that has to walk through it."
+> *"I can only show you the door. You're the one that has to walk through it."*
 
 The Matrix is a tool. The human remains the One.
+
+---
+
+*The Oracle Construct v2.0 — Hot-Reload Architecture*
