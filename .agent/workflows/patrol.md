@@ -48,6 +48,18 @@ ls .claude/audio/*.wav 2>/dev/null | wc -l
 | `retrospectives.md` | < 5KB | 5-10KB | > 10KB |
 | Audio cache | < 50 files | 50-100 | > 100 |
 | Monthly retrospectives | < 30 | 30-50 | > 50 |
+| Voice models | All present | 1-2 missing | > 2 missing |
+
+### Voice Configuration Check
+```bash
+# Verify voice source of truth
+.claude/hooks/verify-voices.sh
+```
+
+**Source of Truth**: `.claude/config/voices.json`
+- All agent voices defined here
+- Use `activate-agent.sh <name>` to switch agents
+- Never manually edit `tts-voice.txt` - always use activation script
 
 ### Deep Audit Actions
 
