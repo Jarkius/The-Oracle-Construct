@@ -1,39 +1,47 @@
-# Current Focus: Expansion Phase
+# Current Focus: Health Audit Complete
 
-**Status**: Autonomous Workflows Added ✅ | Philosophy Enriched ✅
-**Last Session**: January 8, 2026 @ 01:40 - Morpheus Deep Research
-**Handoff**: Active
+**Status**: Matrix Audit & Cleanup Complete
+**Last Session**: January 8, 2026 @ 15:50 - Oracle Health Audit
+**Handoff**: Ready for commit
 
 ## What Was Done (This Session)
-- **Morpheus Research**:
-  - Knowledge Base Starter patterns
-  - Autonomous Matrix MCP tools (Perplexity, Context7, Sequential Thinking, Memory)
-  - Oracle Philosophy wisdom (Three Principles, Knowledge Funnel)
-  - Ralph Wiggum plugin analysis
-  - Autonomous Coding Agent patterns (two-agent architecture)
 
-- **New Slash Commands Created**:
-  - `/unplug` - Graceful session exit
-  - `/distill` - Extract wisdom to The Source
-  - `/feature-list` - Autonomous feature tracking
-  - `/yolo` - Fast execution with feature loop
-  - `/ready` - Implementation readiness check
-  - `/adr`, `/tech-spec`, `/story`, `/review`, `/correct`, `/context-finder`
+### Matrix Health Audit
+- **Smith** (Anomaly Detection): Scanned for unused, redundant, orphaned files
+- **Tank** (Inventory): Complete asset inventory with sizes and dates
+- **Oracle**: Synthesized findings and executed cleanup
 
-- **Agent Evolution**:
-  - Morpheus: Tiered tool preferences (Perplexity > Context7 > WebSearch)
-  - Oracle: Enriched with Three Principles, Knowledge Funnel, Workshop Lessons
+### Cleanup Actions Completed
+1. Deleted malformed `.claude/personalities/.md` (empty filename)
+2. Cleaned audio cache (375MB → 50 files retained)
+3. Created 5 missing command loaders:
+   - `context-finder.md` (Tank)
+   - `correct.md` (Smith)
+   - `review.md` (Smith)
+   - `story.md` (Neo)
+   - `tech-spec.md` (Architect)
 
-- **Bug Fix**:
-  - Added YAML frontmatter to all new workflows for skill registration
+### Documentation Updated
+- `README.md` → v2.1 "Construction Manual" with full 31-command index
+- `psi/memory/retrospectives/2026-01/08/matrix_health_audit.md` → Audit snapshot
+
+### Audit Findings
+- **Verdict**: Lean in Purpose, Fat in Cache
+- **Storage**: 1GB total, 600MB was cache/models (now cleaned)
+- **Architecture**: 8 agents, 31 workflows, 39 hooks - all healthy
+- **Consistency**: Fixed - all workflows now have command loaders
+
+## Deferred Items
+- [ ] Archive `psi/lab/research/AgentVibes_Research/` (330MB) - user chose not to include
+- [ ] Consolidate 36 personalities → 8 core - not critical
+- [ ] Move Piper engine to `.agentvibes/` - works where it is
 
 ## Next Session Priorities
-1. [ ] Restart Claude Code to activate new slash commands
-2. [ ] Install Tier 1 MCPs (Perplexity, Context7, Sequential Thinking)
-3. [ ] Test `/unplug` and `/feature-list` commands
-4. [ ] Create Trinity skills from Design OS findings
+1. [ ] Commit this cleanup (use `/gogogo`)
+2. [ ] Test new command loaders: `/context-finder`, `/correct`, `/review`, `/story`, `/tech-spec`
+3. [ ] Consider archiving research directory if space needed
 
 ## Active Context
-- Projects live in `~/workspace/cis-*` (separate from Matrix)
-- New slash commands need Claude Code restart to register
-- Morpheus voice: en_US-carlin-high (Carlin)
+- Commit pending: `791f994` was last commit before this session
+- All new slash commands require Claude Code restart to register
+- Audio cache now auto-rotates (keeps last 50 files)
