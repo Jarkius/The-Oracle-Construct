@@ -47,10 +47,10 @@ Some agents have **alternate personas** - same identity, different focus.
 | Voice | Sound | Purpose |
 |-------|-------|---------|
 | **System** | `en_US-ryan-medium` + 🎵 Music | **The Matrix speaking** - session start, major announcements |
-| **Computer** | `en_US-ryan-medium` + 🎵 Music | **Robotic utility** - task status, command confirmations |
+| **Mainframe** | `en_US-ryan-medium` + 🎵 Music | **Robotic utility** - task status, command confirmations |
 | **Trump** | `en_US-trump-high` | Easter egg / humor |
 
-> **Note**: System and Computer share the same voice intentionally - both represent the machine layer. The distinction is semantic: **System** is the Matrix as entity, **Computer** is mechanical feedback.
+> **Note**: System and Mainframe share the same voice intentionally - both represent the machine layer. The distinction is semantic: **System** is the Matrix as entity, **Mainframe** is mechanical feedback.
 
 ---
 
