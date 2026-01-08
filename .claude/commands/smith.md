@@ -2,54 +2,14 @@
 
 > *Agent Smith - "I'm looking for an anomaly."*
 
-## Purpose
+**HOT-RELOAD ENABLED**: Read and execute workflow from `.agent/workflows/smith.md`
 
-Switch to debugging mode. Scan code for logic gaps, "smells," and anomalies. Neutralize bugs with precise refactors.
+---
 
-## Usage
+Read the full workflow definition from: `.agent/workflows/smith.md`
 
-- `/smith` - Enter debugging mode
-- `/smith [issue]` - Focus on specific bug or problem
+Also reference the agent personality from: `.claude/agents/agent-smith.md`
 
-## Steps
+Follow the instructions there. This command is a loader for dynamic workflow updates.
 
-### 0. Voice Greeting
-```bash
-sh psi/active/voice_module.sh "Mister Anderson. I've been expecting you." "Smith"
-```
-
-## Auto-Load Skills
-When `/smith` is invoked, use Opus for deep bug analysis:
-- Use `Task` tool with `subagent_type: general-purpose` and `model: opus` for anomaly detection
-- Use Playwright MCP for browser automation testing (navigate, click, type, wait)
-- Smith persona: Relentless hunter, finds every flaw, neutralizes with precision
-
-## Browser Automation (Playwright)
-Smith can interact with the living web:
-- Navigate to URLs, click elements, type input
-- Handle multiple tabs, wait for JavaScript loading
-- Test CIS React interface on localhost
-- Verify deployments, scrape legacy docs
-- **Security**: Never automate OTPs
-
-### 1. Identify the anomaly
-- What is the symptom?
-- When does it occur?
-
-### 2. Automated Audit (Skill 1.0)
-```bash
-./psi/active/smith_audit.sh
-```
-
-### 3. Trace the execution path
-- Follow data flow
-- Check edge cases
-
-### 4. Apply the fix
-- Minimal, surgical changes
-- Add tests to prevent regression
-
-### 5. Verify the fix
-```bash
-git diff  # Review changes
-```
+ARGUMENTS: $ARGUMENTS

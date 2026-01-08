@@ -2,32 +2,12 @@
 
 > *Trinity - "Everything Neo needs, nothing more."*
 
-Create complete design handoff package for implementation.
+**HOT-RELOAD ENABLED**: Read and execute workflow from `.agent/workflows/handoff.md`
 
-## Usage
+---
 
-```
-/handoff [feature]            # Create handoff for feature
-/handoff dashboard            # Example: Dashboard feature
-/handoff status               # Show pending handoffs
-```
+Read the full workflow definition from: `.agent/workflows/handoff.md`
 
-## Package Contents
-
-```
-psi/specs/handoffs/[feature]/
-├── README.md                 # Overview
-├── tokens.json               # Design tokens
-├── components/               # Component specs
-├── screens/                  # Layouts
-├── data/                     # Mock data
-└── acceptance.md             # Done criteria
-```
-
-## Philosophy
-
-> "A complete handoff means zero design questions."
-
-Neo should never ask "what should this look like?"
+Follow the instructions there. This command is a loader for dynamic workflow updates.
 
 ARGUMENTS: $ARGUMENTS

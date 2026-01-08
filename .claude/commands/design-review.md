@@ -2,34 +2,12 @@
 
 > *Trinity - "Does it match my vision?"*
 
-Review implementation against design spec - visual QA.
+**HOT-RELOAD ENABLED**: Read and execute workflow from `.agent/workflows/design-review.md`
 
-## Usage
+---
 
-```
-/design-review [component]     # Review specific component
-/design-review page [name]     # Review entire page
-/design-review pr [number]     # Review changes in PR
-```
+Read the full workflow definition from: `.agent/workflows/design-review.md`
 
-## Checklist
-
-- [ ] Token compliance (no hardcoded values)
-- [ ] Visual accuracy (matches spec)
-- [ ] State coverage (hover, active, disabled)
-- [ ] Responsive behavior
-- [ ] Accessibility
-
-## Severity Levels
-
-| Level | Action |
-|-------|--------|
-| Critical | Must fix before merge |
-| Major | Should fix before merge |
-| Minor | Can fix in follow-up |
-
-## Output
-
-`psi/specs/reviews/[component]_[date].md`
+Follow the instructions there. This command is a loader for dynamic workflow updates.
 
 ARGUMENTS: $ARGUMENTS

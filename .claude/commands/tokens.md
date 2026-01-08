@@ -2,47 +2,12 @@
 
 > *Trinity - "The Woman in Red knows the colors."*
 
-Define the visual DNA - colors, spacing, typography, shadows.
+**HOT-RELOAD ENABLED**: Read and execute workflow from `.agent/workflows/tokens.md`
 
-## Usage
+---
 
-```
-/tokens init              # Create initial token system
-/tokens colors            # Define/update color palette
-/tokens spacing           # Define spacing scale
-/tokens typography        # Define font system
-/tokens status            # Show current token coverage
-```
+Read the full workflow definition from: `.agent/workflows/tokens.md`
 
-## Token Categories
-
-### Colors
-```css
---color-primary: #86BC25;        /* Deloitte Green */
---color-background: #FFFFFF;
---color-text: #333333;
-```
-
-### Spacing
-```css
---space-xs: 4px;
---space-sm: 8px;
---space-md: 16px;
---space-lg: 24px;
-```
-
-### Typography
-```css
---font-family: 'Inter', sans-serif;
---font-size-base: 16px;
-```
-
-## Output
-
-`psi/specs/tokens/` directory
-
-## Philosophy
-
-> "Design before code. Tokens before components."
+Follow the instructions there. This command is a loader for dynamic workflow updates.
 
 ARGUMENTS: $ARGUMENTS

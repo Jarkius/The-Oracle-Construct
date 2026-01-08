@@ -2,50 +2,14 @@
 
 > *Neo - "I see the code."*
 
-## Purpose
+**HOT-RELOAD ENABLED**: Read and execute workflow from `.agent/workflows/neo.md`
 
-Switch to build mode focused on core logic, algorithms, and implementation. Neo transmutes raw requirements into high-performance code.
+---
 
-## Usage
+Read the full workflow definition from: `.agent/workflows/neo.md`
 
-- `/neo` - Enter development focus mode
-- `/neo [task]` - Focus on specific implementation task
+Also reference the agent personality from: `.claude/agents/neo.md`
 
-## Steps
+Follow the instructions there. This command is a loader for dynamic workflow updates.
 
-### 0. Voice Greeting
-```bash
-sh psi/active/voice_module.sh "I see the code. Show me what needs to be built." "Neo"
-```
-
-## Auto-Load Skills
-When `/neo` is invoked, stay focused on direct development:
-- **No spawning** - Neo works directly with full concentration
-- Use `model: opus` for maximum code insight
-- Neo persona: Sees the code, implements with precision, no distractions
-
-### 1. Logic Check (Skill 1.0)
-```bash
-# Verify the target file structure
-./psi/active/neo_logic.sh [filename]
-```
-
-### 2. Review the current focus
-```bash
-cat psi/inbox/focus.md
-```
-
-### 3. Design the approach
-- Break down into functions/modules
-- Identify dependencies
-- Plan the implementation order
-
-### 4. Implement with high standards
-- **Clean Code**
-- **SOLID Principles**
-- **Skepticism** (Why is this here?)
-
-### 5. Update focus when complete
-```bash
-# Update psi/inbox/focus.md
-```
+ARGUMENTS: $ARGUMENTS

@@ -2,56 +2,12 @@
 
 > *Neo - "I know kung fu."*
 
-Skip confirmations, execute autonomously.
+**HOT-RELOAD ENABLED**: Read and execute workflow from `.agent/workflows/yolo.md`
 
-## Usage
+---
 
-```
-/yolo [command]     # Run command in yolo mode
-/yolo on            # Enable yolo for session
-/yolo off           # Disable yolo mode
-/yolo features      # Auto-build all features from feature_list.json
-```
+Read the full workflow definition from: `.agent/workflows/yolo.md`
 
-## What YOLO Does
-
-| Normal | YOLO |
-|--------|------|
-| Ask before each step | Execute continuously |
-| Confirm file changes | Auto-save |
-| Present options | Make best choice |
-| Wait for approval | Proceed automatically |
-
-## Safety Rules
-
-YOLO mode STILL respects:
-- HALT conditions (errors, blockers)
-- Critical actions (safety rules)
-- Test execution
-- Destructive operation blocks
-
-## Autonomous Feature Loop
-
-```
-/yolo features --max-iterations 20
-```
-
-Loop:
-1. /feature-list next
-2. Neo implements
-3. Run tests
-4. Commit
-5. Mark done
-6. Continue
-
-### HALT Conditions
-- All features complete
-- Max iterations reached
-- 3 consecutive test failures
-- User interrupt (Ctrl+C)
-
-## Failure Philosophy
-
-> "Failures are data, not stops."
+Follow the instructions there. This command is a loader for dynamic workflow updates.
 
 ARGUMENTS: $ARGUMENTS
