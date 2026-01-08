@@ -1,42 +1,39 @@
-# Current Focus: Building Phase
+# Current Focus: Expansion Phase
 
-**Status**: Agents Evolved ✅ | BMAD Skills Loaded ✅
-**Last Session**: January 8, 2026 @ 00:15 - Matrix Evolution
+**Status**: Autonomous Workflows Added ✅ | Philosophy Enriched ✅
+**Last Session**: January 8, 2026 @ 01:40 - Morpheus Deep Research
 **Handoff**: Active
 
 ## What Was Done (This Session)
-- **Project Separation**:
-  - Moved `project/legacy` → `~/workspace/cis-legacy/` (keeps existing .git)
-  - Moved `project/modern` → `~/workspace/cis-modern/` (new repo initialized)
-  - Removed `project/` from The-matrix
-- **Clean Architecture**:
-  - The-matrix = AI Mind (agents, memory, workflows)
-  - cis-legacy = Old PHP Monolith (Port 8888)
-  - cis-modern = New Stack (Laravel API:8889, React:5173)
+- **Morpheus Research**:
+  - Knowledge Base Starter patterns
+  - Autonomous Matrix MCP tools (Perplexity, Context7, Sequential Thinking, Memory)
+  - Oracle Philosophy wisdom (Three Principles, Knowledge Funnel)
+  - Ralph Wiggum plugin analysis
+  - Autonomous Coding Agent patterns (two-agent architecture)
 
-## New Workspace Structure
-```
-~/workspace/
-├── The-matrix/          # AI Development Environment
-│   ├── .claude/         # Agents, hooks, config
-│   ├── .agent/          # Workflows
-│   └── psi/             # Memory
-│
-├── cis-legacy/          # Old PHP (own git repo)
-│
-└── cis-modern/          # New Stack (fresh git repo)
-    ├── api/             # Laravel 11 (Sail)
-    ├── web/             # React + Vite + Tailwind
-    └── tests/           # Playwright E2E
-```
+- **New Slash Commands Created**:
+  - `/unplug` - Graceful session exit
+  - `/distill` - Extract wisdom to The Source
+  - `/feature-list` - Autonomous feature tracking
+  - `/yolo` - Fast execution with feature loop
+  - `/ready` - Implementation readiness check
+  - `/adr`, `/tech-spec`, `/story`, `/review`, `/correct`, `/context-finder`
 
-## Immediate Priorities
-1. [x] Design OS ingested
-2. [x] App Shell complete (Phase 1)
-3. [ ] **Phase 2**: Core UI components (Button, Input, Card, etc.)
-4. [ ] **Stack Verification**: Test Laravel Sail + React integration
+- **Agent Evolution**:
+  - Morpheus: Tiered tool preferences (Perplexity > Context7 > WebSearch)
+  - Oracle: Enriched with Three Principles, Knowledge Funnel, Workshop Lessons
+
+- **Bug Fix**:
+  - Added YAML frontmatter to all new workflows for skill registration
+
+## Next Session Priorities
+1. [ ] Restart Claude Code to activate new slash commands
+2. [ ] Install Tier 1 MCPs (Perplexity, Context7, Sequential Thinking)
+3. [ ] Test `/unplug` and `/feature-list` commands
+4. [ ] Create Trinity skills from Design OS findings
 
 ## Active Context
-- The user is "The Operator" (Jarkius)
-- We are in "Building" mode
-- Projects now live outside The-matrix for clean separation
+- Projects live in `~/workspace/cis-*` (separate from Matrix)
+- New slash commands need Claude Code restart to register
+- Morpheus voice: en_US-carlin-high (Carlin)
