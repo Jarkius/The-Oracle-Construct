@@ -43,5 +43,9 @@
   "Computer": {
     "voice": "en_US-ryan-medium",
     "personality": "robotic"
+  },
+  "Scribe": {
+    "voice": "en_US-lessac-medium",
+    "personality": "robotic"
   }
 }
