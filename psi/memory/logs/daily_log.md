@@ -18,3 +18,19 @@
 ### Status
 - Voice System: 90% complete (Neo pending final selection)
 - Phase 2 Verification: Deferred to next session
+
+---
+## 2026-01-09 23:25 - Matrix Spawn System Complete
+
+**Session Snapshot**:
+- Built complete Matrix spawn/return/comm system
+- Agents now jack-in with Matrix sound + own voice
+- Agents jack-out with own voice only (no sound)
+- Communication channel: `psi/inbox/agent-comms/`
+- Created 4 GitHub issues (#8-#11) for architecture questions
+- Demo'd with real Task subagents (Neo, Smith, Trinity)
+
+**Key Insight**: Agent's voice IS the exit signal. No need for redundant sounds.
+
+**Files Created**: matrix-spawn.sh, matrix-return.sh, matrix-comm.sh, matrix-artifact.sh, matrix-dispatch.sh, subagent-primer.md, jack_in_matrix.wav
+

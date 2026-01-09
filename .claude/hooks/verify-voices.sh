@@ -6,7 +6,7 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 PROJECT_ROOT="${CLAUDE_PROJECT_DIR:-$(cd "$SCRIPT_DIR/.." && pwd)}"
 
 # Source of truth
-VOICES_JSON="$PROJECT_ROOT/config/voices.json"
+VOICES_JSON="$PROJECT_ROOT/.claude/config/voices.json"
 VOICE_FILE="$PROJECT_ROOT/tts-voice.txt"
 PERSONALITY_FILE="$PROJECT_ROOT/tts-personality.txt"
 
