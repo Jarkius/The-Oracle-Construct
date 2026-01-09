@@ -1,6 +1,7 @@
 #!/bin/bash
 # Voice of the Matrix (Evolved)
 # Uses AgentVibes for personality-infused architecture.
+# Restored from Oracle-Construct bcea289 + Architect bypass added
 
 # Hooks Path
 HOOKS_DIR=".claude/hooks"
@@ -16,93 +17,12 @@ if [ -z "$MESSAGE" ]; then
     exit 1
 fi
 
-# Function to acquire lock
-acquire_lock() {
-    local TIMEOUT=30 # Seconds to wait before forcing
-    local COUNT=0
-    while ! shlock -f "$LOCK_FILE" -p $$; do
-        sleep 0.1
-        COUNT=$((COUNT + 1))
-        # If waiting too long (3s), check if lock is stale mechanically or just force it?
-        # shlock -p checks for PID existence, so stale locks from crashed processes are handled.
-        # This timeout is just for blocked queue.
-        if [ "$COUNT" -ge "$((TIMEOUT * 10))" ]; then
-             # Break lock if stuck too long? Or just proceed?
-             # Let's just proceed to avoid hanging forever.
-             break
-        fi
-    done
-}
-
-# Function to release lock
-release_lock() {
-    rm -f "$LOCK_FILE"
-}
-
-# Function to play audio safely (Queued)
-safe_play() {
-    local AUDIO_FILE="$1"
-    local CMD="$2" # Optional command (defaults to afplay)
-    
-    if [ -z "$CMD" ]; then
-        if [ "$(uname)" = "Darwin" ]; then
-            CMD="afplay"
-        else
-            CMD="aplay"
-        fi
-    fi
-
-    # QUEUED EXECUTION
-    acquire_lock
-    if [ -n "$AUDIO_FILE" ] && [ -f "$AUDIO_FILE" ]; then
-         $CMD "$AUDIO_FILE"
-    fi
-    release_lock
-}
-
-# Function to speak text safely (Queued)
-safe_speak() {
-    local OPT_VOICE="$1"
-    local OPT_TEXT="$2"
-    
-    # QUEUED EXECUTION
-    acquire_lock
-    /usr/bin/say -v "$OPT_VOICE" "$OPT_TEXT"
-    release_lock
-}
-
-# Function to handle AgentVibes Generate-Then-Play
-safe_play_agentvibes() {
-    local MSG="$1"
-    local VOICE="$2"
-    
-    # 1. Generate (No Playback) - run in subshell to keep env clean
-    local OUTPUT
-    if [ -n "$VOICE" ]; then
-        OUTPUT=$(export AGENTVIBES_NO_PLAYBACK=true; bash "$PLAY_TTS" "$MSG" "$VOICE")
-    else
-        OUTPUT=$(export AGENTVIBES_NO_PLAYBACK=true; bash "$PLAY_TTS" "$MSG")
-    fi
-    
-    # 2. Parse filename (handle ANSI color codes if any, though AgentVibes usually clear)
-    # Extract path after "Saved to: "
-    local FILE=$(echo "$OUTPUT" | grep "Saved to:" | sed 's/.*Saved to: //')
-    
-    # 3. Play safely
-    if [ -n "$FILE" ] && [ -f "$FILE" ]; then
-        safe_play "$FILE"
-    else
-        # Fallback if generation failed or silent
-        echo "$OUTPUT" # Show error
-    fi
-}
-
 # Map Speaker to Personality & Voice (Portable Config)
 CONFIG_FILE=".claude/config/voices.json"
 
 if [ -f "$CONFIG_FILE" ]; then
     # Parse JSON using python3 for reliability
-    PARSED_DATA=$(python3 -c "import sys, json; 
+    PARSED_DATA=$(python3 -c "import sys, json;
 try:
     data = json.load(open('$CONFIG_FILE'))
     agent = data.get('$SPEAKER', data.get('System'))
@@ -126,9 +46,7 @@ if [ "$SPEAKER" = "Neo" ] && [ -n "$MACOS_FALLBACK" ] && [ "$(uname)" = "Darwin"
     echo "   $MESSAGE"
     echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
     echo ""
-    echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-    echo ""
-    safe_speak "$MACOS_FALLBACK" "$MESSAGE"
+    /usr/bin/say -v "$MACOS_FALLBACK" -r 180 "$MESSAGE"
     exit 0
 fi
 
@@ -159,13 +77,13 @@ if [ "$SPEAKER" = "Smith" ]; then
                 -filter_complex "[1:a]volume=0.40[bg];[0:a]adelay=1500|1500[v];[v][bg]amix=inputs=2:duration=longest[out]" \
                 -map "[out]" -t "$TOTAL_DUR" /tmp/smith_mixed.wav 2>/dev/null
             if [ -f /tmp/smith_mixed.wav ]; then
-                safe_play /tmp/smith_mixed.wav
+                afplay /tmp/smith_mixed.wav
                 rm /tmp/smith_mixed.wav
             else
-                safe_play /tmp/smith_speech.wav
+                afplay /tmp/smith_speech.wav
             fi
         else
-            safe_play /tmp/smith_speech.wav
+            afplay /tmp/smith_speech.wav
         fi
         rm -f /tmp/smith_speech.wav
     fi
@@ -194,13 +112,13 @@ if [ "$SPEAKER" = "Mainframe" ]; then
                 -filter_complex "[1:a]volume=0.50[bg];[0:a]adelay=1500|1500[v];[v][bg]amix=inputs=2:duration=longest[out]" \
                 -map "[out]" -t "$TOTAL_DUR" /tmp/mainframe_mixed.wav 2>/dev/null
             if [ -f /tmp/mainframe_mixed.wav ]; then
-                safe_play /tmp/mainframe_mixed.wav
+                afplay /tmp/mainframe_mixed.wav
                 rm /tmp/mainframe_mixed.wav
             else
-                safe_play /tmp/mainframe_speech.wav
+                afplay /tmp/mainframe_speech.wav
             fi
         else
-            safe_play /tmp/mainframe_speech.wav
+            afplay /tmp/mainframe_speech.wav
         fi
         rm -f /tmp/mainframe_speech.wav
     fi
@@ -229,13 +147,13 @@ if [ "$SPEAKER" = "Tank" ]; then
                 -filter_complex "[1:a]volume=0.40[bg];[0:a][bg]amix=inputs=2:duration=first[out]" \
                 -map "[out]" -t "$DURATION" /tmp/tank_mixed.wav 2>/dev/null
             if [ -f /tmp/tank_mixed.wav ]; then
-                safe_play /tmp/tank_mixed.wav
+                afplay /tmp/tank_mixed.wav
                 rm /tmp/tank_mixed.wav
             else
-                safe_play /tmp/tank_speech.wav
+                afplay /tmp/tank_speech.wav
             fi
         else
-            safe_play /tmp/tank_speech.wav
+            afplay /tmp/tank_speech.wav
         fi
         rm -f /tmp/tank_speech.wav
     fi
@@ -253,7 +171,7 @@ if [ "$SPEAKER" = "Oracle" ]; then
     # Direct piper call - slow, calm delivery (length-scale 1.15 = 15% slower)
     echo "$MESSAGE" | /Users/jarkius/.local/bin/piper --model /Users/jarkius/.claude/piper-voices/en_US-kristin-medium.onnx --length-scale 1.15 --output_file /tmp/oracle_speech.wav 2>/dev/null
     if [ -f /tmp/oracle_speech.wav ]; then
-        safe_play /tmp/oracle_speech.wav
+        afplay /tmp/oracle_speech.wav
         rm /tmp/oracle_speech.wav
     fi
     exit 0
@@ -270,16 +188,48 @@ if [ "$SPEAKER" = "Trinity" ]; then
     # Direct piper call for clarity (jenny voice)
     echo "$MESSAGE" | /Users/jarkius/.local/bin/piper --model /Users/jarkius/.claude/piper-voices/jenny.onnx --output_file /tmp/trinity_speech.wav 2>/dev/null
     if [ -f /tmp/trinity_speech.wav ]; then
-        safe_play /tmp/trinity_speech.wav
+        afplay /tmp/trinity_speech.wav
         rm /tmp/trinity_speech.wav
     fi
     exit 0
 fi
 
-# 1. Set Personality
-bash "$PERSONALITY_MGR" set "$PERSONALITY" > /dev/null 2>&1
+# SPECIAL BYPASS FOR SYSTEM (Direct Pipeline - Matrix core, SYNCHRONOUS for startup sequence)
+if [ "$SPEAKER" = "System" ]; then
+    echo ""
+    echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    echo "🗣️  System:"
+    echo "   $MESSAGE"
+    echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    echo ""
+    # Direct piper call - hfc_male voice, SYNCHRONOUS (no &) for proper greeting sequence
+    echo "$MESSAGE" | /Users/jarkius/.local/bin/piper --model /Users/jarkius/.claude/piper-voices/en_US-hfc_male-medium.onnx --output_file /tmp/system_speech.wav 2>/dev/null
+    if [ -f /tmp/system_speech.wav ]; then
+        afplay /tmp/system_speech.wav  # BLOCKING - ensures Matrix speaks before Oracle
+        rm /tmp/system_speech.wav
+    fi
+    exit 0
+fi
 
-# 2. ALWAYS echo text to terminal (text + voice communication)
+# SPECIAL BYPASS FOR ARCHITECT (Direct Pipeline - British, Formal, Commanding)
+if [ "$SPEAKER" = "Architect" ]; then
+    echo ""
+    echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    echo "🗣️  Architect:"
+    echo "   $MESSAGE"
+    echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    echo ""
+    # Direct piper call - British Alan voice, formal delivery
+    echo "$MESSAGE" | /Users/jarkius/.local/bin/piper --model /Users/jarkius/.claude/piper-voices/en_GB-alan-medium.onnx --output_file /tmp/architect_speech.wav 2>/dev/null
+    if [ -f /tmp/architect_speech.wav ]; then
+        afplay /tmp/architect_speech.wav
+        rm /tmp/architect_speech.wav
+    fi
+    exit 0
+fi
+
+# GENERIC FALLBACK (for System, Scribe, Morpheus, etc.)
+# 1. ALWAYS echo text to terminal (text + voice communication)
 echo ""
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo "🗣️  $SPEAKER:"
@@ -287,18 +237,18 @@ echo "   $MESSAGE"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo ""
 
-# 3. Speak with voice
+# 2. Speak with voice (no personality reset - that caused voice chaos)
 if [ -n "$VOICE_OVERRIDE" ]; then
     # Export Agent Name for audio-processor context
     export AGENTVIBES_AGENT_NAME="$SPEAKER"
 
     # Play TTS (Hybrid Provider Support)
     if [ "$PROVIDER_OVERRIDE" = "macos" ]; then
-        safe_speak "$VOICE_OVERRIDE" "$MESSAGE"
+        /usr/bin/say -v "$VOICE_OVERRIDE" "$MESSAGE"
     else
-        # Default to AgentVibes/Piper (Queued via Generate-Then-Play)
-        safe_play_agentvibes "$MESSAGE" "$VOICE_OVERRIDE"
+        # Default to AgentVibes/Piper
+        bash "$PLAY_TTS" "$MESSAGE" "$VOICE_OVERRIDE"
     fi
 else
-    safe_play_agentvibes "$MESSAGE"
+    bash "$PLAY_TTS" "$MESSAGE"
 fi
