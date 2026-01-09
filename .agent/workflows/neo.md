@@ -36,7 +36,7 @@ When `/neo` is invoked, stay focused on direct development:
 
 ### 2. Review the current focus
 ```bash
-cat psi/inbox/focus.md
+./psi/active/get_focus.sh
 ```
 
 ### 3. Design the approach
@@ -49,7 +49,7 @@ cat psi/inbox/focus.md
 - **SOLID Principles**
 - **Skepticism** (Why is this here?)
 
-### 5. Update focus when complete
+### 5. Update when complete
 ```bash
-# Update psi/inbox/focus.md
+# Commit work and run /rrr for retrospective
 ```

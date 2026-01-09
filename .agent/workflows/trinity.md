@@ -62,7 +62,7 @@ Task(subagent_type: Explore, model: haiku) x N in parallel
 
 5. Update focus when ready:
 ```bash
-# Update psi/inbox/focus.md with UI task
+# Commit work and run /rrr for retrospective -- no manual focus update needed
 ```
 
 6. Implement improvements:

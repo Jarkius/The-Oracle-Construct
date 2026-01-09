@@ -38,20 +38,9 @@ Graceful shutdown sequence. Ensures nothing is lost before the Operator leaves t
   </check>
 </step>
 
-<step n="3" goal="Update Focus for Next Session">
-  <action>Read current: `psi/inbox/focus.md`</action>
-  <action>Update with:</action>
-
-  ```markdown
-  **Last Session**: [date] @ [time] - [brief summary]
-  **Handoff**: Active
-
-  ## Next Session Priorities
-  - [ ] [What to do next]
-  - [ ] [Pending items]
-  ```
-
-  <action>Save updated focus.md</action>
+<step n="3" goal="Consolidate focus in Retrospective">
+  <action>Read current: `./psi/active/get_focus.sh`</action>
+  <action>Ensure "Next Session Priorities" are included in the retrospective</action>
 </step>
 
 <step n="4" goal="Auto-Capture Retrospective">
@@ -88,8 +77,8 @@ Graceful shutdown sequence. Ensures nothing is lost before the Operator leaves t
   - [Priority items]
 
   **Uncommitted**: [status]
-  **Retrospective**: [saved/skipped]
-  **Focus Updated**: ✅
+  **Retrospective**: [saved]
+  **Focus Saved**: ✅ (in retrospective)
   ```
 </step>
 
@@ -113,7 +102,7 @@ Graceful shutdown sequence. Ensures nothing is lost before the Operator leaves t
 ## Quick Mode (/unplug quick)
 
 Skip confirmations:
-- Auto-update focus.md
+- Auto-run retrospective
 - Skip retrospective prompt
 - Display brief summary
 - Exit immediately

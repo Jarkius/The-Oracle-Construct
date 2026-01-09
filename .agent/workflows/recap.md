@@ -23,14 +23,14 @@ Bridge between sessions. Quickly restore context and identify the next action. F
 
 2. **Gather Context** (run in parallel):
    ```bash
-   cat psi/inbox/focus.md
+   ./psi/active/get_focus.sh
    git log --oneline -3
    git status --short
    ```
 
 3. **Synthesize Recap** (3-5 bullets maximum):
 
-   Extract from focus.md:
+   Extract from latest retrospective:
    - **Last Session**: Date + what was accomplished
    - **Current Focus**: The active task or issue
    - **Open Items**: Any blockers or pending work
@@ -45,7 +45,7 @@ Bridge between sessions. Quickly restore context and identify the next action. F
    ## Session Recap - [Date]
 
    **Last Session**: [date] - [summary of what was done]
-   **Focus**: [current task/issue from focus.md]
+   **Focus**: [current task/issue from retrospective]
    **State**: [Clean | X uncommitted changes]
 
    **Recent Commits**:
@@ -53,7 +53,7 @@ Bridge between sessions. Quickly restore context and identify the next action. F
    - [commit 2]
    - [commit 3]
 
-   **Next Step**: [clear actionable item from focus.md priorities]
+   **Next Step**: [clear actionable item from retrospective priorities]
    ```
 
 5. **Voice Summary**:
@@ -75,7 +75,7 @@ Bridge between sessions. Quickly restore context and identify the next action. F
 - 73b82ca feat: Implement Voice Queue (Phase 1) and Dynamic Greetings
 - f30c640 chore(session): unplug - voice planning, Han Li, Issue #6
 
-**Next Step**: Update focus.md with new priorities
+**Next Step**: Implement Matrix spawn communication
 ```
 
 ## Comparison

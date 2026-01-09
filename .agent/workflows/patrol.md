@@ -25,9 +25,7 @@ description: Smith's patrol - monitor and clean context bloat
 echo "=== Knowledge Files ==="
 du -sh .claude/knowledge/*
 
-# 2. Check focus.md size
-echo "=== Focus Size ==="
-wc -c psi/inbox/focus.md
+
 
 # 3. Check retrospective count this month
 echo "=== This Month's Retrospectives ==="
@@ -44,7 +42,7 @@ ls .claude/audio/*.wav 2>/dev/null | wc -l
 |--------|---------|---------|----------|
 | `CLAUDE.md` | < 3KB | 3-5KB | > 5KB |
 | `.claude/knowledge/*` total | < 20KB | 20-40KB | > 40KB |
-| `focus.md` | < 2KB | 2-4KB | > 4KB |
+
 | `retrospectives.md` | < 5KB | 5-10KB | > 10KB |
 | Audio cache | < 50 files | 50-100 | > 100 |
 | Monthly retrospectives | < 30 | 30-50 | > 50 |
@@ -81,12 +79,7 @@ ls .claude/audio/*.wav 2>/dev/null | wc -l
    - Files not referenced in workflows → Flag for archive
    - Duplicate patterns → Consolidate
 
-4. **Focus.md Reset**
-   - If > 4KB, archive current and create fresh
-   ```bash
-   mv psi/inbox/focus.md psi/memory/archive/focus_$(date +%Y%m%d).md
-   echo "# Current Focus\n\n**Status**: Fresh start\n**Date**: $(date)" > psi/inbox/focus.md
-   ```
+   - (No action needed - focus.md is now generated dynamically)
 
 ## Automated Patrol Schedule
 
@@ -105,7 +98,7 @@ Date: 2026-01-08
 KNOWLEDGE (token cost per session):
   ✓ CLAUDE.md: 2.1KB (healthy)
   ✓ knowledge/*: 17.2KB (healthy)
-  ⚠ focus.md: 3.8KB (warning - consider trimming)
+
 
 CACHE (disk, not tokens):
   ✓ Audio: 50 files (healthy)
@@ -116,7 +109,7 @@ MEMORY (archival):
   ⚠ Pending archive: 2025-12/* (45 files)
 
 ACTIONS RECOMMENDED:
-  1. Trim focus.md (remove completed items)
+
   2. Archive December retrospectives
 
 === END PATROL ===

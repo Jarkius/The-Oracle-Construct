@@ -29,7 +29,7 @@ When `/oracle` is invoked, stay focused on wisdom:
    sh psi/active/voice_module.sh "I am the Oracle. Let me see..." "Oracle"
    
    # Check where we are and what we've done
-   cat psi/inbox/focus.md
+   ./psi/active/get_focus.sh
    git log --oneline -5
    git status --short
    ```
@@ -38,7 +38,7 @@ When `/oracle` is invoked, stay focused on wisdom:
    - **Condition**: Are there uncommitted changes?
      - *Yes* -> **Stabilize**. (Go to `/status` or `/rrr`)
    - **Condition**: Is the focus clear?
-     - *No* -> **Clarify**. (Update `focus.md`)
+     - *No* -> **Clarify**. (Create retrospective with `/rrr`)
    - **Condition**: Is there a bug or error?
      - *Yes* -> **Repair**. (Go to `/smith`)
    - **Condition**: Are we starting a new feature?
@@ -72,7 +72,7 @@ When `/oracle` is invoked, stay focused on wisdom:
 
 1. Review Memory: `ls -t psi/memory/learnings/ | head -3`
 2. Identify 3 Patterns: What keeps happening?
-3. Update `psi/inbox/focus.md` with new wisdom.
+3. Create new retrospective with insights.
 
 5. **The Voice of Truth** (The Mouth):
    Speak the core of the prophecy to the user.

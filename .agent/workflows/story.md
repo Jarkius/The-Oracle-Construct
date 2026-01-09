@@ -23,7 +23,7 @@ description: Create developer-ready user stories with acceptance criteria
   <action>If not specified → Ask: "What feature should I create a story for?"</action>
   <action>Check existing specs:</action>
   - `psi/specs/*.md` for design specs
-  - `psi/inbox/focus.md` for current priorities
+  - `./psi/active/get_focus.sh` for current priorities
 </step>
 
 <step n="2" goal="Generate Story Structure">
@@ -77,7 +77,7 @@ description: Create developer-ready user stories with acceptance criteria
 
 <step n="4" goal="Save Story">
   <action>Save to `psi/specs/stories/[feature-name].md`</action>
-  <action>Update focus.md if this is current priority</action>
+  <action>Log to `psi/inbox/backlog.md` (if exists)</action>
   <action>Report: "Story ready for implementation."</action>
 </step>
 

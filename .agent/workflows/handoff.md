@@ -138,7 +138,7 @@ Reference these from `psi/specs/tokens/`:
   <action>Check existing specs:</action>
   ```bash
   ls psi/specs/
-  cat psi/inbox/focus.md
+  ./psi/active/get_focus.sh
   ```
 </step>
 

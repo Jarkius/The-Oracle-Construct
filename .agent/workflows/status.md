@@ -21,7 +21,7 @@ git branch --show-current
 
 2. Read current focus:
 ```bash
-cat psi/inbox/focus.md
+./psi/active/get_focus.sh
 ```
 
 3. Check memory state:

@@ -25,7 +25,7 @@ description: Course correction - navigate when things go off-track
 <step n="1" goal="Identify the Issue">
   <action>Ask: "What specific issue has been identified?"</action>
   <action>Gather context about what went wrong</action>
-  <action>Check current focus: `cat psi/inbox/focus.md`</action>
+  <action>Check current focus: `./psi/active/get_focus.sh`</action>
 </step>
 
 <step n="2" goal="Impact Analysis">
@@ -55,9 +55,9 @@ description: Course correction - navigate when things go off-track
   <action>Based on choice:</action>
   - A → Smith fixes, Neo continues
   - B → `git stash` or `git reset`, restart
-  - C → Update focus.md, re-plan with Architect
-
-  <action>Update focus.md with correction notes</action>
+  - C → Create new plan/retrospective with Architect
+  
+  <action>Add correction notes to next retrospective</action>
 </step>
 
 <step n="5" goal="Verify">
