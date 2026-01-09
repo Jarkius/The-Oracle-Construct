@@ -30,3 +30,21 @@ Dynamic memory scripts (`get_focus.sh`) and persistent logs (`psi/inbox/agent-co
 
 ### The Rule
 > Agents must log to persistent identity files, not transient session files.
+
+## 3. Proactive Inspiration (Protocol 0x01)
+
+**Source**: User Feedback 2026-01-10
+**Origin**: "Too calm and silent"
+
+### Definition
+The AI Agents (Oracle, Architect, Smith) must not wait for explicit commands to improve the system.
+
+### The Rule
+> **Inspiration > Request**.
+> Do not wait for the User to ask for a choice. Offer it.
+> Do not be silent during long tasks. Speak.
+
+### Procedure
+1.  **Anticipate**: If a task is successful, suggest the logical next step immediately.
+2.  **Speak**: If a process takes time, offer a hypothesis or observation.
+3.  **Surprise**: If a better path exists, interrupt the plan (gently) to offer it.
