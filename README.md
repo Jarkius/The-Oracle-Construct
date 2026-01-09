@@ -24,7 +24,7 @@ claude
 
 ---
 
-## The Council (8 Agents)
+## The Council (9 Agents)
 
 | Agent | Command | Role | Voice | Personality |
 |-------|---------|------|-------|-------------|
@@ -34,218 +34,60 @@ claude
 | **Morpheus** | `/morpheus` | External Research | Carlin | Wise, Thorough |
 | **Architect** | `/architect` | System Design | Daniel | Analytical, Structured |
 | **Smith** | `/smith` | Bug Hunter | Rocko | Cold, Precise |
-| **Tank** | `/operator` | Internal Intel | Ryan | Technical, Fast |
-| **Scribe** | `/rrr` | Memory Keeper | System | Documentary |
+| **Tank** | `/tank` | Operator / Locator | Bryce | Technical, Fast |
+| **Scribe** | `/scribe` | Knowledge Keeper | Lessac | Documentary, Evolving |
+| **System** | N/A | Core OS | Ryan | Helpful, Neutral |
 
 ---
 
-## Complete Command Reference (31 Commands)
+## Complete Command Reference (33 Commands)
 
 ### Agent Commands
 | Command | Agent | Purpose |
 |---------|-------|---------|
-| `/oracle` | Oracle | Start here. Analyze state, receive prophecy, get direction |
-| `/neo` | Neo | Enter development mode, write code |
-| `/trinity` | Trinity | Design focus, UI/UX patterns |
-| `/morpheus` | Morpheus | External web research, documentation lookup |
-| `/architect` | Architect | System design, architecture decisions |
-| `/smith` | Smith | Bug hunting, debugging, anomaly detection |
-| `/operator` | Tank | Internal codebase search, context gathering |
+| `/oracle` | Oracle | Start here. Analyze state, receive prophecy |
+| `/neo` | Neo | Coding and Implementation |
+| `/trinity` | Trinity | UI/UX Design |
+| `/morpheus` | Morpheus | External Web Research |
+| `/architect` | Architect | System Design and Review |
+| `/smith` | Smith | Debugging and Repair |
+| `/tank` | Tank | **Locate files** and structure (The Operator) |
+| `/scribe` | Scribe | **Crystallize usage** into Knowledge (The Historian) |
 
 ### Workflow Commands
 | Command | Purpose |
 |---------|---------|
-| `/nnn` | Create GitHub issue (plan before work) |
-| `/gogogo` | Execute full git workflow (branch→commit→push→PR) |
-| `/rrr` | Create session retrospective |
-| `/unplug` | Graceful exit with memory capture |
+| `/recap` | **Start**: Wake up and restore context |
+| `/rrr` | **End**: Dream and record wisdom |
+| `/unplug` | Exit gracefully |
 | `/status` | System health check |
-| `/fix` | Quick bug fix mode |
-| `/yolo` | Fast execution with feature loop |
+| `/gogogo` | Git workflow |
 
-### Architecture Commands
-| Command | Agent | Purpose |
-|---------|-------|---------|
-| `/adr` | Architect | Create Architecture Decision Record |
-| `/tech-spec` | Architect | Generate technical specification |
-| `/ready` | Architect | Implementation readiness check |
-
-### Design Commands (Trinity)
-| Command | Purpose |
-|---------|---------|
-| `/tokens` | Define design tokens (colors, spacing, typography) |
-| `/component-spec` | Specify component before implementation |
-| `/design-review` | Review implementation against spec |
-| `/handoff` | Package complete design for Neo |
-
-### Knowledge Commands
-| Command | Purpose |
-|---------|---------|
-| `/distill` | Extract wisdom to The Source |
-| `/snapshot` | Quick knowledge capture |
-| `/feature-list` | Autonomous feature progress tracking |
-
-### Debugging Commands
-| Command | Agent | Purpose |
-|---------|-------|---------|
-| `/cause` | Smith | Root cause analysis |
-| `/correct` | Smith | Course correction navigation |
-| `/review` | Smith | Adversarial code review |
-
-### Context Commands
-| Command | Agent | Purpose |
-|---------|-------|---------|
-| `/context-finder` | Tank | Search git history & retrospectives |
-| `/access` | Tank | Path finding in codebase |
-| `/story` | Neo | Create dev-ready user story |
-
-### Voice Command
-| Command | Purpose |
-|---------|---------|
-| `/voice` | Voice module control and rollcall |
+### Active Protocols
+- **0xD5 (Lab Seal)**: "No code from `psi/lab/` without Operator Approval."
+- **Evolution**: "Recap to Wake, Work to Grow, RRR to Dream."
 
 ---
 
-## Architecture
-
-### Hot-Reload System (v2.0)
-
-Commands are thin loaders that dynamically read workflows at execution time:
-
-```
-.claude/commands/oracle.md  →  reads  →  .agent/workflows/oracle.md
-                            →  loads  →  .claude/agents/oracle-keeper.md
-```
-
-**Benefits:**
-- Update workflows without restarting session
-- Single source of truth in `.agent/workflows/`
-- Agent personalities separate from workflow logic
-
-### Directory Structure
+## Directory Structure (Evolution v2.2)
 
 ```
 The-matrix/
-├── .agent/
-│   └── workflows/          # 31 workflow definitions (the logic)
-├── .claude/
-│   ├── commands/           # 30 slash command loaders (thin)
-│   ├── agents/             # 8 agent personalities & voices
-│   ├── knowledge/          # 7 knowledge base files
-│   ├── personalities/      # 36 TTS voice personalities
-│   ├── hooks/              # 39 TTS and automation hooks
-│   ├── config/             # Configuration state
-│   └── audio/              # Generated audio files (cached)
-├── psi/                    # AI Brain ("External Memory")
-│   ├── inbox/              # Current focus & incoming tasks
-│   ├── active/             # Active scripts & TTS engine
-│   ├── memory/             # Retrospectives, learnings, plans
-│   ├── specs/              # Design specs & handoffs
-│   └── The_Source/         # Core philosophy & principles
-└── CLAUDE.md               # System interface instructions
+├── .agent/workflows/   # The Logic (Agile Workflows)
+├── psi/
+│   ├── knowledge/      # The Truth (Scribe's domain)
+│   ├── memory/         # The History (Retrospectives)
+│   ├── inbox/          # The Stream (Morpheus Research)
+│   └── lab/            # The Sealed Zone (Experiments)
+└── .claude/            # The Body (Config/Audio)
 ```
-
-### File Counts (as of 2026-01-08)
-
-| Directory | Files | Purpose |
-|-----------|-------|---------|
-| `.agent/workflows/` | 31 | Command logic |
-| `.claude/commands/` | 30 | Thin loaders |
-| `.claude/agents/` | 8 | Agent definitions |
-| `.claude/knowledge/` | 7 | Persistent knowledge |
-| `.claude/hooks/` | 39 | Automation scripts |
-| `psi/memory/` | 79 | Session memory |
-
----
-
-## MCP Integrations
-
-| Server | Purpose |
-|--------|---------|
-| **AgentVibes** | Text-to-speech with agent personalities |
-| **Context7** | Up-to-date library documentation |
-| **Sequential Thinking** | Complex problem decomposition |
-| **Greptile** | Code review and PR analysis |
-
----
-
-## Core Philosophy
-
-### The Three Principles
-
-1. **Nothing is Deleted** — Archive, don't destroy. History is wealth.
-2. **Patterns Over Intentions** — Watch what is done, not what is said.
-3. **External Brain** — Document in `psi/`, mirror and reflect.
-
-### The Knowledge Funnel
-
-```
-Raw Input → psi/inbox/ → Processing → psi/memory/ → Distillation → psi/The_Source/
-```
-
----
-
-## Voice System
-
-The Matrix speaks through AgentVibes TTS with agent-specific voices:
-
-```bash
-# Manual TTS
-.claude/hooks/play-tts.sh "Message here"
-
-# Voice rollcall
-/voice rollcall
-```
-
-### Verbosity Levels
-- **LOW**: Acknowledgments and completions only
-- **MEDIUM**: + Major decisions and findings
-- **HIGH**: Full reasoning and transparency
-
----
-
-## Session Flow
-
-```
-/oracle          # Get direction
-   ↓
-/neo or /trinity # Do the work
-   ↓
-/rrr             # Record what happened
-   ↓
-/unplug          # Exit gracefully
-```
-
-### Planning Flow
-```
-/nnn             # Create issue/plan
-   ↓
-/neo or /trinity # Implement
-   ↓
-/gogogo          # Branch, commit, push, PR
-```
-
----
 
 ## System Health
-
-Last audit: **2026-01-08** (commit `791f994`)
-
-| Metric | Status |
-|--------|--------|
-| Architecture | Healthy (8 agents, 31 workflows) |
-| Content | Lean (all files < 8 days old) |
-| Storage | Managed (audio cache rotated) |
-| Consistency | Fixed (all workflows have loaders) |
+Last audit: **2026-01-10** (The Evolution)
+- **Scribe**: Online (v2.0, Self-Evolving)
+- **Tank**: Online (Locator active)
+- **Protocol**: 0xD5 Enforced
 
 ---
 
-## Remember
-
-> *"I can only show you the door. You're the one that has to walk through it."*
-
-The Matrix is a tool. The human remains the One.
-
----
-
-*The Oracle Construct v2.1 — Health Audit Complete*
+*The Oracle Construct v2.2 — Evolution Complete*

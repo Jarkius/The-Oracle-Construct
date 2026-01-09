@@ -50,11 +50,35 @@ sh psi/active/voice_module.sh "Recording session memory. What happened today?" "
 
 3. Write retrospective using template
 
-4. Save with timestamp:
-   ```bash
-   TIME_DOT=$(date +"%H.%M")
-   # psi/memory/retrospectives/YYYY-MM/DD/HH.MM_slug.md
-   ```
+4. **Generate Output**:
+    ```markdown
+    # Session Retrospective
+
+    **Date**: $(date)
+    **Duration**: [Time]
+    **Focus**: [Task]
+
+    ## Summary
+    [Executive Summary]
+
+    ## What We Built
+    ### [Category]
+    - [Item]
+
+    ## AI Diary (Required - 100+ words)
+    [Reflection]
+
+    ## Lessons Learned
+    - **Pattern**: [Insight]
+
+    ## Timeline
+    | Time | Topic |
+    |------|-------|
+    | [Time] | [Event] |
+
+    ## Next Steps
+    - [ ] [Action]
+    ```
 
 
 
