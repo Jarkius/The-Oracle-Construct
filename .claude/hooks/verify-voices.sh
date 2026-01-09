@@ -3,7 +3,7 @@
 # Part of Smith's /patrol duties
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-PROJECT_ROOT="${CLAUDE_PROJECT_DIR:-$(cd "$SCRIPT_DIR/.." && pwd)}"
+PROJECT_ROOT="${CLAUDE_PROJECT_DIR:-$(cd "$SCRIPT_DIR/../.." && pwd)}"
 
 # Source of truth
 VOICES_JSON="$PROJECT_ROOT/.claude/config/voices.json"
