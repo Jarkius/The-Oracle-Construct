@@ -16,8 +16,28 @@ if [ -z "$MESSAGE" ]; then
     exit 1
 fi
 
-# Global Lock File
-LOCK_FILE="/var/tmp/matrix_voice.lock"
+# Function to acquire lock
+acquire_lock() {
+    local TIMEOUT=30 # Seconds to wait before forcing
+    local COUNT=0
+    while ! shlock -f "$LOCK_FILE" -p $$; do
+        sleep 0.1
+        COUNT=$((COUNT + 1))
+        # If waiting too long (3s), check if lock is stale mechanically or just force it?
+        # shlock -p checks for PID existence, so stale locks from crashed processes are handled.
+        # This timeout is just for blocked queue.
+        if [ "$COUNT" -ge "$((TIMEOUT * 10))" ]; then
+             # Break lock if stuck too long? Or just proceed?
+             # Let's just proceed to avoid hanging forever.
+             break
+        fi
+    done
+}
+
+# Function to release lock
+release_lock() {
+    rm -f "$LOCK_FILE"
+}
 
 # Function to play audio safely (Queued)
 safe_play() {
@@ -32,13 +52,12 @@ safe_play() {
         fi
     fi
 
-    # Wait for lock (queue)
-    (
-        flock -x 200
-        if [ -n "$AUDIO_FILE" ] && [ -f "$AUDIO_FILE" ]; then
-             $CMD "$AUDIO_FILE"
-        fi
-    ) 200>"$LOCK_FILE"
+    # QUEUED EXECUTION
+    acquire_lock
+    if [ -n "$AUDIO_FILE" ] && [ -f "$AUDIO_FILE" ]; then
+         $CMD "$AUDIO_FILE"
+    fi
+    release_lock
 }
 
 # Function to speak text safely (Queued)
@@ -46,11 +65,10 @@ safe_speak() {
     local OPT_VOICE="$1"
     local OPT_TEXT="$2"
     
-    # Wait for lock (queue)
-    (
-        flock -x 200
-        /usr/bin/say -v "$OPT_VOICE" "$OPT_TEXT"
-    ) 200>"$LOCK_FILE"
+    # QUEUED EXECUTION
+    acquire_lock
+    /usr/bin/say -v "$OPT_VOICE" "$OPT_TEXT"
+    release_lock
 }
 
 # Function to handle AgentVibes Generate-Then-Play

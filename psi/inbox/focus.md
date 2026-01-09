@@ -1,30 +1,29 @@
-# Current Focus: Voice Queue Planning Complete
+# Current Focus: Voice Queue Repair & Handoff
 
-**Status**: Issue #5 closed, Issue #6 planned
-**Last Session**: January 8, 2026 @ 21:56 - Voice greetings + Han Li + Issue #6 planning
+**Status**: Voice Queue Broken (shlock failed) ⚠️
+**Last Session**: January 8, 2026 @ 22:24 - Voice Queue Fix Attempt + Unplug
 **Handoff**: Active
 
 ## What Was Done (This Session)
-- **Issue #5**: Voice greetings implemented (farewell in /unplug)
-- **Issue #6**: Voice queue + HTTP API planned (6 phases)
-- **BIBLE**: Han Li System Synergy added
-- **Research**: oracle-voice-tray copied to lab
+- **Issue #5**: Verified Dynamic Greetings (System + Oracle) working.
+- **Issue #6**: Attempted `flock` -> `shlock` replacement for voice queue.
+    - `shlock` failed with `link` errors during verification.
+    - `session-start-tts.sh` modified to sequential calls (System plays, then Oracle).
+- **Unplug**: Prompted by user during fix.
 
 ## Open Issues
-- **Issue #4**: Multi-Agent Spawn Architecture (queued)
-- **Issue #5**: Voice Greetings ✅ (closed)
-- **Issue #6**: Voice Queue + HTTP API (planned, ready to implement)
+- **Issue #6**: Voice Queue Mechanism (Broken)
+    - Need to replace `shlock` with `mkdir` atomic lock pattern.
+    - Current `voice_module.sh` has `shlock` implementation which errors.
 
 ## Next Session Priorities
-1. [x] Implement Issue #6 Phase 1 (voice queue with `flock`) - COMPLETE
-2. [ ] Implement Issue #6 Phase 2 (HTTP API)
-3. [ ] Consider Issue #4 (Multi-Agent Spawn)
-3. [ ] CIS Dashboard when ready
+1. [ ] **Fix Voice Queue**: Replace `shlock` with `mkdir` in `voice_module.sh`.
+2. [ ] **Verify**: Ensure specific "System" -> "Oracle" playback order without errors.
+3. [ ] **Resume**: HTTP API planning.
 
 ## Current Branch
-`main` (up to date with origin)
+`main` (local changes uncommitted)
 
-## Key Files This Session
-- `psi/The_Source/BIBLE.md` — Han Li System Synergy added
-- `.agent/workflows/unplug.md` — farewell voice trigger added
-- `psi/lab/oracle-voice-tray/` — reference code for Issue #6
+## Key Files
+- `psi/active/voice_module.sh` (Needs repair)
+- `.claude/hooks/session-start-tts.sh` (Sequential logic verified)

@@ -102,7 +102,7 @@ EOF
 
 # System Acknowledgement (Queue Priority 1)
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
-bash "$PROJECT_ROOT/psi/active/voice_module.sh" "System online. Link established." "System" &
+bash "$PROJECT_ROOT/psi/active/voice_module.sh" "System online. Link established." "System"
 
 # Randomized Oracle Greetings (Queue Priority 2)
 ORACLE_GREETINGS=(
