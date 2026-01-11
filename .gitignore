@@ -17,3 +17,7 @@ psi/memory/archive/
 
 .claude/audio/*.wav
 .claude/audio/*.aiff
+
+# Agent and Voice Logs (generated, not tracked)
+psi/memory/logs/voice/*.log
+psi/memory/logs/agents/*.log

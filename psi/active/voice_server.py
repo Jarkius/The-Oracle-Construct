@@ -6,11 +6,34 @@ import time
 import os
 import queue
 import signal
+import sys
+from datetime import datetime
 
 # Configuration
 HOST = '127.0.0.1'
 PORT = 6969
 LOCK_FILE = '/tmp/matrix_voice_server.lock'
+
+# Logging Configuration
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+PROJECT_ROOT = os.path.dirname(os.path.dirname(SCRIPT_DIR))
+LOG_DIR = os.path.join(PROJECT_ROOT, 'psi', 'memory', 'logs', 'voice')
+LOG_FILE = os.path.join(LOG_DIR, 'voice_server.log')
+
+# Ensure log directory exists
+os.makedirs(LOG_DIR, exist_ok=True)
+
+def log(message):
+    """Log to both console and file with timestamp."""
+    timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    line = f"[{timestamp}] {message}"
+    print(line)
+    sys.stdout.flush()
+    try:
+        with open(LOG_FILE, 'a') as f:
+            f.write(line + '\n')
+    except Exception:
+        pass  # Don't crash on log failure
 
 # The Voice Queue
 # Stores tuples: (text, speaker, is_panic)
@@ -51,7 +74,7 @@ def process_queue():
     Worker thread that consumes the queue sequentially.
     """
     global current_process
-    print("✅ Voice Server: Queue Worker Started")
+    log("✅ Voice Server: Queue Worker Started")
     
     while True:
         try:
@@ -66,7 +89,7 @@ def process_queue():
                 # So this block is for standard messages.
                 pass
             
-            print(f"🎙️ Processing: {speaker} - {text[:20]}...")
+            log(f"🎙️ Processing: {speaker} - {text[:20]}...")
             
             # Execute the audio generation/playback
             # This must BLOCK until audio is done to maintain the queue
@@ -79,12 +102,12 @@ def process_queue():
             proc.wait()
             current_process = None
             
-            print(f"✅ Finished: {speaker}")
+            log(f"✅ Finished: {speaker}")
             
             voice_queue.task_done()
             
         except Exception as e:
-            print(f"❌ Error in worker: {e}")
+            log(f"❌ Error in worker: {e}")
 
 def handle_client(conn, addr):
     """
@@ -105,23 +128,23 @@ def handle_client(conn, addr):
             return
 
         if panic:
-            print(f"🚨 PANIC REQUEST: {speaker}")
+            log(f"🚨 PANIC REQUEST: {speaker}")
             # Launch immediately in a separate thread (Barge-In)
             # Do NOT check queue. Do NOT wait.
             cmd = get_voice_cmd(text, speaker)
             threading.Thread(target=subprocess.run, args=(cmd,)).start()
             conn.sendall(b"OK: Panic Triggered")
         else:
-            print(f"📥 Queued: {speaker}")
+            log(f"📥 Queued: {speaker}")
             # Standard Queue
             voice_queue.put((text, speaker, False))
             conn.sendall(b"OK: Queued")
 
     except json.JSONDecodeError:
-        print("❌ Invalid JSON received")
+        log("❌ Invalid JSON received")
         conn.sendall(b"Error: Invalid JSON")
     except Exception as e:
-        print(f"❌ Error handling client: {e}")
+        log(f"❌ Error handling client: {e}")
     finally:
         conn.close()
 
@@ -137,7 +160,7 @@ def start_server():
     try:
         server.bind((HOST, PORT))
         server.listen(20)
-        print(f"🚀 Matrix Voice Server listening on {HOST}:{PORT}")
+        log(f"🚀 Matrix Voice Server listening on {HOST}:{PORT}")
         
         # Start the Queue Worker
         threading.Thread(target=process_queue, daemon=True).start()
@@ -147,7 +170,7 @@ def start_server():
             threading.Thread(target=handle_client, args=(conn, addr)).start()
             
     except Exception as e:
-        print(f"❌ Server Crash: {e}")
+        log(f"❌ Server Crash: {e}")
     finally:
         server.close()
         if os.path.exists(LOCK_FILE):
