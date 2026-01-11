@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 #
-# File: .claude/hooks/session-start-tts.sh
+# File: .claude/hooks/matrix-session-start.sh
 #
 # Matrix Voice Protocol - SessionStart Hook
 # Uses the Matrix voice system exclusively
