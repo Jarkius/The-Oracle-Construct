@@ -2,48 +2,94 @@
 # ============================================================
 # voice.sh - Voice CLIENT (The Mouth)
 # ============================================================
-# Role: Sends voice requests to the queue server
-# Pair: voice_server.py (the queue daemon that plays audio)
 #
-# Usage: sh psi/matrix/voice.sh "Message" "AgentName"
+# PURPOSE:
+#   The voice system for the Matrix. Makes agents speak using
+#   Piper TTS with unique voices for each agent.
 #
-# Architecture:
-#   voice.sh (CLIENT) --> voice_server.py (SERVER) --> Piper TTS
+# ARCHITECTURE:
+#   ┌─────────────┐      ┌──────────────────┐      ┌───────────┐
+#   │  voice.sh   │ ──── │ voice_server.py  │ ──── │ Piper TTS │
+#   │  (CLIENT)   │ TCP  │ (QUEUE DAEMON)   │ call │  (AUDIO)  │
+#   └─────────────┘      └──────────────────┘      └───────────┘
+#
+# TWO MODES:
+#   1. CLIENT MODE (default):
+#      - Sends JSON request to voice_server.py via TCP
+#      - Server queues the request for orderly playback
+#      - Usage: sh voice.sh "Message" "AgentName"
+#
+#   2. WORKER MODE (--worker flag):
+#      - Called BY the server to actually generate/play audio
+#      - Runs Piper TTS and plays the WAV file
+#      - Usage: sh voice.sh "Message" "AgentName" --worker
+#
+# FLAGS:
+#   --panic / --now  : Bypass queue, play immediately (interrupts)
+#   --worker         : Server callback mode (generates audio)
+#
+# AGENT VOICES:
+#   Oracle    → kristin (warm, wise)
+#   Neo       → ryan-high (determined)
+#   Trinity   → jenny (strong)
+#   Morpheus  → carlin-high (deep, commanding)
+#   Smith     → danny-low + bass boost + Tron music
+#   Tank      → bryce + Matrix jump sound
+#   Architect → alan (British, precise)
+#   Mainframe → norman + Flamenco music
+#   System    → hfc_male (neutral)
+#   Scribe    → lessac (clear)
+#
+# DEPENDENCIES:
+#   - Piper TTS: ~/.local/bin/piper
+#   - Voice models: ~/.claude/piper-voices/*.onnx
+#   - afplay (macOS audio player)
+#   - ffmpeg (for audio mixing, optional)
+#   - sox (for bass boost, optional)
+#
 # ============================================================
 
-# Server Configuration
+# --- SERVER CONFIGURATION ---
+# The voice_server.py listens on this port
 SERVER_HOST="127.0.0.1"
 SERVER_PORT=6969
 
-# Hooks Path
+# --- PATHS ---
 HOOKS_DIR=".claude/hooks"
-PLAY_TTS="$HOOKS_DIR/play-tts.sh"
+PLAY_TTS="$HOOKS_DIR/play-tts.sh"        # Fallback TTS script
 PERSONALITY_MGR="$HOOKS_DIR/personality-manager.sh"
 
-# Arguments
-MESSAGE="$1"
-SPEAKER="${2:-System}"
-FLAG="$3"  # --panic, --now, or --worker
+# --- ARGUMENTS ---
+MESSAGE="$1"                    # The text to speak
+SPEAKER="${2:-System}"          # Agent name (default: System)
+FLAG="$3"                       # --panic, --now, or --worker
 
-# --- MODE SELECTION ---
+# ============================================================
+# MODE SELECTION
+# ============================================================
+# If --worker flag: We're being called BY the server to play audio
+# Otherwise: We're a CLIENT sending request TO the server
+
 if [ "$FLAG" == "--worker" ]; then
-    # WORKER MODE: Called by the Server.
-    # Proceed to audio generation.
+    # WORKER MODE: Called by voice_server.py
+    # Skip to audio generation below
     :
 else
-    # CLIENT MODE: Send to Python Server.
+    # CLIENT MODE: Send request to voice_server.py
+
+    # Check for panic/immediate mode
     IS_PANIC="false"
     if [[ "$FLAG" == "--panic" || "$FLAG" == "--now" ]]; then
         IS_PANIC="true"
     fi
 
-    # Escape message for JSON
+    # Escape quotes for JSON
     ESCAPED_MSG=$(echo "$MESSAGE" | sed 's/"/\\"/g')
-    
-    # JSON Payload
+
+    # Build JSON payload
     JSON_PAYLOAD="{\"text\": \"$ESCAPED_MSG\", \"speaker\": \"$SPEAKER\", \"panic\": $IS_PANIC}"
-    
-    # Send to Server
+
+    # Send to server via TCP socket
     python3 -c "
 import socket
 import sys
@@ -60,8 +106,13 @@ except Exception as e:
     exit $?
 fi
 
-# --- WORKER MODE LOGIC ---
+# ============================================================
+# WORKER MODE - AUDIO GENERATION
+# ============================================================
+# This section runs when called with --worker flag
+# It generates audio using Piper and plays it
 
+# Wrapper for audio playback
 safe_play() {
     "$@"
 }

@@ -2,18 +2,49 @@
 ============================================================
 voice_server.py - Voice SERVER (The Queue Daemon)
 ============================================================
-Role: Background daemon that queues and serializes voice playback
-Pair: voice.sh (the client that sends requests)
 
-Usage: python3 psi/matrix/voice_server.py &
+PURPOSE:
+  Background daemon that manages voice playback for the Matrix.
+  Ensures agents speak ONE AT A TIME (no overlapping voices).
 
-Architecture:
-  voice.sh (CLIENT) --> voice_server.py (SERVER) --> Piper TTS
+ARCHITECTURE:
+  ┌─────────────┐      ┌──────────────────┐      ┌───────────┐
+  │  voice.sh   │ ──── │ voice_server.py  │ ──── │ Piper TTS │
+  │  (CLIENT)   │ TCP  │ (THIS SERVER)    │ call │  (AUDIO)  │
+  └─────────────┘      └──────────────────┘      └───────────┘
 
-Features:
-  - Queue serialization (voices wait their turn)
-  - Panic mode (--panic bypasses queue)
-  - Agent voice mapping
+HOW IT WORKS:
+  1. Server listens on TCP port 6969
+  2. voice.sh sends JSON: {"text": "...", "speaker": "...", "panic": false}
+  3. Server adds request to queue
+  4. Worker thread processes queue sequentially
+  5. For each item: calls voice.sh --worker to generate/play audio
+  6. Next item plays only after current finishes
+
+QUEUE vs PANIC:
+  - QUEUE (default): Requests wait their turn, orderly playback
+  - PANIC (--panic): Bypasses queue, plays immediately in new thread
+    Use for urgent messages that can't wait
+
+THREADING MODEL:
+  - Main thread: Accepts TCP connections
+  - Worker thread: Processes queue sequentially (daemon thread)
+  - Panic threads: Spawned on-demand for immediate playback
+
+FILES:
+  - Lock file: /tmp/matrix_voice_server.lock (contains PID)
+  - Log file: psi/memory/logs/voice/voice_server.log
+
+USAGE:
+  Start:   python3 psi/matrix/voice_server.py &
+  Stop:    kill $(cat /tmp/matrix_voice_server.lock)
+  Check:   pgrep -f voice_server.py
+
+IMPORTANT:
+  - Must be running for voice.sh to work
+  - Auto-started by session-start hook
+  - Restart after code changes (server caches code)
+
 ============================================================
 """
 
@@ -28,12 +59,16 @@ import signal
 import sys
 from datetime import datetime
 
-# Configuration
-HOST = '127.0.0.1'
-PORT = 6969
-LOCK_FILE = '/tmp/matrix_voice_server.lock'
+# ============================================================
+# CONFIGURATION
+# ============================================================
+HOST = '127.0.0.1'          # Listen on localhost only
+PORT = 6969                  # TCP port for voice requests
+LOCK_FILE = '/tmp/matrix_voice_server.lock'  # PID file
 
-# Logging Configuration
+# ============================================================
+# LOGGING SETUP
+# ============================================================
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 PROJECT_ROOT = os.path.dirname(os.path.dirname(SCRIPT_DIR))
 LOG_DIR = os.path.join(PROJECT_ROOT, 'psi', 'memory', 'logs', 'voice')
@@ -43,7 +78,10 @@ LOG_FILE = os.path.join(LOG_DIR, 'voice_server.log')
 os.makedirs(LOG_DIR, exist_ok=True)
 
 def log(message):
-    """Log to both console and file with timestamp."""
+    """
+    Log to both console and file with timestamp.
+    Logs go to: psi/memory/logs/voice/voice_server.log
+    """
     timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     line = f"[{timestamp}] {message}"
     print(line)
@@ -54,37 +92,28 @@ def log(message):
     except Exception:
         pass  # Don't crash on log failure
 
-# The Voice Queue
-# Stores tuples: (text, speaker, is_panic)
+# ============================================================
+# THE VOICE QUEUE
+# ============================================================
+# This queue ensures voices play one at a time
+# Each item is a tuple: (text, speaker, is_panic)
 voice_queue = queue.Queue()
 
-# Current Playback Process (for Panic management if needed, though we prefer mixing for Panic)
+# Track current playback process (for potential interruption)
 current_process = None
 
 def get_voice_cmd(text, speaker):
     """
-    Constructs the command to generate and play audio.
-    This logic mimics the previous voice_module.sh logic.
-    For simplicity in this V1, we will call back to a helper script or use direct logic.
-    To avoid code duplication, we can reuse `voice_module.sh` in a 'legacy-standalone' mode 
-    OR (better) implement the generation logic here.
-    
-    Given the complexity of the bash script (voices.json parsing, special overrides for Smith/Tank),
-    the SAFEST path is to have the server call a "worker" script that does the generation/playback.
-    
-    Let's create `psi/active/voice_worker.sh` that takes inputs and plays them.
-    But `voice_module.sh` is already that script!
-    
-    Wait. If we call `voice_module.sh` from here, `voice_module.sh` currently has locking logic.
-    We need to STRIP locking from `voice_module.sh` or make it optional.
-    
-    Strategy:
-    1. Server calls `bash psi/active/voice_worker.sh "text" "speaker"`
-    2. `voice_worker.sh` contains the generation/playback logic (no locking).
+    Build command to generate and play audio.
+
+    Calls voice.sh with --worker flag, which:
+    1. Skips the client mode (no TCP send)
+    2. Goes directly to Piper TTS generation
+    3. Plays the audio file
+
+    The --worker flag is essential - without it, voice.sh would
+    try to send back to THIS server, causing infinite loop!
     """
-    # For now, let's assume we split voice_module.sh. 
-    # Or, we pass a flag to voice_module.sh to SKIP locking.
-    # Let's use "--worker" flag.
     cmd = ["bash", "./psi/matrix/voice.sh", text, speaker, "--worker"]
     return cmd
 
