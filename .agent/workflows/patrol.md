@@ -1,37 +1,52 @@
 ---
-description: Smith's patrol - monitor and clean context bloat
+description: Smith's patrol - detect anomalies in both directions (bloat AND gaps)
 ---
 
-# /patrol - Context Bloat Patrol
+# /patrol - Anomaly Detection Patrol
 
-> *Smith - "I detect anomalies. Bloat is an anomaly."*
+> *Smith - "I detect anomalies. Excess AND absence - both are chaos."*
 
 **Agent**: Smith (Bug Hunter)
-**Purpose**: Monitor and clean accumulated context to prevent token burnout
+**Purpose**: Detect anomalies in both directions - bloat (too much) AND gaps (too little/missing)
+
+## Philosophy
+
+Anomalies go both ways:
+- **Bloat**: Files too large, caches overflowing, entropy accumulating
+- **Gaps**: Missing bindings, orphaned workflows, broken references
+
+*"One side doesn't fit all."* - The Matrix must be balanced.
 
 ## Usage
 
 ```
-/patrol           # Quick health check
-/patrol deep      # Full audit with cleanup
-/patrol auto      # Automated cleanup (no confirmation)
+/patrol           # Full patrol - both bloat AND gaps
+/patrol bloat     # Original - excess detection only
+/patrol gaps      # New - absence/broken binding detection only
+/patrol deep      # Full audit with cleanup recommendations
 ```
 
 ## The Patrol Protocol
 
 ### Quick Check (Default)
+
+Runs BOTH bloat and gap detection.
+
+---
+
+## BLOAT DETECTION (Excess)
+
+### Bloat Checks
 ```bash
 # 1. Check knowledge file sizes
 echo "=== Knowledge Files ==="
 du -sh .claude/knowledge/*
 
-
-
-# 3. Check retrospective count this month
+# 2. Check retrospective count this month
 echo "=== This Month's Retrospectives ==="
 ls psi/memory/retrospectives/$(date +%Y-%m)/ 2>/dev/null | wc -l
 
-# 4. Check audio cache
+# 3. Check audio cache
 echo "=== Audio Cache ==="
 ls .claude/audio/*.wav 2>/dev/null | wc -l
 ```
@@ -58,6 +73,81 @@ ls .claude/audio/*.wav 2>/dev/null | wc -l
 - All agent voices defined here
 - Use `matrix-activate-agent.sh <name>` to switch agents
 - Never manually edit `tts-voice.txt` - always use activation script
+
+---
+
+## GAP DETECTION (Absence)
+
+### 1. Command ↔ Workflow Binding Check
+```bash
+# Find orphaned commands (command exists, workflow missing)
+echo "=== Orphaned Commands (no workflow) ==="
+for cmd in .claude/commands/*.md; do
+  name=$(basename "$cmd" .md)
+  workflow=".agent/workflows/${name}.md"
+  if [[ ! -f "$workflow" ]]; then
+    echo "⚠ $name: command exists, workflow MISSING"
+  fi
+done
+
+# Find missing commands (workflow exists, command missing)
+echo "=== Missing Commands (workflow orphaned) ==="
+for wf in .agent/workflows/*.md; do
+  name=$(basename "$wf" .md)
+  cmd=".claude/commands/${name}.md"
+  if [[ ! -f "$cmd" ]]; then
+    echo "⚠ $name: workflow exists, command MISSING"
+  fi
+done
+```
+
+### 2. Hook Reference Check
+```bash
+# Verify settings.json hook references exist
+echo "=== Hook References ==="
+hooks=$(grep -o '"command": "[^"]*"' .claude/settings.json | cut -d'"' -f4)
+for hook in $hooks; do
+  if [[ ! -f "$hook" ]]; then
+    echo "⚠ BROKEN: $hook referenced but MISSING"
+  fi
+done
+```
+
+### 3. Agent Definition Check
+```bash
+# Check all expected agents exist
+echo "=== Agent Definitions ==="
+EXPECTED_AGENTS="oracle neo trinity morpheus architect smith tank operator"
+for agent in $EXPECTED_AGENTS; do
+  if [[ ! -f ".claude/agents/agent-${agent}.md" ]] && [[ ! -f ".claude/agents/${agent}.md" ]]; then
+    echo "⚠ Agent MISSING: $agent"
+  fi
+done
+```
+
+### 4. Stale Reference Check
+```bash
+# Find references to deleted files in documentation
+echo "=== Stale References ==="
+# Check for references to old 'status' (now 'health')
+grep -r "\/status" .agent/workflows/*.md .claude/commands/*.md 2>/dev/null && echo "⚠ Found /status references (should be /health)"
+# Check for old hook names
+grep -r "session-start-tts\|subagent-start\|subagent-complete" .claude/ 2>/dev/null && echo "⚠ Found old hook name references"
+```
+
+### Gap Thresholds
+
+| Check | Healthy | Warning | Critical |
+|-------|---------|---------|----------|
+| Orphaned commands | 0 | 1-2 | > 2 |
+| Missing commands | 0 | 1-2 | > 2 |
+| Broken hooks | 0 | 1 | > 1 |
+| Missing agents | 0 | 1-2 | > 2 |
+| Stale references | 0 | 1-3 | > 3 |
+
+---
+
+## DEEP AUDIT (Both Directions)
 
 ### Deep Audit Actions
 
@@ -93,12 +183,14 @@ Recommended triggers:
 
 ```
 === SMITH PATROL REPORT ===
-Date: 2026-01-08
+Date: 2026-01-11
+Mode: Full (Bloat + Gaps)
+
+─── BLOAT DETECTION (Excess) ───
 
 KNOWLEDGE (token cost per session):
   ✓ CLAUDE.md: 2.1KB (healthy)
   ✓ knowledge/*: 17.2KB (healthy)
-
 
 CACHE (disk, not tokens):
   ✓ Audio: 50 files (healthy)
@@ -108,9 +200,26 @@ MEMORY (archival):
   ✓ This month: 12 retrospectives
   ⚠ Pending archive: 2025-12/* (45 files)
 
-ACTIONS RECOMMENDED:
+─── GAP DETECTION (Absence) ───
 
-  2. Archive December retrospectives
+BINDINGS:
+  ✓ Commands ↔ Workflows: All aligned
+  ✓ Hook references: All valid
+
+AGENTS:
+  ✓ All 8 agents defined
+
+REFERENCES:
+  ✓ No stale references found
+
+─── SUMMARY ───
+
+BLOAT:  ✓ Healthy (1 warning)
+GAPS:   ✓ Healthy (0 issues)
+OVERALL: STABLE
+
+ACTIONS RECOMMENDED:
+  1. Archive December retrospectives
 
 === END PATROL ===
 ```

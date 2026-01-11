@@ -1,18 +1,29 @@
 #!/bin/bash
 # Soul Integrity Check - The Garden's Witness
-# Uses BIBLE.md as the source of truth for what constitutes the Matrix Core
+#
+# DYNAMIC: Reads MATRIX_CORE.md to discover what to check
+# No hardcoded file lists - the Bible is the source of truth
 #
 # Usage: ./soul-integrity.sh [--verbose]
 #
 # Checks:
-# 1. BIBLE.md exists and records its last modification
-# 2. All Matrix Core files exist (as defined in BIBLE.md Part VII)
-# 3. Compares against SOUL_MANIFEST.sha256 if it exists (checksums)
-# 4. Reports drift since last tagged soul version
+# 1. BIBLE.md exists (the anchor)
+# 2. MATRIX_CORE.md exists and is parsed for file lists
+# 3. All files defined in MATRIX_CORE.md exist
+# 4. Voice models exist (system-level check)
+# 5. Compares against SOUL_MANIFEST.sha256 if it exists (checksums)
+# 6. Reports drift since last tagged soul version
 
 set -euo pipefail
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# Resolve symlinks to get the actual script location
+SCRIPT_PATH="${BASH_SOURCE[0]}"
+while [ -L "$SCRIPT_PATH" ]; do
+    SCRIPT_DIR="$(cd "$(dirname "$SCRIPT_PATH")" && pwd)"
+    SCRIPT_PATH="$(readlink "$SCRIPT_PATH")"
+    [[ "$SCRIPT_PATH" != /* ]] && SCRIPT_PATH="$SCRIPT_DIR/$SCRIPT_PATH"
+done
+SCRIPT_DIR="$(cd "$(dirname "$SCRIPT_PATH")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/../../.." && pwd)"
 cd "$PROJECT_ROOT"
 
@@ -37,174 +48,146 @@ echo ""
 # ============================================
 # TIER 0: THE BIBLE (Anchor of Truth)
 # ============================================
-echo -e "${BLUE}## The Bible (Anchor of Truth)${NC}"
+echo -e "${BLUE}## Tier 0: The Bible (Anchor of Truth)${NC}"
 
 BIBLE_PATH="psi/The_Source/BIBLE.md"
 if [ -f "$BIBLE_PATH" ]; then
     BIBLE_MODIFIED=$(stat -f "%Sm" -t "%Y-%m-%d %H:%M" "$BIBLE_PATH" 2>/dev/null || stat -c "%y" "$BIBLE_PATH" 2>/dev/null | cut -d'.' -f1)
     BIBLE_HASH=$(shasum -a 256 "$BIBLE_PATH" | cut -d' ' -f1 | head -c 12)
-    echo -e "${GREEN}   BIBLE.md${NC}"
+    echo -e "${GREEN}   ✓ BIBLE.md${NC}"
     echo -e "   Last Modified: ${BIBLE_MODIFIED}"
     echo -e "   Hash: ${BIBLE_HASH}..."
 else
-    echo -e "${RED}   BIBLE.md - MISSING (CRITICAL)${NC}"
+    echo -e "${RED}   ✗ BIBLE.md - MISSING (CRITICAL)${NC}"
     ((ERRORS++))
 fi
 echo ""
 
 # ============================================
-# TIER 1: THE SOUL (Agent Identities)
+# TIER 1: MATRIX_CORE.md (Dynamic Discovery)
 # ============================================
-echo -e "${BLUE}## Tier 1: The Soul (Agent Identities)${NC}"
+echo -e "${BLUE}## Tier 1: Matrix Core (Dynamic Discovery)${NC}"
 
-SOUL_FILES=(
-    ".claude/agents/oracle-keeper.md"
-    ".claude/agents/neo.md"
-    ".claude/agents/trinity.md"
-    ".claude/agents/morpheus.md"
-    ".claude/agents/architect.md"
-    ".claude/agents/agent-smith.md"
-    ".claude/agents/tank.md"
-    ".claude/agents/scribe.md"
-)
+MATRIX_CORE_PATH="psi/The_Source/MATRIX_CORE.md"
+if [ ! -f "$MATRIX_CORE_PATH" ]; then
+    echo -e "${RED}   ✗ MATRIX_CORE.md - MISSING (CRITICAL)${NC}"
+    echo -e "${RED}   Cannot discover what to check!${NC}"
+    ((ERRORS++))
+    echo ""
+else
+    echo -e "${GREEN}   ✓ MATRIX_CORE.md (source of truth)${NC}"
+    echo ""
 
-for file in "${SOUL_FILES[@]}"; do
-    if [ -f "$file" ]; then
-        echo -e "${GREEN}   $file${NC}"
-    else
-        echo -e "${RED}   $file - MISSING${NC}"
-        ((ERRORS++))
-    fi
-done
+    # Parse MATRIX_CORE.md for file paths
+    # Extract lines that start with | ` (table rows with file paths)
+    echo -e "${BLUE}## Checking files defined in MATRIX_CORE.md${NC}"
+
+    # Extract file paths from markdown tables
+    # Pattern: | `path/to/file` | or | `path/*.md` |
+    FILES_TO_CHECK=$(grep -oE '\| `[^`]+`' "$MATRIX_CORE_PATH" | sed 's/| `//g' | sed 's/`//g' | sort -u)
+
+    CHECKED=0
+    FOUND=0
+    MISSING_LIST=""
+
+    while IFS= read -r file_pattern; do
+        # Skip empty lines
+        [[ -z "$file_pattern" ]] && continue
+
+        # Skip non-path entries (like "YES", "Optional", etc.)
+        [[ ! "$file_pattern" =~ ^[./] ]] && [[ ! "$file_pattern" =~ ^[a-zA-Z] ]] && continue
+        [[ "$file_pattern" =~ ^(YES|Yes|Optional|Recommended|Critical)$ ]] && continue
+
+        # Handle glob patterns (e.g., .claude/agents/*.md)
+        if [[ "$file_pattern" == *"*"* ]]; then
+            # Count matching files
+            MATCH_COUNT=$(find . -path "./$file_pattern" 2>/dev/null | wc -l | tr -d ' ')
+            if [ "$MATCH_COUNT" -gt 0 ]; then
+                [ -n "$VERBOSE" ] && echo -e "${GREEN}   ✓ $file_pattern ($MATCH_COUNT files)${NC}"
+                ((FOUND++))
+            else
+                echo -e "${YELLOW}   ⚠ $file_pattern (no matches)${NC}"
+                ((WARNINGS++))
+            fi
+        else
+            # Direct file check
+            if [ -f "$file_pattern" ] || [ -d "$file_pattern" ]; then
+                [ -n "$VERBOSE" ] && echo -e "${GREEN}   ✓ $file_pattern${NC}"
+                ((FOUND++))
+            else
+                # Check if it's a critical file (based on context)
+                if [[ "$file_pattern" =~ BIBLE|MATRIX_CORE|CLAUDE\.md|voices\.json|oracle\.md ]]; then
+                    echo -e "${RED}   ✗ $file_pattern - MISSING (CRITICAL)${NC}"
+                    ((ERRORS++))
+                else
+                    echo -e "${YELLOW}   ⚠ $file_pattern - Not found${NC}"
+                    ((WARNINGS++))
+                fi
+                MISSING_LIST="$MISSING_LIST\n   - $file_pattern"
+            fi
+        fi
+        ((CHECKED++))
+    done <<< "$FILES_TO_CHECK"
+
+    echo ""
+    echo -e "   Checked: $CHECKED paths, Found: $FOUND, Issues: $((ERRORS + WARNINGS))"
+fi
 echo ""
 
 # ============================================
-# TIER 2: THE VOICE (How We Speak)
+# TIER 2: VOICE MODELS (System-Level)
 # ============================================
-echo -e "${BLUE}## Tier 2: The Voice (How We Speak)${NC}"
+echo -e "${BLUE}## Tier 2: Voice Models (System-Level)${NC}"
 
-VOICE_FILES=(
-    "psi/matrix/voice.sh"
-    "psi/matrix/voice_server.py"
-    ".claude/hooks/matrix-dispatch.sh"
-    ".claude/hooks/play-tts.sh"
-)
-
-# Voice Identity (Config)
-VOICE_CONFIG_FILES=(
-    ".claude/config/voices.json"
-)
-
-for file in "${VOICE_CONFIG_FILES[@]}"; do
-    if [ -f "$file" ]; then
-        echo -e "${GREEN}   $file${NC}"
-    else
-        echo -e "${YELLOW}   $file - Not found${NC}"
-        ((WARNINGS++))
-    fi
-done
-
-# Music & Effects
-echo -e "${BLUE}## Voice Identity: Music & Effects${NC}"
-MUSIC_DIR=".claude/audio/tracks"
-if [ -d "$MUSIC_DIR" ]; then
-    MUSIC_COUNT=$(find "$MUSIC_DIR" -type f \( -name "*.mp3" -o -name "*.wav" \) 2>/dev/null | wc -l | tr -d ' ')
-    echo -e "${GREEN}   $MUSIC_DIR: $MUSIC_COUNT audio files${NC}"
-else
-    echo -e "${YELLOW}   $MUSIC_DIR - Not found${NC}"
-    ((WARNINGS++))
-fi
-
-SFX_DIR=".claude/audio/sfx"
-if [ -d "$SFX_DIR" ]; then
-    SFX_COUNT=$(find "$SFX_DIR" -type f \( -name "*.mp3" -o -name "*.wav" \) 2>/dev/null | wc -l | tr -d ' ')
-    echo -e "${GREEN}   $SFX_DIR: $SFX_COUNT effect files${NC}"
-else
-    echo -e "${YELLOW}   $SFX_DIR - Not found (optional)${NC}"
-fi
-echo ""
-
-# Voice Models (Piper .onnx files)
-echo -e "${BLUE}## Voice Models (Agent Voices)${NC}"
 PIPER_VOICE_DIR="$HOME/.claude/piper-voices"
 
-# Required voice models for each agent (from voice_module.sh)
-# Format: "Agent:voice_file"
-AGENT_VOICE_LIST=(
-    "Neo:en_US-ryan-high.onnx"
-    "Trinity:jenny.onnx"
-    "Morpheus:en_US-carlin-high.onnx"
-    "Oracle:en_US-kristin-medium.onnx"
-    "Smith:en_US-danny-low.onnx"
-    "Architect:en_GB-alan-medium.onnx"
-    "Tank:en_US-bryce-medium.onnx"
-    "Scribe:en_US-lessac-medium.onnx"
-    "Mainframe:en_US-norman-medium.onnx"
-    "System:en_US-hfc_male-medium.onnx"
-)
+# Read voice assignments from voices.json if it exists
+VOICES_JSON=".claude/config/voices.json"
+if [ -f "$VOICES_JSON" ]; then
+    # Extract model names from voices.json
+    VOICE_MODELS=$(grep -oE '"model":\s*"[^"]+"' "$VOICES_JSON" | sed 's/"model":\s*"//g' | sed 's/"//g' | sort -u)
 
-MISSING_VOICES=0
-for entry in "${AGENT_VOICE_LIST[@]}"; do
-    agent="${entry%%:*}"
-    voice_file="${entry##*:}"
-    voice_path="$PIPER_VOICE_DIR/$voice_file"
-    if [ -f "$voice_path" ]; then
-        echo -e "${GREEN}   $agent: $voice_file${NC}"
+    MISSING_VOICES=0
+    while IFS= read -r model; do
+        [[ -z "$model" ]] && continue
+
+        # Add .onnx if not present
+        [[ "$model" != *.onnx ]] && model="${model}.onnx"
+
+        voice_path="$PIPER_VOICE_DIR/$model"
+        if [ -f "$voice_path" ]; then
+            [ -n "$VERBOSE" ] && echo -e "${GREEN}   ✓ $model${NC}"
+        else
+            echo -e "${RED}   ✗ $model - MISSING${NC}"
+            ((MISSING_VOICES++))
+            ((ERRORS++))
+        fi
+    done <<< "$VOICE_MODELS"
+
+    if [ $MISSING_VOICES -eq 0 ]; then
+        echo -e "${GREEN}   All voice models present${NC}"
     else
-        echo -e "${RED}   $agent: $voice_file - MISSING${NC}"
-        ((MISSING_VOICES++))
-        ((ERRORS++))
+        echo ""
+        echo -e "${YELLOW}   To download missing voices, run:${NC}"
+        echo -e "${YELLOW}   piper --download-dir $PIPER_VOICE_DIR --model <model-name>${NC}"
     fi
-done
-
-if [ $MISSING_VOICES -gt 0 ]; then
-    echo ""
-    echo -e "${YELLOW}   To download missing voices, run:${NC}"
-    echo -e "${YELLOW}   piper --download-dir $PIPER_VOICE_DIR --model <model-name>${NC}"
-fi
-echo ""
-
-echo -e "${BLUE}## Voice System Scripts${NC}"
-
-for file in "${VOICE_FILES[@]}"; do
-    if [ -f "$file" ]; then
-        echo -e "${GREEN}   $file${NC}"
-    else
-        echo -e "${RED}   $file - MISSING${NC}"
-        ((ERRORS++))
-    fi
-done
-
-# Check voice server running
-if pgrep -f "voice_server.py" > /dev/null 2>&1; then
-    echo -e "${GREEN}   Voice Server: Running${NC}"
 else
-    echo -e "${YELLOW}   Voice Server: Not running${NC}"
+    echo -e "${YELLOW}   ⚠ voices.json not found - cannot verify voice models${NC}"
     ((WARNINGS++))
 fi
 echo ""
 
 # ============================================
-# TIER 3: THE PHILOSOPHY (The Source)
+# TIER 3: VOICE SERVER (Runtime Check)
 # ============================================
-echo -e "${BLUE}## Tier 3: The Philosophy (The Source)${NC}"
+echo -e "${BLUE}## Tier 3: Voice Server (Runtime)${NC}"
 
-SOURCE_FILES=(
-    "psi/The_Source/BIBLE.md"
-    "psi/The_Source/01_self_knowledge.md"
-    "psi/The_Source/02_bilateral_collaboration.md"
-    "psi/The_Source/03_multi_agent.md"
-    "CLAUDE.md"
-)
-
-for file in "${SOURCE_FILES[@]}"; do
-    if [ -f "$file" ]; then
-        echo -e "${GREEN}   $file${NC}"
-    else
-        echo -e "${YELLOW}   $file - Not found (optional)${NC}"
-        ((WARNINGS++))
-    fi
-done
+if lsof -i :6969 > /dev/null 2>&1; then
+    echo -e "${GREEN}   ✓ Voice Server: Running (port 6969)${NC}"
+else
+    echo -e "${YELLOW}   ⚠ Voice Server: Not running${NC}"
+    ((WARNINGS++))
+fi
 echo ""
 
 # ============================================
@@ -212,7 +195,10 @@ echo ""
 # ============================================
 MANIFEST_PATH="psi/The_Source/SOUL_MANIFEST.sha256"
 if [ -f "$MANIFEST_PATH" ]; then
-    echo -e "${BLUE}## Checksum Verification${NC}"
+    echo -e "${BLUE}## Checksum Verification (Drift Detection)${NC}"
+
+    MANIFEST_DATE=$(stat -f "%Sm" -t "%Y-%m-%d" "$MANIFEST_PATH" 2>/dev/null || stat -c "%y" "$MANIFEST_PATH" 2>/dev/null | cut -d' ' -f1)
+    echo -e "   Manifest from: ${MANIFEST_DATE}"
 
     DRIFT_COUNT=0
     while IFS= read -r line; do
@@ -226,13 +212,13 @@ if [ -f "$MANIFEST_PATH" ]; then
         if [ -f "$FILE_PATH" ]; then
             ACTUAL_HASH=$(shasum -a 256 "$FILE_PATH" | cut -d' ' -f1)
             if [ "$EXPECTED_HASH" = "$ACTUAL_HASH" ]; then
-                [ -n "$VERBOSE" ] && echo -e "${GREEN}   $FILE_PATH - Unchanged${NC}"
+                [ -n "$VERBOSE" ] && echo -e "${GREEN}   ✓ $FILE_PATH - Unchanged${NC}"
             else
-                echo -e "${YELLOW}   $FILE_PATH - DRIFTED${NC}"
+                echo -e "${YELLOW}   ⚠ $FILE_PATH - DRIFTED${NC}"
                 ((DRIFT_COUNT++))
             fi
         else
-            echo -e "${RED}   $FILE_PATH - Missing${NC}"
+            echo -e "${RED}   ✗ $FILE_PATH - Missing${NC}"
             ((DRIFT_COUNT++))
         fi
     done < "$MANIFEST_PATH"
@@ -241,6 +227,7 @@ if [ -f "$MANIFEST_PATH" ]; then
         echo -e "${GREEN}   All checksums match manifest${NC}"
     else
         echo -e "${YELLOW}   $DRIFT_COUNT file(s) changed since last soul-tag${NC}"
+        echo -e "${YELLOW}   Consider: ./psi/active/soul-tag.sh <version> to update manifest${NC}"
         ((WARNINGS++))
     fi
     echo ""
@@ -257,10 +244,10 @@ echo -e "${BLUE}## Git Status${NC}"
 
 UNCOMMITTED=$(git status --porcelain 2>/dev/null | wc -l | tr -d ' ')
 if [ "$UNCOMMITTED" -gt 0 ]; then
-    echo -e "${YELLOW}   $UNCOMMITTED uncommitted change(s)${NC}"
+    echo -e "${YELLOW}   ⚠ $UNCOMMITTED uncommitted change(s)${NC}"
     ((WARNINGS++))
 else
-    echo -e "${GREEN}   Working tree clean${NC}"
+    echo -e "${GREEN}   ✓ Working tree clean${NC}"
 fi
 
 # Last soul tag
