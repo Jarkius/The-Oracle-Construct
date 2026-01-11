@@ -308,12 +308,12 @@ fi
 
 # SMITH (Complex Mix)
 if [ "$SPEAKER" = "Smith" ]; then
-    # danny low slow
-    echo "$MESSAGE" | /Users/jarkius/.local/bin/piper --model /Users/jarkius/.claude/piper-voices/en_US-danny-low.onnx --length-scale 1.3 --output_file /tmp/smith_$$.wav 2>/dev/null
+    # danny low slow - the calculating villain
+    echo "$MESSAGE" | /Users/jarkius/.local/bin/piper --model /Users/jarkius/.claude/piper-voices/en_US-danny-low.onnx --length-scale 1.8 --output_file /tmp/smith_$$.wav 2>/dev/null
     if [ -f /tmp/smith_$$.wav ]; then
         # Apply bass boost if sox exists
         if command -v sox >/dev/null 2>&1; then
-             sox /tmp/smith_$$.wav /tmp/smith_fx_$$.wav bass +10 2>/dev/null
+             sox /tmp/smith_$$.wav /tmp/smith_fx_$$.wav bass +20 2>/dev/null
              mv /tmp/smith_fx_$$.wav /tmp/smith_$$.wav
         fi
         # Mix with Tron synth loop at 40% volume (1.5s music intro before voice)
