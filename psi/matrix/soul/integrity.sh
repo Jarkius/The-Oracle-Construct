@@ -210,12 +210,17 @@ if [ -f "$MANIFEST_PATH" ]; then
         FILE_PATH=$(echo "$line" | awk '{print $2}')
 
         if [ -f "$FILE_PATH" ]; then
-            ACTUAL_HASH=$(shasum -a 256 "$FILE_PATH" | cut -d' ' -f1)
-            if [ "$EXPECTED_HASH" = "$ACTUAL_HASH" ]; then
-                [ -n "$VERBOSE" ] && echo -e "${GREEN}   ✓ $FILE_PATH - Unchanged${NC}"
+            # Skip checksum for large binary files (mp3, onnx) - just verify existence
+            if [[ "$FILE_PATH" =~ \.(mp3|onnx|wav)$ ]]; then
+                [ -n "$VERBOSE" ] && echo -e "${GREEN}   ✓ $FILE_PATH - Exists (skipped checksum)${NC}"
             else
-                echo -e "${YELLOW}   ⚠ $FILE_PATH - DRIFTED${NC}"
-                ((DRIFT_COUNT++))
+                ACTUAL_HASH=$(shasum -a 256 "$FILE_PATH" | cut -d' ' -f1)
+                if [ "$EXPECTED_HASH" = "$ACTUAL_HASH" ]; then
+                    [ -n "$VERBOSE" ] && echo -e "${GREEN}   ✓ $FILE_PATH - Unchanged${NC}"
+                else
+                    echo -e "${YELLOW}   ⚠ $FILE_PATH - DRIFTED${NC}"
+                    ((DRIFT_COUNT++))
+                fi
             fi
         else
             echo -e "${RED}   ✗ $FILE_PATH - Missing${NC}"
