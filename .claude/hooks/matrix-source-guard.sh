@@ -13,14 +13,27 @@
 #
 # USAGE:
 #   Called automatically by Claude Code PreToolUse hook
-#   Receives file path via CLAUDE_FILE_PATH environment variable
+#   Receives tool data via JSON on stdin (Claude Code hook protocol)
+#
+# EXIT CODES:
+#   0 = Allow the operation
+#   2 = Block the operation (shows stderr to Claude)
 #
 # ============================================================
 
-set -euo pipefail
+# Read the JSON input from stdin
+INPUT=$(cat)
 
-# Get the file being edited from Claude's environment
-FILE_PATH="${CLAUDE_FILE_PATH:-}"
+# Extract file path from JSON using jq
+# For Edit/Write tools: tool_input.file_path
+FILE_PATH=$(echo "$INPUT" | jq -r '.tool_input.file_path // empty' 2>/dev/null)
+
+# If no file path found, allow operation (not an edit we care about)
+if [[ -z "$FILE_PATH" ]]; then
+    exit 0
+fi
+
+# Get project directory
 PROJECT_DIR="${CLAUDE_PROJECT_DIR:-$(pwd)}"
 LOCK_FILE="$PROJECT_DIR/psi/The_Source/.LOCK"
 VOICE_SCRIPT="$PROJECT_DIR/psi/matrix/voice.sh"
@@ -33,37 +46,37 @@ if [[ "$FILE_PATH" == *"psi/The_Source"* ]]; then
 
         # === VIOLATION DETECTED ===
 
-        # Echo warning to console (visible in Claude output)
-        echo ""
-        echo "============================================"
-        echo "🔒 THE SOURCE IS LOCKED"
-        echo "============================================"
-        echo ""
-        echo "VIOLATION ATTEMPT BLOCKED:"
-        echo "  File: $FILE_PATH"
-        echo "  Lock: $LOCK_FILE"
-        echo ""
-        echo "The Source is sacred. The .LOCK file protects it."
-        echo ""
-        echo "To unlock, the Operator must:"
-        echo "  rm psi/The_Source/.LOCK"
-        echo ""
-        echo "Then re-lock when done:"
-        echo "  touch psi/The_Source/.LOCK"
-        echo ""
-        echo "============================================"
+        # Echo warning to stderr (visible to Claude and user)
+        echo "" >&2
+        echo "============================================" >&2
+        echo "🔒 THE SOURCE IS LOCKED" >&2
+        echo "============================================" >&2
+        echo "" >&2
+        echo "VIOLATION ATTEMPT BLOCKED:" >&2
+        echo "  File: $FILE_PATH" >&2
+        echo "  Lock: $LOCK_FILE" >&2
+        echo "" >&2
+        echo "The Source is sacred. The .LOCK file protects it." >&2
+        echo "" >&2
+        echo "To unlock, the Operator must:" >&2
+        echo "  rm psi/The_Source/.LOCK" >&2
+        echo "" >&2
+        echo "Then re-lock when done:" >&2
+        echo "  touch psi/The_Source/.LOCK" >&2
+        echo "" >&2
+        echo "============================================" >&2
 
         # SHOUT to the user via voice (Smith guards security)
         if [[ -f "$VOICE_SCRIPT" ]]; then
-            bash "$VOICE_SCRIPT" "ALERT! Someone is trying to modify The Source while it is locked! I have blocked this violation." "Smith" 2>/dev/null || true
+            bash "$VOICE_SCRIPT" "ALERT! Someone is trying to modify The Source while it is locked! I have blocked this violation." "Smith" 2>/dev/null &
         fi
 
-        # EXIT 1 = BLOCK THE OPERATION
-        exit 1
+        # EXIT 2 = BLOCK THE OPERATION (shows stderr to Claude)
+        exit 2
 
     else
         # Source is unlocked - allow the edit but warn
-        echo "⚠️  The Source is UNLOCKED - edit permitted: $FILE_PATH"
+        echo "⚠️  The Source is UNLOCKED - edit permitted: $FILE_PATH" >&2
     fi
 fi
 
