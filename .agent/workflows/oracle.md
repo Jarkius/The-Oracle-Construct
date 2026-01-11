@@ -36,7 +36,7 @@ When `/oracle` is invoked, stay focused on wisdom:
 
 2. **Wisdom Analysis** (The Mind):
    - **Condition**: Are there uncommitted changes?
-     - *Yes* -> **Stabilize**. (Go to `/status` or `/rrr`)
+     - *Yes* -> **Stabilize**. (Go to `/health` or `/rrr`)
    - **Condition**: Is the focus clear?
      - *No* -> **Clarify**. (Create retrospective with `/rrr`)
    - **Condition**: Is there a bug or error?
