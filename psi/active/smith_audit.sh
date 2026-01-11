@@ -1,1 +1,0 @@
-../matrix/agents/smith.sh
