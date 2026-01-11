@@ -60,11 +60,11 @@ We used MCP `set_voice("en_US-danny-low")` directly, which:
 
 **This is the ONLY place agent voices should be defined.**
 
-### 2. Activation Script: `activate-agent.sh`
+### 2. Activation Script: `matrix-activate-agent.sh`
 
 ```bash
 # Syncs from source of truth to active config
-.claude/hooks/activate-agent.sh Smith
+.claude/hooks/matrix-activate-agent.sh Smith
 # Output:
 # ✅ Agent activated: Smith
 #    Voice: en_US-danny-low
@@ -74,18 +74,18 @@ We used MCP `set_voice("en_US-danny-low")` directly, which:
 
 This writes to `tts-voice.txt` so shell hooks stay in sync.
 
-### 3. Verification Script: `verify-voices.sh`
+### 3. Verification Script: `matrix-verify-voices.sh`
 
 ```bash
 # Part of /patrol duties
-.claude/hooks/verify-voices.sh
+.claude/hooks/matrix-verify-voices.sh
 # Checks: voices.json ↔ tts-voice.txt alignment
 # Checks: All voice models exist
 ```
 
 ## Rules Going Forward
 
-1. **NEVER manually edit `tts-voice.txt`** - Use `activate-agent.sh`
+1. **NEVER manually edit `tts-voice.txt`** - Use `matrix-activate-agent.sh`
 2. **Add new agents to `voices.json`** - The single source of truth
 3. **Run `/patrol` regularly** - Smith detects voice drift
 4. **Use `voice_module.sh` for agent speech** - It has correct bypasses
@@ -102,9 +102,9 @@ This writes to `tts-voice.txt` so shell hooks stay in sync.
            ┌────────────────┼────────────────┐
            │                │                │
            ▼                ▼                ▼
-    ┌──────────────┐ ┌──────────────┐ ┌──────────────┐
-    │voice_module  │ │activate-agent│ │verify-voices │
-    │    .sh       │ │    .sh       │ │    .sh       │
+    ┌──────────────┐ ┌────────────────┐ ┌────────────────┐
+    │voice_module  │ │matrix-activate │ │matrix-verify   │
+    │    .sh       │ │   -agent.sh    │ │  -voices.sh    │
     │(hardcoded    │ │(syncs to     │ │(checks       │
     │ bypasses)    │ │ tts-voice)   │ │ alignment)   │
     └──────────────┘ └──────┬───────┘ └──────────────┘
@@ -125,8 +125,8 @@ This writes to `tts-voice.txt` so shell hooks stay in sync.
 ## Related Files
 
 - `.claude/config/voices.json` - Source of truth
-- `.claude/hooks/activate-agent.sh` - Sync script
-- `.claude/hooks/verify-voices.sh` - Audit script
+- `.claude/hooks/matrix-activate-agent.sh` - Sync script
+- `.claude/hooks/matrix-verify-voices.sh` - Audit script
 - `psi/matrix/voice.sh` - Agent speech with bypasses
 - `.agent/workflows/patrol.md` - Smith's monitoring duties
 

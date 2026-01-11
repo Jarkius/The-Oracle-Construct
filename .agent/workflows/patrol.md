@@ -51,12 +51,12 @@ ls .claude/audio/*.wav 2>/dev/null | wc -l
 ### Voice Configuration Check
 ```bash
 # Verify voice source of truth
-.claude/hooks/verify-voices.sh
+.claude/hooks/matrix-verify-voices.sh
 ```
 
 **Source of Truth**: `.claude/config/voices.json`
 - All agent voices defined here
-- Use `activate-agent.sh <name>` to switch agents
+- Use `matrix-activate-agent.sh <name>` to switch agents
 - Never manually edit `tts-voice.txt` - always use activation script
 
 ### Deep Audit Actions

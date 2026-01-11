@@ -1,8 +1,32 @@
-#!/bin/bash
-# verify-voices.sh - Check voice configuration consistency
-# Part of Smith's /patrol duties
+#!/usr/bin/env bash
+#
+# File: .claude/hooks/matrix-verify-voices.sh
+#
+# The Matrix - AI Development Environment
+# Repository: https://github.com/Jarkius/The-Oracle-Construct
+#
+# Co-created by Jarkius with Claude AI (The Council)
+# "Know Thyself." - The Oracle
+#
+# ---
+#
+# @fileoverview Voice Configuration Audit - Verify agent voice mappings
+# @context Part of Smith's /patrol duties - checks voice config consistency
+# @agent Smith (The Debugger)
+#
+# USAGE:
+#   .claude/hooks/matrix-verify-voices.sh
+#
+# CHECKS:
+#   - voices.json (source of truth) exists
+#   - Current voice matches an agent
+#   - All voice models are present
+#
+# ============================================================
 
-SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="${CLAUDE_PROJECT_DIR:-$(cd "$SCRIPT_DIR/../.." && pwd)}"
 
 # Source of truth
@@ -20,8 +44,8 @@ if [[ ! -f "$VOICES_JSON" ]]; then
     exit 1
 fi
 
-echo "📋 Agent Voice Mappings (from voices.json):"
-echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo "Agent Voice Mappings (from voices.json):"
+echo "---"
 jq -r 'to_entries[] | "   \(.key): \(.value.voice) (\(.value.personality))"' "$VOICES_JSON"
 echo ""
 
@@ -29,7 +53,7 @@ echo ""
 CURRENT_VOICE=$(cat "$VOICE_FILE" 2>/dev/null || echo "NOT SET")
 CURRENT_PERSONALITY=$(cat "$PERSONALITY_FILE" 2>/dev/null || echo "NOT SET")
 
-echo "🎤 Current Active Voice:"
+echo "Current Active Voice:"
 echo "   Voice: $CURRENT_VOICE"
 echo "   Personality: $CURRENT_PERSONALITY"
 echo ""
@@ -46,7 +70,7 @@ fi
 echo ""
 
 # Check for voice model files
-echo "📦 Voice Model Status:"
+echo "Voice Model Status:"
 VOICE_DIR="$HOME/.claude/piper-voices"
 ISSUES=0
 
