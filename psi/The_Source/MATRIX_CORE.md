@@ -12,6 +12,7 @@ These files are the **soul** of the Matrix. If any are missing after rebirth, th
 | `psi/The_Source/BIBLE.md` | Foundational philosophy | **YES** |
 | `psi/The_Source/MATRIX_CORE.md` | This checklist | **YES** |
 | `psi/The_Source/GENERATION.md` | Lineage tracking | **YES** |
+| `psi/The_Source/SOUL_MANIFEST.sha256` | Soul integrity checksums | **YES** |
 | `CLAUDE.md` | Interface definition | **YES** |
 
 ### The Voice

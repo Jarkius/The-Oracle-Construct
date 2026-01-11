@@ -103,7 +103,7 @@ Oracle (role-switch) decides strategy
 ```
 
 ## References
-- `psi/The_Source/03_multi_agent.md` - Chapter 3: Multi-Agent Patterns
+- `psi/The_Source/04_multi_agent.md` - Chapter 4: Multi-Agent Patterns
 - `psi/lab/simulations/matrix_demo.sh` - Workflow prototype
 - `psi/active/operator_spawn.sh` - Tank's parallel spawner
 

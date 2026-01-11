@@ -71,7 +71,7 @@ SOUL_FILES=(
     "CLAUDE.md"
     "psi/The_Source/01_self_knowledge.md"
     "psi/The_Source/02_bilateral_collaboration.md"
-    "psi/The_Source/03_multi_agent.md"
+    "psi/The_Source/04_multi_agent.md"
 )
 
 # Create checksum manifest
