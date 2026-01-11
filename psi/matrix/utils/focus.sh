@@ -1,8 +1,28 @@
 #!/bin/bash
-# get_focus.sh - Extracts current focus from latest retrospective
-# Single source of truth: retrospectives are the authority
+# ============================================================
+# focus.sh - Get Current Focus (Utility)
+# ============================================================
 #
-# Usage: ./psi/active/get_focus.sh
+# PURPOSE:
+#   Extracts the current focus from the latest retrospective.
+#   Retrospectives are the single source of truth for "what we're doing".
+#
+# USAGE:
+#   ./psi/active/get_focus.sh        (via symlink)
+#   ./psi/matrix/utils/focus.sh      (direct)
+#
+# OUTPUT:
+#   - "Next Actions" section from latest retrospective
+#   - Or first 30 lines if no Next Actions found
+#
+# USED BY:
+#   - /oracle workflow (context gathering)
+#   - /recap workflow (session recap)
+#   - /neo, /unplug, /correct, /story, /handoff workflows
+#
+# NOTE: Must be run from project root (uses relative paths)
+#
+# ============================================================
 
 # Find the latest retrospective
 LATEST=$(find psi/memory/retrospectives -name "*.md" -type f 2>/dev/null | xargs ls -t 2>/dev/null | head -1)

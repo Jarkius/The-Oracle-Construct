@@ -1,1 +1,1 @@
-../matrix/focus.sh
+../matrix/utils/focus.sh
