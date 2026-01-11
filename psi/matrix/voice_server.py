@@ -1,3 +1,22 @@
+"""
+============================================================
+voice_server.py - Voice SERVER (The Queue Daemon)
+============================================================
+Role: Background daemon that queues and serializes voice playback
+Pair: voice.sh (the client that sends requests)
+
+Usage: python3 psi/matrix/voice_server.py &
+
+Architecture:
+  voice.sh (CLIENT) --> voice_server.py (SERVER) --> Piper TTS
+
+Features:
+  - Queue serialization (voices wait their turn)
+  - Panic mode (--panic bypasses queue)
+  - Agent voice mapping
+============================================================
+"""
+
 import socket
 import threading
 import json

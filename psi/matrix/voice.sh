@@ -1,7 +1,15 @@
 #!/bin/bash
-# Voice of the Matrix (Evolved)
-# Uses AgentVibes for personality-infused architecture.
-# CLIENT-SERVER ARCHITECTURE (Python Daemon)
+# ============================================================
+# voice.sh - Voice CLIENT (The Mouth)
+# ============================================================
+# Role: Sends voice requests to the queue server
+# Pair: voice_server.py (the queue daemon that plays audio)
+#
+# Usage: sh psi/matrix/voice.sh "Message" "AgentName"
+#
+# Architecture:
+#   voice.sh (CLIENT) --> voice_server.py (SERVER) --> Piper TTS
+# ============================================================
 
 # Server Configuration
 SERVER_HOST="127.0.0.1"
