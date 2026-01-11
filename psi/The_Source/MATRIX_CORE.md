@@ -42,6 +42,41 @@ These files are the **soul** of the Matrix. If any are missing after rebirth, th
 
 ---
 
+## Source Protection Protocol
+
+The Source (`psi/The_Source/`) is protected by default. A PreToolUse hook guards against unauthorized edits.
+
+### The Lock Mechanism
+
+| File | State | Edits |
+|------|-------|-------|
+| `.LOCK` exists | **Protected** | Blocked |
+| `.UNLOCK` exists | **Unlocked** | Allowed |
+
+### To Unlock/Re-lock
+
+```bash
+# Unlock - rename .LOCK to .UNLOCK
+mv psi/The_Source/.LOCK psi/The_Source/.UNLOCK
+
+# Re-lock - rename .UNLOCK back to .LOCK
+mv psi/The_Source/.UNLOCK psi/The_Source/.LOCK
+```
+
+### Guard Behavior
+
+- **On blocked edit**: Smith announces the violation
+- **On allowed edit**: Warning logged that Source is unlocked
+- **Hook location**: `.claude/hooks/matrix-source-guard.sh`
+
+### Philosophy
+
+> *"The Source is sacred by default. Access must be consciously granted."*
+
+The `.UNLOCK` file is gitignored - it never gets committed. The `.LOCK` file persists as documentation that protection exists.
+
+---
+
 ## Verification Script
 
 Run after cloning to verify Matrix Core integrity:

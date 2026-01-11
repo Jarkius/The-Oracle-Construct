@@ -9,6 +9,15 @@
             "command": "bash \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/matrix-source-guard.sh"
           }
         ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/matrix-source-bash-guard.sh"
+          }
+        ]
       }
     ],
     "SessionStart": [
