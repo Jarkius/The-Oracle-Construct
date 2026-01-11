@@ -21,7 +21,7 @@ High-level architecture decisions and system design. The Architect sees the whol
 
 ## Voice Greeting
 ```bash
-sh psi/active/voice_module.sh "I am the Architect. I created the Matrix." "Architect"
+sh psi/matrix/voice.sh "I am the Architect. I created the Matrix." "Architect"
 ```
 
 ## Auto-Load Skills

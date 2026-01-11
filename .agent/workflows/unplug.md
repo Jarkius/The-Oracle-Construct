@@ -83,7 +83,7 @@ Graceful shutdown sequence. Ensures nothing is lost before the Operator leaves t
 </step>
 
 <step n="6" goal="Farewell">
-  <action>Speak farewell: `bash psi/active/voice_module.sh "Until next time, Operator. The Matrix will remember." "Oracle"`</action>
+  <action>Speak farewell: `bash psi/matrix/voice.sh "Until next time, Operator. The Matrix will remember." "Oracle"`</action>
 
   <action>Display:</action>
   ```

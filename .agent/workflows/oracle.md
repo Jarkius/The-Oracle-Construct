@@ -26,7 +26,7 @@ When `/oracle` is invoked, stay focused on wisdom:
 1. **Context Gathering** (The Eyes):
    ```bash
    # Voice Greeting
-   sh psi/active/voice_module.sh "I am the Oracle. Let me see..." "Oracle"
+   sh psi/matrix/voice.sh "I am the Oracle. Let me see..." "Oracle"
    
    # Check where we are and what we've done
    ./psi/active/get_focus.sh
@@ -77,5 +77,5 @@ When `/oracle` is invoked, stay focused on wisdom:
 5. **The Voice of Truth** (The Mouth):
    Speak the core of the prophecy to the user.
    ```bash
-   sh psi/active/voice_module.sh "[Speak the Prophecy / Path Forward]" "Oracle"
+   sh psi/matrix/voice.sh "[Speak the Prophecy / Path Forward]" "Oracle"
    ```

@@ -28,18 +28,18 @@ description: Voice of the Matrix - Speak to the user
 
 ### Say (Custom Message)
 ```bash
-sh psi/active/voice_module.sh "[message]" "System"
+sh psi/matrix/voice.sh "[message]" "System"
 ```
 
 ### Greet (Welcome)
 ```bash
-sh psi/active/voice_module.sh "Welcome to the Oracle Construct. AgentVibes is online." "System"
+sh psi/matrix/voice.sh "Welcome to the Oracle Construct. AgentVibes is online." "System"
 ```
 
 ### Announce (Attention)
 ```bash
 # AgentVibes handles rate internally via personality
-sh psi/active/voice_module.sh "Attention. [message]" "System"
+sh psi/matrix/voice.sh "Attention. [message]" "System"
 ```
 
 ### Roll Call (The Council)

@@ -44,7 +44,7 @@ This file defines the **Universal Commands** for the Matrix. Any AI agent (Claud
 1.  **Nothing is Deleted**: Archive, don't destroy. Use `psi/memory/archive`.
 2.  **Patterns > Intentions**: Document what *is*, not what *should be*.
 3.  **The Inbox**: Information flows through `psi/inbox/focus.md`.
-4.  **Voice Module**: Use `sh psi/active/voice_module.sh "message" "Agent"` for TTS.
+4.  **Voice Module**: Use `sh psi/matrix/voice.sh "message" "Agent"` for TTS.
 
 ## 🚀 Current Mission: CIS Modernization
 - **Legacy**: PHP/MySQL inventory system.

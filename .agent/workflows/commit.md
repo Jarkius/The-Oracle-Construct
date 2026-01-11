@@ -22,7 +22,7 @@ Commit changes to git with Matrix personality. Tank handles all git operations a
 ## Voice Greeting
 
 ```bash
-sh psi/active/voice_module.sh "Operator. Uploading changes to the Source." "Tank"
+sh psi/matrix/voice.sh "Operator. Uploading changes to the Source." "Tank"
 ```
 
 ## Process
@@ -86,17 +86,17 @@ git push
 
 **On Success (push mode):**
 ```bash
-sh psi/active/voice_module.sh "Changes uploaded to the Source. The Matrix remembers." "Tank"
+sh psi/matrix/voice.sh "Changes uploaded to the Source. The Matrix remembers." "Tank"
 ```
 
 **On Success (local mode):**
 ```bash
-sh psi/active/voice_module.sh "Changes committed locally. Ready for upload when you are." "Tank"
+sh psi/matrix/voice.sh "Changes committed locally. Ready for upload when you are." "Tank"
 ```
 
 **On Failure:**
 ```bash
-sh psi/active/voice_module.sh "Problem detected. Check the output." "Tank"
+sh psi/matrix/voice.sh "Problem detected. Check the output." "Tank"
 ```
 
 ## Safety Checks

@@ -20,7 +20,7 @@ Bridge between sessions. Restores context, identifies patterns, and determines t
 
 ### 1. Voice Greeting
 ```bash
-sh psi/active/voice_module.sh "Let me recall where we left off..." "Oracle"
+sh psi/matrix/voice.sh "Let me recall where we left off..." "Oracle"
 ```
 
 ### 2. Gather Context (parallel)
@@ -147,7 +147,7 @@ The path forward should acknowledge the past:
 
 ### 8. Voice Summary
 ```bash
-sh psi/active/voice_module.sh "[Last session]. [Current focus]. [Path forward]." "Oracle"
+sh psi/matrix/voice.sh "[Last session]. [Current focus]. [Path forward]." "Oracle"
 ```
 
 ## Output Example

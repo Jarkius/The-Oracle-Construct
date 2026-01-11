@@ -20,7 +20,7 @@ AGENT_NAME="$(tr '[:lower:]' '[:upper:]' <<< ${AGENT_NAME:0:1})${AGENT_NAME:1}"
 # Paths
 SFX_DIR="$PROJECT_ROOT/.claude/audio/sfx"
 COMMS_DIR="$PROJECT_ROOT/psi/inbox/agent-comms"
-VOICE_MODULE="$PROJECT_ROOT/psi/active/voice_module.sh"
+VOICE_MODULE="$PROJECT_ROOT/psi/matrix/voice.sh"
 
 # Update communication file
 COMM_FILE="$COMMS_DIR/${AGENT_ID}.md"

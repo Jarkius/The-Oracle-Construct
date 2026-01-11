@@ -50,8 +50,8 @@ if [[ "$SILENT" != "silent" ]]; then
     echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
     echo ""
     # Agent speaks in their OWN voice
-    if [[ -f "$PROJECT_ROOT/psi/active/voice_module.sh" ]]; then
-        sh "$PROJECT_ROOT/psi/active/voice_module.sh" "Jacking in." "$AGENT_NAME"
+    if [[ -f "$PROJECT_ROOT/psi/matrix/voice.sh" ]]; then
+        sh "$PROJECT_ROOT/psi/matrix/voice.sh" "Jacking in." "$AGENT_NAME"
     fi
 fi
 

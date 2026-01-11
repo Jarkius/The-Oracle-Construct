@@ -24,7 +24,7 @@ cat .agent/workflows/neo.md
 ## Sending Messages to Operator
 Use the broadcast script to log your status:
 ```bash
-./psi/active/broadcast.sh "Your message here" "{AGENT_ID}"
+./psi/matrix/broadcast.sh "Your message here" "{AGENT_ID}"
 ```
 This updates your log AND the global Matrix frequency.
 

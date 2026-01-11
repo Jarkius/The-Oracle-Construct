@@ -24,7 +24,7 @@ Source of truth: `.claude/config/voices.json`
 ### Operational Config (What TTS Actually Uses)
 ```
 .claude/config/voices.json        # Master voice → agent mapping
-psi/active/voice_module.sh        # Voice router script
+psi/matrix/voice.sh        # Voice router script
 .claude/hooks/play-tts.sh         # TTS execution
 ```
 
@@ -56,9 +56,9 @@ psi/active/voice_module.sh        # Voice router script
 
 ### Via voice_module.sh (Recommended)
 ```bash
-sh psi/active/voice_module.sh "Message here" "AgentName"
+sh psi/matrix/voice.sh "Message here" "AgentName"
 # Example:
-sh psi/active/voice_module.sh "I see the code." "Neo"
+sh psi/matrix/voice.sh "I see the code." "Neo"
 ```
 
 ### Via play-tts.sh (Direct)

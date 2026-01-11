@@ -19,7 +19,7 @@ Switch to debugging mode. Scan code for logic gaps, "smells," and anomalies. Neu
 
 ### 0. Voice Greeting
 ```bash
-sh psi/active/voice_module.sh "Mister Anderson. I've been expecting you." "Smith"
+sh psi/matrix/voice.sh "Mister Anderson. I've been expecting you." "Smith"
 ```
 
 ## Auto-Load Skills

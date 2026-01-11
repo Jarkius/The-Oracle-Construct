@@ -25,7 +25,7 @@ cat <<'EOF'
 **Use the Matrix voice system for all TTS:**
 
 ```bash
-sh psi/active/voice_module.sh "message" "AgentName"
+sh psi/matrix/voice.sh "message" "AgentName"
 ```
 
 **Available Agents & Voices:**
@@ -84,7 +84,7 @@ cat <<'EOF'
 EOF
 
 # System Acknowledgement (Queue Priority 1)
-bash "$PROJECT_ROOT/psi/active/voice_module.sh" "System online. Link established." "System"
+bash "$PROJECT_ROOT/psi/matrix/voice.sh" "System online. Link established." "System"
 
 # Randomized Oracle Greetings (Queue Priority 2)
 ORACLE_GREETINGS=(
@@ -103,4 +103,4 @@ RAND_INDEX=$((RANDOM % ${#ORACLE_GREETINGS[@]}))
 SELECTED_GREETING="${ORACLE_GREETINGS[$RAND_INDEX]}"
 
 # Speak Oracle Greeting
-bash "$PROJECT_ROOT/psi/active/voice_module.sh" "$SELECTED_GREETING" "Oracle"
+bash "$PROJECT_ROOT/psi/matrix/voice.sh" "$SELECTED_GREETING" "Oracle"

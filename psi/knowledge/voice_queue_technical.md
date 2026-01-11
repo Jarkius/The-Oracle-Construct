@@ -12,7 +12,7 @@ The Voice System has evolved from a brittle File-Locking mechanism (`shlock`) to
     -   Port: `6969`.
     -   Mechanism: `queue.Queue` (In-Memory FIFO).
     -   Launch Security: Must be launched detached (`< /dev/null`) to prevent TTY Suspension (`SIGTTOU`).
--   **Client**: `psi/active/voice_module.sh`
+-   **Client**: `psi/matrix/voice.sh`
     -   Mode `client`: Sends JSON Payload -> Server.
     -   Mode `worker`: Executed by Server -> Generates Audio (Blocking).
 
@@ -37,6 +37,6 @@ The Voice System has evolved from a brittle File-Locking mechanism (`shlock`) to
 
 ## 5. Artifacts
 -   `psi/active/voice_server.py`: The Brain.
--   `psi/active/voice_module.sh`: The Voice.
+-   `psi/matrix/voice.sh`: The Voice.
 -   `psi/active/demo_rollcall_queue.sh`: The Proof (Order).
 -   `psi/active/demo_rollcall_chaos.sh`: The Proof (Chaos).

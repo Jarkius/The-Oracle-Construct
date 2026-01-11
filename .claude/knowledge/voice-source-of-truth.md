@@ -127,7 +127,7 @@ This writes to `tts-voice.txt` so shell hooks stay in sync.
 - `.claude/config/voices.json` - Source of truth
 - `.claude/hooks/activate-agent.sh` - Sync script
 - `.claude/hooks/verify-voices.sh` - Audit script
-- `psi/active/voice_module.sh` - Agent speech with bypasses
+- `psi/matrix/voice.sh` - Agent speech with bypasses
 - `.agent/workflows/patrol.md` - Smith's monitoring duties
 
 ---

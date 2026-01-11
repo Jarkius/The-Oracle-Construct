@@ -17,7 +17,7 @@ Switch focus to UI/UX, styling, and visual presentation. When the code works but
 
 ## Voice Greeting
 ```bash
-sh psi/active/voice_module.sh "Everyone falls the first time. Let me show you beauty." "Trinity"
+sh psi/matrix/voice.sh "Everyone falls the first time. Let me show you beauty." "Trinity"
 ```
 
 ## Auto-Load Skills

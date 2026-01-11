@@ -68,7 +68,7 @@ Some agents have **alternate personas** - same identity, different focus.
 
 1. **Trinity IS the Woman in Red** - One identity, design mode
 2. **8 core agents** - Each has a unique voice and purpose
-3. **Voice module is singular** - `psi/active/voice_module.sh`
+3. **Voice module is singular** - `psi/matrix/voice.sh`
 4. **Config is canonical** - `.claude/config/voices.json`
 
 *This knowledge persists across sessions.*

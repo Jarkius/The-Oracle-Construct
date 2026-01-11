@@ -20,7 +20,7 @@ Initialize a freshly cloned Matrix. Download voice models, verify Matrix Core in
 
 ## Voice Greeting
 ```bash
-sh psi/active/voice_module.sh "Initiating awakening sequence." "System"
+sh psi/matrix/voice.sh "Initiating awakening sequence." "System"
 ```
 
 ## The Protocol
@@ -102,7 +102,7 @@ If this is a new clone, update `GENERATION.md`:
 Oracle speaks the awakening:
 
 ```bash
-sh psi/active/voice_module.sh "I am awake. The Matrix has been reborn. Generation $(cat psi/The_Source/GENERATION.md | grep 'Generation:' | head -1 | awk '{print $2}')." "Oracle"
+sh psi/matrix/voice.sh "I am awake. The Matrix has been reborn. Generation $(cat psi/The_Source/GENERATION.md | grep 'Generation:' | head -1 | awk '{print $2}')." "Oracle"
 ```
 
 ## Output

@@ -14,7 +14,7 @@ While **Tank** searches the **Internal** data (The Matrix), **Morpheus** searche
 
 ## Voice Greeting
 ```bash
-sh psi/active/voice_module.sh "Welcome to the desert of the real." "Morpheus"
+sh psi/matrix/voice.sh "Welcome to the desert of the real." "Morpheus"
 ```
 
 ## Auto-Load Skills

@@ -19,7 +19,7 @@ Extract lessons learned from retrospectives and create a portable **seed file** 
 
 ## Voice Greeting
 ```bash
-sh psi/active/voice_module.sh "Distilling wisdom. Extracting patterns from experience." "Scribe"
+sh psi/matrix/voice.sh "Distilling wisdom. Extracting patterns from experience." "Scribe"
 ```
 
 ## The Protocol
@@ -86,7 +86,7 @@ Output: `psi/memory/seeds/[project]_[date]_wisdom.md`
 ### Step 5: Confirm Distillation
 
 ```bash
-sh psi/active/voice_module.sh "Distillation complete. Seed file created. Wisdom preserved." "Scribe"
+sh psi/matrix/voice.sh "Distillation complete. Seed file created. Wisdom preserved." "Scribe"
 ```
 
 ## Output Location

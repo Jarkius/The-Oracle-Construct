@@ -27,7 +27,7 @@ These files are the **soul** of the Matrix. If any are missing after rebirth, th
 |------|---------|-----------|
 | `.agent/workflows/oracle.md` | Oracle must exist | **YES** |
 | `.agent/workflows/*.md` | Command definitions | Yes |
-| `psi/active/voice_module.sh` | Voice engine | Yes |
+| `psi/matrix/voice.sh` | Voice engine | Yes |
 | `.claude/audio/tracks/*.mp3` | Music files | Optional |
 
 ### The Memory (Optional Transfer)
