@@ -22,12 +22,33 @@ AGENT_ID=$("$SCRIPT_DIR/matrix-spawn.sh" "$AGENT_NAME" | tail -1)
 # Build context-aware prompt
 CONTEXT_FILE="$PROJECT_ROOT/.claude/context/subagent-primer.md"
 
+# Personality injection (Evolution 3.1 - Quick Win)
+AGENT_LOWER=$(echo "$AGENT_NAME" | tr '[:upper:]' '[:lower:]')
+
+# Try multiple naming patterns for personality files
+PERSONALITY_FILE=""
+for pattern in "${AGENT_LOWER}.md" "agent-${AGENT_LOWER}.md" "${AGENT_LOWER}-keeper.md"; do
+    if [ -f "$PROJECT_ROOT/.claude/agents/$pattern" ]; then
+        PERSONALITY_FILE="$PROJECT_ROOT/.claude/agents/$pattern"
+        break
+    fi
+done
+
+WORKFLOW_FILE="$PROJECT_ROOT/.agent/workflows/${AGENT_LOWER}.md"
+
 # Generate the prompt
 cat << PROMPT_EOF
 ## Agent Context
 You are **$AGENT_NAME** inside The Matrix.
 Your Agent ID: \`$AGENT_ID\`
 
+## Your Personality
+$([ -n "$PERSONALITY_FILE" ] && cat "$PERSONALITY_FILE" 2>/dev/null || echo "No personality file found - operate as generic agent")
+
+## Your Skills
+$(cat "$WORKFLOW_FILE" 2>/dev/null || echo "No workflow file found - use general capabilities")
+
+## Operational Protocol
 $(cat "$CONTEXT_FILE" 2>/dev/null || echo "No primer found")
 
 ## Your Mission
