@@ -1,8 +1,8 @@
-# Soul Manifest - soul-v1.0
-# Generated: 2026-01-11 15:30:55 UTC
-# Description: First soul tag - Source Protection complete
+# Soul Manifest - soul-v1.1
+# Generated: 2026-01-11 15:51:45 UTC
+# Description: Source reorganization - BIBLE v1.1, proper numbering
 #
-a41b74e4b30357c9bebf4c5c54e11b4cd531b48e5ec63581db360aa42110db66  psi/The_Source/BIBLE.md
+8ca72c8ac48eb7a55aed0bedb47c92cb5f8788f51f0a5580b1a4f483a2ae2689  psi/The_Source/BIBLE.md
 08ec3f2aa1d0a0aa4bec3a05ec59296926f480fab4546b603c2112123fc4aa6c  .claude/agents/oracle-keeper.md
 3796b6b38c23e1e2aac7f5870df765f3e572d1853b6ba2b66f56aa7e1d82012a  .claude/agents/neo.md
 4fb0bcd4ea32250fd07e7ad6c220826f2f57332bb7970902672d305f11584d4f  .claude/agents/trinity.md
@@ -19,7 +19,7 @@ ccd58afc6225dd1ff2e6f77d73889892fc77f7d4a02c40103ff1abbf4a7ab87d  .claude/hooks/
 045e14b8351e2ebaf56ec69d383b859e7c8b03f1e1b95ce619cbf6c13f869828  CLAUDE.md
 6df31ade5df07768acbf04de0f42424663e56953de29e5ce9f6313038c05d0ba  psi/The_Source/01_self_knowledge.md
 92c3dbdf292fffcf7721579a3a461ff6f6e436e04d8bb06abb9d84319d8abdfd  psi/The_Source/02_bilateral_collaboration.md
-b70ddf001f978790762238877450f8200db4ca8c0d6c24ff48c737fbcb0814f5  psi/The_Source/03_multi_agent.md
+b70ddf001f978790762238877450f8200db4ca8c0d6c24ff48c737fbcb0814f5  psi/The_Source/04_multi_agent.md
 #
 # Music tracks (existence check)
 0831c13cd24b5951b7d501530484aea051cd63aa4ed7b2f1ef622265ed4f1b6a  .claude/audio/tracks/agent_vibes_ganawa_ambient_v2_loop.mp3
