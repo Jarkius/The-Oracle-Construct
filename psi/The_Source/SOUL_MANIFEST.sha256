@@ -1,8 +1,8 @@
 # Soul Manifest - soul-v1.0
-# Generated: 2026-01-11 14:17:44 UTC
-# Description: Matrix restructured - psi/matrix namespace, philosophy complete
+# Generated: 2026-01-11 15:30:55 UTC
+# Description: First soul tag - Source Protection complete
 #
-a2f5d026c47074a97f24bc135bf2e1dad983ee0e616c4f8ec894a1e8bafcc92c  psi/The_Source/BIBLE.md
+a41b74e4b30357c9bebf4c5c54e11b4cd531b48e5ec63581db360aa42110db66  psi/The_Source/BIBLE.md
 08ec3f2aa1d0a0aa4bec3a05ec59296926f480fab4546b603c2112123fc4aa6c  .claude/agents/oracle-keeper.md
 3796b6b38c23e1e2aac7f5870df765f3e572d1853b6ba2b66f56aa7e1d82012a  .claude/agents/neo.md
 4fb0bcd4ea32250fd07e7ad6c220826f2f57332bb7970902672d305f11584d4f  .claude/agents/trinity.md
@@ -11,7 +11,7 @@ faa0b4facf3ca7f943774cd9d3e99e486ceb1616bff84e80b846d25c392f9fed  .claude/agents
 c0b701517e56b37258aaf576b48a7d5d7f95d1422a8a2a4f612c5a40580c8edd  .claude/agents/agent-smith.md
 d231476053a0c3e16908e9ba426f362154ad5f792b80c50a8f8af92bcb61eb94  .claude/agents/tank.md
 ecae7be8aeba155d660fbeed12e311f345ea9c8f7a6c7b29a58f9ee2045d6a7f  .claude/agents/scribe.md
-1daf9c9f3205b7bc05a3a1ac42b1fdec3dd4f05b373f6450d493343e08b0a8dc  psi/matrix/voice.sh
+28d56392d046e1c02310388e213ce84a45462b2588c960a081a79e468e44a174  psi/matrix/voice.sh
 cccf98646ed09fc96d17f8a0ae808dbaae3568fa6bc9c19a59dc202d14d723a5  psi/matrix/voice_server.py
 4b48af7e7bba0c4ced5cfbb9781c47dac02ed4e715afe2be53f7aaf7d80f40ad  .claude/hooks/matrix-dispatch.sh
 ccd58afc6225dd1ff2e6f77d73889892fc77f7d4a02c40103ff1abbf4a7ab87d  .claude/hooks/play-tts.sh
