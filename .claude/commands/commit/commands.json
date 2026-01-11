@@ -1,0 +1,13 @@
+{
+  "namespace": "commit",
+  "commands": [
+    {
+      "name": "push",
+      "description": "Commit all changes and push to remote"
+    },
+    {
+      "name": "local",
+      "description": "Commit all changes locally (no push)"
+    }
+  ]
+}

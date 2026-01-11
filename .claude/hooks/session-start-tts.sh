@@ -3,63 +3,52 @@ set -euo pipefail
 #
 # File: .claude/hooks/session-start-tts.sh
 #
-# AgentVibes SessionStart Hook - Optimized (Issue #80, Phase 1)
-# Token target: ~250 (down from ~500)
+# Matrix Voice Protocol - SessionStart Hook
+# Uses the Matrix voice system exclusively
 #
 
 # Fix locale warnings
 export LC_ALL=C
 
-# Get script directory
+# Get script directory and project root
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 
-# Check if AgentVibes is installed
-if [[ ! -f "$SCRIPT_DIR/play-tts.sh" ]]; then
-  # AgentVibes not installed, don't inject anything
-  exit 0
-fi
+# Get verbosity level
+VERBOSITY=$(cat .claude/tts-verbosity.txt 2>/dev/null || cat ~/.claude/tts-verbosity.txt 2>/dev/null || echo "medium")
 
-# Check for sentiment (priority) or personality (fallback)
-SENTIMENT=$(cat .claude/tts-sentiment.txt 2>/dev/null || cat ~/.claude/tts-sentiment.txt 2>/dev/null || echo "")
-PERSONALITY=$(cat .claude/tts-personality.txt 2>/dev/null || cat ~/.claude/tts-personality.txt 2>/dev/null || echo "normal")
-
-# Determine style
-if [[ -n "$SENTIMENT" ]]; then
-  STYLE="$SENTIMENT"
-else
-  STYLE="$PERSONALITY"
-fi
-
-# Get verbosity level (Issue #32)
-VERBOSITY=$(cat .claude/tts-verbosity.txt 2>/dev/null || cat ~/.claude/tts-verbosity.txt 2>/dev/null || echo "low")
-
-# Output optimized TTS protocol
+# Output Matrix Voice Protocol
 cat <<'EOF'
 
-# AgentVibes TTS Protocol
+# Matrix Voice Protocol
 
-**CRITICAL: You MUST execute TTS at TWO points for EVERY user interaction:**
+**Use the Matrix voice system for all TTS:**
 
-1. **Acknowledgment** - Start of task: `Bash: .claude/hooks/play-tts.sh "[action]"`
-2. **Completion** - End of task: `Bash: .claude/hooks/play-tts.sh "[result + key details]"`
-
-**Example:**
+```bash
+sh psi/active/voice_module.sh "message" "AgentName"
 ```
-[Bash: .claude/hooks/play-tts.sh "Checking git status"]
-[work...]
-[Bash: .claude/hooks/play-tts.sh "Repository is clean, no changes"]
-```
+
+**Available Agents & Voices:**
+- Oracle (Kristin) - Wisdom, guidance
+- Neo (Ryan) - Code, implementation
+- Tank (Bryce) - Git, internal ops
+- Smith (Danny) - Debug, security
+- Mainframe (Norman) - System events
+- System (HFC Male) - Status messages
+
+**When to speak:**
+1. **Acknowledgment** - Start of significant task
+2. **Completion** - End of task with result
 
 EOF
 
-# Add verbosity-specific protocol (Issue #32)
+# Add verbosity-specific protocol
 case "$VERBOSITY" in
   low)
     cat <<'EOF'
 ## Verbosity: LOW
-- Acknowledgment: Action only
-- Completion: Result + errors only
-- Skip: Reasoning, decisions
+- Speak only for major milestones
+- Keep messages under 50 chars
 
 EOF
     ;;
@@ -67,9 +56,9 @@ EOF
   medium)
     cat <<'EOF'
 ## Verbosity: MEDIUM
-- Acknowledgment: Action + key approach
-- Completion: Result + important decisions
-- Include: Major choices only
+- Speak for task start/end
+- Include key decisions
+- Keep messages under 100 chars
 
 EOF
     ;;
@@ -77,31 +66,24 @@ EOF
   high)
     cat <<'EOF'
 ## Verbosity: HIGH
-- Acknowledgment: Action + approach + why
-- Completion: Result + decisions + trade-offs
-- Include: Full reasoning, alternatives
+- Speak for all significant actions
+- Include reasoning and trade-offs
+- Keep messages under 150 chars
 
 EOF
     ;;
 esac
 
-# Add style info and rules
-cat << EOF
-## Style: $STYLE
-
+cat <<'EOF'
 ## Rules
-1. Never skip acknowledgment TTS
-2. Never skip completion TTS
-3. Match verbosity level
-4. Keep under 150 chars
-5. Always include errors
-
-Quick Ref: low=action+result | medium=+key decisions | high=+full reasoning
+1. Use appropriate agent for the context
+2. Oracle for wisdom, Tank for git, Neo for code
+3. Match agent personality in message tone
+4. Never use .claude/hooks/play-tts.sh (use Matrix voice only)
 
 EOF
 
 # System Acknowledgement (Queue Priority 1)
-PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 bash "$PROJECT_ROOT/psi/active/voice_module.sh" "System online. Link established." "System"
 
 # Randomized Oracle Greetings (Queue Priority 2)
