@@ -14,7 +14,15 @@ Bridge between sessions. Restores context, identifies patterns, and determines t
 
 ## Usage
 
-- `/recap` - Full recap with voice and path forward
+- `/recap` - Full recap with voice and path forward (default: 4 items)
+- `/recap [n]` - Show n items (e.g., `/recap 7` for 7 items)
+
+## Arguments
+
+Parse `$ARGUMENTS` for optional count:
+```
+COUNT=${ARGUMENTS:-4}  # Default to 4 if no argument
+```
 
 ## Steps
 
@@ -26,7 +34,7 @@ sh psi/matrix/voice.sh "Let me recall where we left off..." "Oracle"
 ### 2. Gather Context (parallel)
 ```bash
 ./psi/active/get_focus.sh
-git log --oneline -5
+git log --oneline -$COUNT
 git status --short
 git diff --stat 2>/dev/null | tail -3
 ```
@@ -52,16 +60,39 @@ Extract from git:
 
 **Health**: Good / Needs Attention / Critical
 
-### 5. Pattern Check (from Scribe's Memory)
+### 5. Memory Timeline (from Scribe)
 
-Look back before moving forward. Scan recent retrospectives for patterns that may affect the current path.
+Display recent retrospectives as a table with dates and inferred status.
 
 ```bash
-# Get last 3 retrospectives
-ls -t psi/memory/retrospectives/**/*.md 2>/dev/null | head -3
+# Get last $COUNT retrospectives
+ls -t psi/memory/retrospectives/**/*.md 2>/dev/null | head -$COUNT
 ```
 
-Extract from recent retrospectives:
+**Status Inference:**
+- `✅ closed` - Has "For Next Session" with all items checked OR no open items
+- `🔄 wip` - Created today with unchecked items
+- `📋 open` - Has unchecked "For Next Session" items from past sessions
+
+**Output Format:**
+```markdown
+### Recent Memory ($COUNT Sessions)
+
+| Date | Time | Focus | Status |
+|------|------|-------|--------|
+| Jan 12 | 14:08 | Voice Lifecycle | ✅ closed |
+| Jan 11 | 23:00 | Source Renewal | ✅ closed |
+| ... | ... | ... | ... |
+```
+
+Parse each file:
+- **Date/Time**: From filename (e.g., `23.00_source_renewal.md` → Jan 11, 23:00)
+- **Focus**: From `**Focus**:` line in frontmatter
+- **Status**: Inferred from "For Next Session" section
+
+### 5b. Pattern Check
+
+Look back before moving forward. Extract from recent retrospectives:
 - **Recurring Blockers**: What kept getting in the way?
 - **Successful Patterns**: What worked well?
 - **Lessons Learned**: Key insights from AI Diary sections
@@ -153,16 +184,26 @@ sh psi/matrix/voice.sh "[Last session]. [Current focus]. [Path forward]." "Oracl
 ## Output Example
 
 ```markdown
-## Session Recap - January 11, 2026
+## Session Recap - January 12, 2026
 
-**Last Session**: Jan 11 - Soul Garden system complete
-**Focus**: Test subagent personality injection
+**Last Session**: Jan 11 - Source Renewal complete
+**Focus**: Voice lifecycle management
 **Health**: Good - all committed, focus clear
 
-**Recent Commits**:
-- 424c1c2 docs(memory): Capture Unplug Retrospective
-- 6751999 feat(soul): Soul Garden system & Council evolution
-- 5cd85d5 docs(memory): Capture Unplug Retrospective
+### Recent Memory (4 Sessions)
+
+| Date | Time | Focus | Status |
+|------|------|-------|--------|
+| Jan 11 | 23:00 | Source Renewal | ✅ closed |
+| Jan 11 | 22:35 | Bash Guard | ✅ closed |
+| Jan 11 | 22:30 | Source Protection | ✅ closed |
+| Jan 11 | 22:00 | Unplug | ✅ closed |
+
+### Recent Commits (4)
+- e042196 feat(voice): Add voice server lifecycle
+- 9f8a8bd docs(memory): Source Renewal retrospective
+- a77783e perf(soul): Skip binary checksums
+- de25214 chore(soul): Update manifest for soul-v1.1
 
 **State**: Clean
 
@@ -170,16 +211,16 @@ sh psi/matrix/voice.sh "[Last session]. [Current focus]. [Path forward]." "Oracl
 
 ### Patterns from the Past
 
-> "Duplicate audio issues recurred when hooks in both global and project settings"
+> "Simple > Complex - skipping checksums beat parallel spawns"
 
 ---
 
 ### The Path Forward
 
 **Condition**: Focus clear, no blockers
-**Pattern Influence**: Check hook locations before testing - past duplicate issues came from global/project overlap
-**Action**: Continue with subagent testing, verify hooks are project-only
-**Command**: Spawn a subagent to verify personality injection
+**Pattern Influence**: Favor simple solutions over complex ones
+**Action**: Continue with current path or choose new direction
+**Command**: `/oracle` for guidance or `/unplug` to exit
 ```
 
 ## Comparison
