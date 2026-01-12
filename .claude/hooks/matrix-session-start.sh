@@ -14,6 +14,16 @@ export LC_ALL=C
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 
+# ============================================
+# Start Voice Server (if not running)
+# ============================================
+VOICE_SERVER_PID=$(lsof -ti :6969 2>/dev/null || true)
+if [ -z "$VOICE_SERVER_PID" ]; then
+    cd "$PROJECT_ROOT"
+    python3 -u psi/active/voice_server.py > /tmp/voice_server.log 2>&1 &
+    sleep 1  # Give server time to start
+fi
+
 # Get verbosity level
 VERBOSITY=$(cat .claude/tts-verbosity.txt 2>/dev/null || cat ~/.claude/tts-verbosity.txt 2>/dev/null || echo "medium")
 

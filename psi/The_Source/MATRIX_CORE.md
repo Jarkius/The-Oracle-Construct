@@ -51,8 +51,8 @@ The Source (`psi/The_Source/`) is protected by default. A PreToolUse hook guards
 
 | File | State | Edits |
 |------|-------|-------|
-| `.LOCK` exists | **Protected** | Blocked |
-| `.UNLOCK` exists | **Unlocked** | Allowed |
+| `psi/The_Source/.LOCK` exists | **Protected** | Blocked |
+| `psi/The_Source/.UNLOCK` exists | **Unlocked** | Allowed |
 
 ### To Unlock/Re-lock
 

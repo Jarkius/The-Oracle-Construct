@@ -84,7 +84,15 @@ Graceful shutdown sequence. Ensures nothing is lost before the Operator leaves t
 
 <step n="6" goal="Farewell">
   <action>Speak farewell: `bash psi/matrix/voice.sh "Until next time, Operator. The Matrix will remember." "Oracle"`</action>
+  <action>Wait for speech to complete: `sleep 4`</action>
+</step>
 
+<step n="7" goal="Shutdown Voice Server">
+  <action>Kill voice server: `pkill -f 'voice_server.py' 2>/dev/null || true`</action>
+  <action>Clean up lock file: `rm -f /tmp/matrix_voice_server.lock`</action>
+</step>
+
+<step n="8" goal="Display Exit">
   <action>Display:</action>
   ```
   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
