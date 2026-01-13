@@ -171,6 +171,58 @@ Haiku (labor)
 - **Self-aware**: Agents know their limits
 - **Flexible**: No rigid boundaries
 
+## Wisdom-Based Delegation
+
+> *"The wise mind knows when to think and when to delegate."*
+
+### The Principle
+
+Wise agents (Opus tier) delegate to mechanical agents (Haiku tier) when work shifts from **thinking** to **gathering**. No threshold. No rigid rules. Use judgment.
+
+```
+┌─────────────────────────────────────────────────┐
+│                                                 │
+│   Does this feel like THINKING or GATHERING?   │
+│                                                 │
+│   Thinking → Do it yourself                    │
+│   Gathering → Delegate to Tank                 │
+│                                                 │
+└─────────────────────────────────────────────────┘
+```
+
+### Indicators to Delegate
+
+- Multiple similar operations (feels mechanical)
+- Unknown scope exploration
+- Raw data collection
+- "I just need the facts"
+
+### Indicators to Do Directly
+
+- Need to see/understand something specific
+- Quick single lookup with known path
+- Analysis required during gathering
+- Tight integration with thinking
+
+### Why No Threshold?
+
+A hard number (e.g., "5+ operations") creates artificial constraints. The wise mind can tell the difference between thinking and gathering. Trust it.
+
+By removing the number, Opus agents have **full autonomy**. They aren't following rules — they're exercising judgment. That's what wisdom is.
+
+> *"Choice. The problem is choice."*
+
+### Examples
+
+| Situation | Wise Choice | Why |
+|-----------|-------------|-----|
+| Read one file to understand a bug | Direct | Thinking - need to see it |
+| Map the entire codebase | Tank | Gathering - mechanical recon |
+| Quick git status | Direct | Fast, known |
+| Find all usages across codebase | Tank/Explore | Open-ended gathering |
+| Check 3 config files | Direct | Small, known scope |
+| Inventory all workflows, ADRs, retrospectives | Tank | Large gathering task |
+
 ## Consequences
 
 ### Positive
@@ -180,6 +232,7 @@ Haiku (labor)
 - **~60% savings** on routine operations (Sonnet vs Opus)
 - **Better learning quality** (Sonnet understands what matters)
 - **Consistent patterns** across workflows
+- **Free wisdom** - Opus agents use judgment, not rigid rules
 
 ### Negative
 
