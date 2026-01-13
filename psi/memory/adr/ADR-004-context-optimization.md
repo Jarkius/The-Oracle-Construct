@@ -30,31 +30,54 @@ At session start, The Matrix consumes ~31k/200k tokens (15%) before any user int
 - The MCP adds 1.1k tokens for a single tool that duplicates native capability
 - No active workflows in The Matrix depend on this MCP
 
+### Remove AgentVibes MCP (3.5k tokens saved)
+
+**Rationale**: Analysis revealed that the Matrix voice system (`psi/matrix/voice.sh`) calls Piper TTS directly via shell commands - it does NOT use the AgentVibes MCP at all. AgentVibes is a completely independent TTS system.
+
+**Architecture Discovery**:
+```
+Matrix Voice:    voice.sh → voice_server.py → Piper TTS (direct)
+AgentVibes MCP:  MCP tools → separate TTS system (unused)
+```
+
+**Evidence**:
+- `voice.sh` dependencies: Piper binary, voice models, afplay, ffmpeg
+- No MCP tool calls anywhere in Matrix voice workflows
+- AgentVibes MCP adds 27 tools consuming ~3.5k tokens for zero benefit
+
+**Wisdom Extracted**: Before removal, key patterns documented in `psi/learn/active/agentvibes-patterns.md`:
+- SessionStart hook injection pattern
+- Provider abstraction architecture
+- Shell script security best practices
+- Language learning mode concept
+
 ### Retain `context7` MCP (907 tokens)
 
 **Rationale**: Context7 provides real-time library documentation lookup, which is valuable for development tasks and cannot be replicated by the model's training data alone.
 
-### Future Consideration: AgentVibes Slim Profile
-
-The AgentVibes MCP contributes 27 tools (~3.5k tokens). A future optimization could:
-- Create a "slim" profile with 10 core tools (~1.4k tokens)
-- Move audio effects (reverb, background music, etc.) to on-demand activation
-
 ## Consequences
 
 ### Positive
-- ~1.1k token savings per session
-- Reduced latency (one fewer MCP server to spawn)
+- **~4.6k total token savings per session** (1.1k + 3.5k)
+- Reduced latency (two fewer MCP servers to spawn)
 - Cleaner tool namespace
+- Baseline reduced from ~31k to ~26k tokens (13% of context)
 
 ### Negative
 - Users who explicitly want structured thinking scaffolding lose that option
 - Minimal: Opus 4.5 native reasoning is superior anyway
+- AgentVibes MCP tools no longer available (but were never used)
 
 ## Implementation
 
+### Phase 1 (Completed)
 1. Remove `sequential-thinking` from project MCP config in `~/.claude.json`
-2. Remove permission for `mcp__sequential-thinking__sequentialthinking` from `.claude/settings.local.json`
+2. Remove permission from `.claude/settings.local.json`
+
+### Phase 2 (Completed)
+1. Extract wisdom from AgentVibes to `psi/learn/active/agentvibes-patterns.md`
+2. Remove `agentvibes` from `.mcp.json` project config
+3. Research folder preserved at `psi/lab/research/AgentVibes_Research/`
 
 ## References
 
