@@ -222,6 +222,13 @@ if [[ -f "$SOURCE_DIR/psi/memory/knowledge-index.md" ]]; then
     echo "  ✓ knowledge-index.md"
 fi
 
+# Copy templates
+if [[ -d "$SOURCE_DIR/templates" ]]; then
+    mkdir -p "$TARGET_REPO/templates"
+    cp "$SOURCE_DIR/templates/"*.md "$TARGET_REPO/templates/" 2>/dev/null || true
+    echo "  ✓ templates/"
+fi
+
 # ============================================
 # Phase 9: Create Configuration Files
 # ============================================
@@ -594,6 +601,7 @@ echo "  - Voice system"
 echo "  - $track_count music tracks"
 echo "  - $sfx_count sound effects"
 echo "  - Hooks"
+echo "  - Templates"
 echo "  - teleport.sh"
 echo ""
 echo "Next steps:"
