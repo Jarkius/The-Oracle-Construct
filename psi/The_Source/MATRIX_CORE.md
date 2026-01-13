@@ -39,7 +39,24 @@ These files are the **soul** of the Matrix. If any are missing after rebirth, th
 |------|---------|-----------|
 | `psi/memory/seeds/*.md` | Distilled wisdom | Recommended |
 | `psi/memory/retrospectives/` | Session logs | Optional |
-| `psi/inbox/focus.md` | Current focus | Optional |
+| `psi/memory/knowledge-index.md` | Knowledge directory | Recommended |
+
+### The Knowledge (Learning System)
+| File | Purpose | Critical? |
+|------|---------|-----------|
+| `psi/learn/inbox.md` | Quick capture | Yes |
+| `psi/learn/backlog.md` | Learning queue | Yes |
+| `psi/learn/active/` | Current research | Yes |
+| `psi/learn/archive/` | Completed research | Optional |
+| `psi/learn/repos/` | Learning repo symlinks | Optional |
+| `.agent/workflows/learn.md` | /learn workflow | Yes |
+| `.agent/workflows/wisdom.md` | /wisdom workflow | Yes |
+
+### The Projects (GHQ + Symlinks)
+| File | Purpose | Critical? |
+|------|---------|-----------|
+| `psi/projects/` | Symlinks to ~/ghq repos | Yes |
+| `psi/memory/adr/ADR-002*.md` | Architecture decision | Recommended |
 
 ---
 

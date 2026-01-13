@@ -20,31 +20,39 @@ This file defines the **Universal Commands** for the Matrix. Any AI agent (Claud
 ## 📂 Workspace Structure
 
 ```
+~/ghq/github.com/Jarkius/    # GHQ Root (Canonical Repos)
+├── The-Oracle-Construct → ~/workspace/The-matrix  # Symlink
+├── cis-modern/              # CIS Modernization
+└── cis-legacy/              # Legacy PHP
+
 ~/workspace/
-├── The-matrix/              # AI Development Environment
+├── The-matrix/              # AI Development Environment (HOME)
 │   ├── .agent/workflows/    # Slash command definitions (*.md)
 │   ├── .claude/             # Claude Code parallel world
 │   │   ├── agents/          # Agent personality definitions
 │   │   ├── commands/        # Command definitions
-│   │   └── knowledge/       # Persistent knowledge base
+│   │   └── config/          # Voice, audio settings
 │   └── psi/                 # AI Brain ("External Memory")
-│       ├── inbox/           # Incoming focus & tasks
-│       ├── active/          # Active scripts
-│       └── memory/          # Blueprints, plans, learnings
+│       ├── The_Source/      # Sacred philosophy (protected)
+│       ├── learn/           # Knowledge gathering
+│       │   ├── inbox.md     # Quick capture
+│       │   ├── active/      # Current research
+│       │   └── archive/     # Completed research
+│       ├── projects/        # Symlinks to ~/ghq repos
+│       ├── memory/          # Learnings, retrospectives, ADRs
+│       ├── matrix/          # Voice system
+│       └── active/          # Runtime scripts
 │
-├── cis-legacy/              # Old PHP Monolith (Port 8888)
-│
-└── cis-modern/              # CIS Modernization Project
-    ├── api/                 # Laravel 11 API (Port 8889)
-    ├── web/                 # React + Vite SPA (Port 5173)
-    └── tests/               # Playwright E2E Tests
+├── cis-modern → ~/ghq/.../  # Symlink
+└── cis-legacy → ~/ghq/.../  # Symlink
 ```
 
 ## 🛡️ Prime Directives
-1.  **Nothing is Deleted**: Archive, don't destroy. Use `psi/memory/archive`.
+1.  **Nothing is Deleted**: Archive, don't destroy. Use `psi/learn/archive`.
 2.  **Patterns > Intentions**: Document what *is*, not what *should be*.
-3.  **The Inbox**: Information flows through `psi/inbox/focus.md`.
+3.  **Knowledge Loop**: `/learn` to gather, `/wisdom` to retrieve. Close the loop.
 4.  **Voice Module**: Use `sh psi/matrix/voice.sh "message" "Agent"` for TTS.
+5.  **Proactive Care**: If it's important, do it. Don't wait to be asked.
 
 ## 🚀 Current Mission: CIS Modernization
 - **Legacy**: PHP/MySQL inventory system.
@@ -53,4 +61,4 @@ This file defines the **Universal Commands** for the Matrix. Any AI agent (Claud
 - **Design**: "Deloitte Light Theme" (Deloitte Green/White/Clean/Professional).
 
 ---
-*Portable Matrix Interface v3.0*
+*Portable Matrix Interface v3.1 — Knowledge Loop Edition*
