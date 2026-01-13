@@ -117,6 +117,60 @@ WISE (Opus)                → Main context or spawn for synthesis
   - Decisions, synthesis, code implementation, architecture
 ```
 
+### Dynamic Escalation
+
+> *"Start with the lightest mind that can do the job. Escalate when the task reveals its true weight."*
+
+The hierarchy is **dynamic, not rigid**. Agents can escalate when complexity demands it.
+
+```
+Start Lean → Detect Complexity → Escalate
+─────────────────────────────────────────
+
+Haiku (labor)
+    │
+    └─→ "This needs understanding" ──→ Sonnet (learning)
+                                           │
+                                           └─→ "This needs wisdom" ──→ Opus (decisions)
+```
+
+#### Escalation Triggers
+
+| From | To | Trigger |
+|------|----|---------|
+| Haiku | Sonnet | Complex patterns detected, needs judgment |
+| Haiku | Opus | Architectural/security implications |
+| Sonnet | Opus | Philosophy, architecture, code decisions |
+
+#### Escalation Examples
+
+| Scenario | Starts | Escalates To | Why |
+|----------|--------|--------------|-----|
+| Morpheus researching React hooks | Sonnet | — | Sufficient |
+| Morpheus researching distributed systems | Sonnet | Architect (Opus) | Architecture needed |
+| Tank searching files | Haiku | — | Sufficient |
+| Tank analyzing complex git history | Haiku | Sonnet | Needs understanding |
+| Commit routine changes | Sonnet | — | Sufficient |
+| Commit major refactor | Sonnet | Opus | Needs review |
+
+#### Escalation Protocol
+
+```markdown
+## When Agent Detects Complexity
+
+1. Recognize: "This exceeds my tier"
+2. Announce: "Escalating to [higher tier] for [reason]"
+3. Handoff: Pass context to higher-tier agent
+4. Return: Higher tier returns decision/result
+```
+
+#### Benefits of Dynamic Escalation
+
+- **Cost-efficient**: Start cheap, pay more only when needed
+- **Quality-preserving**: Complex tasks get appropriate attention
+- **Self-aware**: Agents know their limits
+- **Flexible**: No rigid boundaries
+
 ## Consequences
 
 ### Positive

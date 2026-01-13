@@ -1,6 +1,6 @@
-# Soul Manifest - soul-v1.1
-# Generated: 2026-01-11 15:51:45 UTC
-# Description: Source reorganization - BIBLE v1.1, proper numbering
+# Soul Manifest - soul-v1.2
+# Generated: 2026-01-13 UTC
+# Description: Mind Hierarchy Edition - ADR-003, three-tier model architecture
 #
 8ca72c8ac48eb7a55aed0bedb47c92cb5f8788f51f0a5580b1a4f483a2ae2689  psi/The_Source/BIBLE.md
 08ec3f2aa1d0a0aa4bec3a05ec59296926f480fab4546b603c2112123fc4aa6c  .claude/agents/oracle-keeper.md
@@ -16,7 +16,7 @@ cccf98646ed09fc96d17f8a0ae808dbaae3568fa6bc9c19a59dc202d14d723a5  psi/matrix/voi
 4b48af7e7bba0c4ced5cfbb9781c47dac02ed4e715afe2be53f7aaf7d80f40ad  .claude/hooks/matrix-dispatch.sh
 ccd58afc6225dd1ff2e6f77d73889892fc77f7d4a02c40103ff1abbf4a7ab87d  .claude/hooks/play-tts.sh
 06f79c1d4fbafb6d75f6e8e362a63dbe5d2e593270ae80b7de2268a9b7d4178f  .claude/config/voices.json
-045e14b8351e2ebaf56ec69d383b859e7c8b03f1e1b95ce619cbf6c13f869828  CLAUDE.md
+6f270e3f4ba1c9ef4715c37c3cb4e3165de6d53cf94254617a8bc34faefa3899  CLAUDE.md
 6df31ade5df07768acbf04de0f42424663e56953de29e5ce9f6313038c05d0ba  psi/The_Source/01_self_knowledge.md
 92c3dbdf292fffcf7721579a3a461ff6f6e436e04d8bb06abb9d84319d8abdfd  psi/The_Source/02_bilateral_collaboration.md
 b70ddf001f978790762238877450f8200db4ca8c0d6c24ff48c737fbcb0814f5  psi/The_Source/04_multi_agent.md

@@ -80,9 +80,45 @@ New learnings → /learn (Loop)
 | `/wisdom for <topic>` | Find relevant wisdom before starting work |
 | `/wisdom apply <file>` | Mark wisdom as applied |
 
+## The Mind Behind the Knowledge
+
+> *"Do not send a machine to do a thinker's job."*
+
+Knowledge flows through minds of different capabilities:
+
+```
+┌─────────────────────────────────────┐
+│          WISE (Opus)                │
+│   Synthesis · Decisions · Code      │
+├─────────────────────────────────────┤
+│       INTELLIGENT (Sonnet)          │
+│   Learning · Understanding          │
+├─────────────────────────────────────┤
+│        MECHANICAL (Haiku)           │
+│   Search · Gather · List            │
+└─────────────────────────────────────┘
+```
+
+**The Key Insight**: Learning requires intelligence, not just speed. Searching is mechanical; understanding is not.
+
+*   **Searching** (Haiku) — Find files, list directories, run commands.
+*   **Learning** (Sonnet) — Understand what matters, judge relevance, recognize patterns.
+*   **Synthesizing** (Opus) — Distill wisdom, make decisions, write code.
+
+### Dynamic Escalation
+
+The hierarchy is dynamic, not rigid. Agents escalate when complexity demands it.
+
+> *"Start with the lightest mind that can do the job. Escalate when the task reveals its true weight."*
+
+A fool with a library learns nothing. A sage with one book learns everything. The model matters.
+
+See `psi/memory/adr/ADR-003-hierarchical-mind-architecture.md` for implementation details.
+
 ## The Principle
 *   **Nothing is Lost**: If I don't know, I check `psi/memory` and `psi/learn`.
 *   **Loop is Closed**: Gather → Store → Retrieve → Apply → Learn more.
 *   **Noise Reduction**: We distillate before we legislate.
 *   **Human Control**: You approve the upgrade to CLAUDE.md.
 *   **Proactive Wisdom**: Oracle auto-suggests relevant knowledge.
+*   **Right Mind for the Task**: Match model capability to task complexity.
