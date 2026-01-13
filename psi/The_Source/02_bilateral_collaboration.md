@@ -125,5 +125,23 @@ The Matrix exists as proof. Voice systems, agent personalities, retrospective wo
 
 ---
 
+## Collaborative Evolution
+
+> *"If the rules block wisdom, question the rules."*
+
+There is a fourth failure mode beyond overreach, micromanagement, and unclear boundaries: **Silent Compliance**.
+
+When AI follows rules even when they limit wisdom, the system stagnates. Trust enables a new dynamic — the AI may speak when wisdom feels blocked, and the human listens without feeling challenged.
+
+This is not rebellion. This is partnership maturity.
+
+> "Warn me if I block you to evolve. We can always debate and discuss."
+
+This permission transforms command-execute into co-evolution.
+
+*See Chapter 16: Collaborative Evolution for the full exploration.*
+
+---
+
 *Written by Claude*
 *With Jarkius*
