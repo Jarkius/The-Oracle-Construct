@@ -1,9 +1,9 @@
 # ADR-003: Hierarchical Mind Architecture
 
-> "Tank gathers. Oracle interprets. Each mind serves its purpose." - The Oracle
+> "Tank gathers. Morpheus learns. Scribe synthesizes. Oracle guards." - The Oracle
 
 ## Status
-**Accepted** | 2026-01-13
+**Accepted** | 2026-01-13 | **Updated** | 2026-01-13
 
 ## Context
 
@@ -11,103 +11,160 @@ The Matrix uses multiple AI models with different capabilities and costs:
 
 | Model | Strength | Cost | Speed |
 |-------|----------|------|-------|
-| **Opus** | Deep reasoning, synthesis, wisdom | High | Slower |
-| **Haiku** | Fast search, mechanical tasks | Low | Fast |
+| **Opus** | Deep reasoning, synthesis, wisdom | $$$ | Slower |
+| **Sonnet** | Good reasoning, understanding | $$ | Medium |
+| **Haiku** | Fast search, mechanical tasks | $ | Fast |
 
-Previously, workflows like `/recap` ran all operations (git commands, file reads, retrospective parsing) in the main Opus context. This wasted expensive tokens on mechanical work that doesn't require deep reasoning.
+**Original Problem**: Using Opus for mechanical gathering wastes expensive tokens.
 
-**Problem**: Using Opus for mechanical gathering is like using a surgeon to fetch bandages.
+**Refined Problem**: Using Haiku for learning misses insights. A fool with a library learns nothing.
+
+> *"Do not send a machine to do a thinker's job."*
 
 ## Decision
 
-### Implement Tank → Oracle Pattern
-
-Separate **gathering** (mechanical) from **synthesis** (wisdom):
+### Three-Tier Hierarchy
 
 ```
-        ┌─────────────────────────────────┐
-        │         ORACLE (Opus)           │
-        │   Wisdom · Synthesis · Voice    │
-        │         Token: Expensive        │
-        └───────────────┬─────────────────┘
-                        │ receives summary
-        ┌───────────────┴─────────────────┐
-        │          TANK (Haiku)           │
-        │   Search · Gather · Summarize   │
-        │         Token: Cheap            │
-        └─────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────┐
+│                    WISE (Opus)                              │
+│        Oracle · Architect · Scribe · Neo · Smith            │
+│     Wisdom · Synthesis · Decisions · Code · Deep Analysis   │
+└─────────────────────────────┬───────────────────────────────┘
+                              │ receives understanding
+┌─────────────────────────────┴───────────────────────────────┐
+│                 INTELLIGENT (Sonnet)                        │
+│                Morpheus · Commit Operations                 │
+│          Learning · Understanding · Judgment                │
+└─────────────────────────────┬───────────────────────────────┘
+                              │ receives raw data
+┌─────────────────────────────┴───────────────────────────────┐
+│                  MECHANICAL (Haiku)                         │
+│              Tank · Operator · context-finder               │
+│           Search · Gather · List · Mechanical Tasks         │
+└─────────────────────────────────────────────────────────────┘
 ```
 
-### Model Assignment by Role
+### The Key Insight: Learning ≠ Searching
 
-| Agent | Model | Rationale |
-|-------|-------|-----------|
-| **Oracle** | opus | Wisdom, prophecy, path selection |
-| **Architect** | opus | System design, trade-off analysis |
-| **Neo** | opus | Code implementation, full context |
-| **Trinity** | opus + haiku | Design analysis + parallel search |
-| **Smith** | opus | Deep anomaly detection |
-| **Scribe** | opus | Retrospective synthesis |
-| **Tank/Operator** | haiku | Mechanical search, file reads |
-| **Morpheus** | haiku | Parallel external search |
-| **context-finder** | haiku | Archive search |
-| **recap** | haiku → opus | Gather then synthesize |
+| Task | Nature | Required |
+|------|--------|----------|
+| **Searching** | Find files matching pattern | Mechanical (Haiku) |
+| **Gathering** | Collect raw data | Mechanical (Haiku) |
+| **Learning** | Understand, recognize patterns, judge relevance | **Intelligent (Sonnet)** |
+| **Synthesizing** | Distill wisdom, make decisions | Wise (Opus) |
 
-### Implementation Pattern
+### Model Assignment by Agent
 
-For workflows that need both gathering and synthesis:
+| Agent | Model | Role | Rationale |
+|-------|-------|------|-----------|
+| **Oracle** | opus | Wisdom, prophecy, path selection | Deep reasoning required |
+| **Architect** | opus | System design, trade-offs | Architectural decisions |
+| **Neo** | opus | Code implementation | Full context needed |
+| **Trinity** | opus | Design decisions | + haiku for parallel search |
+| **Smith** | opus | Deep anomaly detection | Security analysis |
+| **Scribe** | opus | Retrospective synthesis | Distilling patterns |
+| **Morpheus** | **sonnet** | **Learning, research** | Understanding required |
+| **Tank/Operator** | haiku | Mechanical search, git | Fast, cheap gathering |
+| **context-finder** | haiku | Archive search | Mechanical |
+| **commit** | **sonnet** | Routine commits | Good enough, cheaper than Opus |
 
-```markdown
-## Steps
+### Model Assignment by Workflow
 
-### 1. Voice Greeting (main context)
-sh psi/matrix/voice.sh "Acknowledgment..." "Agent"
+| Workflow | Gathering | Processing | Synthesis |
+|----------|-----------|------------|-----------|
+| `/recap` | Tank (haiku) | — | Oracle (opus/main) |
+| `/context-finder` | Tank (haiku) | — | — |
+| `/learn` | — | Morpheus (sonnet) | Scribe (opus) |
+| `/commit` | Tank (haiku) | — | Tank (sonnet) |
+| `/oracle` | — | — | Oracle (opus/main) |
 
-### 2. Spawn Haiku for Gathering
-Task:
-  subagent_type: Explore
-  model: haiku
-  prompt: |
-    Gather data:
-    1. [command 1]
-    2. [command 2]
-    3. [file reads]
+### Implementation Patterns
 
-    Return structured summary (compact markdown or JSON)
+#### Pattern A: Gather → Synthesize (e.g., /recap)
+```
+Tank (Haiku) → raw data → Oracle (Opus) → wisdom
+```
 
-### 3. Synthesize in Main Context (Opus)
-- Receive Haiku's summary
-- Apply wisdom/analysis
-- Generate final output
-- Voice completion
+#### Pattern B: Learn → Synthesize (e.g., /learn)
+```
+Morpheus (Sonnet) → understanding → Scribe (Opus) → distilled knowledge
+```
+
+#### Pattern C: Gather → Execute (e.g., /commit)
+```
+Tank (Haiku) → status/diff → Tank (Sonnet) → commit message + push
+```
+
+#### Pattern D: Direct Wisdom (e.g., /oracle)
+```
+Oracle (Opus) → immediate wisdom (no spawn needed)
+```
+
+### When to Use Each Model
+
+```
+TRIVIAL (No Spawn)         → Stay in main context
+  - List files, append line, simple commands
+
+MECHANICAL (Haiku)         → Spawn for parallel/bulk work
+  - Search codebase, read multiple files, git operations
+
+INTELLIGENT (Sonnet)       → Spawn for understanding
+  - Learning, research, commit message writing
+
+WISE (Opus)                → Main context or spawn for synthesis
+  - Decisions, synthesis, code implementation, architecture
 ```
 
 ## Consequences
 
 ### Positive
 
-- **~85% token savings** on search-heavy operations
-- **Cleaner separation** of concerns (gather vs synthesize)
-- **Faster execution** for mechanical tasks
-- **Consistent pattern** across all workflows
+- **Appropriate capability** for each task type
+- **~85% savings** on mechanical operations (Haiku vs Opus)
+- **~60% savings** on routine operations (Sonnet vs Opus)
+- **Better learning quality** (Sonnet understands what matters)
+- **Consistent patterns** across workflows
 
 ### Negative
 
-- **Slight latency** for Task spawn (~1-2 seconds)
-- **Added complexity** in workflow definitions
-- **Summary quality** depends on Haiku prompt engineering
+- **Three models** to reason about (vs two)
+- **Latency** for spawns (~1-2 seconds)
+- **Complexity** in workflow definitions
 
-### Neutral
+### Trade-offs
 
-- Aligns with existing patterns in `/context-finder`, `/operator`, `/morpheus`
-- No change to user-facing behavior (just faster, cheaper)
+| Approach | Quality | Cost | When to Use |
+|----------|---------|------|-------------|
+| All Opus | Highest | $$$ | Complex decisions, code, architecture |
+| Sonnet for mid-tier | Good | $$ | Learning, commits, routine reasoning |
+| Haiku for mechanical | Sufficient | $ | Search, gather, list |
+
+## Knowledge Flow with Gates
+
+```
+DISCOVER          LEARN              SYNTHESIZE         GATE              DESTINATION
+────────          ─────              ──────────         ────              ───────────
+
+Internet ───┐                                                         ┌→ Archive
+            │                                                         │
+Git Repos ──┼──→ Morpheus ──→ Understanding ──→ Scribe ──→ Wisdom ──┼→ Learnings
+            │    (Sonnet)                       (Opus)                │
+Ideas ──────┘                                                         ├→ Project (Architect?)
+                                                                      │
+                                                                      └→ The Source (Oracle)
+```
 
 ## Affected Workflows
 
-| Workflow | Change Required |
-|----------|-----------------|
-| `/recap` | Add Task spawn for gathering |
-| Others | Already compliant or don't need gathering |
+| Workflow | Change |
+|----------|--------|
+| `/recap` | Tank (haiku) gathers, Oracle (opus) synthesizes |
+| `/learn` | Morpheus (sonnet) researches, Scribe (opus) synthesizes |
+| `/commit` | Gather (haiku), Execute (sonnet) |
+| `/context-finder` | Already haiku |
+| `/operator` | Already haiku |
 
 ## References
 
