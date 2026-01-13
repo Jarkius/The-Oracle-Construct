@@ -149,9 +149,42 @@ echo "# Audio cache - generated at runtime" > "$TARGET_REPO/psi/matrix/audio_cac
 echo "  ✓ audio_cache/ (empty)"
 
 # ============================================
-# Phase 6: Extract Hooks
+# Phase 6: Extract Audio Assets (Music + SFX)
 # ============================================
-echo -e "${GREEN}[6/9] Extracting hooks...${NC}"
+echo -e "${GREEN}[6/10] Extracting audio assets...${NC}"
+
+# Create audio directories
+mkdir -p "$TARGET_REPO/.claude/audio/tracks"
+mkdir -p "$TARGET_REPO/.claude/audio/sfx"
+
+# Copy background music tracks
+track_count=0
+if [[ -d "$SOURCE_DIR/.claude/audio/tracks" ]]; then
+    for track in "$SOURCE_DIR/.claude/audio/tracks/"*.mp3; do
+        if [[ -f "$track" ]]; then
+            cp "$track" "$TARGET_REPO/.claude/audio/tracks/"
+            ((track_count++))
+        fi
+    done
+fi
+echo "  ✓ $track_count music tracks"
+
+# Copy sound effects
+sfx_count=0
+if [[ -d "$SOURCE_DIR/.claude/audio/sfx" ]]; then
+    for sfx in "$SOURCE_DIR/.claude/audio/sfx/"*.wav; do
+        if [[ -f "$sfx" ]]; then
+            cp "$sfx" "$TARGET_REPO/.claude/audio/sfx/"
+            ((sfx_count++))
+        fi
+    done
+fi
+echo "  ✓ $sfx_count sound effects"
+
+# ============================================
+# Phase 7: Extract Hooks
+# ============================================
+echo -e "${GREEN}[7/10] Extracting hooks...${NC}"
 
 for hook in "$SOURCE_DIR/.claude/hooks/"*.sh; do
     if [[ -f "$hook" ]]; then
@@ -162,9 +195,9 @@ for hook in "$SOURCE_DIR/.claude/hooks/"*.sh; do
 done
 
 # ============================================
-# Phase 7: Extract ADRs and Memory Structure
+# Phase 8: Extract ADRs and Memory Structure
 # ============================================
-echo -e "${GREEN}[7/9] Extracting ADRs and memory...${NC}"
+echo -e "${GREEN}[8/10] Extracting ADRs and memory...${NC}"
 
 # Copy ADRs
 for adr in "$SOURCE_DIR/psi/memory/adr/"*.md; do
@@ -190,9 +223,9 @@ if [[ -f "$SOURCE_DIR/psi/memory/knowledge-index.md" ]]; then
 fi
 
 # ============================================
-# Phase 8: Create Configuration Files
+# Phase 9: Create Configuration Files
 # ============================================
-echo -e "${GREEN}[8/9] Creating configuration files...${NC}"
+echo -e "${GREEN}[9/10] Creating configuration files...${NC}"
 
 # CLAUDE.md (full version)
 cp "$SOURCE_DIR/CLAUDE.md" "$TARGET_REPO/CLAUDE.md"
@@ -261,8 +294,9 @@ venv/
 .env
 .env.local
 
-# Audio cache (regenerated)
+# Audio cache (regenerated at runtime)
 psi/matrix/audio_cache/*.wav
+.claude/audio/tts-*.wav
 
 # Logs
 *.log
@@ -341,9 +375,9 @@ SETTINGS_EOF
 echo "  ✓ settings.json"
 
 # ============================================
-# Phase 9: Create Teleport Script
+# Phase 10: Create Teleport Script
 # ============================================
-echo -e "${GREEN}[9/9] Creating teleport.sh...${NC}"
+echo -e "${GREEN}[10/10] Creating teleport.sh...${NC}"
 
 cat > "$TARGET_REPO/teleport.sh" << 'TELEPORT_EOF'
 #!/bin/bash
@@ -557,6 +591,8 @@ echo "  - 17 Source chapters"
 echo "  - $workflow_count workflows"
 echo "  - 8 agent personalities"
 echo "  - Voice system"
+echo "  - $track_count music tracks"
+echo "  - $sfx_count sound effects"
 echo "  - Hooks"
 echo "  - teleport.sh"
 echo ""
