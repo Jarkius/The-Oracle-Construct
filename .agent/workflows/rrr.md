@@ -46,18 +46,25 @@ sh psi/matrix/voice.sh "Recording session memory. What happened today?" "System"
 
 ## Process
 
-1. Gather context:
-   ```bash
-   git log --oneline -20
-   git diff --stat
-   ```
-
-2. **Summon The Scribe**:
+1. **Summon The Scribe** (auto-creates template with git context):
    ```bash
    ./psi/active/scribe_record.sh "slug"
+   # Or with start commit for precise git range:
+   ./psi/active/scribe_record.sh "slug" "a30db99"
    ```
 
-3. Write retrospective using template
+   This automatically:
+   - Creates directory structure (`YYYY-MM/DD/`)
+   - Generates template with all 8 sections
+   - Injects git commits and diff stats
+   - Returns file path
+
+2. Fill in the template sections (marked with `[FILL]`)
+
+3. Validate completeness:
+   - AI Diary: 150+ words
+   - All sections filled
+   - No `[FILL]` markers remaining
 
 4. **Generate Output**:
     ```markdown
