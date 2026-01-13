@@ -54,12 +54,17 @@ echo -e "${GREEN}[1/9] Creating directory structure...${NC}"
 mkdir -p "$TARGET_REPO/psi/The_Source"
 mkdir -p "$TARGET_REPO/psi/memory/retrospectives"
 mkdir -p "$TARGET_REPO/psi/memory/learnings"
+mkdir -p "$TARGET_REPO/psi/memory/logs"
 mkdir -p "$TARGET_REPO/psi/memory/adr"
+mkdir -p "$TARGET_REPO/psi/inbox/handoff"
 mkdir -p "$TARGET_REPO/psi/learn/active"
 mkdir -p "$TARGET_REPO/psi/learn/archive"
 mkdir -p "$TARGET_REPO/psi/learn/repos"
 mkdir -p "$TARGET_REPO/psi/matrix"
 mkdir -p "$TARGET_REPO/psi/active"
+
+# Create ψ symlink (Greek psi alias)
+cd "$TARGET_REPO" && ln -sf psi ψ && cd - > /dev/null
 mkdir -p "$TARGET_REPO/.agent/workflows"
 mkdir -p "$TARGET_REPO/.claude/commands"
 mkdir -p "$TARGET_REPO/.claude/agents"
@@ -228,6 +233,20 @@ if [[ -d "$SOURCE_DIR/templates" ]]; then
     cp "$SOURCE_DIR/templates/"*.md "$TARGET_REPO/templates/" 2>/dev/null || true
     echo "  ✓ templates/"
 fi
+
+# Copy inbox (oracle-framework pattern)
+if [[ -f "$SOURCE_DIR/psi/inbox/focus.md" ]]; then
+    cp "$SOURCE_DIR/psi/inbox/focus.md" "$TARGET_REPO/psi/inbox/"
+    echo "  ✓ psi/inbox/focus.md"
+fi
+if [[ -d "$SOURCE_DIR/psi/inbox/handoff" ]]; then
+    cp "$SOURCE_DIR/psi/inbox/handoff/"*.md "$TARGET_REPO/psi/inbox/handoff/" 2>/dev/null || true
+    echo "  ✓ psi/inbox/handoff/"
+fi
+
+# Create logs gitkeep
+echo "# Logs - captured moments" > "$TARGET_REPO/psi/memory/logs/.gitkeep"
+echo "  ✓ psi/memory/logs/"
 
 # ============================================
 # Phase 9: Create Configuration Files
@@ -602,6 +621,8 @@ echo "  - $track_count music tracks"
 echo "  - $sfx_count sound effects"
 echo "  - Hooks"
 echo "  - Templates"
+echo "  - Inbox (focus.md, handoff/)"
+echo "  - ψ symlink (psi alias)"
 echo "  - teleport.sh"
 echo ""
 echo "Next steps:"
