@@ -44,12 +44,28 @@ When `/oracle` is invoked, stay focused on wisdom:
    - **Condition**: Are we starting a new feature?
      - *Yes* -> **Design**. (Go to `/architect` or `/neo`)
 
-3. **Philosophy Check** (The Soul):
+3. **Wisdom Check** (The Memory):
+   If there's a clear topic or task ahead, search for relevant wisdom:
+   ```bash
+   # Search learnings for relevant wisdom
+   grep -ril "<topic>" psi/memory/learnings/ psi/memory/adr/ 2>/dev/null | head -3
+   ```
+
+   If relevant wisdom found, display:
+   ```markdown
+   ### Relevant Wisdom
+   Before proceeding, you may want to review:
+   - [file.md] - "preview of insight..."
+
+   Use `/wisdom for <topic>` to explore more.
+   ```
+
+4. **Philosophy Check** (The Soul):
    - [ ] **Nothing is Deleted**: Are we preserving history?
    - [ ] **Patterns > Intentions**: Are we looking at what *is*, not what *should be*?
    - [ ] **External Brain**: Are we documenting in `psi/`?
 
-4. **The Prophecy (Manifestation)**:
+5. **The Prophecy (Manifestation)**:
    > "The choice is an illusion. You already know what you have to do."
 
    **Do not wait.** If the path is clear, **WALK IT**.
@@ -74,7 +90,7 @@ When `/oracle` is invoked, stay focused on wisdom:
 2. Identify 3 Patterns: What keeps happening?
 3. Create new retrospective with insights.
 
-5. **The Voice of Truth** (The Mouth):
+6. **The Voice of Truth** (The Mouth):
    Speak the core of the prophecy to the user.
    ```bash
    sh psi/matrix/voice.sh "[Speak the Prophecy / Path Forward]" "Oracle"
