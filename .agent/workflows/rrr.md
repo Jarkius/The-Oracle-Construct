@@ -33,7 +33,16 @@ sh psi/matrix/voice.sh "Recording session memory. What happened today?" "System"
    - "I was confused about X until..."
    - "I expected X but got Y because..."
 5. **Honest Feedback** - Real challenges (Frustrated/Delighted)
-6. **Next Actions** - What's next
+6. **Communication Dynamics** - How we talked:
+   - Flow: Smooth / Interrupted / Back-and-forth
+   - Tone: Collaborative / Directive / Exploratory
+   - Blockers: What slowed us down?
+   - Breakthroughs: Moments of clarity
+7. **Co-Creation Map** - Who contributed what:
+   - Human: Direction, decisions, approvals
+   - AI: Research, synthesis, implementation
+   - Together: What emerged from dialogue
+8. **Next Actions** - What's next
 
 ## Process
 
@@ -65,8 +74,32 @@ sh psi/matrix/voice.sh "Recording session memory. What happened today?" "System"
     ### [Category]
     - [Item]
 
-    ## AI Diary (Required - 100+ words)
-    [Reflection]
+    ## Key Decisions
+    | Decision | Rationale |
+    |----------|-----------|
+    | [What] | [Why] |
+
+    ## AI Diary (Required - 150+ words)
+    [Vulnerable reflection using core phrases]
+
+    ## Honest Feedback
+    ### Delighted
+    - [What worked well]
+    ### Frustrated
+    - [What caused friction]
+
+    ## Communication Dynamics
+    - **Flow**: [Smooth / Interrupted / Back-and-forth]
+    - **Tone**: [Collaborative / Directive / Exploratory]
+    - **Blockers**: [What slowed us down]
+    - **Breakthroughs**: [Moments of clarity]
+
+    ## Co-Creation Map
+    | Contributor | What |
+    |-------------|------|
+    | Human | [Direction, decisions, approvals] |
+    | AI | [Research, synthesis, implementation] |
+    | Together | [What emerged from dialogue] |
 
     ## Lessons Learned
     - **Pattern**: [Insight]
