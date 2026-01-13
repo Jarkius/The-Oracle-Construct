@@ -130,13 +130,9 @@ def process_queue():
             item = voice_queue.get()
             text, speaker, is_panic = item
 
-            if is_panic:
-                # Panic messages are handled immediately by the connection thread, 
-                # so they shouldn't usually end up here unless we want them queued?
-                # No, Panic = Instant.
-                # So this block is for standard messages.
-                pass
-            
+            # Note: Panic messages bypass queue entirely (handled in handle_client)
+            # Only standard queued messages reach here
+
             log(f"🎙️ Processing: {speaker} - {text[:20]}...")
             
             # Execute the audio generation/playback
@@ -196,33 +192,61 @@ def handle_client(conn, addr):
     finally:
         conn.close()
 
+# ============================================================
+# GRACEFUL SHUTDOWN
+# ============================================================
+server_socket = None  # Global reference for signal handler
+
+def cleanup():
+    """Clean up resources on shutdown."""
+    global server_socket
+    log("🛑 Cleaning up...")
+    if server_socket:
+        try:
+            server_socket.close()
+        except Exception:
+            pass
+    if os.path.exists(LOCK_FILE):
+        os.remove(LOCK_FILE)
+
+def shutdown_handler(signum, frame):
+    """Handle SIGTERM and SIGINT for graceful shutdown."""
+    sig_name = signal.Signals(signum).name
+    log(f"🛑 Received {sig_name}, shutting down gracefully...")
+    cleanup()
+    sys.exit(0)
+
+# Register signal handlers
+signal.signal(signal.SIGTERM, shutdown_handler)
+signal.signal(signal.SIGINT, shutdown_handler)
+
 def start_server():
+    global server_socket
+
     # Write PID to lock file
     with open(LOCK_FILE, 'w') as f:
         f.write(str(os.getpid()))
-        
-    server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+    server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     # Allow reuse of port immediately after kill
-    server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-    
+    server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+
     try:
-        server.bind((HOST, PORT))
-        server.listen(20)
+        server_socket.bind((HOST, PORT))
+        server_socket.listen(20)
         log(f"🚀 Matrix Voice Server listening on {HOST}:{PORT}")
-        
+
         # Start the Queue Worker
         threading.Thread(target=process_queue, daemon=True).start()
-        
+
         while True:
-            conn, addr = server.accept()
+            conn, addr = server_socket.accept()
             threading.Thread(target=handle_client, args=(conn, addr)).start()
-            
+
     except Exception as e:
         log(f"❌ Server Crash: {e}")
     finally:
-        server.close()
-        if os.path.exists(LOCK_FILE):
-            os.remove(LOCK_FILE)
+        cleanup()
 
 if __name__ == "__main__":
     start_server()

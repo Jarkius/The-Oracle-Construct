@@ -3,7 +3,7 @@
 # Spawns all agents simultaneously WITH PANIC OVERRIDE using long monologues.
 # Warning: This will be VERY loud and chaotic.
 
-VIDEO_MODULE="./psi/matrix/voice.sh"
+VOICE_MODULE="./psi/matrix/voice.sh"
 echo "🚨 COMMAND RECEIVED: 'INTRODUCE YOURSELF --PANIC (LONG)'"
 echo "⚡ Spawning all agents simultaneously with OVERRIDE..."
 
@@ -23,7 +23,7 @@ declare -a agents=(
 for entry in "${agents[@]}"; do
     NAME="${entry%%:*}"
     MSG="${entry#*:}"
-    ( bash "$VIDEO_MODULE" "$MSG" "$NAME" --panic ) &
+    ( bash "$VOICE_MODULE" "$MSG" "$NAME" --panic ) &
 done
 
 wait

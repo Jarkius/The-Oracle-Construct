@@ -2,7 +2,7 @@
 # demo_rollcall_queue.sh - "INTRODUCE YOURSELF (LONG & ORDERLY)"
 # Spawns all agents simultaneously, but lets the QUEUE serialize them.
 
-VIDEO_MODULE="./psi/matrix/voice.sh"
+VOICE_MODULE="./psi/matrix/voice.sh"
 echo "🔥 COMMAND RECEIVED: 'INTRODUCE YOURSELF (LONG SEQUENCE)'"
 echo "⚡ Spawning all agents simultaneously... please wait, this will take time to play sequentially."
 
@@ -23,7 +23,7 @@ for entry in "${agents[@]}"; do
     NAME="${entry%%:*}"
     MSG="${entry#*:}"
     # NO --panic flag here. Just standard queue.
-    ( bash "$VIDEO_MODULE" "$MSG" "$NAME" ) &
+    ( bash "$VOICE_MODULE" "$MSG" "$NAME" ) &
 done
 
 wait
