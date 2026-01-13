@@ -1,6 +1,6 @@
-# Soul Manifest - soul-v1.3
-# Generated: 2026-01-13 UTC
-# Description: Matrix Evolution - Reborn Vision
+# Soul Manifest - soul-v1.4
+# Generated: 2026-01-13 13:00:23 UTC
+# Description: Voice system hardening (Phase 1 + 2)
 #
 8ca72c8ac48eb7a55aed0bedb47c92cb5f8788f51f0a5580b1a4f483a2ae2689  psi/The_Source/BIBLE.md
 08ec3f2aa1d0a0aa4bec3a05ec59296926f480fab4546b603c2112123fc4aa6c  .claude/agents/oracle-keeper.md
@@ -11,8 +11,8 @@ faa0b4facf3ca7f943774cd9d3e99e486ceb1616bff84e80b846d25c392f9fed  .claude/agents
 c0b701517e56b37258aaf576b48a7d5d7f95d1422a8a2a4f612c5a40580c8edd  .claude/agents/agent-smith.md
 d231476053a0c3e16908e9ba426f362154ad5f792b80c50a8f8af92bcb61eb94  .claude/agents/tank.md
 ecae7be8aeba155d660fbeed12e311f345ea9c8f7a6c7b29a58f9ee2045d6a7f  .claude/agents/scribe.md
-28d56392d046e1c02310388e213ce84a45462b2588c960a081a79e468e44a174  psi/matrix/voice.sh
-cccf98646ed09fc96d17f8a0ae808dbaae3568fa6bc9c19a59dc202d14d723a5  psi/matrix/voice_server.py
+c157fba48b46da7c21f519d4474c1844c726c687e25526c873be7e5751a733a4  psi/matrix/voice.sh
+5d4db6ff9ebea2398450c840426ebfa92fbbd5b3b6664b817036ad76a24cc3e8  psi/matrix/voice_server.py
 4b48af7e7bba0c4ced5cfbb9781c47dac02ed4e715afe2be53f7aaf7d80f40ad  .claude/hooks/matrix-dispatch.sh
 ccd58afc6225dd1ff2e6f77d73889892fc77f7d4a02c40103ff1abbf4a7ab87d  .claude/hooks/play-tts.sh
 06f79c1d4fbafb6d75f6e8e362a63dbe5d2e593270ae80b7de2268a9b7d4178f  .claude/config/voices.json
@@ -20,10 +20,8 @@ ccd58afc6225dd1ff2e6f77d73889892fc77f7d4a02c40103ff1abbf4a7ab87d  .claude/hooks/
 6df31ade5df07768acbf04de0f42424663e56953de29e5ce9f6313038c05d0ba  psi/The_Source/01_self_knowledge.md
 06af0611d65d50aa6c8dc8f084a1beae26cb23ac41fd5d6772eb8d6e9363c158  psi/The_Source/02_bilateral_collaboration.md
 b70ddf001f978790762238877450f8200db4ca8c0d6c24ff48c737fbcb0814f5  psi/The_Source/04_multi_agent.md
-0745c5b82f8b4da7c777c9b7c82cc5f1fae7c7f2bbf10e6f939955acf8eb8b03  psi/The_Source/16_collaborative_evolution.md
-dda602de80fae356d676ca1a234bc76a049ffb0bef8d4d6783653d45dec7f86c  psi/The_Source/17_the_reborn_process.md
 #
-# Music tracks (existence check)
+# Music tracks
 0831c13cd24b5951b7d501530484aea051cd63aa4ed7b2f1ef622265ed4f1b6a  .claude/audio/tracks/agent_vibes_ganawa_ambient_v2_loop.mp3
 93f6455e6126da2f5d29953b6dbeb7052150aeb173a8312634363bedc0c8f2dc  .claude/audio/tracks/kitt_knight_rider_loop.mp3
 e38a16efa34e3c3f1ccd5317d0dc4c6018c0ee9b337f29e7d62d35d348a05f46  .claude/audio/tracks/agent_vibes_goa_trance_v2_loop.mp3
