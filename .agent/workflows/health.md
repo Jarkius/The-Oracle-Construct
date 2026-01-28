@@ -1,5 +1,5 @@
 ---
-description: System health check - Soul Garden integrity diagnostic
+description: System health check with self-healing
 ---
 
 # /health - System Health Check
@@ -8,47 +8,63 @@ description: System health check - Soul Garden integrity diagnostic
 
 ## Purpose
 
-Deep diagnostic check of Matrix health using the Soul Garden system. Validates the integrity of the Matrix Core: agents, voice, philosophy, and git state.
+Diagnose Matrix health AND automatically fix issues when possible. Uses `matrix-doctor.sh` for self-healing capabilities.
 
 ## Usage
 
-- `/health` - Quick health summary
-- `/health deep` - Full Soul Garden integrity check (verbose)
+- `/health` - Auto-heal mode (fix issues automatically)
+- `/health check` - Diagnose only, don't fix
+- `/health deep` - Verbose output with all details
 
 ## Steps
 
-### Quick Mode (default)
+### Auto-Heal Mode (default)
 
-1. Run Soul Integrity Check:
+1. Run Matrix Doctor:
 ```bash
-./psi/active/soul-integrity.sh
+./psi/active/matrix-doctor.sh
 ```
 
-2. Summarize output:
+2. The doctor will:
+   - Check voice models → Download missing ones
+   - Check voice server → Start if down
+   - Check core files → Restore from git if missing
+   - Check dependencies → Suggest install commands
+   - Check soul integrity → Report status
+
+3. Summarize output:
 ```markdown
 ## Health Report - [Date] [Time]
 
-**Soul Status**: [INTACT / STABLE / COMPROMISED]
-**Errors**: [count]
-**Warnings**: [count]
+**Status**: [HEALTHY / HEALED / NEEDS ATTENTION]
+**Issues Found**: [count]
+**Auto-Fixed**: [count]
+**Need Manual Fix**: [count]
 
-**Quick Checks**:
-- Bible: [exists/missing]
-- Agents: [X/8 present]
-- Voice: [server running/stopped]
-- Git: [clean/X uncommitted]
+**What was healed**:
+- [list of auto-fixed issues]
 
-**Last Soul Tag**: [tag name] ([date])
+**What needs attention**:
+- [list of issues requiring human intervention]
 ```
+
+### Check-Only Mode (`/health check`)
+
+1. Run diagnostic without fixes:
+```bash
+./psi/active/matrix-doctor.sh --check
+```
+
+2. Report issues without attempting to fix them.
 
 ### Deep Mode (`/health deep`)
 
-1. Run verbose Soul Integrity:
+1. Run verbose diagnostic:
 ```bash
-./psi/active/soul-integrity.sh --verbose
+./psi/active/matrix-doctor.sh --verbose
 ```
 
-2. Include all tier details in output.
+2. Include all checks, even passing ones.
 
 ## Soul Garden Tiers
 
