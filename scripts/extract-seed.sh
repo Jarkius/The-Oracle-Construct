@@ -64,6 +64,14 @@ mkdir -p "$TARGET_REPO/.claude/commands"
 # ============================================
 echo -e "${GREEN}[2/6] Extracting The Source (core philosophy)...${NC}"
 
+# The Soul (Root)
+cp "$SOURCE_DIR/psi/The_Source/BIBLE.md" "$TARGET_REPO/psi/The_Source/" 2>/dev/null || true
+echo "  ✓ BIBLE.md (The Soul)"
+
+# Evolution (Chapter 0)
+cp "$SOURCE_DIR/psi/The_Source/00_evolution.md" "$TARGET_REPO/psi/The_Source/" 2>/dev/null || true
+echo "  ✓ 00_evolution.md"
+
 # Core chapters (1-9) - Philosophy that doesn't change
 for chapter in 01 02 03 04 05 06 07 08 09; do
     src_file=$(ls "$SOURCE_DIR/psi/The_Source/${chapter}_"*.md 2>/dev/null | head -1)
@@ -75,10 +83,8 @@ done
 
 # Core documents
 cp "$SOURCE_DIR/psi/The_Source/MATRIX_CORE.md" "$TARGET_REPO/psi/The_Source/" 2>/dev/null || true
-cp "$SOURCE_DIR/psi/The_Source/README.md" "$TARGET_REPO/psi/The_Source/" 2>/dev/null || true
 
 echo "  ✓ MATRIX_CORE.md"
-echo "  ✓ README.md"
 
 # ============================================
 # Phase 3: Extract Core Workflows (5 only)
@@ -223,6 +229,19 @@ This is the **philosophical seed** of The Matrix — containing the DNA to grow 
 | **Smith** | Debugger | Bugs, security, anomalies |
 | **Tank** | Operator | Internal search, git, dependencies |
 | **Scribe** | Chronicler | Retrospectives, documentation |
+| **Mainframe** | System | Status messages, background events |
+
+## 🧠 Mind Hierarchy
+
+Agents use different AI models based on task complexity:
+
+| Tier | Model | Agents | Use For |
+|------|-------|--------|---------|
+| **Wise** | Opus | Oracle, Architect, Neo, Smith, Scribe | Decisions, code, synthesis |
+| **Intelligent** | Sonnet | Morpheus, Trinity | Learning, routine reasoning |
+| **Mechanical** | Haiku | Tank, Operator | Search, gather, list |
+
+**Key Insight**: Learning requires intelligence, not just speed. Searching is mechanical; understanding is not.
 
 ## 📂 Structure
 
@@ -269,7 +288,7 @@ This seed is minimal by design. To grow:
 For the full operational Matrix with voice and all 39 commands, see [matrix-reloaded](https://github.com/Jarkius/matrix-reloaded).
 
 ---
-*Seed Edition — Plant this, grow your Matrix*
+*Seed Edition v1.1 — Plant this, grow your Matrix*
 CLAUDE_EOF
 
 echo "  ✓ CLAUDE.md (seed edition)"
