@@ -140,6 +140,15 @@ safe_play() {
     "$@"
 }
 
+# Fallback to macOS say when piper fails
+say_fallback() {
+    local msg="$1"
+    local voice="${2:-Samantha}"
+    echo "⚠️  FALLBACK MODE: Piper TTS failed, using macOS say ($voice)"
+    echo "   Run: .claude/hooks/bootstrap-voice.sh --force"
+    say -v "$voice" "$msg" 2>/dev/null
+}
+
 if [ -z "$MESSAGE" ]; then
     echo "Usage: $0 \"Message\" [SpeakerName] --worker"
     exit 1
@@ -177,8 +186,10 @@ echo ""
 if [ "$SPEAKER" = "Neo" ]; then
     # ryan-high
     echo "$MESSAGE" | "$PIPER_BIN" --model "$VOICE_DIR/en_US-ryan-high.onnx" --output_file "$TEMP_WAV" 2>/dev/null
-    if [ -f "$TEMP_WAV" ]; then
+    if [ -f "$TEMP_WAV" ] && [ -s "$TEMP_WAV" ]; then
         safe_play afplay "$TEMP_WAV"
+    else
+        say_fallback "$MESSAGE" "Alex"
     fi
     exit 0
 fi
@@ -187,8 +198,10 @@ fi
 if [ "$SPEAKER" = "Trinity" ]; then
     # jenny
     echo "$MESSAGE" | "$PIPER_BIN" --model "$VOICE_DIR/jenny.onnx" --output_file "$TEMP_WAV" 2>/dev/null
-    if [ -f "$TEMP_WAV" ]; then
+    if [ -f "$TEMP_WAV" ] && [ -s "$TEMP_WAV" ]; then
         safe_play afplay "$TEMP_WAV"
+    else
+        say_fallback "$MESSAGE" "Allison"
     fi
     exit 0
 fi
@@ -197,8 +210,10 @@ fi
 if [ "$SPEAKER" = "Morpheus" ]; then
     # carlin-high (Original Approved Voice)
     echo "$MESSAGE" | "$PIPER_BIN" --model "$VOICE_DIR/en_US-carlin-high.onnx" --output_file "$TEMP_WAV" 2>/dev/null
-    if [ -f "$TEMP_WAV" ]; then
+    if [ -f "$TEMP_WAV" ] && [ -s "$TEMP_WAV" ]; then
         safe_play afplay "$TEMP_WAV"
+    else
+        say_fallback "$MESSAGE" "Daniel"
     fi
     exit 0
 fi
@@ -207,8 +222,10 @@ fi
 if [ "$SPEAKER" = "Oracle" ]; then
     # kristin (Official Voice)
     echo "$MESSAGE" | "$PIPER_BIN" --model "$VOICE_DIR/en_US-kristin-medium.onnx" --output_file "$TEMP_WAV" 2>/dev/null
-    if [ -f "$TEMP_WAV" ]; then
+    if [ -f "$TEMP_WAV" ] && [ -s "$TEMP_WAV" ]; then
         safe_play afplay "$TEMP_WAV"
+    else
+        say_fallback "$MESSAGE" "Samantha"
     fi
     exit 0
 fi
@@ -217,8 +234,10 @@ fi
 if [ "$SPEAKER" = "System" ]; then
     # hfc_male
     echo "$MESSAGE" | "$PIPER_BIN" --model "$VOICE_DIR/en_US-hfc_male-medium.onnx" --output_file "$TEMP_WAV" 2>/dev/null
-    if [ -f "$TEMP_WAV" ]; then
+    if [ -f "$TEMP_WAV" ] && [ -s "$TEMP_WAV" ]; then
         safe_play afplay "$TEMP_WAV"
+    else
+        say_fallback "$MESSAGE" "Tom"
     fi
     exit 0
 fi
@@ -227,7 +246,7 @@ fi
 if [ "$SPEAKER" = "Mainframe" ]; then
     # norman (Official Voice)
     echo "$MESSAGE" | "$PIPER_BIN" --model "$VOICE_DIR/en_US-norman-medium.onnx" --output_file "$TEMP_WAV" 2>/dev/null
-    if [ -f "$TEMP_WAV" ]; then
+    if [ -f "$TEMP_WAV" ] && [ -s "$TEMP_WAV" ]; then
         # Mix with Flamenco background music at 50% volume (1.5s music intro)
         SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
         PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
@@ -246,6 +265,8 @@ if [ "$SPEAKER" = "Mainframe" ]; then
         else
             safe_play afplay "$TEMP_WAV"
         fi
+    else
+        say_fallback "$MESSAGE" "Daniel"
     fi
     exit 0
 fi
@@ -254,8 +275,10 @@ fi
 if [ "$SPEAKER" = "Scribe" ]; then
     # lessac (Official Voice)
     echo "$MESSAGE" | "$PIPER_BIN" --model "$VOICE_DIR/en_US-lessac-medium.onnx" --output_file "$TEMP_WAV" 2>/dev/null
-    if [ -f "$TEMP_WAV" ]; then
+    if [ -f "$TEMP_WAV" ] && [ -s "$TEMP_WAV" ]; then
         safe_play afplay "$TEMP_WAV"
+    else
+        say_fallback "$MESSAGE" "Samantha"
     fi
     exit 0
 fi
@@ -264,8 +287,10 @@ fi
 if [ "$SPEAKER" = "Woman in Red" ]; then
     # jenny (Official Voice)
     echo "$MESSAGE" | "$PIPER_BIN" --model "$VOICE_DIR/jenny.onnx" --output_file "$TEMP_WAV" 2>/dev/null
-    if [ -f "$TEMP_WAV" ]; then
+    if [ -f "$TEMP_WAV" ] && [ -s "$TEMP_WAV" ]; then
         safe_play afplay "$TEMP_WAV"
+    else
+        say_fallback "$MESSAGE" "Allison"
     fi
     exit 0
 fi
@@ -274,8 +299,10 @@ fi
 if [ "$SPEAKER" = "Trump" ]; then
     # trump-high (Official Voice)
     echo "$MESSAGE" | "$PIPER_BIN" --model "$VOICE_DIR/en_US-trump-high.onnx" --output_file "$TEMP_WAV" 2>/dev/null
-    if [ -f "$TEMP_WAV" ]; then
+    if [ -f "$TEMP_WAV" ] && [ -s "$TEMP_WAV" ]; then
         safe_play afplay "$TEMP_WAV"
+    else
+        say_fallback "$MESSAGE" "Fred"
     fi
     exit 0
 fi
@@ -284,8 +311,10 @@ fi
 if [ "$SPEAKER" = "Architect" ]; then
     # alan
     echo "$MESSAGE" | "$PIPER_BIN" --model "$VOICE_DIR/en_GB-alan-medium.onnx" --output_file "$TEMP_WAV" 2>/dev/null
-    if [ -f "$TEMP_WAV" ]; then
+    if [ -f "$TEMP_WAV" ] && [ -s "$TEMP_WAV" ]; then
         safe_play afplay "$TEMP_WAV"
+    else
+        say_fallback "$MESSAGE" "Daniel"
     fi
     exit 0
 fi
@@ -294,7 +323,7 @@ fi
 if [ "$SPEAKER" = "Tank" ]; then
     # bryce medium (Official Voice)
     echo "$MESSAGE" | "$PIPER_BIN" --model "$VOICE_DIR/en_US-bryce-medium.onnx" --output_file "$TEMP_WAV" 2>/dev/null
-    if [ -f "$TEMP_WAV" ]; then
+    if [ -f "$TEMP_WAV" ] && [ -s "$TEMP_WAV" ]; then
         # Mix with Matrix Jump sound effect at 40% volume
         SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
         PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
@@ -312,6 +341,8 @@ if [ "$SPEAKER" = "Tank" ]; then
         else
             safe_play afplay "$TEMP_WAV"
         fi
+    else
+        say_fallback "$MESSAGE" "Alex"
     fi
     exit 0
 fi
@@ -320,7 +351,7 @@ fi
 if [ "$SPEAKER" = "Smith" ]; then
     # danny low slow - the calculating villain
     echo "$MESSAGE" | "$PIPER_BIN" --model "$VOICE_DIR/en_US-danny-low.onnx" --length-scale 1.8 --output_file "$TEMP_WAV" 2>/dev/null
-    if [ -f "$TEMP_WAV" ]; then
+    if [ -f "$TEMP_WAV" ] && [ -s "$TEMP_WAV" ]; then
         # Apply bass boost if sox exists
         if command -v sox >/dev/null 2>&1; then
              sox "$TEMP_WAV" "$TEMP_WAV_FX" bass +20 2>/dev/null
@@ -344,6 +375,8 @@ if [ "$SPEAKER" = "Smith" ]; then
         else
             safe_play afplay "$TEMP_WAV"
         fi
+    else
+        say_fallback "$MESSAGE" "Tom"
     fi
     exit 0
 fi
