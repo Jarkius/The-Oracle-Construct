@@ -21,3 +21,4 @@ psi/memory/archive/
 # Agent and Voice Logs (generated, not tracked)
 psi/memory/logs/voice/*.log
 psi/memory/logs/agents/*.log
+psi/lab/archive/
