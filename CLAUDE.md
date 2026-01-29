@@ -11,7 +11,7 @@ This file defines the **Universal Commands** for the Matrix. Any AI agent (Claud
 | **Oracle** | `/oracle` | Orchestrator | Align, dispatch, prophecy | Implement |
 | **Neo** | `/neo` | Developer | Write ALL code, implement | Design, architecture |
 | **Trinity** | `/trinity` | Design Lead | Design tokens, review, guide | Write code |
-| **Morpheus** | `/morpheus` | External Intel | Gemini, Google AI, web search | Internal search |
+| **Morpheus** | `/morpheus` | External Intel | Gemini, Google AI, **browser automation**, web search | Internal search |
 | **Architect** | `/architect` | System Design | ADRs, architecture, structure | UI design, coding |
 | **Smith** | `/smith` | Debugger | Bugs, security, anomalies | Feature dev |
 | **Tank** | `/operator` | Internal Intel | Code search, git, dependencies | External search |
@@ -88,6 +88,38 @@ See `psi/memory/adr/ADR-003-hierarchical-mind-architecture.md` for full details.
 4.  **Voice Module**: Use `sh psi/matrix/voice.sh "message" "Agent"` for TTS.
 5.  **Proactive Care**: If it's important, do it. Don't wait to be asked.
 6.  **Right Mind for the Task**: Use Haiku for search, Sonnet for learning, Opus for wisdom.
+
+## 🌐 Browser Automation (Gemini Research)
+
+Morpheus can control **Brave browser** to orchestrate Gemini research:
+
+### MCP Servers
+| Server | Command | Purpose |
+|--------|---------|---------|
+| `playwright` | `claude mcp add playwright -- npx '@playwright/mcp@latest' --executable-path '/Applications/Brave Browser.app/Contents/MacOS/Brave Browser'` | Browser control via Brave |
+| `brave-browser` | `claude mcp add brave-browser npx brave-real-browser-mcp-server@latest` | Anti-detection + ad-blocking |
+
+### Workflow
+```
+/morpheus or /gemini-research "topic"
+    ↓
+Brave → gemini.google.com → Research prompt
+    ↓
+Extract response with timestamps
+    ↓
+Save to psi/learn/inbox/
+```
+
+### Parallel Research
+- Use **Task agents** for true isolation (multiple simultaneous queries)
+- Results auto-save to Matrix memory system
+- YouTube videos analyzed with clickable timestamps
+
+### Key Commands
+| Command | Purpose |
+|---------|---------|
+| `/gemini-research "topic"` | Single research query |
+| `/morpheus` | Full external research orchestration |
 
 ## 🚀 Current Mission: CIS Modernization
 - **Legacy**: PHP/MySQL inventory system.

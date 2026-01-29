@@ -86,6 +86,41 @@ claude                    # Enter
 | `./scripts/extract-reloaded.sh` | Extract full Matrix to matrix-reloaded |
 | `./scripts/publish-matrix.sh` | Extract + commit + push both |
 
+## Gemini Browser Automation
+
+The Matrix can control **Gemini via Brave browser** for parallel AI research:
+
+| Command | Purpose |
+|---------|---------|
+| `/gemini-research "topic"` | Research via Gemini browser |
+| `/morpheus` | External research orchestration |
+
+### Setup (MCP Servers)
+```bash
+# Playwright with Brave browser
+claude mcp add playwright -- npx '@playwright/mcp@latest' --executable-path '/Applications/Brave Browser.app/Contents/MacOS/Brave Browser'
+
+# Brave with anti-detection (alternative)
+claude mcp add brave-browser npx brave-real-browser-mcp-server@latest
+```
+
+### Features
+- **YouTube Analysis** - Extract transcripts with timestamps
+- **Parallel Research** - Multiple Task agents for simultaneous queries
+- **Ad Blocking** - Brave shields block trackers automatically
+- **Auto-Save** - Results saved to `psi/learn/inbox/`
+
+### Architecture
+```
+Claude Code (Orchestrator)
+      │
+      ▼
+Playwright MCP ──► Brave Browser ──► gemini.google.com
+      │
+      ▼
+Extract Response ──► psi/learn/inbox/*.md
+```
+
 ## Directory Structure
 
 ```
@@ -164,6 +199,7 @@ Current soul version: **soul-v1.3** (Matrix Evolution)
 | ADR-004 | Context Optimization |
 | ADR-005 | Infinite Learning Loop |
 | ADR-006 | Recursive Reincarnation |
+| ADR-007 | Browser Automation Architecture |
 
 ## Related
 
