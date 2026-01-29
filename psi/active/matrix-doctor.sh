@@ -303,7 +303,53 @@ fi
 echo ""
 
 # ============================================================
-# 6. SOUL INTEGRITY (Quick Check)
+# 6. BROWSER AUTOMATION CHECK
+# ============================================================
+echo -e "${BLUE}━━━ Browser Automation ━━━${NC}"
+
+# Check Brave Browser
+if [[ -x "/Applications/Brave Browser.app/Contents/MacOS/Brave Browser" ]]; then
+    $VERBOSE && log_ok "Brave Browser installed"
+else
+    log_issue "Brave Browser not found"
+    if ! $CHECK_ONLY; then
+        echo "       Install from: https://brave.com"
+    fi
+fi
+
+# Check puppeteer-cluster dependencies
+if [[ -d "$PROJECT_ROOT/psi/active/node_modules/puppeteer-cluster" ]]; then
+    $VERBOSE && log_ok "puppeteer-cluster installed"
+else
+    log_issue "puppeteer-cluster not installed"
+    if ! $CHECK_ONLY; then
+        echo -n "       Installing... "
+        if (cd "$PROJECT_ROOT/psi/active" && npm install --silent 2>/dev/null); then
+            log_fix "Installed dependencies"
+        else
+            log_fail "Could not install (run manually: cd psi/active && npm install)"
+        fi
+    fi
+fi
+
+# Check Gemini connectivity (quick HEAD request)
+if curl -sI --max-time 5 "https://gemini.google.com" -o /dev/null -w "%{http_code}" 2>/dev/null | grep -qE "200|302"; then
+    $VERBOSE && log_ok "Gemini reachable"
+else
+    log_issue "Gemini not reachable (network or blocking issue)"
+fi
+
+# Check research CLI exists
+if [[ -x "$PROJECT_ROOT/psi/active/gemini-research-cli.sh" ]]; then
+    $VERBOSE && log_ok "Research CLI available"
+else
+    log_issue "Research CLI missing (psi/active/gemini-research-cli.sh)"
+fi
+
+echo ""
+
+# ============================================================
+# 7. SOUL INTEGRITY (Quick Check)
 # ============================================================
 echo -e "${BLUE}━━━ Soul Integrity ━━━${NC}"
 
