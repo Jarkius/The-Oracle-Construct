@@ -1,0 +1,394 @@
+# Matrix Gemini Parallel Research Tool
+
+> *"What you must learn is that these rules are no different than the rules of a computer system." - Morpheus*
+
+True parallel browser automation for simultaneous Gemini research across multiple browser windows.
+
+---
+
+## Features
+
+- **True Parallel Execution**: 4-8 separate Brave browser windows running simultaneously
+- **Automatic Window Positioning**: Grid layout for visual monitoring
+- **Matrix Integration**: Auto-save to `psi/learn/inbox/` with proper formatting
+- **Voice Announcements**: Oracle speaks progress via Matrix voice system
+- **YouTube Optimization**: Extended wait times for video analysis
+- **Memory-Adaptive**: Automatically scales concurrency based on system RAM
+- **Anti-Detection**: Brave browser with stealth mode bypasses bot checks
+- **Error Handling**: Automatic retries and graceful failure recovery
+
+---
+
+## Quick Start
+
+### 1. Install Dependencies
+
+```bash
+cd ~/workspace/The-matrix/psi/active
+npm install
+```
+
+This installs:
+- `puppeteer-cluster` - Parallel browser pool management
+- `puppeteer` - Browser automation library
+
+### 2. Run Parallel Research
+
+```bash
+# Basic usage (3 queries in parallel)
+node gemini-parallel-research.js \
+  "quantum computing breakthroughs" \
+  "AI safety research" \
+  "neural network fundamentals"
+
+# YouTube analysis (2 videos in parallel)
+node gemini-parallel-research.js --youtube \
+  "https://youtube.com/watch?v=abc123" \
+  "https://youtube.com/watch?v=def456"
+
+# Headless mode (no visible windows)
+node gemini-parallel-research.js --headless \
+  "latest research in quantum physics"
+```
+
+### 3. Check Results
+
+```bash
+# Results are automatically saved to inbox
+ls -lh ~/workspace/The-matrix/psi/learn/inbox/gemini_*.md
+
+# View most recent result
+tail -n 50 ~/workspace/The-matrix/psi/learn/inbox/gemini_*.md | less
+```
+
+---
+
+## Architecture
+
+```
+┌─────────────────────────────────────────────┐
+│        gemini-parallel-research.js          │
+│         (Node.js Orchestrator)              │
+└──────────────────┬──────────────────────────┘
+                   │
+                   ▼
+        ┌──────────────────────┐
+        │  Puppeteer Cluster   │
+        │ CONCURRENCY_BROWSER  │
+        └──────────┬───────────┘
+                   │
+         ┌─────────┼─────────┐
+         │         │         │
+         ▼         ▼         ▼
+    ┌────────┐┌────────┐┌────────┐
+    │ Brave  ││ Brave  ││ Brave  │
+    │Window 1││Window 2││Window 3│
+    └───┬────┘└───┬────┘└───┬────┘
+        │         │         │
+        ▼         ▼         ▼
+    ┌────────┐┌────────┐┌────────┐
+    │ Gemini ││ Gemini ││ Gemini │
+    │Query 1 ││Query 2 ││Query 3 │
+    └────────┘└────────┘└────────┘
+         │         │         │
+         └─────────┴─────────┘
+                   │
+                   ▼
+         ┌──────────────────┐
+         │ psi/learn/inbox/ │
+         │   *.md files     │
+         └──────────────────┘
+```
+
+---
+
+## Configuration
+
+Edit `gemini-parallel-research.js` to customize:
+
+```javascript
+const CONFIG = {
+  // Browser settings
+  BRAVE_PATH: '/Applications/Brave Browser.app/Contents/MacOS/Brave Browser',
+  GEMINI_URL: 'https://gemini.google.com',
+
+  // Output location
+  MATRIX_INBOX: path.join(process.env.HOME, 'workspace/The-matrix/psi/learn/inbox'),
+
+  // Voice system
+  VOICE_SCRIPT: path.join(process.env.HOME, 'workspace/The-matrix/psi/matrix/voice.sh'),
+
+  // Memory-adaptive concurrency
+  MAX_CONCURRENCY: os.totalmem() > 16 * 1024 * 1024 * 1024 ? 8 : 4,
+
+  // Window size and positioning
+  WINDOW_SIZE: { width: 800, height: 600 },
+
+  // Timeouts
+  TIMEOUTS: {
+    navigation: 30000,      // 30s to load page
+    thinkingTime: 20000,    // 20s for Gemini response
+    youtubeTime: 45000      // 45s for video analysis
+  }
+};
+```
+
+---
+
+## Window Positioning
+
+Windows are automatically arranged in a grid:
+
+```
+┌──────────┬──────────┐
+│ Window 1 │ Window 2 │  (800x600 each)
+│  Query 1 │  Query 2 │
+├──────────┼──────────┤
+│ Window 3 │ Window 4 │
+│  Query 3 │  Query 4 │
+└──────────┴──────────┘
+```
+
+For >4 windows, they cascade to avoid overlap.
+
+---
+
+## Output Format
+
+Results are saved as markdown files:
+
+```
+psi/learn/inbox/gemini_quantum_computing_2026-01-29T16-45-30.md
+```
+
+**File contents:**
+
+```markdown
+# Gemini Research: quantum computing breakthroughs
+
+> **Date:** 2026-01-29T16:45:30.123Z
+> **Source:** Parallel Gemini Browser Automation
+> **Agent:** Morpheus
+> **Window:** 0
+
+## Query
+
+quantum computing breakthroughs
+
+## Response
+
+[Full Gemini response here...]
+
+---
+
+## Metadata
+
+- **Timestamp:** 2026-01-29T16:45:30.123Z
+- **Agent:** Morpheus
+- **Mode:** Parallel Browser Automation
+- **Duration:** 18456ms
+
+## Tags
+
+#gemini #parallel-research #auto-generated
+
+## Next Steps
+
+- [ ] Distill insights to permanent memory via `/distill`
+- [ ] Cross-reference with existing knowledge
+- [ ] Generate follow-up questions
+
+---
+
+*Generated by Matrix Gemini Parallel Research Tool*
+```
+
+---
+
+## Advanced Usage
+
+### Custom Concurrency
+
+```javascript
+// Force specific number of parallel windows
+const cluster = await Cluster.launch({
+  concurrency: Cluster.CONCURRENCY_BROWSER,
+  maxConcurrency: 6,  // Override default
+  // ...
+});
+```
+
+### Custom Window Positions
+
+```javascript
+// Edit getWindowPosition() function
+function getWindowPosition(index, total) {
+  // Custom layout logic
+  return { x: index * 500, y: 0 };
+}
+```
+
+### Longer Wait Times
+
+```javascript
+// For complex queries that take longer
+TIMEOUTS: {
+  thinkingTime: 45000,  // 45s instead of 20s
+}
+```
+
+---
+
+## Comparison with Other Approaches
+
+| Approach | Separate Windows | True Parallel | Brave Support | Complexity |
+|----------|-----------------|---------------|---------------|------------|
+| **This Tool (Puppeteer-cluster)** | ✅ Yes | ✅ Yes | ✅ Yes | Medium |
+| concurrent-browser-mcp | ✅ Yes | ✅ Yes | ✅ Yes | Low (MCP) |
+| Playwright multi-context | ❌ Tabs | ⚠️ Shared browser | ✅ Yes | Low |
+| Selenium Grid | ✅ Yes | ✅ Yes | ⚠️ Via WebDriver | High |
+| AppleScript/JXA | ⚠️ Unreliable | ❌ No | ✅ Yes | High |
+
+**Why Puppeteer-cluster?**
+
+- Battle-tested (60k+ downloads/week)
+- CONCURRENCY_BROWSER provides true isolation
+- Can position windows programmatically
+- Rich error handling and retry logic
+- Works seamlessly with Brave
+
+---
+
+## Troubleshooting
+
+### Issue: "Cannot find module 'puppeteer-cluster'"
+
+**Solution:**
+
+```bash
+cd ~/workspace/The-matrix/psi/active
+npm install
+```
+
+### Issue: Brave not found
+
+**Solution:**
+
+Check Brave installation path:
+
+```bash
+ls -la "/Applications/Brave Browser.app/Contents/MacOS/Brave Browser"
+```
+
+If different, update `CONFIG.BRAVE_PATH` in the script.
+
+### Issue: Gemini session lost / "Couldn't load this chat"
+
+**Solution:**
+
+Gemini sometimes resets sessions. The script will retry (up to 2 times). If persistent:
+
+1. Log in to Gemini manually in Brave
+2. Keep a Gemini tab open before running the script
+3. Increase `retryDelay` in cluster configuration
+
+### Issue: Windows not positioning correctly
+
+**Solution:**
+
+macOS window positioning can be flaky. Try:
+
+1. Run with fewer windows first (2-3)
+2. Adjust `getWindowPosition()` offsets
+3. Use full-screen mode: `--window-size=1600,1200`
+
+### Issue: Memory pressure / slow performance
+
+**Solution:**
+
+Reduce concurrency:
+
+```javascript
+MAX_CONCURRENCY: 3  // Instead of 4-8
+```
+
+Or run in headless mode:
+
+```bash
+node gemini-parallel-research.js --headless "query1" "query2"
+```
+
+---
+
+## Integration with Claude Code
+
+### Via Bash Tool
+
+```javascript
+// In Claude Code session:
+"Run this Bash command:"
+
+node ~/workspace/The-matrix/psi/active/gemini-parallel-research.js \
+  "quantum entanglement" \
+  "AI consciousness" \
+  "multiverse theory"
+```
+
+### Via Task Tool (Background)
+
+```javascript
+// Create background task for long-running research
+Task({
+  subagent_type: "general-purpose",
+  run_in_background: true,
+  prompt: `Run parallel Gemini research on these topics:
+    - Quantum computing
+    - Neural networks
+    - AI safety`
+})
+```
+
+### Voice Integration
+
+The script automatically uses Matrix voice system if available:
+
+```bash
+# Speaks via Oracle voice
+"Morpheus online. Opening 4 parallel Gemini portals."
+
+# On completion
+"Research complete. 4 insights harvested."
+```
+
+---
+
+## Future Enhancements
+
+- [ ] MCP wrapper for direct Claude Code integration
+- [ ] Screenshot capture of Gemini responses
+- [ ] Deep Research "Try now" auto-click
+- [ ] Session persistence across runs
+- [ ] CSV export of results
+- [ ] Slack/Discord notification on completion
+- [ ] Auto-distill to permanent memory
+
+---
+
+## References
+
+- [Puppeteer Cluster GitHub](https://github.com/thomasdondorf/puppeteer-cluster)
+- [Puppeteer Cluster Setup Guide](https://www.webshare.io/academy-article/puppeteer-cluster)
+- [Playwright vs Puppeteer Comparison](https://www.browserstack.com/guide/playwright-vs-selenium)
+- [Matrix CLAUDE.md - Agent Roles](../CLAUDE.md)
+
+---
+
+## License
+
+MIT - Part of The Matrix ecosystem
+
+---
+
+*"Remember, all I'm offering is the truth. Nothing more."*
+
+*Morpheus, 2026-01-29*

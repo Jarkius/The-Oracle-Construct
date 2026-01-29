@@ -1,0 +1,26 @@
+{
+  "name": "matrix-gemini-parallel-research",
+  "version": "1.0.0",
+  "description": "Matrix-native parallel Gemini research tool using Puppeteer Cluster",
+  "main": "gemini-parallel-research.js",
+  "scripts": {
+    "research": "node gemini-parallel-research.js",
+    "test": "node gemini-parallel-research.js 'test query' --headless"
+  },
+  "keywords": [
+    "gemini",
+    "parallel",
+    "browser-automation",
+    "research",
+    "matrix"
+  ],
+  "author": "The Matrix",
+  "license": "MIT",
+  "dependencies": {
+    "puppeteer-cluster": "^0.23.0",
+    "puppeteer": "^21.0.0"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}
