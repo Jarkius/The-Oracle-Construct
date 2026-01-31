@@ -20,6 +20,18 @@ const util = require('util');
 const execPromise = util.promisify(exec);
 
 // ============================================================================
+// Human Mimicry Helpers
+// ============================================================================
+
+function randomDelay(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+async function humanWait(page, minMs = 1000, maxMs = 3000) {
+  await page.waitForTimeout(randomDelay(minMs, maxMs));
+}
+
+// ============================================================================
 // Configuration
 // ============================================================================
 
@@ -32,8 +44,8 @@ const CONFIG = {
   // Persistent profile for auth
   USER_DATA_DIR: path.join(process.env.HOME, '.gemini-automation-profile'),
 
-  // Parallel settings
-  MAX_CONCURRENT: 4,
+  // Parallel settings (use 1 for sequential to avoid detection)
+  MAX_CONCURRENT: 1,
   NAV_TIMEOUT: 60000,       // 60 seconds for navigation
   RESPONSE_TIMEOUT: 45000,  // 45 seconds for Gemini response
   STAGGER_DELAY: 1500,      // 1.5s delay between window navigations
@@ -111,9 +123,10 @@ ${response}
 async function researchQuery(page, query, index, staggerMs = 0) {
   const startTime = Date.now();
 
-  // Stagger the start to prevent browser overload
+  // Stagger the start with randomized delay to look human
   if (staggerMs > 0) {
-    await page.waitForTimeout(staggerMs);
+    const jitteredDelay = staggerMs + randomDelay(-500, 500);
+    await page.waitForTimeout(Math.max(0, jitteredDelay));
   }
 
   console.log(`🚀 Window ${index}: Starting "${query}"`);
@@ -152,11 +165,13 @@ async function researchQuery(page, query, index, staggerMs = 0) {
       throw new Error('Could not find prompt input - check screenshot');
     }
 
-    // Click to focus, then type
+    // Click to focus, then type like a human
     await promptElement.click();
-    await page.waitForTimeout(500);
-    await promptElement.fill(query);
-    await page.waitForTimeout(500);
+    await page.waitForTimeout(randomDelay(300, 800));
+
+    // Type with human-like delays (50-150ms between keystrokes)
+    await promptElement.type(query, { delay: randomDelay(50, 120) });
+    await page.waitForTimeout(randomDelay(400, 900));
     await page.keyboard.press('Enter');
 
     console.log(`⏳ Window ${index}: Query submitted, waiting for response...`);
@@ -258,15 +273,20 @@ Features:
   console.log(`🔐 Profile: ${CONFIG.USER_DATA_DIR}`);
   console.log('');
 
-  // Launch persistent context (keeps auth)
+  // Launch with MINIMAL flags - let Brave look as normal as possible
   const context = await chromium.launchPersistentContext(CONFIG.USER_DATA_DIR, {
     headless,
     executablePath: CONFIG.BROWSER_PATH,
     args: [
-      '--disable-blink-features=AutomationControlled',
-      '--disable-infobars'
+      '--disable-blink-features=AutomationControlled'
     ],
-    viewport: { width: 800, height: 600 }
+    ignoreDefaultArgs: ['--enable-automation', '--enable-blink-features=IdleDetection'],
+    viewport: null  // Use default viewport, don't override
+  });
+
+  // Minimal stealth - just hide webdriver
+  await context.addInitScript(() => {
+    Object.defineProperty(navigator, 'webdriver', { get: () => false });
   });
 
   try {

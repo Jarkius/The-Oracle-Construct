@@ -22,3 +22,14 @@ psi/memory/archive/
 psi/memory/logs/voice/*.log
 psi/memory/logs/agents/*.log
 psi/lab/archive/
+
+# Runtime databases
+agents.db
+agents.db-shm
+agents.db-wal
+
+# Session cookies (sensitive)
+psi/active/.gemini-cookies.json
+
+# Debug screenshots
+psi/learn/inbox/debug_response_*.png
