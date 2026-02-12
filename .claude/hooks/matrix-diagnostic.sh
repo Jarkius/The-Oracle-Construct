@@ -220,7 +220,7 @@ echo "## Quick Voice Test"
 if [[ -n "$SERVER_PID" ]] && [[ -f "$PROJECT_ROOT/psi/matrix/voice.sh" ]]; then
     echo -n "  Sending test message to Oracle... "
     cd "$PROJECT_ROOT"
-    sh psi/matrix/voice.sh "Diagnostic complete." "Oracle" 2>/dev/null
+    bash psi/matrix/voice.sh "Diagnostic complete." "Oracle" 2>/dev/null
     echo "✅ Sent (check audio)"
 else
     echo "  ⏭️  Skipped (server not running)"

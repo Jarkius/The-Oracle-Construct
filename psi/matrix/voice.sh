@@ -5,7 +5,8 @@
 #
 # SHELL SAFETY: pipefail catches pipe errors, but we allow individual
 # command failures (no -e) because some optional commands may fail gracefully
-set -o pipefail
+# Note: pipefail is bash-only; skip if running under dash/sh
+(set -o pipefail 2>/dev/null) && set -o pipefail
 
 # ============================================================
 # PORTABLE PATHS - Use environment variables or sensible defaults

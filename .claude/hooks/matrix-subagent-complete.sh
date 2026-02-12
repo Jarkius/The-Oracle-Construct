@@ -28,4 +28,4 @@ touch "$LOCK_FILE"
 sleep 0.3
 
 # Mainframe speaks - the ever-present system
-sh psi/matrix/voice.sh "The cycle completes. I remain." "Mainframe"
+bash psi/matrix/voice.sh "The cycle completes. I remain." "Mainframe"
