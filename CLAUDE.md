@@ -66,6 +66,7 @@ See `psi/memory/adr/ADR-003-hierarchical-mind-architecture.md` for full details.
 │   │   ├── agents/          # Agent personality definitions
 │   │   ├── commands/        # Command definitions
 │   │   └── config/          # Voice, audio settings
+│   ├── BOOT.md             # Startup checklist (auto-injected)
 │   └── psi/                 # AI Brain ("External Memory")
 │       ├── The_Source/      # Sacred philosophy (protected)
 │       ├── learn/           # Knowledge gathering
@@ -74,6 +75,8 @@ See `psi/memory/adr/ADR-003-hierarchical-mind-architecture.md` for full details.
 │       │   └── archive/     # Completed research
 │       ├── projects/        # Symlinks to ~/ghq repos
 │       ├── memory/          # Learnings, retrospectives, ADRs
+│       │   ├── sessions/    # Auto-saved session memories
+│       │   └── tasks/       # Cross-session task registry
 │       ├── matrix/          # Voice system
 │       └── active/          # Runtime scripts
 │
@@ -88,6 +91,51 @@ See `psi/memory/adr/ADR-003-hierarchical-mind-architecture.md` for full details.
 4.  **Voice Module**: Use `sh psi/matrix/voice.sh "message" "Agent"` for TTS.
 5.  **Proactive Care**: If it's important, do it. Don't wait to be asked.
 6.  **Right Mind for the Task**: Use Haiku for search, Sonnet for learning, Opus for wisdom.
+
+## 🧬 Memory Recall Protocol (ADR-008)
+
+> *"Structure over memory. Don't rely on remembering — make behavior structural."*
+
+### Mandatory Recall: Search Before You Speak
+Before answering questions about **prior work, decisions, dates, people, preferences, tasks, or project history**, you MUST search memory first:
+
+1. **Search** `psi/memory/sessions/` for recent session context
+2. **Search** `psi/memory/retrospectives/` for historical decisions
+3. **Search** `psi/memory/learnings/` for distilled patterns
+4. **Search** `psi/memory/tasks/active.json` for pending work
+
+Do NOT guess or hallucinate about past work. Look it up. If nothing is found, say so.
+
+### Boot Checklist
+On every session start, the `BOOT.md` file is auto-injected. Follow its checklist:
+1. Load focus (`psi/inbox/focus.md`)
+2. Check active tasks (`psi/memory/tasks/active.json`)
+3. Recall last session (`psi/memory/sessions/`)
+4. Announce readiness with awareness of pending state
+
+### Session Persistence
+When ending a session or completing significant work:
+- Use `.claude/hooks/session-memory-save.sh "slug"` to persist session memory
+- Or invoke `/rrr` for a full retrospective
+- **Never let a session vanish without a trace**
+
+### Task Registry
+Track cross-session tasks in `psi/memory/tasks/active.json`:
+```json
+{
+  "tasks": [
+    {
+      "id": "unique-id",
+      "task": "Description of the task",
+      "status": "pending|in_progress|completed|blocked",
+      "assignee": "Oracle|Neo|Tank|Smith|...",
+      "created": "2026-02-14T12:00:00Z",
+      "updated": "2026-02-14T12:00:00Z",
+      "context": "Why this task exists"
+    }
+  ]
+}
+```
 
 ## 🌐 Browser Automation (Gemini Research)
 
@@ -128,4 +176,4 @@ Save to psi/learn/inbox/
 - **Design**: "Deloitte Light Theme" (Deloitte Green/White/Clean/Professional).
 
 ---
-*Portable Matrix Interface v3.2 — Mind Hierarchy Edition*
+*Portable Matrix Interface v4.0 — Autonomy Edition (Phase 1: Memory & Persistence)*

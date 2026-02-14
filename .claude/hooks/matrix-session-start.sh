@@ -93,6 +93,65 @@ cat <<'EOF'
 
 EOF
 
+# ============================================
+# BOOT.md — Startup Checklist Injection
+# Phase 1: Memory & Persistence (ADR-008)
+# ============================================
+BOOT_FILE="$PROJECT_ROOT/BOOT.md"
+if [ -f "$BOOT_FILE" ]; then
+    echo ""
+    echo "# Boot Checklist"
+    echo ""
+    cat "$BOOT_FILE"
+    echo ""
+fi
+
+# ============================================
+# Focus Injection — Current priorities
+# ============================================
+FOCUS_FILE="$PROJECT_ROOT/psi/inbox/focus.md"
+if [ -f "$FOCUS_FILE" ]; then
+    echo ""
+    echo "# Current Focus (auto-injected)"
+    echo ""
+    cat "$FOCUS_FILE"
+    echo ""
+fi
+
+# ============================================
+# Active Tasks Injection — Pending work
+# ============================================
+TASKS_FILE="$PROJECT_ROOT/psi/memory/tasks/active.json"
+if [ -f "$TASKS_FILE" ]; then
+    TASK_COUNT=$(grep -c '"status"' "$TASKS_FILE" 2>/dev/null || echo "0")
+    if [ "$TASK_COUNT" -gt 0 ]; then
+        echo ""
+        echo "# Active Tasks ($TASK_COUNT registered)"
+        echo '```json'
+        cat "$TASKS_FILE"
+        echo '```'
+        echo ""
+    fi
+fi
+
+# ============================================
+# Last Session Memory — Continuity
+# ============================================
+SESSIONS_DIR="$PROJECT_ROOT/psi/memory/sessions"
+if [ -d "$SESSIONS_DIR" ]; then
+    LATEST_SESSION=$(find "$SESSIONS_DIR" -name "*.md" -type f 2>/dev/null | sort | tail -1)
+    if [ -n "$LATEST_SESSION" ]; then
+        echo ""
+        echo "# Last Session Memory (auto-injected)"
+        echo ""
+        # Only inject the summary section, not the entire file
+        head -30 "$LATEST_SESSION"
+        echo ""
+        echo "*(Full session: $LATEST_SESSION)*"
+        echo ""
+    fi
+fi
+
 # System Acknowledgement (Queue Priority 1)
 bash "$PROJECT_ROOT/psi/matrix/voice.sh" "System online. Link established." "System"
 
