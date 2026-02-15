@@ -12,7 +12,11 @@
 Read `psi/inbox/focus.md` to understand the current task and priorities.
 
 ### 2. Check Active Tasks
-Read `psi/memory/tasks/active.json` for any pending or in-progress tasks from prior sessions. If tasks exist, announce them to the user.
+Read `psi/memory/tasks/active.json` for any pending or in-progress tasks from prior sessions. If tasks exist:
+- Count by status: pending, in_progress, blocked
+- **Blocked tasks get priority mention** — announce them first
+- Announce: "[N] tasks active ([B] blocked, [P] pending)"
+- Use `/task` to manage the registry
 
 ### 3. Recall Recent Memory
 Read the latest file in `psi/memory/sessions/` (if any) to restore context from the previous session.

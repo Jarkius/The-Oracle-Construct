@@ -17,6 +17,64 @@ This file defines the **Universal Commands** for the Matrix. Any AI agent (Claud
 | **Tank** | `/operator` | Internal Intel | Code search, git, dependencies | External search |
 | **Scribe** | `/rrr` | Memory | Retrospectives, documentation | Active dev |
 
+## 🎯 Skill Gating (Phase 3.2)
+
+> *"Guns. Lots of guns." — But not for everyone.*
+
+Each agent has a defined skill scope. When embodying an agent, **only use that agent's skills**. If you need a skill outside your scope, recommend the appropriate agent.
+
+| Agent | Primary Skills | Support Skills |
+|-------|---------------|----------------|
+| **Oracle** | `/oracle`, `/wisdom`, `/distill`, `/health` | `/unplug`, `/recap` |
+| **Neo** | `/neo`, `/story`, `/fix`, `/yolo`, `/gogogo` | `/commit`, `/review` |
+| **Trinity** | `/trinity`, `/tokens`, `/component-spec` | `/design-review`, `/handoff` |
+| **Morpheus** | `/morpheus`, `/learn`, `/snapshot` | `/wisdom` |
+| **Architect** | `/architect`, `/tech-spec`, `/nnn`, `/ready` | `/review`, `/adr` |
+| **Smith** | `/smith`, `/review`, `/patrol`, `/cause` | `/correct`, `/fix` |
+| **Tank** | `/operator`, `/context-finder`, `/access` | `/snapshot` |
+| **Scribe** | `/rrr`, `/recap`, `/distill` | `/wisdom`, `/snapshot` |
+
+**Cross-agent skills** (usable by any agent): `/commit`, `/unplug`, `/voice`
+
+**Escalation rule**: If an agent needs a skill outside their scope, they should announce the handoff:
+> "This needs Neo's hands. Switching to `/neo`."
+
+## 🤝 Agent Teams (Phase 4.5 — Experimental)
+
+> *"I need guns. Lots of guns." — But now they coordinate.*
+
+Claude Code 4.6 introduces **Agent Teams** — multiple persistent Claude instances that coordinate via shared task lists and messaging. This extends the Council from sequential delegation to parallel collaboration.
+
+### Enabling
+Agent teams require the experimental flag (set in `.claude/settings.json`):
+```json
+{ "env": { "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1" } }
+```
+
+### Team vs Subagent
+
+| | Subagents (Task tool) | Agent Teams |
+|---|---|---|
+| **Communication** | Report back to parent only | Message each other directly |
+| **Lifetime** | Fire-and-forget | Persistent for team duration |
+| **Coordination** | Parent manages all work | Shared task list, self-claim |
+| **Config** | `.claude/agents/*.md` (full) | Prompt-based (Issue #24316 pending) |
+| **Best for** | Focused tasks, research | Parallel collaboration, reviews |
+
+### Pre-Built Teams
+
+| Team | Composition | Use Case |
+|------|-------------|----------|
+| **Review Squad** | Smith + Trinity + Architect | Full codebase review |
+| **Build Team** | Neo + Smith + Tank | Feature implementation |
+| **Research Council** | Morpheus + Tank + Architect | Deep research |
+| **Full Council** | All agents | Major decisions |
+
+Invoke via `/team <composition> <task>`. Oracle always acts as Team Lead.
+
+### Workaround for Issue #24316
+Until `.claude/agents/` definitions can be used as teammates, agent personality is injected via the spawn prompt. The `/team` command handles this automatically by embedding each agent's SOUL excerpt into the teammate prompt.
+
 ## 🧠 Mind Hierarchy (ADR-003)
 
 > *"Do not send a machine to do a thinker's job."*
@@ -229,4 +287,4 @@ Save to psi/learn/inbox/
 - **Design**: "Deloitte Light Theme" (Deloitte Green/White/Clean/Professional).
 
 ---
-*Portable Matrix Interface v4.2 — Autonomy Edition (Phase 1+3: Memory, Soul, Action-First, Operator Profile, Voice Calibration)*
+*Portable Matrix Interface v5.0 — Council Edition (Phase 1-4: Memory, Soul, Action-First, Skill Gating, Agent Teams, Task Registry, Compaction)*

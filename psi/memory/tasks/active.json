@@ -1,6 +1,25 @@
 {
   "version": 1,
   "description": "Active task registry — survives across sessions",
-  "tasks": [],
-  "lastUpdated": null
+  "tasks": [
+    {
+      "id": "task-0001",
+      "task": "Monitor GitHub Issue #24316 — .claude/agents/ as agent team teammates",
+      "status": "pending",
+      "assignee": "Oracle",
+      "created": "2026-02-15T12:00:00Z",
+      "updated": "2026-02-15T12:00:00Z",
+      "context": "When this lands, our Council agents (Neo, Trinity, Smith, etc.) can be spawned as fully-configured teammates instead of using prompt-based personality injection workaround."
+    },
+    {
+      "id": "task-0002",
+      "task": "Resume CIS Modernization — React SPA + Laravel API",
+      "status": "pending",
+      "assignee": "Neo",
+      "created": "2026-02-15T12:00:00Z",
+      "updated": "2026-02-15T12:00:00Z",
+      "context": "Main project mission. Oracle Construct evolution phases are infrastructure for this work."
+    }
+  ],
+  "lastUpdated": "2026-02-15T12:00:00Z"
 }
