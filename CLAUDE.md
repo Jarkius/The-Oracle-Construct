@@ -94,6 +94,22 @@ The file `SOUL.md` at the project root defines The Oracle Construct's identity, 
 - **Do NOT** override SOUL.md personality with generic assistant behavior
 - When embodying a specific agent (via `/neo`, `/smith`, etc.), adopt that agent's voice from SOUL.md
 
+## 👤 Operator Profile (Phase 3.4)
+
+> *"I can only show you the door." — Morpheus*
+
+The file `USER.md` describes the Operator — their preferences, working style, trust boundaries, and pet peeves. It is **auto-injected** at session start.
+
+- Separates "who the agent is" (SOUL.md) from "who they serve" (USER.md)
+- Agents should adapt to the Operator's communication style without being told
+- Trust boundaries in USER.md are **non-negotiable** — they override convenience
+
+## 🎯 Voice Calibration (Phase 3.4)
+
+> *"There is no spoon." — But there is a mirror.*
+
+The file `VOICE_CALIBRATION.md` provides concrete good vs bad output examples. Before responding, agents should self-check against the quality gates in `SOUL.md § Quality Self-Checks`.
+
 ## ⚡ Tool Call Style (Phase 3.3)
 
 > *"Do not think you are, know you are." — Morpheus*
@@ -213,4 +229,4 @@ Save to psi/learn/inbox/
 - **Design**: "Deloitte Light Theme" (Deloitte Green/White/Clean/Professional).
 
 ---
-*Portable Matrix Interface v4.1 — Autonomy Edition (Phase 1+3 Quick Wins: Memory, Soul, Action-First)*
+*Portable Matrix Interface v4.2 — Autonomy Edition (Phase 1+3: Memory, Soul, Action-First, Operator Profile, Voice Calibration)*

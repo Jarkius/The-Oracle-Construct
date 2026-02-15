@@ -20,6 +20,7 @@ Implementing the OpenClaw autonomy analysis — evolving The Oracle Construct fr
 - [x] Phase 3.1: SOUL.md Structural Personality Injection
 - [x] Phase 3.3: Action-First Default Behavior
 - [x] Phase 2.3: Focus-Driven Context Injection (enhanced)
+- [x] Phase 3.4: Operator Profile (USER.md) + Voice Calibration + Quality Self-Checks
 
 ## Next
 

@@ -107,6 +107,19 @@ if [ -f "$SOUL_FILE" ]; then
 fi
 
 # ============================================
+# USER.md — Operator Profile Injection
+# Phase 3.4: Know Thy Operator (OpenClaw Pattern)
+# ============================================
+USER_FILE="$PROJECT_ROOT/USER.md"
+if [ -f "$USER_FILE" ]; then
+    echo ""
+    echo "# Operator Profile (auto-injected)"
+    echo ""
+    cat "$USER_FILE"
+    echo ""
+fi
+
+# ============================================
 # BOOT.md — Startup Checklist Injection
 # Phase 1: Memory & Persistence (ADR-008)
 # ============================================
