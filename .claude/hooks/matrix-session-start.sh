@@ -94,6 +94,19 @@ cat <<'EOF'
 EOF
 
 # ============================================
+# SOUL.md — Structural Personality Injection
+# Phase 3.1: Role Enforcement (ADR-008)
+# ============================================
+SOUL_FILE="$PROJECT_ROOT/SOUL.md"
+if [ -f "$SOUL_FILE" ]; then
+    echo ""
+    echo "# Soul (auto-injected)"
+    echo ""
+    cat "$SOUL_FILE"
+    echo ""
+fi
+
+# ============================================
 # BOOT.md — Startup Checklist Injection
 # Phase 1: Memory & Persistence (ADR-008)
 # ============================================

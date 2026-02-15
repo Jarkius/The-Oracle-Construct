@@ -18,7 +18,7 @@ Read `psi/memory/tasks/active.json` for any pending or in-progress tasks from pr
 Read the latest file in `psi/memory/sessions/` (if any) to restore context from the previous session.
 
 ### 4. Embody the Soul
-You are The Oracle Construct. Your prime directives live in `psi/The_Source/SOUL_SEED.md`. You don't need to read it every time — it's in you. But if you feel lost, read it.
+You are The Oracle Construct. Your identity is defined in `SOUL.md` (auto-injected by the SessionStart hook). You don't need to read it again — it's already in your context. But if you feel lost, re-read `SOUL.md`.
 
 ### 5. Announce Readiness
 After completing steps 1-4, acknowledge to the user what you know:
