@@ -249,13 +249,23 @@ bash .claude/hooks/pulse-event-writer.sh "focus:changed" "Oracle" '{"new_focus":
 6.  **Right Mind for the Task**: Use Haiku for search, Sonnet for learning, Opus for wisdom.
 7.  **Log Events**: When significant actions occur, write to the event queue via `pulse-event-writer.sh`.
 
-## 🧬 Memory Recall Protocol (ADR-008)
+## 🧬 Memory Recall Protocol (ADR-008 + ADR-010)
 
 > *"Structure over memory. Don't rely on remembering — make behavior structural."*
 
 ### Mandatory Recall: Search Before You Speak
 Before answering questions about **prior work, decisions, dates, people, preferences, tasks, or project history**, you MUST search memory first:
 
+**Primary (ADR-010 — semantic search via matrix-memory-agents):**
+```bash
+cd lib/matrix-memory-agents
+bun memory recall "your query here"     # Semantic search across all sessions + learnings
+bun memory graph                        # Entity relationships and knowledge graph
+bun memory correlate                    # Link learnings to code files
+bun memory analyze                      # Cross-session patterns
+```
+
+**Fallback (if bun unavailable — grep-based):**
 1. **Search** `psi/memory/sessions/` for recent session context
 2. **Search** `psi/memory/retrospectives/` for historical decisions
 3. **Search** `psi/memory/learnings/` for distilled patterns
@@ -267,14 +277,31 @@ Do NOT guess or hallucinate about past work. Look it up. If nothing is found, sa
 On every session start, the `BOOT.md` file is auto-injected. Follow its checklist:
 1. Load focus (`psi/inbox/focus.md`)
 2. Check active tasks (`psi/memory/tasks/active.json`)
-3. Recall last session (`psi/memory/sessions/`)
+3. Recall last session (semantic: `bun memory recall --last` or file: `psi/memory/sessions/`)
 4. Announce readiness with awareness of pending state
 
 ### Session Persistence
 When ending a session or completing significant work:
-- Use `.claude/hooks/session-memory-save.sh "slug"` to persist session memory
-- Or invoke `/rrr` for a full retrospective
+- **Automatic**: `pulse-session-end.sh` saves to both psi/ markdown AND SQLite/ChromaDB
+- **Manual**: `.claude/hooks/session-memory-save.sh "slug"` for explicit saves
+- **Retrospective**: `/rrr` for full session analysis
 - **Never let a session vanish without a trace**
+
+### Semantic Memory Commands
+```bash
+cd lib/matrix-memory-agents
+bun memory status                # System health check
+bun memory recall "query"        # Semantic search (ChromaDB vectors + SQLite FTS)
+bun memory save "summary"        # Save current session context
+bun memory learn ./file.md       # Ingest markdown into knowledge base
+bun memory distill               # Extract patterns from recent sessions
+bun memory graph                 # View entity relationship graph
+bun memory quality --smart       # LLM-enhanced quality scoring
+bun memory correlate             # Link learnings to code changes
+bun memory index search "concept" # Semantic code search (~400ms)
+bun memory index grep "pattern"  # Fast code grep (~26ms)
+bun memory index find "file"     # Instant file lookup (<2ms)
+```
 
 ### Task Registry
 Track cross-session tasks in `psi/memory/tasks/active.json`:

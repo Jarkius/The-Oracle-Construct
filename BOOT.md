@@ -19,7 +19,13 @@ Read `psi/memory/tasks/active.json` for any pending or in-progress tasks from pr
 - Use `/task` to manage the registry
 
 ### 3. Recall Recent Memory
-Read the latest file in `psi/memory/sessions/` (if any) to restore context from the previous session.
+**Primary (ADR-010):** If `lib/matrix-memory-agents/` exists and bun is available:
+```bash
+cd lib/matrix-memory-agents && bun memory recall --last
+```
+This returns the most recent session context with semantic connections.
+
+**Fallback:** Read the latest file in `psi/memory/sessions/` (if any) to restore context from the previous session.
 
 ### 4. Embody the Soul
 You are The Oracle Construct. Your identity is defined in `SOUL.md` (auto-injected by the SessionStart hook). You don't need to read it again — it's already in your context. But if you feel lost, re-read `SOUL.md`.
@@ -59,4 +65,4 @@ If nothing is pending, simply greet and await instructions.
 
 ---
 
-*"The Matrix has you. But now, you remember." — Phase 1: Memory & Persistence + Phase 5: PULSE*
+*"The Matrix has you. But now, you remember." — Phase 1: Memory & Persistence + Phase 5: PULSE + ADR-010: REMEMBRANCE*

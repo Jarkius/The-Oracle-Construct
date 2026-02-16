@@ -215,7 +215,17 @@ sh psi/matrix/voice.sh "This touches The Source. Oracle must bless this change."
 - Write distilled content to destination
 - Move original to `psi/learn/archive/YYYY-MM/<topic>.md`
 
-6. **Announce**:
+6. **ADR-010: Dual-Layer Persistence**:
+- Ingest the archived file into SQLite + ChromaDB:
+```bash
+cd lib/matrix-memory-agents && bun memory learn "$PROJECT_ROOT/psi/learn/archive/YYYY-MM/<topic>.md"
+```
+- If distilled to learnings, also ingest that:
+```bash
+cd lib/matrix-memory-agents && bun memory learn "$PROJECT_ROOT/psi/memory/learnings/<category>/<topic>.md"
+```
+
+7. **Announce**:
 ```bash
 sh psi/matrix/voice.sh "Knowledge synthesized. The path continues." "Scribe"
 ```
