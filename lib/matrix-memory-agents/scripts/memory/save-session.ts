@@ -1,0 +1,882 @@
+#!/usr/bin/env bun
+/**
+ * Interactive Session Save
+ * Save current session with full context to SQLite + ChromaDB
+ *
+ * Usage:
+ *   bun memory save                    # Interactive mode
+ *   bun memory save "summary"          # Quick mode
+ *   bun memory save --auto "summary"   # Auto-capture from Claude Code files
+ *
+ * Auto-capture reads from ~/.claude/:
+ *   - history.jsonl - User messages from current session
+ *   - todos/{sessionId}-*.json - Task lists
+ *   - plans/*.md - Recent plan files
+ *   - Git context (branch, commits, files)
+ */
+
+import { execSync } from 'child_process';
+import {
+  createSession,
+  createSessionLink,
+  createLearning,
+  createSessionTask,
+  getSessionStats,
+  listSessionsFromDb,
+  type SessionRecord,
+  type FullContext,
+  type SessionTask,
+} from '../../src/db';
+import {
+  initVectorDB,
+  saveSession as saveSessionToChroma,
+  findSimilarSessions,
+  embedSessionTask,
+  saveLearning as saveLearningToChroma,
+  findSimilarLearnings,
+} from '../../src/vector-db';
+import { createLearningLink } from '../../src/db';
+import {
+  captureFromClaudeCode,
+  formatCapturedContext,
+  captureMidChangeState,
+  suggestFilesToRead,
+  type CapturedContext,
+} from './capture-context';
+import { getLearningLoop } from '../../src/learning/loop';
+
+// ============ Git Context Auto-Capture ============
+
+interface GitContext {
+  branch: string;
+  recentCommits: string[];
+  filesChanged: string[];
+  diffSummary: string;
+}
+
+/**
+ * Build rich search content for ChromaDB indexing
+ * Includes summary, tags, and key context for better semantic search
+ */
+function buildSearchContent(summary: string, tags: string[], context: FullContext): string {
+  const parts: string[] = [summary];
+
+  if (tags.length > 0) {
+    parts.push(tags.join(' '));
+  }
+
+  // Add key decisions for searchability
+  if (context.key_decisions?.length) {
+    parts.push(`Decisions: ${context.key_decisions.join('. ')}`);
+  }
+
+  // Add wins and issues
+  if (context.wins?.length) {
+    parts.push(`Wins: ${context.wins.join('. ')}`);
+  }
+  if (context.issues?.length) {
+    parts.push(`Issues: ${context.issues.join('. ')}`);
+  }
+
+  // Add challenges
+  if (context.challenges?.length) {
+    parts.push(`Challenges: ${context.challenges.join('. ')}`);
+  }
+
+  // Add next steps
+  if (context.next_steps?.length) {
+    parts.push(`Next: ${context.next_steps.join('. ')}`);
+  }
+
+  // Add files changed for technical context
+  if (context.files_changed?.length) {
+    const keyFiles = context.files_changed.slice(0, 10).join(' ');
+    parts.push(`Files: ${keyFiles}`);
+  }
+
+  // Add git commits for context
+  if (context.git_commits?.length) {
+    const commits = context.git_commits.slice(0, 5).join(' ');
+    parts.push(`Commits: ${commits}`);
+  }
+
+  return parts.join(' ');
+}
+
+/**
+ * Get the git root path for the current directory
+ * Returns undefined if not in a git repository
+ */
+function getGitRootPath(): string | undefined {
+  try {
+    const root = execSync('git rev-parse --show-toplevel', {
+      encoding: 'utf-8',
+      stdio: ['pipe', 'pipe', 'pipe'],
+    }).trim();
+    return root || undefined;
+  } catch {
+    // Not in a git repository
+    return undefined;
+  }
+}
+
+function captureGitContext(): GitContext | null {
+  try {
+    const branch = execSync('git branch --show-current', { encoding: 'utf-8' }).trim();
+
+    // Get recent commits (last 10)
+    const commitsRaw = execSync('git log --oneline -10 2>/dev/null || echo ""', { encoding: 'utf-8' }).trim();
+    const recentCommits = commitsRaw ? commitsRaw.split('\n').filter(Boolean) : [];
+
+    // Get files changed in working tree + staged
+    const filesRaw = execSync('git diff --name-only HEAD~5 2>/dev/null || git diff --name-only --cached 2>/dev/null || echo ""', { encoding: 'utf-8' }).trim();
+    const filesChanged = filesRaw ? [...new Set(filesRaw.split('\n').filter(Boolean))] : [];
+
+    // Get a summary of changes (insertions/deletions)
+    let diffSummary = '';
+    try {
+      const shortstat = execSync('git diff --shortstat HEAD~5 2>/dev/null || echo ""', { encoding: 'utf-8' }).trim();
+      if (shortstat) {
+        diffSummary = shortstat;
+      }
+    } catch {
+      // Ignore if we can't get diff summary
+    }
+
+    return { branch, recentCommits, filesChanged, diffSummary };
+  } catch {
+    return null;
+  }
+}
+
+// Categories for learnings
+const TECHNICAL_CATEGORIES = ['performance', 'architecture', 'tooling', 'process', 'debugging', 'security', 'testing'] as const;
+const WISDOM_CATEGORIES = ['philosophy', 'principle', 'insight', 'pattern', 'retrospective'] as const;
+const ALL_CATEGORIES = [...TECHNICAL_CATEGORIES, ...WISDOM_CATEGORIES] as const;
+type Category = typeof ALL_CATEGORIES[number];
+
+const CATEGORY_ICONS: Record<Category, string> = {
+  performance: '⚡', architecture: '🏛️', tooling: '🔧', debugging: '🔍',
+  security: '🔒', testing: '🧪', process: '📋', philosophy: '🌟',
+  principle: '⚖️', insight: '💡', pattern: '🔄', retrospective: '📖',
+};
+
+interface TaskInput {
+  description: string;
+  status: 'done' | 'pending' | 'blocked' | 'in_progress';
+  notes?: string;
+}
+
+interface LearningInput {
+  title: string;
+  category: Category;
+  context?: string;
+  what_happened?: string;
+  lesson?: string;
+  prevention?: string;
+}
+
+// Parse arguments
+const args = process.argv.slice(2);
+let summary = '';
+let tags: string[] = [];
+let autoMode = false;
+let cliWins: string[] = [];
+let cliChallenges: string[] = [];
+let cliLearnings: string[] = [];
+let cliNextSteps: string[] = [];
+
+for (let i = 0; i < args.length; i++) {
+  if (args[i] === '--auto') {
+    autoMode = true;
+  } else if (args[i] === '--tags' && args[i + 1]) {
+    tags = args[i + 1]!.split(',').map(t => t.trim());
+    i++;
+  } else if (args[i] === '--wins' && args[i + 1]) {
+    cliWins = args[i + 1]!.split(',').map(t => t.trim()).filter(Boolean);
+    i++;
+  } else if (args[i] === '--challenges' && args[i + 1]) {
+    cliChallenges = args[i + 1]!.split(',').map(t => t.trim()).filter(Boolean);
+    i++;
+  } else if (args[i] === '--learnings' && args[i + 1]) {
+    cliLearnings = args[i + 1]!.split(',').map(t => t.trim()).filter(Boolean);
+    i++;
+  } else if (args[i] === '--next-steps' && args[i + 1]) {
+    cliNextSteps = args[i + 1]!.split(',').map(t => t.trim()).filter(Boolean);
+    i++;
+  } else if (!args[i]!.startsWith('--')) {
+    summary = args[i]!;
+  }
+}
+
+async function promptInput(question: string): Promise<string> {
+  const readline = await import('readline');
+  const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout,
+  });
+
+  return new Promise((resolve) => {
+    rl.question(question, (answer) => {
+      rl.close();
+      resolve(answer.trim());
+    });
+  });
+}
+
+function parseStatus(input: string): 'done' | 'pending' | 'blocked' | 'in_progress' {
+  const normalized = input.toLowerCase().trim();
+  if (normalized === 'd' || normalized === 'done') return 'done';
+  if (normalized === 'p' || normalized === 'pending') return 'pending';
+  if (normalized === 'b' || normalized === 'blocked') return 'blocked';
+  if (normalized === 'i' || normalized === 'in_progress' || normalized === 'in-progress') return 'in_progress';
+  return 'pending'; // default
+}
+
+async function collectTasks(): Promise<TaskInput[]> {
+  const tasks: TaskInput[] = [];
+
+  console.log('\n📋 Tasks (enter tasks, empty description to finish):');
+  console.log('   Status shortcuts: [d]one, [p]ending, [b]locked, [i]n_progress\n');
+
+  let taskNum = 1;
+  while (true) {
+    const description = await promptInput(`${taskNum}. Task description: `);
+    if (!description) break;
+
+    const statusInput = await promptInput('   Status [d/p/b/i] (default: p): ');
+    const status = parseStatus(statusInput || 'p');
+
+    const notes = await promptInput('   Notes (optional): ');
+
+    tasks.push({
+      description,
+      status,
+      notes: notes || undefined,
+    });
+
+    taskNum++;
+    console.log('');
+  }
+
+  return tasks;
+}
+
+async function collectLearnings(sessionId: string): Promise<LearningInput[]> {
+  const learnings: LearningInput[] = [];
+
+  console.log('\n🧠 Learnings from this session:');
+  console.log('   Categories: insight, philosophy, principle, pattern, retrospective');
+  console.log('   Technical:  performance, architecture, tooling, debugging, security, testing, process\n');
+
+  const addLearnings = await promptInput('Add learnings? [y/N]: ');
+  if (addLearnings.toLowerCase() !== 'y') {
+    return learnings;
+  }
+
+  let learningNum = 1;
+  while (true) {
+    const title = await promptInput(`\n   ${learningNum}. Title (empty to finish): `);
+    if (!title) break;
+
+    const categoryInput = await promptInput('      Category [insight]: ');
+    const category = (categoryInput.toLowerCase() || 'insight') as Category;
+
+    if (!ALL_CATEGORIES.includes(category)) {
+      console.log(`      ⚠ Invalid category, using 'insight'`);
+    }
+
+    // Prompt for structured learning details
+    console.log('      📝 Structured details (all optional):');
+    const what_happened = await promptInput('      What happened? > ');
+    const lesson = await promptInput('      What did you learn? > ');
+    const prevention = await promptInput('      How to prevent/apply? > ');
+
+    learnings.push({
+      title,
+      category: ALL_CATEGORIES.includes(category) ? category : 'insight',
+      what_happened: what_happened || undefined,
+      lesson: lesson || undefined,
+      prevention: prevention || undefined,
+    });
+
+    const icon = CATEGORY_ICONS[ALL_CATEGORIES.includes(category) ? category : 'insight'];
+    console.log(`      ${icon} Added!`);
+
+    learningNum++;
+  }
+
+  return learnings;
+}
+
+async function interactiveMode() {
+  console.log('\n📝 Save Session - Interactive Mode\n');
+  console.log('─'.repeat(50));
+
+  // Capture git context automatically
+  const gitContext = captureGitContext();
+  if (gitContext) {
+    console.log(`\n🔀 Git branch: ${gitContext.branch}`);
+    if (gitContext.recentCommits.length > 0) {
+      console.log(`   Recent commits: ${gitContext.recentCommits.length}`);
+      for (const commit of gitContext.recentCommits.slice(0, 3)) {
+        console.log(`     ${commit}`);
+      }
+      if (gitContext.recentCommits.length > 3) {
+        console.log(`     ... and ${gitContext.recentCommits.length - 3} more`);
+      }
+    }
+    if (gitContext.filesChanged.length > 0) {
+      console.log(`   Files changed: ${gitContext.filesChanged.length}`);
+    }
+  }
+
+  // Show recent sessions for context
+  const recent = listSessionsFromDb({ limit: 2 });
+  if (recent.length > 0) {
+    console.log('\nRecent sessions:');
+    for (const s of recent) {
+      console.log(`  ${s.id}: ${s.summary?.substring(0, 50)}...`);
+    }
+    console.log('');
+  }
+
+  // Get summary
+  if (!summary) {
+    summary = await promptInput('Session summary (1-2 sentences): ');
+    if (!summary) {
+      console.log('Summary is required. Aborting.');
+      process.exit(1);
+    }
+  }
+
+  // Get tags
+  if (tags.length === 0) {
+    const tagsInput = await promptInput('Tags (comma-separated, optional): ');
+    tags = tagsInput.split(',').map(t => t.trim()).filter(Boolean);
+  }
+
+  // Get duration
+  const durationInput = await promptInput('Duration in minutes (optional): ');
+  const duration = durationInput ? parseInt(durationInput) : undefined;
+
+  // Get commits count (auto-suggest from git)
+  const suggestedCommits = gitContext?.recentCommits.length || 0;
+  const commitsPrompt = suggestedCommits > 0
+    ? `Commits count (detected ${suggestedCommits}, press enter to use): `
+    : 'Commits count (optional): ';
+  const commitsInput = await promptInput(commitsPrompt);
+  const commits = commitsInput ? parseInt(commitsInput) : (suggestedCommits || undefined);
+
+  // Get key decisions (important for context)
+  console.log('\n📌 Key decisions made this session:');
+  const keyDecisionsInput = await promptInput('   (comma-separated, e.g., "chose X over Y, implemented Z pattern"): ');
+  const keyDecisions = keyDecisionsInput ? keyDecisionsInput.split(',').map(t => t.trim()).filter(Boolean) : [];
+
+  // Get wins
+  const winsInput = await promptInput('Wins? (comma-separated): ');
+  const wins = winsInput ? winsInput.split(',').map(t => t.trim()).filter(Boolean) : [];
+
+  // Get issues
+  const issuesInput = await promptInput('Issues? (comma-separated): ');
+  const issues = issuesInput ? issuesInput.split(',').map(t => t.trim()).filter(Boolean) : [];
+
+  // Get challenges
+  const challengesInput = await promptInput('Challenges? (comma-separated): ');
+  const challenges = challengesInput ? challengesInput.split(',').map(t => t.trim()).filter(Boolean) : [];
+
+  // Get next steps
+  const nextStepsInput = await promptInput('Next steps? (comma-separated): ');
+  const nextSteps = nextStepsInput ? nextStepsInput.split(',').map(t => t.trim()).filter(Boolean) : [];
+
+  // Collect tasks
+  const tasks = await collectTasks();
+
+  return {
+    summary,
+    tags,
+    duration,
+    commits,
+    tasks,
+    startedAt: undefined, // Not available in interactive mode
+    endedAt: new Date().toISOString(),
+    fullContext: {
+      wins: wins.length > 0 ? wins : undefined,
+      issues: issues.length > 0 ? issues : undefined,
+      key_decisions: keyDecisions.length > 0 ? keyDecisions : undefined,
+      challenges: challenges.length > 0 ? challenges : undefined,
+      next_steps: nextSteps.length > 0 ? nextSteps : undefined,
+      // Git context (auto-captured)
+      git_branch: gitContext?.branch,
+      git_commits: gitContext?.recentCommits.length ? gitContext.recentCommits : undefined,
+      files_changed: gitContext?.filesChanged.length ? gitContext.filesChanged : undefined,
+      diff_summary: gitContext?.diffSummary || undefined,
+    } as FullContext,
+  };
+}
+
+async function quickMode() {
+  // Auto-capture git context even in quick mode
+  const gitContext = captureGitContext();
+  // Capture mid-change state (uncommitted files, staged files, diff)
+  const midChangeState = captureMidChangeState();
+
+  console.log('\n📝 Quick Save Mode');
+  if (gitContext) {
+    console.log(`   🔀 Branch: ${gitContext.branch}`);
+    if (gitContext.recentCommits.length > 0) {
+      console.log(`   📦 Commits: ${gitContext.recentCommits.length}`);
+    }
+    if (gitContext.filesChanged.length > 0) {
+      console.log(`   📄 Files: ${gitContext.filesChanged.length}`);
+    }
+  }
+
+  // Show mid-change state if present
+  if (midChangeState.uncommittedFiles?.length || midChangeState.stagedFiles?.length) {
+    console.log('   📌 Work in progress:');
+    if (midChangeState.uncommittedFiles?.length) {
+      console.log(`      - ${midChangeState.uncommittedFiles.length} uncommitted files`);
+    }
+    if (midChangeState.stagedFiles?.length) {
+      console.log(`      - ${midChangeState.stagedFiles.length} staged files`);
+    }
+  }
+
+  // Auto-suggest files to read for continuation
+  const filesToRead = suggestFilesToRead(midChangeState);
+
+  return {
+    summary,
+    tags,
+    duration: undefined,
+    commits: gitContext?.recentCommits.length || undefined,
+    tasks: [] as TaskInput[],
+    startedAt: undefined, // Not available in quick mode
+    endedAt: new Date().toISOString(),
+    fullContext: {
+      git_branch: gitContext?.branch,
+      git_commits: gitContext?.recentCommits.length ? gitContext.recentCommits : undefined,
+      files_changed: gitContext?.filesChanged.length ? gitContext.filesChanged : undefined,
+      diff_summary: gitContext?.diffSummary || undefined,
+      // Enhanced continuation support
+      mid_change_state: (midChangeState.uncommittedFiles?.length || midChangeState.stagedFiles?.length)
+        ? midChangeState
+        : undefined,
+      continuation_bundle: filesToRead.length > 0
+        ? {
+            filesToRead,
+            pendingWork: [],
+            quickContext: {
+              whatWasDone: summary,
+              whatRemains: midChangeState.uncommittedFiles?.length
+                ? `${midChangeState.uncommittedFiles.length} files with uncommitted changes`
+                : 'No uncommitted changes',
+            },
+          }
+        : undefined,
+    } as FullContext,
+  };
+}
+
+async function autoCaptureMode() {
+  // Capture context from Claude Code files
+  console.log('\n🔄 Auto-Capture Mode');
+
+  let captured: CapturedContext;
+  try {
+    captured = captureFromClaudeCode(process.cwd());
+    console.log(formatCapturedContext(captured));
+  } catch (error) {
+    console.log('   ⚠ Could not capture from Claude Code files');
+    console.log(`   Error: ${error instanceof Error ? error.message : error}`);
+    console.log('   Falling back to quick mode...\n');
+    return quickMode();
+  }
+
+  // Also get git context for additional info
+  const gitContext = captureGitContext();
+  // Capture mid-change state
+  const midChangeState = captureMidChangeState();
+
+  // Show mid-change state if present
+  if (midChangeState.uncommittedFiles?.length || midChangeState.stagedFiles?.length) {
+    console.log('\n   📌 Work in progress:');
+    if (midChangeState.uncommittedFiles?.length) {
+      console.log(`      - ${midChangeState.uncommittedFiles.length} uncommitted files`);
+      for (const f of midChangeState.uncommittedFiles.slice(0, 5)) {
+        console.log(`        ${f}`);
+      }
+    }
+    if (midChangeState.stagedFiles?.length) {
+      console.log(`      - ${midChangeState.stagedFiles.length} staged files`);
+    }
+  }
+
+  // Build user messages summary for search content
+  const messagesSummary = captured.userMessages.length > 0
+    ? `User topics: ${captured.userMessages.slice(-5).join('. ')}`
+    : undefined;
+
+  // Extract plan title if available
+  const planTitle = captured.planContent
+    ? captured.planContent.split('\n').find(l => l.startsWith('# '))?.replace('# ', '')
+    : undefined;
+
+  // Auto-suggest files to read for continuation
+  const filesToRead = suggestFilesToRead(midChangeState);
+
+  // Build structured next steps from CLI flags
+  const structuredNextSteps = cliNextSteps.map(step => ({ action: step }));
+
+  return {
+    summary,
+    tags,
+    duration: captured.duration.minutes,
+    commits: gitContext?.recentCommits.length || undefined,
+    tasks: captured.tasks,
+    startedAt: captured.duration.start.toISOString(),
+    endedAt: captured.duration.end.toISOString(),
+    fullContext: {
+      // From Claude Code capture
+      user_messages: captured.userMessages.slice(-10), // Last 10 messages
+      plan_file: captured.planFile,
+      plan_title: planTitle,
+      claude_session_id: captured.sessionId,
+      message_count: captured.messageCount,
+      // From CLI flags (for distill to extract)
+      wins: cliWins.length > 0 ? cliWins : undefined,
+      challenges: cliChallenges.length > 0 ? cliChallenges : undefined,
+      learnings: cliLearnings.length > 0 ? cliLearnings : undefined,
+      next_steps: cliNextSteps.length > 0 ? cliNextSteps : undefined,
+      // From git
+      git_branch: gitContext?.branch,
+      git_commits: gitContext?.recentCommits.length ? gitContext.recentCommits : undefined,
+      files_changed: gitContext?.filesChanged.length ? gitContext.filesChanged : undefined,
+      diff_summary: gitContext?.diffSummary || undefined,
+      // Enhanced continuation support
+      structured_next_steps: structuredNextSteps.length > 0 ? structuredNextSteps : undefined,
+      mid_change_state: (midChangeState.uncommittedFiles?.length || midChangeState.stagedFiles?.length)
+        ? midChangeState
+        : undefined,
+      continuation_bundle: filesToRead.length > 0
+        ? {
+            filesToRead,
+            pendingWork: structuredNextSteps,
+            quickContext: {
+              whatWasDone: summary,
+              whatRemains: cliNextSteps.length > 0
+                ? cliNextSteps.join(', ')
+                : midChangeState.uncommittedFiles?.length
+                  ? `${midChangeState.uncommittedFiles.length} files with uncommitted changes`
+                  : 'No specific next steps captured',
+            },
+          }
+        : undefined,
+    } as FullContext,
+  };
+}
+
+/**
+ * Auto-distill learnings from session context
+ * Extracts learnings from wins, challenges, and explicit learnings
+ */
+async function autoDistillFromContext(sessionId: string, context: FullContext, timestamp: string, projectPath?: string): Promise<number> {
+  let count = 0;
+  const loop = getLearningLoop();
+
+  // Extract from explicit learnings in context
+  if (context.learnings && context.learnings.length > 0) {
+    for (const learning of context.learnings) {
+      const category = detectCategory(learning);
+      const learningId = createLearning({
+        category,
+        title: learning.slice(0, 100),
+        lesson: learning,
+        confidence: 'medium',
+        source_session_id: sessionId,
+        project_path: projectPath,
+      });
+      await saveLearningToChroma(learningId, learning.slice(0, 100), learning, {
+        category,
+        confidence: 'medium',
+        source_session_id: sessionId,
+        created_at: timestamp,
+        project_path: projectPath,
+      });
+      count++;
+    }
+  }
+
+  // Extract from wins (success patterns)
+  if (context.wins && context.wins.length > 0) {
+    for (const win of context.wins) {
+      // Only auto-capture wins that look like learnings (not just "fixed X")
+      if (win.length > 30 && (win.includes('because') || win.includes('by') || win.includes('using'))) {
+        const category = detectCategory(win);
+        const learningId = createLearning({
+          category,
+          title: `Win: ${win.slice(0, 80)}`,
+          what_happened: win,
+          confidence: 'low',
+          source_session_id: sessionId,
+          project_path: projectPath,
+        });
+        await saveLearningToChroma(learningId, `Win: ${win.slice(0, 80)}`, win, {
+          category,
+          confidence: 'low',
+          source_session_id: sessionId,
+          created_at: timestamp,
+          project_path: projectPath,
+        });
+        count++;
+      }
+    }
+  }
+
+  // Extract from challenges (problem patterns)
+  if (context.challenges && context.challenges.length > 0) {
+    for (const challenge of context.challenges) {
+      // Only auto-capture challenges that seem resolved or insightful
+      if (challenge.length > 40) {
+        const category = detectCategory(challenge);
+        const learningId = createLearning({
+          category: category === 'insight' ? 'debugging' : category,
+          title: `Challenge: ${challenge.slice(0, 80)}`,
+          what_happened: challenge,
+          confidence: 'low',
+          source_session_id: sessionId,
+          project_path: projectPath,
+        });
+        await saveLearningToChroma(learningId, `Challenge: ${challenge.slice(0, 80)}`, challenge, {
+          category: category === 'insight' ? 'debugging' : category,
+          confidence: 'low',
+          source_session_id: sessionId,
+          created_at: timestamp,
+          project_path: projectPath,
+        });
+        count++;
+      }
+    }
+  }
+
+  return count;
+}
+
+// Simple category detection based on keywords
+function detectCategory(text: string): Category {
+  const lower = text.toLowerCase();
+  if (lower.includes('performance') || lower.includes('fast') || lower.includes('slow') || lower.includes('optimize')) return 'performance';
+  if (lower.includes('architecture') || lower.includes('design') || lower.includes('pattern') || lower.includes('structure')) return 'architecture';
+  if (lower.includes('tool') || lower.includes('cli') || lower.includes('config') || lower.includes('setup')) return 'tooling';
+  if (lower.includes('debug') || lower.includes('error') || lower.includes('bug') || lower.includes('fix')) return 'debugging';
+  if (lower.includes('test') || lower.includes('spec') || lower.includes('coverage')) return 'testing';
+  if (lower.includes('security') || lower.includes('auth') || lower.includes('permission')) return 'security';
+  if (lower.includes('process') || lower.includes('workflow') || lower.includes('pipeline')) return 'process';
+  return 'insight';
+}
+
+async function saveCurrentSession() {
+  // Get session data based on mode FIRST (no vector DB needed)
+  let data;
+  if (autoMode) {
+    if (!summary) {
+      console.error('Error: --auto mode requires a summary argument');
+      console.error('Usage: bun memory save --auto "Your summary here"');
+      process.exit(1);
+    }
+    data = await autoCaptureMode();
+  } else if (summary) {
+    data = await quickMode();
+  } else {
+    data = await interactiveMode();
+  }
+
+  const sessionId = `session_${Date.now()}`;
+  const now = new Date().toISOString();
+  const projectPath = getGitRootPath();
+
+  const session: SessionRecord = {
+    id: sessionId,
+    summary: data.summary,
+    full_context: data.fullContext,
+    duration_mins: data.duration,
+    commits_count: data.commits,
+    tags: data.tags.length > 0 ? data.tags : undefined,
+    started_at: data.startedAt,
+    ended_at: data.endedAt || now,
+    project_path: projectPath,  // Scope session to current project
+  };
+
+  // SAVE TO SQLITE FIRST - this is fast and doesn't block
+  console.log('\n1. Saving to SQLite...');
+  createSession(session);
+  console.log(`   ✓ Session ${sessionId} saved to SQLite`);
+
+  // Now try vector operations (can fail gracefully)
+  let vectorInitialized = false;
+  let autoLinked: Array<{ id: string; similarity: number }> = [];
+  let suggested: Array<{ id: string; similarity: number; summary?: string }> = [];
+
+  try {
+    console.log('\n2. Initializing vector DB (this may take a moment)...');
+    await initVectorDB();
+    vectorInitialized = true;
+    console.log('   ✓ Vector DB ready');
+  } catch (error) {
+    console.log('   ⚠ Vector DB unavailable, skipping semantic indexing');
+    console.log(`   (Session saved to SQLite - vector index can be rebuilt later with: bun memory reindex)`);
+  }
+
+  if (vectorInitialized) {
+    try {
+      console.log('\n3. Saving to ChromaDB...');
+      const searchContent = buildSearchContent(data.summary, data.tags, data.fullContext);
+      await saveSessionToChroma(sessionId, searchContent, {
+        tags: data.tags,
+        created_at: now,
+        project_path: projectPath,  // Include project path for filtering
+      });
+      console.log('   ✓ Session indexed in ChromaDB');
+
+      console.log('\n4. Finding similar sessions for auto-linking...');
+      const linkResult = await findSimilarSessions(searchContent, sessionId);
+      autoLinked = linkResult.autoLinked;
+      suggested = linkResult.suggested;
+    } catch (error) {
+      console.log('   ⚠ ChromaDB indexing failed, session saved to SQLite only');
+    }
+  }
+
+  // Handle auto-linking results (may be empty if vector DB unavailable)
+  if (autoLinked.length > 0) {
+    console.log(`\n5. Auto-linked to ${autoLinked.length} sessions:`);
+    for (const link of autoLinked) {
+      createSessionLink(sessionId, link.id, 'auto_strong', link.similarity);
+      console.log(`     - ${link.id} (similarity: ${link.similarity.toFixed(3)})`);
+    }
+  }
+
+  if (suggested.length > 0) {
+    console.log(`   ℹ Suggested links (${suggested.length}):`);
+    for (const s of suggested.slice(0, 3)) {
+      console.log(`     - ${s.id} (${s.similarity.toFixed(3)})`);
+    }
+  }
+
+  // Prompt for learnings (skip in auto mode - learnings are auto-distilled from context)
+  const learnings = autoMode ? [] : await collectLearnings(sessionId);
+  if (learnings.length > 0) {
+    console.log('\n6. Saving learnings...');
+    for (const learning of learnings) {
+      // Save to SQLite FIRST (always works)
+      const learningId = createLearning({
+        category: learning.category,
+        title: learning.title,
+        context: learning.context,
+        source_session_id: sessionId,
+        confidence: 'medium',
+        what_happened: learning.what_happened,
+        lesson: learning.lesson,
+        prevention: learning.prevention,
+        project_path: projectPath,  // Scope learning to current project
+      });
+
+      const icon = CATEGORY_ICONS[learning.category];
+      console.log(`   ${icon} Learning #${learningId}: ${learning.title.substring(0, 50)}${learning.title.length > 50 ? '...' : ''}`);
+
+      // Vector operations only if available
+      if (vectorInitialized) {
+        try {
+          await saveLearningToChroma(learningId, learning.title, learning.lesson || learning.context || '', {
+            category: learning.category,
+            confidence: 'medium',
+            source_session_id: sessionId,
+            created_at: now,
+            project_path: projectPath,  // Include project path for filtering
+          });
+
+          const searchText = `${learning.title} ${learning.context || ''}`;
+          const linkResult = await findSimilarLearnings(searchText, { excludeId: learningId });
+          for (const link of linkResult.autoLinked) {
+            createLearningLink(learningId, parseInt(link.id), 'auto_strong', link.similarity);
+          }
+          if (linkResult.autoLinked.length > 0) {
+            console.log(`      🔗 Auto-linked to ${linkResult.autoLinked.length} similar learning(s)`);
+          }
+        } catch {
+          // Vector indexing failed, but SQLite save succeeded
+        }
+      }
+    }
+  }
+
+  // Save tasks if provided
+  const tasks = data.tasks || [];
+  const taskStats = { done: 0, pending: 0, blocked: 0, in_progress: 0 };
+  if (tasks.length > 0) {
+    console.log('\n7. Saving tasks...');
+    for (const task of tasks) {
+      // Save to SQLite FIRST
+      const taskId = createSessionTask({
+        session_id: sessionId,
+        description: task.description,
+        status: task.status,
+        notes: task.notes,
+        completed_at: task.status === 'done' ? now : undefined,
+      });
+
+      taskStats[task.status]++;
+      const statusIcon = task.status === 'done' ? '✓' : task.status === 'blocked' ? '!' : '○';
+      console.log(`   ${statusIcon} Task #${taskId}: ${task.description.substring(0, 50)}... [${task.status}]`);
+
+      // Vector embedding only if available
+      if (vectorInitialized) {
+        try {
+          await embedSessionTask(taskId, task.description, {
+            session_id: sessionId,
+            status: task.status,
+            notes: task.notes,
+            created_at: now,
+          });
+        } catch {
+          // Vector indexing failed, but SQLite save succeeded
+        }
+      }
+    }
+  }
+
+  // Auto-distill learnings only if vector DB available (uses embeddings)
+  let autoDistilledCount = 0;
+  if (vectorInitialized) {
+    try {
+      autoDistilledCount = await autoDistillFromContext(sessionId, data.fullContext, now, projectPath);
+      if (autoDistilledCount > 0) {
+        console.log(`\n8. Auto-distilled ${autoDistilledCount} learnings from session context`);
+      }
+    } catch {
+      // Auto-distill failed, not critical
+    }
+  }
+
+  console.log('\n7. Session stats:');
+  const stats = getSessionStats();
+  console.log(`   Total sessions: ${stats.total_sessions}`);
+  console.log(`   Average duration: ${stats.avg_duration_mins?.toFixed(1) || 'N/A'} mins`);
+  console.log(`   Total commits: ${stats.total_commits}`);
+
+  console.log('\n✅ Session saved successfully!');
+  console.log(`   Session ID: ${sessionId}`);
+  console.log(`   Summary: ${data.summary.substring(0, 60)}...`);
+  if (data.tags.length > 0) {
+    console.log(`   Tags: ${data.tags.join(', ')}`);
+  }
+  if (tasks.length > 0) {
+    console.log(`   Tasks: ${taskStats.done} done, ${taskStats.pending} pending, ${taskStats.blocked} blocked, ${taskStats.in_progress} in progress`);
+  }
+  console.log(`   Auto-linked: ${autoLinked.length} sessions`);
+
+  return sessionId;
+}
+
+saveCurrentSession().catch(console.error);
