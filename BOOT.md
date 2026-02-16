@@ -37,19 +37,40 @@ Read `psi/pulse/events.jsonl` (last 20 events). If events exist since last sessi
 - Announce: "Since your last session: [summary]"
 - If no events or file is empty, skip silently
 
-### 6. Check Reminders (Phase 5: PULSE)
+### 6. Scan Patterns (Sprint 4: AWAKENING)
+Run the pattern scanner and check results:
+```bash
+bash .claude/hooks/pulse-pattern-scanner.sh
+```
+Read `psi/pulse/patterns.json`. If patterns exist:
+- Note session rhythm (peak activity hours) for context preloading
+- Flag any failure clusters or blocked task patterns
+- Use patterns to inform the session recommendation (step 9)
+- If no patterns file or empty, skip silently
+
+### 7. Check Reminders (Phase 5: PULSE)
 Read `psi/pulse/reminders.json`. If any reminders have status "pending" and `due` date is past:
 - Announce each overdue reminder
 - Mark announced reminders as "announced" (update the file)
 - Format: "Reminder: [message] (due [date], from [created_by])"
 
-### 7. Announce Readiness
-After completing steps 1-6, acknowledge to the user what you know:
+### 8. Check Cross-Project Messages (Sprint 3: Matrix Hub)
+If `.matrix.json` exists, check for incoming messages:
+```bash
+cd lib/matrix-memory-agents && bun memory message --inbox 2>/dev/null
+```
+If messages exist, summarize them briefly. If none, skip silently.
+
+### 9. Announce Readiness (Morning Brief)
+After completing steps 1-8, synthesize a **Morning Brief**:
 - Current focus (from focus.md)
-- Any pending tasks (from active.json)
+- Any pending tasks (from active.json) — blocked first
 - Brief context from last session (if available)
 - Events since last session (from events.jsonl)
+- Detected patterns (from patterns.json) — only notable ones
 - Any overdue reminders (from reminders.json)
+- Any cross-project messages
+- **Recommendation**: What should the operator focus on, based on all of the above
 
 If nothing is pending, simply greet and await instructions.
 
@@ -65,4 +86,4 @@ If nothing is pending, simply greet and await instructions.
 
 ---
 
-*"The Matrix has you. But now, you remember." — Phase 1: Memory & Persistence + Phase 5: PULSE + ADR-010: REMEMBRANCE*
+*"The Matrix has you. But now, you remember — and you see patterns." — Phase 1-5 + Sprint 3-4: AWAKENING*

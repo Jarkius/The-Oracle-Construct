@@ -36,11 +36,18 @@ Phases 1-5 complete. Instead of building Phases 6-8 from scratch, integrating `m
 - [x] Sprint 0: Git subtree add + setup script + bootstrap from existing psi/
 - [x] Sprint 1: Wire Pulse hooks → `bun memory` (save, learn, distill)
 - [x] Sprint 2: Replace CLAUDE.md recall protocol with semantic search
-- [ ] Sprint 3: Agent coordination (Council ↔ Oracle router, task sync, Matrix Hub)
-- [ ] Sprint 4: Matrix-specific intelligence (patterns, predictions, morning brief)
+- [x] Sprint 3: Agent coordination (Council ↔ Oracle router, task sync, Matrix Hub)
+  - 3.1: Council-to-Router mapping (council-router.ts + Mind Hierarchy bridge)
+  - 3.2: Task registry sync (task-sync.sh — active.json ↔ SQLite)
+  - 3.3: Matrix Hub config (.matrix.json + cross-project messaging)
+- [x] Sprint 4: Matrix-specific intelligence (patterns, predictions, morning brief)
+  - 4.1: PULSE pattern scanner (pulse-pattern-scanner.py — 6 pattern types)
+  - 4.2: Predictive BOOT.md (pattern-aware context loading, morning brief step 9)
+  - 4.3: Morning brief workflow (/morning-brief — synthesized session greeting)
+  - 4.4: Self-evolving workflows (/evolve — WEP system in psi/memory/evolution/)
 - [ ] Agent Teams: Wait for Issue #24316 (`.claude/agents/` as teammates)
 - [ ] CIS Modernization: Resume active development
 
 ---
 
-*Updated by Oracle - 2026-02-16 (ADR-010 pivot)*
+*Updated by Oracle - 2026-02-16 (Sprints 3-4 complete — AWAKENING)*

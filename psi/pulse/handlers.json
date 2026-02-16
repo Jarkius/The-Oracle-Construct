@@ -54,6 +54,27 @@
       "action": "alert",
       "notify": true,
       "escalate_to": "Smith"
+    },
+    "pattern:detected": {
+      "description": "PULSE pattern scanner found notable pattern",
+      "action": "log",
+      "notify": true
+    },
+    "evolution:proposed": {
+      "description": "Workflow Evolution Proposal (WEP) created",
+      "action": "log",
+      "notify": true,
+      "escalate_to": "Oracle"
+    },
+    "message:received": {
+      "description": "Cross-project message received via Matrix Hub",
+      "action": "log",
+      "notify": true
+    },
+    "context:compacted": {
+      "description": "Context window was compacted — snapshot saved",
+      "action": "save_memory",
+      "notify": false
     }
   }
 }

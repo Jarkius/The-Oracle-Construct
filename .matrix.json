@@ -1,0 +1,31 @@
+{
+  "matrix_id": "The-Oracle-Construct",
+  "matrix_name": "The Oracle Construct",
+  "description": "AI Development Environment — Council of specialized agents",
+  "hub_url": "ws://localhost:8081",
+  "daemon_port": 37888,
+  "daemon_dir": "~/.matrix-daemon",
+  "auto_connect": true,
+  "peers": [
+    {
+      "id": "cis-modern",
+      "path": "~/ghq/github.com/Jarkius/cis-modern",
+      "description": "CIS Modernization — React + Laravel"
+    },
+    {
+      "id": "cis-legacy",
+      "path": "~/ghq/github.com/Jarkius/cis-legacy",
+      "description": "CIS Legacy PHP"
+    }
+  ],
+  "agents": {
+    "Oracle": { "role": "oracle", "tier": "opus" },
+    "Neo": { "role": "coder", "tier": "opus" },
+    "Trinity": { "role": "reviewer", "tier": "opus" },
+    "Morpheus": { "role": "researcher", "tier": "sonnet" },
+    "Architect": { "role": "architect", "tier": "opus" },
+    "Smith": { "role": "debugger", "tier": "opus" },
+    "Tank": { "role": "researcher", "tier": "haiku" },
+    "Scribe": { "role": "scribe", "tier": "opus" }
+  }
+}
