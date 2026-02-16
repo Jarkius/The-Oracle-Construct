@@ -1,0 +1,14 @@
+{
+  "recommendations": [
+    {
+      "type": "push_heavy",
+      "urgency": "low",
+      "message": "Push:commit ratio high (17 pushes for 6 commits) \u2014 batch commits",
+      "action": "Group related changes into fewer, meaningful commits",
+      "assignee": "Neo"
+    }
+  ],
+  "generated_at": "2026-02-16T18:30:08.220883+00:00",
+  "pattern_count": 3,
+  "task_count": 2
+}

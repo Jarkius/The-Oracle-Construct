@@ -214,6 +214,64 @@ if [ -f "$EVENT_WRITER" ]; then
 fi
 
 # ============================================
+# Phase 8.1: Recommendations Engine
+# Run pattern scanner + recommender, inject results
+# ============================================
+SCANNER="$PROJECT_ROOT/.claude/hooks/pulse-pattern-scanner.sh"
+RECOMMENDER="$PROJECT_ROOT/.claude/hooks/pulse-recommender.py"
+RECS_FILE="$PROJECT_ROOT/psi/pulse/recommendations.json"
+
+if [ -f "$SCANNER" ]; then
+    bash "$SCANNER" 2>/dev/null || true
+fi
+if [ -f "$RECOMMENDER" ]; then
+    REPO_ROOT="$PROJECT_ROOT" python3 "$RECOMMENDER" 2>/dev/null || true
+fi
+if [ -f "$RECS_FILE" ]; then
+    REC_COUNT=$(python3 -c "import json; d=json.load(open('$RECS_FILE')); print(len(d.get('recommendations',[])))" 2>/dev/null || echo "0")
+    if [ "$REC_COUNT" -gt 0 ] && [ "$REC_COUNT" != "0" ]; then
+        echo ""
+        echo "# Recommendations ($REC_COUNT)"
+        python3 -c "
+import json
+with open('$RECS_FILE') as f:
+    data = json.load(f)
+for r in data.get('recommendations', []):
+    icon = {'critical':'!!!','high':'!!','medium':'!','low':'-','none':'*'}.get(r.get('urgency','low'),'-')
+    print(f\"{icon} [{r.get('urgency','?').upper()}] {r.get('message','')}\")
+    print(f\"  Action: {r.get('action','')}\")
+    print(f\"  Assignee: {r.get('assignee','Oracle')}\")
+    print()
+" 2>/dev/null
+    fi
+fi
+
+# ============================================
+# Project Context Auto-Loader
+# If focus.md mentions a specific project, inject its context
+# ============================================
+if [ -f "$FOCUS_FILE" ]; then
+    PROJECTS_DIR="$PROJECT_ROOT/psi/projects"
+    if [ -d "$PROJECTS_DIR" ]; then
+        # Extract project name from focus.md (look for symlinked project dirs)
+        for project_dir in "$PROJECTS_DIR"/*/; do
+            PROJECT_NAME=$(basename "$project_dir" 2>/dev/null)
+            if grep -qi "$PROJECT_NAME" "$FOCUS_FILE" 2>/dev/null; then
+                CONTEXT_FILE="$project_dir/CONTEXT.md"
+                if [ -f "$CONTEXT_FILE" ]; then
+                    echo ""
+                    echo "# Project Context: $PROJECT_NAME (auto-loaded)"
+                    echo ""
+                    cat "$CONTEXT_FILE"
+                    echo ""
+                fi
+                break
+            fi
+        done
+    fi
+fi
+
+# ============================================
 # Last Session Memory — Continuity
 # ============================================
 SESSIONS_DIR="$PROJECT_ROOT/psi/memory/sessions"

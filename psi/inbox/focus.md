@@ -4,50 +4,47 @@
 
 ## Active Task
 
-**Task**: Integrate matrix-memory-agents — The REMEMBRANCE Shortcut (ADR-010)
+**Task**: Oracle Construct Self-Improvement — Legendary Infrastructure
 **Status**: In Progress
 **Updated**: 2026-02-16
 
 ## Context
 
-Phases 1-5 complete. Instead of building Phases 6-8 from scratch, integrating `matrix-memory-agents` (our own repo) as a git subtree. This gives us SQLite + ChromaDB semantic search, knowledge graphs, self-evolving learnings, and cross-project messaging — replacing ADR-009 Phases 6.1-6.4, 7.1-7.4, and 8.4 in one move. Direct integration (not MCP) keeps zero-daemon philosophy intact.
+All ADR-010 integration sprints (0-4) complete. System now self-improving. Before CIS Modernization begins, the Oracle Construct itself must be sharp — hooks, memory, agents, and intelligence layers all battle-ready.
 
-## Completed
+## Phase Coverage
 
-- [x] Phase 1.1: Auto-Session Memory Hook
-- [x] Phase 1.2: BOOT.md Startup Checklist
-- [x] Phase 1.3: Mandatory Memory Recall Protocol
-- [x] Phase 3.1: SOUL.md Structural Personality Injection
-- [x] Phase 3.3: Action-First Default Behavior
-- [x] Phase 2.3: Focus-Driven Context Injection (enhanced)
-- [x] Phase 3.4: Operator Profile (USER.md) + Voice Calibration + Quality Self-Checks
-- [x] Phase 3.2: Agent-Specific Skill Gating (/team, skill matrix in CLAUDE.md)
-- [x] Phase 2.2: Task Registry Enhancement (/task command)
-- [x] Phase 4.1: Context Compaction (/compact command)
-- [x] Phase 4.5: Agent Teams Integration (experimental flag, /team, TeammateIdle/TaskCompleted hooks)
-- [x] Phase 5.1: Async Hook Pipeline (PostToolUse, Stop, PreCompact)
-- [x] Phase 5.2: Event Queue System (events.jsonl + handlers.json)
-- [x] Phase 5.3: Enhanced BOOT.md (event-aware startup, steps 5-7)
-- [x] Phase 5.4: Scheduled Reminders (reminders.json + boot check)
-- [x] ADR-009: Next Evolution Phases 5-8 documented
+| Phase | Status | Coverage |
+|-------|--------|----------|
+| Phase 5: PULSE | Done | Event queue, hooks, reminders |
+| Phase 6: REMEMBRANCE | Done | SQLite + ChromaDB + CLAUDE.md wiring verified |
+| Phase 7: SWARM | ~60% | Task routing works; handoff protocol + soul-aware teams pending |
+| Phase 8: AWAKENING | ~40% | Pattern scanner + recommender done; predictive loading + self-evolution pending |
 
-## Next (ADR-010 Integration Sprints)
+## Completed (This Session)
 
-- [x] Sprint 0: Git subtree add + setup script + bootstrap from existing psi/
-- [x] Sprint 1: Wire Pulse hooks → `bun memory` (save, learn, distill)
-- [x] Sprint 2: Replace CLAUDE.md recall protocol with semantic search
-- [x] Sprint 3: Agent coordination (Council ↔ Oracle router, task sync, Matrix Hub)
-  - 3.1: Council-to-Router mapping (council-router.ts + Mind Hierarchy bridge)
-  - 3.2: Task registry sync (task-sync.sh — active.json ↔ SQLite)
-  - 3.3: Matrix Hub config (.matrix.json + cross-project messaging)
-- [x] Sprint 4: Matrix-specific intelligence (patterns, predictions, morning brief)
-  - 4.1: PULSE pattern scanner (pulse-pattern-scanner.py — 6 pattern types)
-  - 4.2: Predictive BOOT.md (pattern-aware context loading, morning brief step 9)
-  - 4.3: Morning brief workflow (/morning-brief — synthesized session greeting)
-  - 4.4: Self-evolving workflows (/evolve — WEP system in psi/memory/evolution/)
-- [ ] Agent Teams: Wait for Issue #24316 (`.claude/agents/` as teammates)
-- [ ] CIS Modernization: Resume active development
+- [x] Fix 49 non-executable hooks (88% of pipeline was dead)
+- [x] Install bun dependencies for matrix-memory-agents
+- [x] WEP-001: Hook Permission Guard (applied — auto-heals on boot)
+- [x] WEP-002: Agent Definition Quality Gate (proposed)
+- [x] Rebuild Scribe agent (1.5/5 → 4.5/5)
+- [x] Rebuild Neo agent (52 lines → 109, code philosophy, CIS stack)
+- [x] Phase 8.1: Pattern-to-Recommendation engine (6 rules, wired to boot)
+- [x] Project context auto-loader (CONTEXT.md injection from psi/projects/)
+- [x] Phase 6.5: Verify CLAUDE.md recall wiring (confirmed semantic primary)
+
+## Next Priority
+
+### Immediate (before CIS starts)
+- [ ] Phase 7.5: Cross-agent handoff protocol
+- [ ] Phase 8.2: Predictive context loading (operator rhythm detection)
+- [ ] Phase 8.5: Morning brief synthesis (combine all intelligence layers)
+- [ ] WEP-002: Finish remaining agent quality upgrades (Oracle, Smith, Architect)
+
+### Ready to Start
+- [ ] CIS Modernization: Resume React SPA + Laravel API development
+- [ ] Agent Teams: Blocked on Issue #24316
 
 ---
 
-*Updated by Oracle - 2026-02-16 (Sprints 3-4 complete — AWAKENING)*
+*Updated by Oracle - 2026-02-16 (Self-Improvement Session — AWAKENING Phase 8.1)*
