@@ -33,7 +33,7 @@ Phases 1-5 complete. Instead of building Phases 6-8 from scratch, integrating `m
 
 ## Next (ADR-010 Integration Sprints)
 
-- [ ] Sprint 0: Git subtree add + setup script + bootstrap from existing psi/
+- [x] Sprint 0: Git subtree add + setup script + bootstrap from existing psi/
 - [ ] Sprint 1: Wire Pulse hooks → `bun memory` (save, learn, distill)
 - [ ] Sprint 2: Replace CLAUDE.md recall protocol with semantic search
 - [ ] Sprint 3: Agent coordination (Council ↔ Oracle router, task sync, Matrix Hub)
