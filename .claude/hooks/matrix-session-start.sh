@@ -15,6 +15,21 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 
 # ============================================
+# WEP-001: Hook Permission Guard
+# Auto-fix non-executable hooks to prevent silent failures
+# ============================================
+FIXED_HOOKS=0
+for hook in "$PROJECT_ROOT"/.claude/hooks/*.sh; do
+    if [ -f "$hook" ] && [ ! -x "$hook" ]; then
+        chmod +x "$hook"
+        FIXED_HOOKS=$((FIXED_HOOKS + 1))
+    fi
+done
+if [ "$FIXED_HOOKS" -gt 0 ]; then
+    echo "# Hook Guard: Fixed $FIXED_HOOKS non-executable hook(s)" >&2
+fi
+
+# ============================================
 # Start Voice Server (if not running)
 # ============================================
 VOICE_SERVER_PID=$(lsof -ti :6969 2>/dev/null || true)
