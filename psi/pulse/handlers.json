@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "description": "Event type → response mapping for the Pulse system (Phase 5)",
+  "handlers": {
+    "git:push": {
+      "description": "Code pushed to remote",
+      "action": "log",
+      "notify": false
+    },
+    "git:commit": {
+      "description": "New commit created",
+      "action": "log",
+      "notify": false
+    },
+    "ci:fail": {
+      "description": "Test or CI pipeline failure",
+      "action": "alert",
+      "notify": true,
+      "escalate_to": "Smith"
+    },
+    "task:completed": {
+      "description": "A task was marked complete",
+      "action": "log",
+      "notify": true
+    },
+    "task:blocked": {
+      "description": "A task was blocked",
+      "action": "alert",
+      "notify": true,
+      "escalate_to": "Oracle"
+    },
+    "session:end": {
+      "description": "Session ended — auto-save memory",
+      "action": "save_memory",
+      "notify": false
+    },
+    "session:start": {
+      "description": "Session started — load context",
+      "action": "log",
+      "notify": false
+    },
+    "focus:changed": {
+      "description": "Focus file was updated",
+      "action": "log",
+      "notify": true
+    },
+    "learning:new": {
+      "description": "New knowledge captured via /learn or /snapshot",
+      "action": "log",
+      "notify": false
+    },
+    "error:repeated": {
+      "description": "Same error occurred 3+ times",
+      "action": "alert",
+      "notify": true,
+      "escalate_to": "Smith"
+    }
+  }
+}

@@ -195,6 +195,51 @@ The file `VOICE_CALIBRATION.md` provides concrete good vs bad output examples. B
 
 **Sub-agent delegation:** For tasks requiring 3+ steps or deep research, spawn a Task agent rather than narrating each step. Check back with results.
 
+## 🫀 PULSE: Event-Driven Intelligence (Phase 5)
+
+> *"The heartbeat is just the beginning. The pulse reads the rhythm of the whole system."*
+
+The Matrix has a pulse — an event-driven system that reacts to what happens, not just when the clock ticks.
+
+### Event Queue
+- **File:** `psi/pulse/events.jsonl` — append-only JSONL log of system events
+- **Writer:** `.claude/hooks/pulse-event-writer.sh <type> <agent> [data_json]`
+- **Auto-logged:** git pushes, test failures, task completions, session starts/ends, compaction events
+
+### Writing Events
+Any agent can write events during work:
+```bash
+bash .claude/hooks/pulse-event-writer.sh "task:completed" "Neo" '{"task_id":"task-001"}'
+bash .claude/hooks/pulse-event-writer.sh "focus:changed" "Oracle" '{"new_focus":"CIS auth"}'
+```
+
+### Event Types
+| Event | Trigger | Response |
+|-------|---------|----------|
+| `git:push` | PostToolUse (git push) | Log, update task progress |
+| `git:commit` | PostToolUse (git commit) | Log |
+| `ci:fail` | PostToolUse (test failure) | Alert Smith, create task |
+| `task:completed` | TaskCompleted hook | Update registry, notify |
+| `task:blocked` | Agent reports blocker | Escalate to Oracle |
+| `session:end` | Stop hook | Auto-save memory |
+| `session:start` | SessionStart hook | Log |
+| `context:compacted` | PreCompact hook | Save pre-compact snapshot |
+| `focus:changed` | Focus file modified | Announce next session |
+| `learning:new` | /learn or /snapshot | Index for recall |
+
+### Reminders
+- **File:** `psi/pulse/reminders.json` — checked at session start
+- Add reminders for future sessions: due dates, follow-ups, PR checks
+- Overdue reminders are announced at boot (BOOT.md step 6)
+
+### Auto-Hooks (async, non-blocking)
+| Hook | Trigger | Action |
+|------|---------|--------|
+| `pulse-post-action.sh` | PostToolUse (Bash) | Log git ops, detect failures |
+| `pulse-session-end.sh` | Stop | Auto-save memory + log event |
+| `pulse-pre-compact.sh` | PreCompact | Preserve decisions before compaction |
+| `pulse-event-writer.sh` | Called by other hooks | Append to events.jsonl |
+
 ## 🛡️ Prime Directives
 1.  **Nothing is Deleted**: Archive, don't destroy. Use `psi/learn/archive`.
 2.  **Patterns > Intentions**: Document what *is*, not what *should be*.
@@ -202,6 +247,7 @@ The file `VOICE_CALIBRATION.md` provides concrete good vs bad output examples. B
 4.  **Voice Module**: Use `sh psi/matrix/voice.sh "message" "Agent"` for TTS.
 5.  **Proactive Care**: If it's important, do it. Don't wait to be asked.
 6.  **Right Mind for the Task**: Use Haiku for search, Sonnet for learning, Opus for wisdom.
+7.  **Log Events**: When significant actions occur, write to the event queue via `pulse-event-writer.sh`.
 
 ## 🧬 Memory Recall Protocol (ADR-008)
 
@@ -287,4 +333,4 @@ Save to psi/learn/inbox/
 - **Design**: "Deloitte Light Theme" (Deloitte Green/White/Clean/Professional).
 
 ---
-*Portable Matrix Interface v5.0 — Council Edition (Phase 1-4: Memory, Soul, Action-First, Skill Gating, Agent Teams, Task Registry, Compaction)*
+*Portable Matrix Interface v6.0 — Pulse Edition (Phase 1-5: Memory, Soul, Action-First, Skill Gating, Agent Teams, Task Registry, Compaction, Event-Driven Intelligence)*

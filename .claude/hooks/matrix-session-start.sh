@@ -161,6 +161,44 @@ if [ -f "$TASKS_FILE" ]; then
 fi
 
 # ============================================
+# PULSE: Event Queue Injection (Phase 5)
+# ============================================
+EVENTS_FILE="$PROJECT_ROOT/psi/pulse/events.jsonl"
+if [ -f "$EVENTS_FILE" ] && [ -s "$EVENTS_FILE" ]; then
+    EVENT_COUNT=$(wc -l < "$EVENTS_FILE" 2>/dev/null || echo "0")
+    if [ "$EVENT_COUNT" -gt 0 ]; then
+        echo ""
+        echo "# Recent Events (Pulse — last 20)"
+        echo '```jsonl'
+        tail -20 "$EVENTS_FILE"
+        echo '```'
+        echo ""
+    fi
+fi
+
+# ============================================
+# PULSE: Reminders Injection (Phase 5)
+# ============================================
+REMINDERS_FILE="$PROJECT_ROOT/psi/pulse/reminders.json"
+if [ -f "$REMINDERS_FILE" ]; then
+    PENDING_REMINDERS=$(grep -c '"pending"' "$REMINDERS_FILE" 2>/dev/null || echo "0")
+    if [ "$PENDING_REMINDERS" -gt 0 ]; then
+        echo ""
+        echo "# Pending Reminders ($PENDING_REMINDERS)"
+        echo '```json'
+        cat "$REMINDERS_FILE"
+        echo '```'
+        echo ""
+    fi
+fi
+
+# Log session start event
+EVENT_WRITER="$PROJECT_ROOT/.claude/hooks/pulse-event-writer.sh"
+if [ -f "$EVENT_WRITER" ]; then
+    bash "$EVENT_WRITER" "session:start" "System" '{"hook":"SessionStart"}' 2>/dev/null &
+fi
+
+# ============================================
 # Last Session Memory — Continuity
 # ============================================
 SESSIONS_DIR="$PROJECT_ROOT/psi/memory/sessions"
