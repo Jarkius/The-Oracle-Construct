@@ -4,13 +4,13 @@
 
 ## Active Task
 
-**Task**: Autonomy Evolution — Phase 5 (PULSE) Implemented
+**Task**: Integrate matrix-memory-agents — The REMEMBRANCE Shortcut (ADR-010)
 **Status**: In Progress
 **Updated**: 2026-02-16
 
 ## Context
 
-Evolving The Oracle Construct from reactive to proactive. Phases 1-4 completed 2026-02-15. Phase 5 (PULSE: Event-Driven Intelligence) implemented 2026-02-16. ADR-009 documents the full roadmap for Phases 5-8.
+Phases 1-5 complete. Instead of building Phases 6-8 from scratch, integrating `matrix-memory-agents` (our own repo) as a git subtree. This gives us SQLite + ChromaDB semantic search, knowledge graphs, self-evolving learnings, and cross-project messaging — replacing ADR-009 Phases 6.1-6.4, 7.1-7.4, and 8.4 in one move. Direct integration (not MCP) keeps zero-daemon philosophy intact.
 
 ## Completed
 
@@ -31,14 +31,16 @@ Evolving The Oracle Construct from reactive to proactive. Phases 1-4 completed 2
 - [x] Phase 5.4: Scheduled Reminders (reminders.json + boot check)
 - [x] ADR-009: Next Evolution Phases 5-8 documented
 
-## Next
+## Next (ADR-010 Integration Sprints)
 
-- [ ] Phase 6: REMEMBRANCE — Semantic Memory Architecture (Sprint 2)
-- [ ] Phase 7: SWARM — Self-Organizing Agent Coordination (Sprint 3)
-- [ ] Phase 8: AWAKENING — Predictive & Self-Evolving System (Sprint 4)
+- [ ] Sprint 0: Git subtree add + setup script + bootstrap from existing psi/
+- [ ] Sprint 1: Wire Pulse hooks → `bun memory` (save, learn, distill)
+- [ ] Sprint 2: Replace CLAUDE.md recall protocol with semantic search
+- [ ] Sprint 3: Agent coordination (Council ↔ Oracle router, task sync, Matrix Hub)
+- [ ] Sprint 4: Matrix-specific intelligence (patterns, predictions, morning brief)
 - [ ] Agent Teams: Wait for Issue #24316 (`.claude/agents/` as teammates)
 - [ ] CIS Modernization: Resume active development
 
 ---
 
-*Updated by Oracle - 2026-02-16*
+*Updated by Oracle - 2026-02-16 (ADR-010 pivot)*
