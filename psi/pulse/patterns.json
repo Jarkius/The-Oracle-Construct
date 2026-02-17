@@ -4,10 +4,10 @@
       "type": "session_rhythm",
       "pattern": "Peak activity at 17:00 UTC (4 sessions)",
       "frequency": 4,
-      "confidence": 0.3076923076923077,
+      "confidence": 0.2857142857142857,
       "data": {
         "peak_hour": 17,
-        "total_sessions": 13
+        "total_sessions": 14
       },
       "recommendation": "Context preloading optimized for 17:00 UTC sessions"
     },
@@ -23,18 +23,30 @@
       "recommendation": null
     },
     {
+      "type": "failure_cluster",
+      "pattern": "1 failure event(s) detected",
+      "frequency": 1,
+      "confidence": 0.9,
+      "data": {
+        "failure_types": [
+          "ci:fail"
+        ]
+      },
+      "recommendation": "Smith should investigate recurring failures"
+    },
+    {
       "type": "activity_density",
-      "pattern": "45 events/day over 2 active day(s)",
-      "frequency": 90,
+      "pattern": "49 events/day over 2 active day(s)",
+      "frequency": 98,
       "confidence": 0.6,
       "data": {
-        "events_last_7d": 90,
+        "events_last_7d": 98,
         "active_days": 2
       },
       "recommendation": null
     }
   ],
-  "scanned_at": "2026-02-17T07:01:49.702363+00:00",
-  "event_count": 90,
-  "recent_event_count": 90
+  "scanned_at": "2026-02-17T09:16:09.739741+00:00",
+  "event_count": 98,
+  "recent_event_count": 98
 }
