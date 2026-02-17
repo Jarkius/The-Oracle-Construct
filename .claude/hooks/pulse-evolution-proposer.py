@@ -186,7 +186,7 @@ def get_existing_wep_ids(evolution_dir):
             # Extract slug from filename: WEP-NNN-slug.md → slug
             match = re.match(r'WEP-\d+-(.+)\.md', f.name)
             if match:
-                ids.add(match.group(1).replace('-', '_'))
+                ids.add(match.group(1))
     return ids
 
 
