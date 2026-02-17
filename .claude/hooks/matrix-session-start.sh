@@ -297,6 +297,21 @@ if [ -d "$SESSIONS_DIR" ]; then
     fi
 fi
 
+# ============================================
+# Phase 9 (ADR-011): Daemon Auto-Start
+# Start configured services in background
+# ============================================
+AUTOSTART_FILE="$PROJECT_ROOT/.claude/config/daemon-autostart.json"
+SERVICES_SCRIPT="$PROJECT_ROOT/.claude/hooks/matrix-services.sh"
+if [ -f "$AUTOSTART_FILE" ] && [ -f "$SERVICES_SCRIPT" ]; then
+    # Check each service and start if configured
+    for svc in indexer hub; do
+        if grep -q "\"$svc\": *true" "$AUTOSTART_FILE" 2>/dev/null; then
+            bash "$SERVICES_SCRIPT" start "$svc" > /dev/null 2>&1 &
+        fi
+    done
+fi
+
 # System Acknowledgement (Queue Priority 1)
 bash "$PROJECT_ROOT/psi/matrix/voice.sh" "System online. Link established." "System"
 

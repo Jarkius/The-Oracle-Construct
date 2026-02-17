@@ -1,6 +1,8 @@
 # WEP-003: Reduce Push-to-Commit Ratio
 
-**Status**: proposed
+**Status**: applied
+**Applied**: 2026-02-17
+**Note**: `/commit:local` and `/commit:push` already existed in `.claude/commands/commit/`. Workflow in `.agent/workflows/commit.md` handles MODE=local vs MODE=push. No code changes needed.
 **Detected**: 2026-02-17
 **Pattern**: git_velocity — 0.9 commits/session (7 total)
 **Confidence**: 0.8

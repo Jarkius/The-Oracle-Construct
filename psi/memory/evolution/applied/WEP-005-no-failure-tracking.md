@@ -1,6 +1,8 @@
 # WEP-005: Add CI/Test Failure Detection to Post-Action Hook
 
-**Status**: proposed
+**Status**: applied
+**Applied**: 2026-02-17
+**Implementation**: Test runner detection (pytest, jest, vitest, bun test, phpunit, mocha, cargo test, go test). Emits ci:fail on non-zero exit, ci:pass on success. Non-test failures with keywords also caught.
 **Detected**: 2026-02-17
 **Pattern**: git_velocity — 0.9 commits/session (7 total)
 **Confidence**: 0.8

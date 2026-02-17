@@ -123,6 +123,14 @@ def main():
             lines.append(f'- {i}')
         lines.append('')
 
+    # Service health (Phase 9 / ADR-011)
+    service_health = check_daemon_health(root)
+    if service_health:
+        lines.append('### Service Health')
+        for svc_line in service_health:
+            lines.append(f'- {svc_line}')
+        lines.append('')
+
     # Final recommendation
     lines.append('### Oracle Recommends')
     recommendation = synthesize_recommendation(
@@ -206,6 +214,34 @@ def synthesize_recommendation(focus, tasks, recs, profile, depth):
         return f'Continue with current focus: **{focus}**.'
 
     return 'No blockers. Proceed with highest-priority pending task.'
+
+
+def check_daemon_health(root):
+    """Check daemon service health via matrix-services.sh status."""
+    import subprocess
+
+    services_script = root / '.claude' / 'hooks' / 'matrix-services.sh'
+    if not services_script.exists():
+        return None
+
+    try:
+        result = subprocess.run(
+            ['bash', str(services_script), 'status'],
+            capture_output=True, text=True, timeout=10,
+            cwd=str(root)
+        )
+        # Parse output lines, skip header/footer
+        lines = []
+        for line in result.stdout.strip().split('\n'):
+            line = line.strip()
+            if line.startswith('[') and 'Status:' in line:
+                # [indexer] Status: stopped → Indexer: stopped
+                svc = line.split(']')[0].replace('[', '').strip().capitalize()
+                status = line.split('Status:')[1].strip()
+                lines.append(f'{svc}: {status}')
+        return lines if lines else None
+    except (subprocess.TimeoutExpired, FileNotFoundError, OSError):
+        return None
 
 
 def load_events(path, limit=50):

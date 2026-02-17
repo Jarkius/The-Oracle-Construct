@@ -3,7 +3,7 @@ set -euo pipefail
 #
 # File: .claude/hooks/pulse-session-end.sh
 #
-# Phase 5.1 + ADR-010: Session End Hook
+# Phase 5.1 + ADR-010 + WEP-004: Session End Hook
 # Auto-saves session memory to both psi/ markdown AND SQLite/ChromaDB.
 # Triggers distillation to extract patterns from recent sessions.
 # Runs async on Stop hook — does NOT block exit.
@@ -17,6 +17,17 @@ MMA_DIR="$PROJECT_ROOT/lib/matrix-memory-agents"
 
 EVENT_WRITER="$PROJECT_ROOT/.claude/hooks/pulse-event-writer.sh"
 MEMORY_SAVE="$PROJECT_ROOT/.claude/hooks/session-memory-save.sh"
+
+# ─── WEP-004: Extract session ID from Stop hook stdin JSON ────
+# Stop hook receives JSON with session_id on stdin. Parse and export
+# so event writer and memory save can use it.
+HOOK_INPUT=$(cat 2>/dev/null || echo '{}')
+if [ -z "${CLAUDE_SESSION_ID:-}" ] || [ "${CLAUDE_SESSION_ID:-}" = "unknown" ]; then
+    PARSED_SID=$(echo "$HOOK_INPUT" | grep -o '"session_id":"[^"]*"' | head -1 | cut -d'"' -f4 || echo "")
+    if [ -n "$PARSED_SID" ]; then
+        export CLAUDE_SESSION_ID="$PARSED_SID"
+    fi
+fi
 
 # Log session end event
 bash "$EVENT_WRITER" "session:end" "System" '{"reason":"stop_hook"}'

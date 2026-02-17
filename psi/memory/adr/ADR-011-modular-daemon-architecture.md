@@ -1,6 +1,6 @@
 # ADR-011: Modular Daemon Architecture — Phase 9
 
-**Status:** Proposed
+**Status:** Accepted (Sprint A+B implemented 2026-02-17)
 **Date:** 2026-02-17
 **Author:** Oracle + Architect
 **Supersedes:** None

@@ -1,6 +1,8 @@
 # WEP-004: Wire Session IDs into Event Pipeline
 
-**Status**: proposed
+**Status**: applied
+**Applied**: 2026-02-17
+**Implementation**: Session ID extracted from hook stdin JSON in pulse-post-action.sh and pulse-session-end.sh, exported as CLAUDE_SESSION_ID for event writer.
 **Detected**: 2026-02-17
 **Pattern**: session_rhythm — Peak activity at 17:00 UTC (4 sessions)
 **Confidence**: 0.5
