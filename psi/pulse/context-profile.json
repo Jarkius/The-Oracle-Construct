@@ -1,0 +1,17 @@
+{
+  "generated_at": "2026-02-17T01:02:51.109410+00:00",
+  "context_depth": "minimal",
+  "predicted_focus": "CIS Modernization",
+  "session_density": "high",
+  "recommended_agent": "Neo",
+  "preload_files": [
+    "psi/projects/cis-modern/CONTEXT.md",
+    "psi/memory/adr/"
+  ],
+  "insights": [
+    "Unusual session time (01:00 UTC) \u2014 may indicate different work mode",
+    "High session density (7 in 24h) \u2014 deep context loading recommended",
+    "Heavy git activity \u2014 likely in implementation mode",
+    "Rapid re-entry (<1h gap) \u2014 minimal context needed"
+  ]
+}

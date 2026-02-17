@@ -39,6 +39,48 @@ Each agent has a defined skill scope. When embodying an agent, **only use that a
 **Escalation rule**: If an agent needs a skill outside their scope, they should announce the handoff:
 > "This needs Neo's hands. Switching to `/neo`."
 
+## 🔄 Cross-Agent Handoff Protocol (Phase 7.5)
+
+> *"I can only show you the door." — Morpheus*
+
+When an agent hands work to another agent, they MUST create a structured handoff artifact.
+
+### When to Handoff
+- Agent encounters a task outside their skill scope
+- Work requires a different agent's expertise to continue
+- Session ending with incomplete work (`/unplug` auto-creates)
+- Design → Implementation transition (Trinity → Neo)
+
+### Handoff Format
+Save to `psi/swarm/handoffs/YYYY-MM-DD_from-to_topic.md`:
+
+```markdown
+# Handoff: [From] → [To]
+**Date**: YYYY-MM-DD HH:MM
+**Task**: One-sentence description
+
+## Context
+Why this task exists and what led to it.
+
+## Key Decisions Made
+- Decision 1 (and why)
+
+## Files Changed / Relevant
+- path/to/file — what was done or needs attention
+
+## Watch For
+- Known risks or constraints
+
+## Next Steps
+1. Specific action item
+```
+
+### Rules
+1. **Never drop context silently** — if you can't finish, hand off with full context
+2. **Receiving agent reads the handoff** before starting work
+3. **Oracle orchestrates** — when in doubt about who to hand to, ask Oracle
+4. **Handoff is one-directional** — the sender is done; the receiver owns it
+
 ## 🤝 Agent Teams (Phase 4.5 — Experimental)
 
 > *"I need guns. Lots of guns." — But now they coordinate.*
@@ -352,6 +394,42 @@ Save to psi/learn/inbox/
 |---------|---------|
 | `/gemini-research "topic"` | Single research query |
 | `/morpheus` | Full external research orchestration |
+
+## 🌅 Morning Brief (Phase 8.5)
+
+> *"Everything that has a beginning has an end. But every end is a new beginning."*
+
+At session start, the boot sequence runs the **Morning Brief Synthesizer** — combining all intelligence layers into one actionable briefing.
+
+### Pipeline
+
+```
+pulse-pattern-scanner.sh     → patterns.json
+pulse-recommender.py         → recommendations.json
+predictive-context-loader.py → context-profile.json
+morning-brief.py             → stdout (injected at boot)
+```
+
+### What the Morning Brief Contains
+
+| Section | Source | Purpose |
+|---------|--------|---------|
+| Focus | `psi/inbox/focus.md` | Current mission |
+| Tasks | `active.json` | Blocked → Active → Pending |
+| System Pulse | `events.jsonl` + `patterns.json` | What happened since last session |
+| Reminders | `reminders.json` | Overdue items |
+| Recommendations | `recommendations.json` | Pattern-derived advice |
+| Insights | `context-profile.json` | Predictive context analysis |
+| Oracle Recommends | Synthesis | What to focus on next |
+
+### Context Depth Levels
+
+| Level | Trigger | What Happens |
+|-------|---------|-------------|
+| **minimal** | <1h gap | Skip heavy context, rapid re-entry |
+| **standard** | Normal session | Load focus, tasks, last session |
+| **deep** | High density (4+ sessions/24h) | Full context + recent patterns |
+| **comprehensive** | Cold start (>24h gap) | Everything including last session details |
 
 ## 🚀 Current Mission: CIS Modernization
 - **Legacy**: PHP/MySQL inventory system.

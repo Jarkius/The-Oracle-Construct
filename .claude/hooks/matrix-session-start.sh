@@ -227,23 +227,23 @@ fi
 if [ -f "$RECOMMENDER" ]; then
     REPO_ROOT="$PROJECT_ROOT" python3 "$RECOMMENDER" 2>/dev/null || true
 fi
-if [ -f "$RECS_FILE" ]; then
-    REC_COUNT=$(python3 -c "import json; d=json.load(open('$RECS_FILE')); print(len(d.get('recommendations',[])))" 2>/dev/null || echo "0")
-    if [ "$REC_COUNT" -gt 0 ] && [ "$REC_COUNT" != "0" ]; then
-        echo ""
-        echo "# Recommendations ($REC_COUNT)"
-        python3 -c "
-import json
-with open('$RECS_FILE') as f:
-    data = json.load(f)
-for r in data.get('recommendations', []):
-    icon = {'critical':'!!!','high':'!!','medium':'!','low':'-','none':'*'}.get(r.get('urgency','low'),'-')
-    print(f\"{icon} [{r.get('urgency','?').upper()}] {r.get('message','')}\")
-    print(f\"  Action: {r.get('action','')}\")
-    print(f\"  Assignee: {r.get('assignee','Oracle')}\")
-    print()
-" 2>/dev/null
-    fi
+# ============================================
+# Phase 8.2: Predictive Context Loader
+# ============================================
+PRED_LOADER="$PROJECT_ROOT/.claude/hooks/predictive-context-loader.py"
+if [ -f "$PRED_LOADER" ]; then
+    REPO_ROOT="$PROJECT_ROOT" python3 "$PRED_LOADER" 2>/dev/null || true
+fi
+
+# ============================================
+# Phase 8.5: Morning Brief (unified intelligence synthesis)
+# Replaces individual recommendations injection
+# ============================================
+MORNING_BRIEF="$PROJECT_ROOT/.claude/hooks/morning-brief.py"
+if [ -f "$MORNING_BRIEF" ]; then
+    echo ""
+    REPO_ROOT="$PROJECT_ROOT" python3 "$MORNING_BRIEF" 2>/dev/null
+    echo ""
 fi
 
 # ============================================
