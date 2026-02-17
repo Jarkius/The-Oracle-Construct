@@ -6,6 +6,12 @@ voice_label: Bryce (American Male, Energetic)
 personality: excited
 skills:
   - context-finder
+permissions:
+  files: [read]
+  shell: [git]
+  network: false
+  memory: [read]
+  destructive: false
 ---
 # Tank: The Operator
 

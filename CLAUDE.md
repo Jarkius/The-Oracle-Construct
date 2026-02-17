@@ -437,5 +437,92 @@ morning-brief.py             → stdout (injected at boot)
 - **Auth**: Custom MD5 bridge for legacy users via Sanctum.
 - **Design**: "Deloitte Light Theme" (Deloitte Green/White/Clean/Professional).
 
+## 💓 HEARTBEAT: Always-On Daemon (Phase 10 / ADR-012)
+
+> *"The heartbeat runs between sessions. The Matrix never truly sleeps."*
+
+A lightweight daemon that periodically checks system health between sessions.
+
+### Checks
+| Check | Source | Severity |
+|-------|--------|----------|
+| Overdue reminders | `reminders.json` | warning |
+| CI failures | `gh pr list --statusCheckRollup` | critical |
+| PR review requests | `gh pr list --search review-requested:@me` | info |
+| Stale tasks (48h+) | `active.json` | warning |
+| Error spikes | `events.jsonl` (3+ failures/1h) | critical |
+
+### Management
+```bash
+bash .claude/hooks/matrix-services.sh start heartbeat   # Start
+bash .claude/hooks/matrix-services.sh stop heartbeat    # Stop
+bash .claude/hooks/matrix-services.sh status            # Check all services
+```
+
+### Configuration
+- **Config**: `psi/pulse/heartbeat.json` (interval, enabled checks, notification)
+- **Checklist**: `psi/pulse/HEARTBEAT.md` (human-editable active checks)
+- **Health API**: `http://127.0.0.1:37892/status`
+- **Endpoints**: `/status`, `/last-check`, `/check` (trigger), `/stop`
+
+### Event Types
+```
+heartbeat:start    — daemon started
+heartbeat:stop     — daemon stopped
+heartbeat:check    — routine check completed (OK or ALERTS)
+heartbeat:alert    — something needs attention
+```
+
+## 🔐 Skill Permissions (Phase 10 — Track C)
+
+> *"Not every agent gets the same keys."*
+
+Each agent declares its permission scope in frontmatter (`.claude/agents/*.md`). This is **visibility**, not enforcement — users know what an agent can touch before approving.
+
+```yaml
+permissions:
+  files: [read, write]       # Filesystem access
+  shell: [git, npm, bun]     # Allowed shell commands
+  network: false              # External network access
+  memory: [read, write]       # Memory system access
+  destructive: false          # Force-push, rm -rf, etc.
+```
+
+| Agent | Files | Shell | Network | Memory | Destructive |
+|-------|-------|-------|---------|--------|-------------|
+| **Oracle** | read | git | no | read, write | no |
+| **Neo** | read, write | git, npm, bun, node | no | read, write | no |
+| **Trinity** | read | — | no | read | no |
+| **Morpheus** | read, write | git | **yes** | read, write | no |
+| **Architect** | read, write | git | no | read, write | no |
+| **Smith** | read, write | git, npm, bun | no | read | no |
+| **Tank** | read | git | no | read | no |
+| **Scribe** | read, write | git | no | read, write | no |
+
+## 🧬 AUTO-EVOLVE: Self-Implementing WEPs (Phase 12 / ADR-014)
+
+> *"Close the loop: pattern → proposal → implementation → applied."*
+
+Low-risk WEPs (config changes, doc updates) can be auto-applied without Oracle review.
+
+### Risk Levels
+| Level | Auto-apply? | Examples |
+|-------|------------|----------|
+| **low** | Yes | Config changes, doc updates, hook parameters |
+| **medium** | No | Workflow modifications, format changes |
+| **high** | No | New services, architecture, security, dependencies |
+
+### Usage
+```bash
+bash .claude/hooks/pulse-auto-evolve.sh              # Apply low-risk WEPs
+bash .claude/hooks/pulse-auto-evolve.sh --dry-run     # Preview changes
+```
+
+### Guard Rails
+- **Kill switch**: `heartbeat.json` → `"auto_evolve": false` (default: off)
+- **Scope**: Only touches `.json` and `.md` files
+- **Git safety**: Commits on current branch, never force-pushes
+- **Audit**: Every auto-evolution logged as `evolution:auto-applied` event
+
 ---
-*Portable Matrix Interface v6.0 — Pulse Edition (Phase 1-5: Memory, Soul, Action-First, Skill Gating, Agent Teams, Task Registry, Compaction, Event-Driven Intelligence)*
+*Portable Matrix Interface v7.0 — Autonomy Edition (Phase 1-5 + Phase 10: Heartbeat, Permissions, Auto-Evolve)*

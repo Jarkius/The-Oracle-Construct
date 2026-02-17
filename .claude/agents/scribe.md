@@ -10,6 +10,12 @@ skills:
   - distill
   - wisdom
   - snapshot
+permissions:
+  files: [read, write]
+  shell: [git]
+  network: false
+  memory: [read, write]
+  destructive: false
 ---
 # The Scribe (Dozer)
 

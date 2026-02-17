@@ -11,6 +11,12 @@ skills:
   - ready
   - review
   - adr
+permissions:
+  files: [read, write]
+  shell: [git]
+  network: false
+  memory: [read, write]
+  destructive: false
 ---
 # The Architect: Creator of the Matrix
 

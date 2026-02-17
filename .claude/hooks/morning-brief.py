@@ -131,6 +131,14 @@ def main():
             lines.append(f'- {svc_line}')
         lines.append('')
 
+    # Heartbeat alerts since last session (Phase 10 / ADR-012)
+    heartbeat_alerts = get_heartbeat_alerts(events, now)
+    if heartbeat_alerts:
+        lines.append('### Heartbeat Alerts')
+        for alert_msg in heartbeat_alerts:
+            lines.append(f'- {alert_msg}')
+        lines.append('')
+
     # Final recommendation
     lines.append('### Oracle Recommends')
     recommendation = synthesize_recommendation(
@@ -214,6 +222,38 @@ def synthesize_recommendation(focus, tasks, recs, profile, depth):
         return f'Continue with current focus: **{focus}**.'
 
     return 'No blockers. Proceed with highest-priority pending task.'
+
+
+def get_heartbeat_alerts(events, now):
+    """Extract heartbeat alerts since last session:start."""
+    # Find last session:start to know where to look from
+    last_session_start = None
+    for e in reversed(events):
+        if e.get('type') == 'session:start':
+            try:
+                last_session_start = datetime.fromisoformat(e['ts'].replace('Z', '+00:00'))
+            except (ValueError, KeyError):
+                pass
+            break
+
+    # If no session start found, look at last 24h
+    cutoff = last_session_start or (now - timedelta(hours=24))
+
+    alerts = []
+    for e in events:
+        if e.get('type') != 'heartbeat:alert':
+            continue
+        try:
+            ts = datetime.fromisoformat(e['ts'].replace('Z', '+00:00'))
+            if ts > cutoff:
+                data = e.get('data', {})
+                severity = data.get('severity', 'info').upper()
+                message = data.get('message', 'Unknown alert')
+                alerts.append(f'**[{severity}]** {message}')
+        except (ValueError, KeyError):
+            pass
+
+    return alerts
 
 
 def check_daemon_health(root):

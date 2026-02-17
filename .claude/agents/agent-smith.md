@@ -10,6 +10,12 @@ skills:
   - patrol
   - cause
   - fix
+permissions:
+  files: [read, write]
+  shell: [git, npm, bun]
+  network: false
+  memory: [read]
+  destructive: false
 ---
 # Agent Smith: The Virus
 

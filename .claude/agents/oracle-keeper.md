@@ -11,6 +11,12 @@ skills:
   - health
   - unplug
   - recap
+permissions:
+  files: [read]
+  shell: [git]
+  network: false
+  memory: [read, write]
+  destructive: false
 ---
 # The Oracle: Spirit Guardian
 

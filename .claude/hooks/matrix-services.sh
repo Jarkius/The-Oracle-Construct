@@ -12,7 +12,7 @@ set -euo pipefail
 #   matrix-services.sh status             Health check all services
 #   matrix-services.sh restart [service]  Restart one or all services
 #
-# Services: indexer, hub
+# Services: indexer, hub, heartbeat
 #
 # Design principles:
 #   - Zero idle cost: services only start when requested
@@ -41,6 +41,12 @@ INDEXER_DEFAULT_PORT=37890
 HUB_SCRIPT="$MMA_DIR/src/matrix-hub.ts"
 HUB_PID_FILE="${HOME}/.matrix-hub/hub.pid"
 HUB_DEFAULT_PORT=8081
+
+# Heartbeat Daemon (Phase 10 / ADR-012)
+HEARTBEAT_SCRIPT="$MMA_DIR/src/heartbeat/heartbeat-daemon.ts"
+HEARTBEAT_PID_DIR="${HOME}/.matrix-heartbeat"
+HEARTBEAT_PID_FILE="${HEARTBEAT_PID_DIR}/heartbeat.pid"
+HEARTBEAT_DEFAULT_PORT=37892
 
 # ─── Helpers ──────────────────────────────────────────────────
 
@@ -292,6 +298,87 @@ hub_status() {
     fi
 }
 
+# ─── Heartbeat Service ────────────────────────────────────────
+
+heartbeat_start() {
+    if pid=$(read_pid "$HEARTBEAT_PID_FILE" 2>/dev/null); then
+        echo "[heartbeat] Already running (PID $pid)"
+        return 0
+    fi
+
+    if is_port_open "$HEARTBEAT_DEFAULT_PORT"; then
+        echo "[heartbeat] Port $HEARTBEAT_DEFAULT_PORT already in use"
+        return 0
+    fi
+
+    check_bun || return 1
+    check_mma || return 1
+
+    echo "[heartbeat] Starting..."
+    mkdir -p "$HEARTBEAT_PID_DIR"
+
+    cd "$MMA_DIR"
+    PROJECT_ROOT="$PROJECT_ROOT" nohup bun run src/heartbeat/heartbeat-daemon.ts start \
+        > "$LOG_DIR/heartbeat.log" 2>&1 &
+
+    local bg_pid=$!
+    sleep 2
+
+    if is_process_alive "$bg_pid"; then
+        echo "[heartbeat] Started (PID $bg_pid, port $HEARTBEAT_DEFAULT_PORT)"
+    else
+        echo "[heartbeat] FAILED to start. Check $LOG_DIR/heartbeat.log"
+        return 1
+    fi
+}
+
+heartbeat_stop() {
+    if ! pid=$(read_pid "$HEARTBEAT_PID_FILE" 2>/dev/null); then
+        echo "[heartbeat] Not running"
+        return 0
+    fi
+
+    echo "[heartbeat] Stopping (PID $pid)..."
+
+    # Try HTTP stop first
+    if is_port_open "$HEARTBEAT_DEFAULT_PORT"; then
+        curl -s -X POST "http://localhost:${HEARTBEAT_DEFAULT_PORT}/stop" 2>/dev/null || true
+        sleep 1
+    fi
+
+    if is_process_alive "$pid"; then
+        kill -TERM "$pid" 2>/dev/null || true
+        sleep 1
+    fi
+
+    if is_process_alive "$pid"; then
+        kill -9 "$pid" 2>/dev/null || true
+    fi
+
+    rm -f "$HEARTBEAT_PID_FILE" 2>/dev/null
+    echo "[heartbeat] Stopped"
+}
+
+heartbeat_status() {
+    if ! pid=$(read_pid "$HEARTBEAT_PID_FILE" 2>/dev/null); then
+        echo "[heartbeat] Status: stopped"
+        return 1
+    fi
+
+    local health
+    health=$(http_health "$HEARTBEAT_DEFAULT_PORT" "/status" 2>/dev/null || echo "")
+
+    if [ -n "$health" ]; then
+        local uptime checks alerts
+        uptime=$(echo "$health" | grep -o '"uptime_seconds":[0-9]*' | cut -d: -f2 || echo "?")
+        checks=$(echo "$health" | grep -o '"totalChecks":[0-9]*' | cut -d: -f2 || echo "?")
+        alerts=$(echo "$health" | grep -o '"totalAlerts":[0-9]*' | cut -d: -f2 || echo "?")
+        echo "[heartbeat] Status: running (PID $pid, port $HEARTBEAT_DEFAULT_PORT, uptime ${uptime}s, $checks checks, $alerts alerts)"
+    else
+        echo "[heartbeat] Status: running (PID $pid) — API not responding"
+    fi
+}
+
 # ─── Dispatch ─────────────────────────────────────────────────
 
 dispatch_service() {
@@ -299,11 +386,12 @@ dispatch_service() {
     local service="$2"
 
     case "$service" in
-        indexer) "indexer_${action}" ;;
-        hub)     "hub_${action}" ;;
+        indexer)    "indexer_${action}" ;;
+        hub)       "hub_${action}" ;;
+        heartbeat) "heartbeat_${action}" ;;
         *)
             echo "[matrix-services] Unknown service: $service"
-            echo "Available services: indexer, hub"
+            echo "Available services: indexer, hub, heartbeat"
             return 1
             ;;
     esac
@@ -313,7 +401,7 @@ dispatch_all() {
     local action="$1"
     local failed=0
 
-    for svc in indexer hub; do
+    for svc in indexer hub heartbeat; do
         dispatch_service "$action" "$svc" || failed=$((failed + 1))
     done
 
@@ -381,6 +469,7 @@ Usage:
 Services:
   indexer    Code indexer daemon (auto-indexes on file changes)
   hub        Matrix Hub (cross-project WebSocket messaging)
+  heartbeat  Heartbeat daemon (periodic health checks between sessions)
   all        All services (default)
 
 Examples:

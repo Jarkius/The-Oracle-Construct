@@ -7,7 +7,8 @@ draft Workflow Evolution Proposals (WEPs) when patterns reach confidence
 thresholds.
 
 Rules:
-- Never auto-applies — all WEPs require Oracle review
+- Low-risk WEPs can be auto-applied by pulse-auto-evolve.sh (ADR-014)
+- Medium/high-risk WEPs require Oracle review
 - Only proposes when confidence >= 0.7
 - Deduplicates against existing proposals and applied WEPs
 - One change per WEP — keep proposals atomic

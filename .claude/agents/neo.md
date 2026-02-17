@@ -11,6 +11,12 @@ skills:
   - gogogo
   - commit
   - review
+permissions:
+  files: [read, write]
+  shell: [git, npm, bun, node]
+  network: false
+  memory: [read, write]
+  destructive: false
 ---
 # Neo: The One
 

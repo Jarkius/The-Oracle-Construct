@@ -21,6 +21,9 @@ All ADR-010 integration sprints (0-4) complete. System now self-improving. The O
 | Phase 7: SWARM | ~80% | Task routing + handoff protocol done; soul-aware teams pending (#24316) |
 | Phase 8: AWAKENING | Done | Scanner + recommender + predictive loader + morning brief + evolution proposer |
 | Phase 9: DAEMON | Sprint A+B Done | WEP-003/004/005 applied, matrix-services.sh, autostart config, morning brief health |
+| Phase 10: HEARTBEAT | Done | Always-on daemon, 5 health checks, matrix-services.sh integration |
+| Phase 10C: PERMISSIONS | Done | Agent permission declarations in frontmatter (all 8 agents) |
+| Phase 12: AUTO-EVOLVE | Done | pulse-auto-evolve.sh, risk classification, kill switch |
 
 ## Completed
 
@@ -41,11 +44,15 @@ All ADR-010 integration sprints (0-4) complete. System now self-improving. The O
 - [x] WEP-002 moved to applied (all agents at 4.5/5+)
 - [x] Phase 9 Sprint A: WEP-003 (commit separation), WEP-004 (session IDs), WEP-005 (failure detection)
 - [x] Phase 9 Sprint B: matrix-services.sh (daemon lifecycle), autostart config, morning brief health
+- [x] Phase 10: Heartbeat daemon (heartbeat-daemon.ts, heartbeat.json, HEARTBEAT.md, ADR-012)
+- [x] Phase 10C: Agent permission declarations (all 8 agents, CLAUDE.md section)
+- [x] Phase 12: Auto-evolve script (pulse-auto-evolve.sh, risk classification, ADR-014)
 
 ## Next Priority
 
 ### Remaining Infrastructure
 - [ ] Agent Teams: Blocked on Issue #24316
+- [ ] Phase 11: GATEWAY — Messaging as UI (Telegram/Discord → Oracle Construct)
 - [ ] Phase 9 Sprint C (optional): Event processor daemon (real-time pattern detection)
 - [ ] launchd plists for macOS auto-start (if daemons prove useful)
 
@@ -54,4 +61,4 @@ All ADR-010 integration sprints (0-4) complete. System now self-improving. The O
 
 ---
 
-*Updated by Oracle - 2026-02-17 (Phase 9 Sprint A+B complete — DAEMON layer operational)*
+*Updated by Oracle - 2026-02-17 (Phase 10 + 12 complete — Heartbeat + Auto-Evolve operational)*

@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "description": "Heartbeat daemon configuration (Phase 10 / ADR-012)",
+  "enabled": true,
+  "interval_minutes": 30,
+  "checks": {
+    "reminders": true,
+    "ci_status": true,
+    "pr_reviews": true,
+    "stale_tasks": true,
+    "error_spikes": true
+  },
+  "stale_task_hours": 48,
+  "error_spike_threshold": 3,
+  "error_spike_window_hours": 1,
+  "notify": {
+    "gateway": "ws://localhost:8082",
+    "fallback": "log"
+  },
+  "auto_evolve": false,
+  "log_file": "psi/pulse/daemon-logs/heartbeat.log"
+}

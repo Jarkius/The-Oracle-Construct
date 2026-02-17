@@ -9,6 +9,12 @@ skills:
   - component-spec
   - design-review
   - handoff
+permissions:
+  files: [read]
+  shell: []
+  network: false
+  memory: [read]
+  destructive: false
 ---
 # Trinity: The Design Guardian
 
