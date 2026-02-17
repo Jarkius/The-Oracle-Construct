@@ -100,3 +100,5 @@
 {"ts":"2026-02-17T09:16:49Z","type":"session:end","agent":"System","session":"913c7c50-012e-41e2-b06f-bca4b7c3c79e","data":{"reason":"stop_hook"}}}
 {"ts":"2026-02-17T09:32:17Z","type":"session:start","agent":"System","session":"unknown","data":{"hook":"SessionStart"}}}
 {"ts":"2026-02-17T09:33:14Z","type":"session:end","agent":"System","session":"0ff18b95-91af-4312-b6fc-be5d237582a4","data":{"reason":"stop_hook"}}}
+{"ts":"2026-02-17T09:33:41Z","type":"session:end","agent":"System","session":"0ff18b95-91af-4312-b6fc-be5d237582a4","data":{"reason":"stop_hook"}}}
+{"ts":"2026-02-17T09:37:26Z","type":"session:end","agent":"System","session":"0ff18b95-91af-4312-b6fc-be5d237582a4","data":{"reason":"stop_hook"}}}
