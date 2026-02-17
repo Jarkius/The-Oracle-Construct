@@ -236,6 +236,14 @@ if [ -f "$PRED_LOADER" ]; then
 fi
 
 # ============================================
+# Phase 8.3: Evolution Proposer (auto-draft WEPs from patterns)
+# ============================================
+EVOLUTION="$PROJECT_ROOT/.claude/hooks/pulse-evolution-proposer.py"
+if [ -f "$EVOLUTION" ]; then
+    REPO_ROOT="$PROJECT_ROOT" python3 "$EVOLUTION" 2>/dev/null || true
+fi
+
+# ============================================
 # Phase 8.5: Morning Brief (unified intelligence synthesis)
 # Replaces individual recommendations injection
 # ============================================
