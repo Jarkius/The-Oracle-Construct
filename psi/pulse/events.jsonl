@@ -86,3 +86,10 @@
 {"ts":"2026-02-17T06:43:24Z","type":"session:end","agent":"System","session":"unknown","data":{"reason":"stop_hook"}}}
 {"ts":"2026-02-17T06:50:53Z","type":"ci:pass","agent":"Smith","session":"39addb74-56b0-438f-8698-2871992da948","data":{"tool":"Bash","exit_code":0,"runner":"detected"}}}
 {"ts":"2026-02-17T06:51:09Z","type":"session:end","agent":"System","session":"39addb74-56b0-438f-8698-2871992da948","data":{"reason":"stop_hook"}}}
+{"ts":"2026-02-17T06:51:30Z","type":"session:end","agent":"System","session":"39addb74-56b0-438f-8698-2871992da948","data":{"reason":"stop_hook"}}}
+{"ts":"2026-02-17T07:01:49Z","type":"session:start","agent":"System","session":"unknown","data":{"hook":"SessionStart"}}}
+{"ts":"2026-02-17T07:02:08Z","type":"ci:pass","agent":"Smith","session":"test-abc-123","data":{"tool":"Bash","exit_code":0,"runner":"detected"}}}
+{"ts":"2026-02-17T07:02:09Z","type":"ci:pass","agent":"Smith","session":"e3cd8604-c052-44a4-9c81-b8a41f36bfe7","data":{"tool":"Bash","exit_code":0,"runner":"detected"}}}
+{"ts":"2026-02-17T07:02:12Z","type":"ci:fail","agent":"Smith","session":"fail-session-xyz","data":{"tool":"Bash","exit_code":1,"runner":"detected"}}}
+{"ts":"2026-02-17T07:02:15Z","type":"ci:pass","agent":"Smith","session":"e3cd8604-c052-44a4-9c81-b8a41f36bfe7","data":{"tool":"Bash","exit_code":0,"runner":"detected"}}}
+{"ts":"2026-02-17T07:02:20Z","type":"session:end","agent":"System","session":"end-session-456","data":{"reason":"stop_hook"}}}
