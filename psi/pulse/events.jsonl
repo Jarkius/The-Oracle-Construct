@@ -93,3 +93,4 @@
 {"ts":"2026-02-17T07:02:12Z","type":"ci:fail","agent":"Smith","session":"fail-session-xyz","data":{"tool":"Bash","exit_code":1,"runner":"detected"}}}
 {"ts":"2026-02-17T07:02:15Z","type":"ci:pass","agent":"Smith","session":"e3cd8604-c052-44a4-9c81-b8a41f36bfe7","data":{"tool":"Bash","exit_code":0,"runner":"detected"}}}
 {"ts":"2026-02-17T07:02:20Z","type":"session:end","agent":"System","session":"end-session-456","data":{"reason":"stop_hook"}}}
+{"ts":"2026-02-17T07:03:03Z","type":"session:end","agent":"System","session":"e3cd8604-c052-44a4-9c81-b8a41f36bfe7","data":{"reason":"stop_hook"}}}
