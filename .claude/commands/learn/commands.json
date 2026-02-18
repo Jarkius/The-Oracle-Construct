@@ -1,0 +1,29 @@
+{
+  "namespace": "learn",
+  "commands": [
+    {
+      "name": "concept",
+      "description": "Deep-dive into any concept with structured learning output"
+    },
+    {
+      "name": "teach",
+      "description": "Explain anything using the Feynman technique (ELI5 + analogies + diagrams)"
+    },
+    {
+      "name": "flash",
+      "description": "Generate flashcards from a topic or existing learnings"
+    },
+    {
+      "name": "plan",
+      "description": "Create a structured study plan for any topic or certification"
+    },
+    {
+      "name": "research",
+      "description": "Multi-source deep research with parallel web searches"
+    },
+    {
+      "name": "course",
+      "description": "Track progress through an online course or tutorial"
+    }
+  ]
+}

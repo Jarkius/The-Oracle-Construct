@@ -66,6 +66,13 @@ All ADR-010 integration sprints (0-4) complete. System now self-improving. The O
 ### Phase 14: SKILLS ECOSYSTEM (New — Inspired by ClawHub/Awesome-Agent-Skills)
 - [x] YouTube Player skill (yt-dlp + mpv)
 - [x] Skill Creator meta-skill (bootstrap new skills)
+- [x] Learning skills namespace (/learn:*)
+  - [x] /learn:concept — Deep-dive structured learning
+  - [x] /learn:teach — Feynman technique explanations
+  - [x] /learn:flash — Flashcard generator (Anki-compatible)
+  - [x] /learn:plan — Study planner with tracking
+  - [x] /learn:research — Multi-source parallel deep research
+  - [x] /learn:course — Course/tutorial progress tracker
 - [ ] Browser Stealth skill (enhance Morpheus anti-detection)
 - [ ] File Organizer skill
 - [ ] Finance Monitor skill (Yahoo Finance)
