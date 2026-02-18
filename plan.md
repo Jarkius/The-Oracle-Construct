@@ -396,9 +396,109 @@ Session 4: Track C + D (Quick wins)
 - [ ] Decide on gateway port (proposed: 8082)
 - [ ] Review security model for shell execution via messaging
 
+---
+
+## Track E: TRUE SELF-EVOLUTION (Phase 13)
+
+> *"The system improves itself while you sleep."*
+
+### What It Does
+
+Extends Phase 12 (ADR-014) from low-risk config tweaks to full sandbox-based self-improvement. Three tiers of increasing autonomy.
+
+### Tiers
+
+| Tier | Name | What | Depends On |
+|------|------|------|-----------|
+| **1** | Sandbox Evolution | Branch → test gates → merge/rollback | Phase 12 (done) |
+| **2** | Intelligent Evolution | LLM generates implementation → sandbox → test | Phase 11 (Gateway/Claude API) |
+| **3** | Cascading Evolution | Successful WEP triggers related proposals | Tier 2 proven |
+
+### Tier 1 Implementation (Priority — 1 session)
+
+```
+Pattern detected → WEP proposed → Create sandbox branch
+    → Apply changes on branch → Run 5 test gates
+        → PASS: Merge, archive, log success
+        → FAIL: Delete branch, reject, log failure + reason
+```
+
+**Test gates**: syntax check → hook health → memory health → service health → custom command
+
+**Expanded scope** (beyond ADR-014):
+- `.sh` files in `.claude/hooks/`
+- Config files in `psi/pulse/`
+- WEP metadata
+
+**Sacred files** (never auto-evolved):
+- SOUL.md, CLAUDE.md, USER.md, BOOT.md
+- psi/The_Source/**
+- .claude/agents/*.md
+
+### Implementation Steps
+
+| Step | What | Effort |
+|------|------|--------|
+| E1 | Extend `pulse-auto-evolve.sh` with sandbox branching | ~1h |
+| E2 | Add 5 test gates (syntax, hooks, memory, services, custom) | ~1h |
+| E3 | Add `evolution-log.jsonl` and event types | ~30m |
+| E4 | Sacred files exclusion list | ~15m |
+| E5 | Extended WEP frontmatter format | ~15m |
+| E6 | Wire to heartbeat (optional trigger) | ~30m |
+
+### New Event Types
+```
+evolution:sandbox    — WEP moved to sandbox branch
+evolution:test       — Test gate result (pass/fail)
+evolution:applied    — WEP merged successfully
+evolution:rejected   — WEP failed, rolled back
+evolution:cascade    — Tier 3: new WEP triggered
+evolution:learning   — Meta-learning captured
+```
+
+### ADR
+See `ADR-015-true-self-evolution.md`.
+
+---
+
+## Revised Implementation Order
+
+```
+Session N: Track E Tier 1 (TRUE SELF-EVOLUTION)
+  ├── E1: Sandbox branching in pulse-auto-evolve.sh
+  ├── E2: 5 test gates
+  ├── E3: Evolution log (JSONL)
+  ├── E4: Sacred files exclusion
+  ├── E5: Extended WEP frontmatter
+  └── E6: Heartbeat trigger wiring
+
+Session N+1: Track B (GATEWAY) — Core
+  ├── B1: Dependencies (grammy, @anthropic-ai/sdk)
+  ├── B2: Gateway config (.matrix.json)
+  ├── B3: Agent Router
+  ├── B4: Claude API Bridge
+  ├── B5: Telegram Adapter
+  └── B6: Security Layer
+
+Session N+2: Track B (GATEWAY) — Integration
+  ├── B7: Register in matrix-services.sh
+  ├── B8: Heartbeat → Gateway bridge
+  ├── B9: End-to-end testing
+  └── ADR-013
+
+Session N+3: Track E Tier 2 (INTELLIGENT EVOLUTION)
+  ├── Claude API bridge (reuse Gateway infra)
+  ├── LLM-generated implementations
+  ├── Evaluation prompts
+  └── Evolution memory analysis
+```
+
+---
+
 ## What We're NOT Doing
 
 - **No marketplace/ClawHub** — personal construct, not a platform
 - **No WhatsApp** — unofficial API, ban risk, not worth it
 - **No social network for agents** (Moltbook) — fun but frivolous
 - **No autonomous execution without review** for high-risk changes
+- **No auto-evolution of sacred files** — SOUL.md, CLAUDE.md are human-gated

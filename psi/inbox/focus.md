@@ -50,15 +50,26 @@ All ADR-010 integration sprints (0-4) complete. System now self-improving. The O
 
 ## Next Priority
 
+### Phase 13: TRUE SELF-EVOLUTION (ADR-015 — Proposed)
+- [ ] Tier 1: Sandbox Evolution — branch → test gates → merge/rollback
+- [ ] Extend pulse-auto-evolve.sh with sandbox branching
+- [ ] Add 5 test gates (syntax, hooks, memory, services, custom)
+- [ ] Evolution log (evolution-log.jsonl) + sacred files exclusion
+- [ ] Wire to heartbeat as optional trigger
+
+### Phase 11: GATEWAY — Messaging as UI (ADR-013 — Proposed)
+- [ ] Telegram bot (grammY) → Agent Router → Claude API Bridge
+- [ ] Security layer (allowlist, pairing, rate limiting, shell sandbox)
+- [ ] Heartbeat → Gateway notification bridge
+- [ ] Prerequisites: Telegram Bot Token, ANTHROPIC_API_KEY
+
 ### Remaining Infrastructure
 - [ ] Agent Teams: Blocked on Issue #24316
-- [ ] Phase 11: GATEWAY — Messaging as UI (Telegram/Discord → Oracle Construct)
-- [ ] Phase 9 Sprint C (optional): Event processor daemon (real-time pattern detection)
-- [ ] launchd plists for macOS auto-start (if daemons prove useful)
+- [ ] Phase 9 Sprint C (optional): Event processor daemon
 
 ### Ready to Start
 - [ ] CIS Modernization: Resume React SPA + Laravel API development
 
 ---
 
-*Updated by Oracle - 2026-02-17 (Phase 10 + 12 complete — Heartbeat + Auto-Evolve operational)*
+*Updated by Oracle - 2026-02-18 (ADR-015 + ADR-013 proposed — Phase 13 + Phase 11 planned)*
