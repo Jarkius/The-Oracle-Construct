@@ -1,0 +1,28 @@
+{
+  "updated": "2026-02-18T14:49:24Z",
+  "event_weights": {
+    "ci:fail": 1.0,
+    "ci:pass": 0.2,
+    "git:push": 0.3,
+    "git:commit": 0.3,
+    "session:start": 0.1,
+    "session:end": 0.1,
+    "context:compacted": 0.1,
+    "task:completed": 0.6,
+    "task:blocked": 0.9,
+    "dispatch:outcome": 0.4,
+    "heartbeat:alert": 0.9,
+    "heartbeat:check": 0.1,
+    "watchdog:restart": 0.8,
+    "watchdog:restart_failed": 1.0,
+    "team:created": 0.3,
+    "team:dissolved": 0.2,
+    "team:agent_complete": 0.4,
+    "continuity:generated": 0.1,
+    "metrics:collected": 0.1
+  },
+  "threshold": 0.5,
+  "learning_rate": 0.1,
+  "ack_count": {},
+  "skip_count": {}
+}

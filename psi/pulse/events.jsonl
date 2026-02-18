@@ -238,3 +238,32 @@
 {"ts":"2026-02-18T14:43:30Z","type":"git:push","agent":"Neo","session":"6707b501-b2a0-4c1f-ac51-9359544129de","data":{"tool":"Bash","action":"git push"}}}
 {"ts":"2026-02-18T14:43:35Z","type":"session:end","agent":"System","session":"6707b501-b2a0-4c1f-ac51-9359544129de","data":{"reason":"stop_hook"}}}
 {"ts":"2026-02-18T14:44:15Z","type":"git:push","agent":"Neo","session":"6707b501-b2a0-4c1f-ac51-9359544129de","data":{"tool":"Bash","action":"git push"}}}
+{"ts":"2026-02-18T14:44:52Z","type":"git:push","agent":"Neo","session":"6707b501-b2a0-4c1f-ac51-9359544129de","data":{"tool":"Bash","action":"git push"}}}
+{"ts":"2026-02-18T14:44:56Z","type":"session:end","agent":"System","session":"6707b501-b2a0-4c1f-ac51-9359544129de","data":{"reason":"stop_hook"}}}
+{"ts":"2026-02-18T14:46:30Z","type":"notification:reset","agent":"System","session":"unknown","data":{}}}
+{"ts":"2026-02-18T14:46:51Z","type":"metrics:collected","agent":"System","session":"unknown","data":{"file":"/home/user/The-Oracle-Construct/psi/pulse/metrics.jsonl"}}}
+{"ts":"2026-02-18T14:47:28Z","type":"notification:learn-ack","agent":"System","session":"unknown","data":{"event_type":"ci:fail"}}}
+{"ts":"2026-02-18T14:47:30Z","type":"metrics:collected","agent":"System","session":"unknown","data":{"file":"/home/user/The-Oracle-Construct/psi/pulse/metrics.jsonl"}}}
+{"ts":"2026-02-18T14:47:45Z","type":"notification:learn-skip","agent":"System","session":"unknown","data":{"event_type":"session:start"}}}
+{"ts":"2026-02-18T14:47:49Z","type":"git:commit","agent":"Neo","session":"6707b501-b2a0-4c1f-ac51-9359544129de","data":{"tool":"Bash","action":"git commit"}}}
+{"ts":"2026-02-18T14:47:57Z","type":"continuity:generated","agent":"System","session":"unknown","data":{"file":"/home/user/The-Oracle-Construct/psi/swarm/handoffs/2026-02-18_continuity.md"}}}
+{"ts":"2026-02-18T14:48:31Z","type":"router:recommend","agent":"Router","session":"unknown","data":{"task_type":"code"}}}
+{"ts":"2026-02-18T14:48:51Z","type":"router:recommend","agent":"Router","session":"unknown","data":{"task_type":"debug"}}}
+{"ts":"2026-02-18T14:48:58Z","type":"metrics:collected","agent":"System","session":"unknown","data":{"file":"/home/user/The-Oracle-Construct/psi/pulse/metrics.jsonl"}}}
+{"ts":"2026-02-18T14:49:25Z","type":"notification:reset","agent":"System","session":"unknown","data":{}}}
+{"ts":"2026-02-18T14:49:36Z","type":"router:learn","agent":"Router","session":"unknown","data":{"action":"profile_update"}}}
+{"ts":"2026-02-18T14:50:08Z","type":"router:recommend","agent":"Router","session":"unknown","data":{"task_type":"debug"}}}
+{"ts":"2026-02-18T14:50:23Z","type":"router:recommend","agent":"Router","session":"unknown","data":{"task_type":"debug"}}}
+{"ts":"2026-02-18T14:50:23Z","type":"router:route","agent":"Router","session":"unknown","data":{"task_type":"debug","description":"fix the login crash on mobile"}}}
+{"ts":"2026-02-18T14:50:42Z","type":"router:recommend","agent":"Router","session":"unknown","data":{"task_type":"code"}}}
+{"ts":"2026-02-18T14:50:42Z","type":"router:route","agent":"Router","session":"unknown","data":{"task_type":"code","description":"build a new authentication system"}}}
+{"ts":"2026-02-18T14:51:00Z","type":"router:recommend","agent":"Router","session":"unknown","data":{"task_type":"research"}}}
+{"ts":"2026-02-18T14:51:00Z","type":"router:route","agent":"Router","session":"unknown","data":{"task_type":"research","description":"research best practices for API design"}}}
+{"ts":"2026-02-18T14:51:20Z","type":"router:recommend","agent":"Router","session":"unknown","data":{"task_type":"security"}}}
+{"ts":"2026-02-18T14:51:21Z","type":"router:route","agent":"Router","session":"unknown","data":{"task_type":"security","description":"check the security vulnerability in auth module"}}}
+{"ts":"2026-02-18T14:51:42Z","type":"metrics:collected","agent":"System","session":"unknown","data":{"file":"/home/user/The-Oracle-Construct/psi/pulse/metrics.jsonl"}}}
+{"ts":"2026-02-18T14:52:00Z","type":"git:commit","agent":"Neo","session":"6707b501-b2a0-4c1f-ac51-9359544129de","data":{"tool":"Bash","action":"git commit"}}}
+{"ts":"2026-02-18T14:52:04Z","type":"router:recommend","agent":"Router","session":"unknown","data":{"task_type":"debug"}}}
+{"ts":"2026-02-18T14:52:04Z","type":"router:route","agent":"Router","session":"unknown","data":{"task_type":"debug","description":"fix the failing CI tests"}}}
+{"ts":"2026-02-18T14:53:44Z","type":"git:push","agent":"Neo","session":"6707b501-b2a0-4c1f-ac51-9359544129de","data":{"tool":"Bash","action":"git push"}}}
+{"ts":"2026-02-18T14:54:29Z","type":"session:end","agent":"System","session":"6707b501-b2a0-4c1f-ac51-9359544129de","data":{"reason":"stop_hook"}}}

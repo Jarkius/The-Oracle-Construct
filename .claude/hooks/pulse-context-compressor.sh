@@ -51,6 +51,15 @@ json_escape() {
     printf '%s' "$s"
 }
 
+# Count matching lines in a file (safe wrapper around grep -c)
+# Returns 0 if no matches or file missing, never fails
+count_matches() {
+    local pattern="$1" file="$2"
+    local result
+    result=$(grep -c "$pattern" "$file" 2>/dev/null) || true
+    printf '%s' "${result:-0}"
+}
+
 # Ensure output directories exist
 ensure_dirs() {
     mkdir -p "$(dirname "$SNAPSHOT_FILE")"
@@ -72,6 +81,25 @@ log_event() {
 json_field() {
     local line="$1" field="$2"
     printf '%s' "$line" | sed -n 's/.*"'"$field"'"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p'
+}
+
+# Flatten multi-line JSON task objects into single lines for grep processing
+# Reads from TASKS_FILE, outputs one task per line
+flatten_all_tasks() {
+    if [[ ! -f "$TASKS_FILE" ]]; then
+        return
+    fi
+    awk '
+        /"id"[[:space:]]*:/ { block = $0; next }
+        block && /\}/ { block = block " " $0; print block; block = ""; next }
+        block { block = block " " $0 }
+    ' "$TASKS_FILE"
+}
+
+# Flatten tasks filtered by status
+flatten_tasks_by_status() {
+    local status_filter="$1"
+    flatten_all_tasks | grep "\"status\"[[:space:]]*:[[:space:]]*\"$status_filter\"" || true
 }
 
 # ---------------------------------------------------------------------------
@@ -170,27 +198,27 @@ ENDJSON
 do_summarize() {
     ensure_dirs
 
-    # Current focus (first 5 lines, extract one-liner)
+    # Current focus (first 5 lines for context, but also check nearby lines)
     local focus_line="unknown"
     if [[ -f "$FOCUS_FILE" ]]; then
-        # Try **Task**: pattern (with optional spaces)
-        focus_line=$(head -5 "$FOCUS_FILE" | sed -n 's/^.*\*\*Task\*\*[[:space:]]*:[[:space:]]*//p' | head -1 || true)
+        # Try **Task**: pattern anywhere in first 10 lines
+        focus_line=$(head -10 "$FOCUS_FILE" | sed -n 's/^.*\*\*Task\*\*[[:space:]]*:[[:space:]]*//p' | head -1) || true
         if [[ -z "$focus_line" ]]; then
-            # Fallback: first non-empty, non-heading, non-quote line
-            focus_line=$(head -5 "$FOCUS_FILE" | grep -v '^#' | grep -v '^$' | grep -v '^>' | head -1 || true)
+            # Fallback: first non-empty, non-heading, non-quote line from first 5 lines
+            focus_line=$(head -5 "$FOCUS_FILE" | grep -v '^#' | grep -v '^$' | grep -v '^>' | head -1) || true
         fi
         if [[ -z "$focus_line" ]]; then
             focus_line="(see focus.md)"
         fi
     fi
 
-    # Task counts by status (space-tolerant grep)
+    # Task counts by status (using count_matches for safe grep -c)
     local pending=0 completed=0 blocked=0 in_progress=0
     if [[ -f "$TASKS_FILE" ]]; then
-        pending=$(grep -c '"status"[[:space:]]*:[[:space:]]*"pending"' "$TASKS_FILE" 2>/dev/null || echo "0")
-        completed=$(grep -c '"status"[[:space:]]*:[[:space:]]*"completed"' "$TASKS_FILE" 2>/dev/null || echo "0")
-        blocked=$(grep -c '"status"[[:space:]]*:[[:space:]]*"blocked"' "$TASKS_FILE" 2>/dev/null || echo "0")
-        in_progress=$(grep -c '"status"[[:space:]]*:[[:space:]]*"in_progress"' "$TASKS_FILE" 2>/dev/null || echo "0")
+        pending=$(count_matches '"status"[[:space:]]*:[[:space:]]*"pending"' "$TASKS_FILE")
+        completed=$(count_matches '"status"[[:space:]]*:[[:space:]]*"completed"' "$TASKS_FILE")
+        blocked=$(count_matches '"status"[[:space:]]*:[[:space:]]*"blocked"' "$TASKS_FILE")
+        in_progress=$(count_matches '"status"[[:space:]]*:[[:space:]]*"in_progress"' "$TASKS_FILE")
     fi
 
     # Recent event counts (last 24h) — approximate using timestamp comparison
@@ -199,11 +227,14 @@ do_summarize() {
     cutoff=$(date -u -d '24 hours ago' '+%Y-%m-%dT%H:%M:%SZ' 2>/dev/null || date -u '+%Y-%m-%dT%H:%M:%SZ')
     if [[ -f "$EVENTS_FILE" ]]; then
         local recent_events
-        recent_events=$(tail -200 "$EVENTS_FILE" | awk -v cutoff="$cutoff" -F'"ts":"' '{split($2,a,"\""); if(a[1] >= cutoff) print}' || true)
+        recent_events=$(tail -200 "$EVENTS_FILE" | awk -v cutoff="$cutoff" -F'"ts":"' '{split($2,a,"\""); if(a[1] >= cutoff) print}') || true
         if [[ -n "$recent_events" ]]; then
-            commit_count=$(printf '%s\n' "$recent_events" | grep -c '"type"[[:space:]]*:[[:space:]]*"git:commit"' 2>/dev/null || echo "0")
-            push_count=$(printf '%s\n' "$recent_events" | grep -c '"type"[[:space:]]*:[[:space:]]*"git:push"' 2>/dev/null || echo "0")
-            fail_count=$(printf '%s\n' "$recent_events" | grep -c '"type"[[:space:]]*:[[:space:]]*"ci:fail"' 2>/dev/null || echo "0")
+            commit_count=$(printf '%s\n' "$recent_events" | grep -c '"type"[[:space:]]*:[[:space:]]*"git:commit"') || true
+            commit_count="${commit_count:-0}"
+            push_count=$(printf '%s\n' "$recent_events" | grep -c '"type"[[:space:]]*:[[:space:]]*"git:push"') || true
+            push_count="${push_count:-0}"
+            fail_count=$(printf '%s\n' "$recent_events" | grep -c '"type"[[:space:]]*:[[:space:]]*"ci:fail"') || true
+            fail_count="${fail_count:-0}"
         fi
     fi
 
@@ -214,7 +245,7 @@ do_summarize() {
             | grep -v '"type"[[:space:]]*:[[:space:]]*"session:end"' \
             | grep -v '"type"[[:space:]]*:[[:space:]]*"session:start"' \
             | tail -1 \
-            | sed -n 's/.*"type"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p' || true)
+            | sed -n 's/.*"type"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p') || true
         if [[ -z "$key_event" ]]; then
             key_event="none"
         fi
@@ -241,22 +272,6 @@ do_priorities() {
     local rank=0
     local entries=""
 
-    # Helper: read tasks by status from the multi-line JSON file.
-    # We flatten each task object onto a single line for easier parsing.
-    # This converts the pretty-printed JSON tasks into single-line entries.
-    flatten_tasks() {
-        local status_filter="$1"
-        if [[ ! -f "$TASKS_FILE" ]]; then
-            return
-        fi
-        # Use awk to collapse each task block into a single line
-        awk '
-            /"id"[[:space:]]*:/ { block = $0; next }
-            block && /}/ { block = block " " $0; print block; block = ""; next }
-            block { block = block " " $0 }
-        ' "$TASKS_FILE" | grep "\"status\"[[:space:]]*:[[:space:]]*\"$status_filter\""
-    }
-
     # 1. Blocked tasks (highest priority)
     while IFS= read -r task_line; do
         [[ -z "$task_line" ]] && continue
@@ -267,7 +282,7 @@ do_priorities() {
             rank=$((rank + 1))
             entries="${entries}{\"rank\":$rank,\"item\":\"$(json_escape "$task_desc")\",\"reason\":\"Task is blocked — requires immediate attention\",\"source\":\"tasks/$task_id\"},"
         fi
-    done < <(flatten_tasks "blocked")
+    done < <(flatten_tasks_by_status "blocked")
 
     # 2. Failed CI (critical)
     if [[ -f "$EVENTS_FILE" ]]; then
@@ -292,7 +307,7 @@ do_priorities() {
             rank=$((rank + 1))
             entries="${entries}{\"rank\":$rank,\"item\":\"$(json_escape "$task_desc")\",\"reason\":\"Currently in progress\",\"source\":\"tasks/$task_id\"},"
         fi
-    done < <(flatten_tasks "in_progress")
+    done < <(flatten_tasks_by_status "in_progress")
 
     # 4. Pending tasks with recommendations
     local rec_note=""
@@ -312,31 +327,24 @@ do_priorities() {
             fi
             entries="${entries}{\"rank\":$rank,\"item\":\"$(json_escape "$task_desc")\",\"reason\":\"$reason\",\"source\":\"tasks/$task_id\"},"
         fi
-    done < <(flatten_tasks "pending")
+    done < <(flatten_tasks_by_status "pending")
 
     # 5. Stale tasks (>48h unchanged) — any non-completed task not updated in 48h
     local stale_cutoff
     stale_cutoff=$(date -u -d '48 hours ago' '+%Y-%m-%dT%H:%M:%SZ' 2>/dev/null || date -u '+%Y-%m-%dT%H:%M:%SZ')
-    if [[ -f "$TASKS_FILE" ]]; then
-        # Flatten all tasks and check for staleness
-        while IFS= read -r task_line; do
-            [[ -z "$task_line" ]] && continue
-            local updated status task_desc task_id
-            updated=$(json_field "$task_line" "updated")
-            status=$(json_field "$task_line" "status")
-            task_desc=$(json_field "$task_line" "task")
-            task_id=$(json_field "$task_line" "id")
-            # Only flag non-completed tasks that are stale
-            if [[ -n "$task_desc" && -n "$updated" && "$updated" < "$stale_cutoff" && "$status" != "completed" ]]; then
-                rank=$((rank + 1))
-                entries="${entries}{\"rank\":$rank,\"item\":\"$(json_escape "$task_desc")\",\"reason\":\"Stale — not updated in 48+ hours (last: $updated)\",\"source\":\"tasks/$task_id\"},"
-            fi
-        done < <(awk '
-            /"id"[[:space:]]*:/ { block = $0; next }
-            block && /}/ { block = block " " $0; print block; block = ""; next }
-            block { block = block " " $0 }
-        ' "$TASKS_FILE" 2>/dev/null || true)
-    fi
+    while IFS= read -r task_line; do
+        [[ -z "$task_line" ]] && continue
+        local updated status task_desc task_id
+        updated=$(json_field "$task_line" "updated")
+        status=$(json_field "$task_line" "status")
+        task_desc=$(json_field "$task_line" "task")
+        task_id=$(json_field "$task_line" "id")
+        # Only flag non-completed tasks that are stale
+        if [[ -n "$task_desc" && -n "$updated" && "$updated" < "$stale_cutoff" && "$status" != "completed" ]]; then
+            rank=$((rank + 1))
+            entries="${entries}{\"rank\":$rank,\"item\":\"$(json_escape "$task_desc")\",\"reason\":\"Stale — not updated in 48+ hours (last: $updated)\",\"source\":\"tasks/$task_id\"},"
+        fi
+    done < <(flatten_all_tasks)
 
     # Strip trailing comma and build final JSON
     entries="${entries%,}"
@@ -375,9 +383,9 @@ do_compress() {
     if [[ -d "$SESSIONS_DIR" ]]; then
         # Find the most recent month directory
         local latest_month
-        latest_month=$(ls -1d "$SESSIONS_DIR"/[0-9][0-9][0-9][0-9]-[0-9][0-9] 2>/dev/null | sort -r | head -1 || true)
+        latest_month=$(ls -1d "$SESSIONS_DIR"/[0-9][0-9][0-9][0-9]-[0-9][0-9] 2>/dev/null | sort -r | head -1) || true
         if [[ -n "$latest_month" && -d "$latest_month" ]]; then
-            latest_session=$(ls -1t "$latest_month"/*.md 2>/dev/null | head -1 || true)
+            latest_session=$(ls -1t "$latest_month"/*.md 2>/dev/null | head -1) || true
         fi
     fi
 
@@ -386,7 +394,7 @@ do_compress() {
 
         # Extract key decisions: lines starting with - , * , or ## headings
         local decisions
-        decisions=$(grep -E '^(- |\* |## )' "$latest_session" 2>/dev/null | head -20 || true)
+        decisions=$(grep -E '^(- |\* |## )' "$latest_session" 2>/dev/null | head -20) || true
 
         if [[ -n "$decisions" ]]; then
             # Append to compressed context

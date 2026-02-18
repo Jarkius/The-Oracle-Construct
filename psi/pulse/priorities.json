@@ -1,0 +1,5 @@
+{
+  "priorities": [{"rank":1,"item":"Monitor GitHub Issue #24316 — .claude/agents/ as agent team teammates","reason":"Pending — recommendation: Push:commit ratio high (60 pushes for 23 commits) \\u2014 batch commits","source":"tasks/task-0001"},{"rank":2,"item":"Resume CIS Modernization — React SPA + Laravel API","reason":"Pending — recommendation: Push:commit ratio high (60 pushes for 23 commits) \\u2014 batch commits","source":"tasks/task-0002"},{"rank":3,"item":"Monitor GitHub Issue #24316 — .claude/agents/ as agent team teammates","reason":"Stale — not updated in 48+ hours (last: 2026-02-15T12:00:00Z)","source":"tasks/task-0001"},{"rank":4,"item":"Resume CIS Modernization — React SPA + Laravel API","reason":"Stale — not updated in 48+ hours (last: 2026-02-15T12:00:00Z)","source":"tasks/task-0002"}],
+  "total": 4,
+  "generated_at": "2026-02-18T14:54:43Z"
+}

@@ -1,0 +1,27 @@
+{
+  "updated": "2026-02-18T14:49:36Z",
+  "agents": {
+    "Neo": {},
+    "Smith": {
+      "debug": {
+        "success": 2,
+        "failure": 1,
+        "timeout": 0,
+        "rate": 0.67
+      }
+    },
+    "Trinity": {},
+    "Morpheus": {},
+    "Architect": {},
+    "Scribe": {},
+    "Tank": {},
+    "Oracle": {
+      "code": {
+        "success": 1,
+        "failure": 0,
+        "timeout": 1,
+        "rate": 0.5
+      }
+    }
+  }
+}
