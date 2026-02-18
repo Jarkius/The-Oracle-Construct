@@ -37,6 +37,11 @@ All ADR-010 integration sprints (0-4) complete. System now self-improving. The O
 | Phase J: AUTO GIT OPS | Done | PR readiness check, suggest-pr, stale branch detection, uncommitted warnings |
 | Phase K: HEALTH DASHBOARD | Done | Matrix-themed HTML dashboard, JSON data, health scoring |
 | Phase L: SKILL DISCOVERY | Done | Auto-scan skills, quality validation, registry, 59 skills found |
+| Phase M: CONTEXT COMPRESSION | Done | Smart pre-compact, priority extraction, compressed summaries |
+| Phase N: SESSION CONTINUITY | Done | Structured handoff generation, continuity chain, session injection |
+| Phase O: METRIC TRACKING | Done | Historical metrics (git, tasks, events, health), trends, daily digest |
+| Phase P: INTELLIGENT ROUTING | Done | Agent performance profiles, task-type routing, leaderboard |
+| Phase Q: NOTIFICATION INTEL | Done | Adaptive alert filtering, learned preferences, smart digest |
 
 ## Completed
 
@@ -70,6 +75,11 @@ All ADR-010 integration sprints (0-4) complete. System now self-improving. The O
 - [x] Phase J: Auto Git Ops (PR readiness, suggest-pr, stale branch detection)
 - [x] Phase K: Health Dashboard (Matrix-themed HTML dashboard + JSON data)
 - [x] Phase L: Skill Auto-Discovery (scan + validate + registry, 59 skills)
+- [x] Phase M: Context Compression (smart pre-compact, priority extraction)
+- [x] Phase N: Session Continuity (structured handoffs, continuity chain)
+- [x] Phase O: Metric Tracking (historical performance data, trends)
+- [x] Phase P: Intelligent Routing (agent performance-based task routing)
+- [x] Phase Q: Notification Intelligence (adaptive alert filtering)
 
 ## Next Priority
 
@@ -116,4 +126,4 @@ All ADR-010 integration sprints (0-4) complete. System now self-improving. The O
 
 ---
 
-*Updated by Oracle - 2026-02-18 (Phase E-L: Full autonomy infrastructure — 8 phases in one session)*
+*Updated by Oracle - 2026-02-18 (Phase A-Q: 17 autonomy phases — complete nervous system)*

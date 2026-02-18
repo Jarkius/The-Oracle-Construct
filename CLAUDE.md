@@ -946,5 +946,146 @@ bash .claude/hooks/pulse-skill-discovery.sh stats       # Summary statistics
 - **Registry**: `psi/pulse/skill-registry.json`
 - Stats include: total skills, by source, by agent, quality issues
 
+## 🧠 CONTEXT COMPRESSION: Smart Pre-Compact (Phase M)
+
+> *"Remember what matters. Let go of the rest."*
+
+Intelligent context management before compaction — preserves critical decisions and state.
+
+### Usage
+```bash
+bash .claude/hooks/pulse-context-compressor.sh compress     # Full compression cycle
+bash .claude/hooks/pulse-context-compressor.sh extract      # Extract critical events
+bash .claude/hooks/pulse-context-compressor.sh summarize    # Compressed session summary
+bash .claude/hooks/pulse-context-compressor.sh priorities   # Ranked priority list
+bash .claude/hooks/pulse-context-compressor.sh snapshot     # Quick state snapshot
+```
+
+### Output Files
+| File | Purpose |
+|------|---------|
+| `psi/pulse/context-snapshot.json` | Critical events (commits, failures, completions) |
+| `psi/pulse/compressed-context.txt` | Under-500-char session summary |
+| `psi/pulse/priorities.json` | Ranked priority list with reasons |
+
+## 🔗 SESSION CONTINUITY: Structured Handoff (Phase N)
+
+> *"The end of one session is the beginning of the next."*
+
+Generates structured handoff documents ensuring seamless session transitions.
+
+### Usage
+```bash
+bash .claude/hooks/pulse-session-continuity.sh generate   # Full continuity document
+bash .claude/hooks/pulse-session-continuity.sh quick       # One-paragraph summary
+bash .claude/hooks/pulse-session-continuity.sh diff        # Changes since last handoff
+bash .claude/hooks/pulse-session-continuity.sh chain       # Last 5 handoffs
+bash .claude/hooks/pulse-session-continuity.sh inject      # Output for session injection
+```
+
+### Continuity Document Sections
+- **What Was Happening** — current focus
+- **What Changed** — commits this session
+- **Active Work** — non-completed tasks
+- **Unfinished Business** — unresolved failures
+- **Next Steps** — first unchecked priority
+- **Environment State** — branch, clean status, services
+
+### Output
+- **Current**: `psi/pulse/continuity.md`
+- **Archive**: `psi/swarm/handoffs/YYYY-MM-DD_continuity.md`
+
+## 📈 METRIC TRACKING: Historical Performance (Phase O)
+
+> *"What gets measured gets managed."*
+
+Tracks system metrics over time for trend analysis and performance monitoring.
+
+### Usage
+```bash
+bash .claude/hooks/pulse-metrics.sh collect    # Snapshot current metrics
+bash .claude/hooks/pulse-metrics.sh summary    # Statistical summary
+bash .claude/hooks/pulse-metrics.sh trends     # Trend analysis (↑↓→)
+bash .claude/hooks/pulse-metrics.sh report     # Human-readable report
+bash .claude/hooks/pulse-metrics.sh daily      # Collect + report (for cron)
+```
+
+### Tracked Metrics
+| Category | Metrics |
+|----------|---------|
+| Git | Commits today, branches, uncommitted files |
+| Tasks | Pending, completed, blocked counts |
+| Events | Total/failures/commits/sessions in 24h |
+| Health | Executable hooks ratio, running services |
+| Skills | Total registered skills |
+
+### Output
+- **History**: `psi/pulse/metrics.jsonl` (append-only JSONL)
+- **Summary**: `psi/pulse/metrics-summary.json`
+
+## 🧭 INTELLIGENT ROUTING: Performance-Based Dispatch (Phase P)
+
+> *"Send the right agent for the job — and learn from the outcome."*
+
+Routes tasks to agents based on their historical success rates.
+
+### Usage
+```bash
+bash .claude/hooks/pulse-smart-router.sh route "fix the failing tests"   # Auto-route task
+bash .claude/hooks/pulse-smart-router.sh recommend debug                  # Best agent for type
+bash .claude/hooks/pulse-smart-router.sh profile                          # Agent performance stats
+bash .claude/hooks/pulse-smart-router.sh learn                            # Update from outcomes
+bash .claude/hooks/pulse-smart-router.sh leaderboard                      # Agent rankings
+```
+
+### Task Type Detection
+| Keywords | Task Type | Default Agent |
+|----------|-----------|---------------|
+| fix, bug, error, fail | debug | Smith |
+| build, implement, create | code | Neo |
+| review, check, audit | review | Smith + Trinity |
+| research, investigate | research | Morpheus |
+| design, architect, ADR | architecture | Architect |
+| document, retrospective | documentation | Scribe |
+| git, branch, merge, PR | git | Tank |
+| security, vulnerability | security | Smith |
+
+### Learning
+- Builds agent profiles from dispatch outcomes
+- Adjusts recommendations based on success rates
+- Data: `psi/pulse/agent-performance.json`
+
+## 🔔 NOTIFICATION INTELLIGENCE: Adaptive Filtering (Phase Q)
+
+> *"Not every signal deserves your attention."*
+
+Learns which notifications matter to the operator and filters noise accordingly.
+
+### Usage
+```bash
+bash .claude/hooks/pulse-notification-intel.sh digest                  # Smart event digest
+bash .claude/hooks/pulse-notification-intel.sh preferences             # Show current weights
+bash .claude/hooks/pulse-notification-intel.sh learn-ack ci:fail       # Mark type as important
+bash .claude/hooks/pulse-notification-intel.sh learn-skip session:start # Mark type as noise
+bash .claude/hooks/pulse-notification-intel.sh reset                   # Restore defaults
+```
+
+### Default Weights
+| Event Type | Weight | Shown? |
+|------------|--------|--------|
+| `ci:fail`, `watchdog:restart_failed` | 1.0 | Always |
+| `task:blocked`, `heartbeat:alert` | 0.9 | Always |
+| `watchdog:restart` | 0.8 | Yes |
+| `task:completed` | 0.6 | Yes |
+| `dispatch:outcome` | 0.4 | Below threshold |
+| `git:push`, `git:commit` | 0.3 | Below threshold |
+| `session:start/end`, `context:compacted` | 0.1 | Suppressed |
+
+### Adaptive Learning
+- `learn-ack`: Weight += 0.1 (capped at 1.0) — operator acted on this
+- `learn-skip`: Weight -= 0.1 (floored at 0.0) — operator ignored this
+- Threshold: 0.5 (events below this are suppressed)
+- Data: `psi/pulse/notification-prefs.json`
+
 ---
-*Portable Matrix Interface v11.0 — Full Autonomy Edition (Phase A-L: Detection → Action → Healing → Learning)*
+*Portable Matrix Interface v12.0 — Full Nervous System (Phase A-Q: Sense → Act → Heal → Learn → Remember)*
