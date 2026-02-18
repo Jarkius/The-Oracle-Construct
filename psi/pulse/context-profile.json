@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-18T02:42:44.477350+00:00",
+  "generated_at": "2026-02-18T05:09:45.196643+00:00",
   "context_depth": "minimal",
   "predicted_focus": "CIS Modernization",
   "session_density": "high",
@@ -9,8 +9,8 @@
     "psi/memory/adr/"
   ],
   "insights": [
-    "Session at typical hour (02:00 UTC, 4 prior sessions)",
-    "High session density (8 in 24h) \u2014 deep context loading recommended",
+    "Session at typical hour (05:00 UTC, 1 prior sessions)",
+    "High session density (9 in 24h) \u2014 deep context loading recommended",
     "Heavy git activity \u2014 likely in implementation mode",
     "Rapid re-entry (<1h gap) \u2014 minimal context needed",
     "1 recent failure(s) \u2014 Smith may need to investigate"
