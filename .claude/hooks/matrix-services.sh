@@ -12,7 +12,7 @@ set -euo pipefail
 #   matrix-services.sh status             Health check all services
 #   matrix-services.sh restart [service]  Restart one or all services
 #
-# Services: indexer, hub, heartbeat
+# Services: indexer, hub, heartbeat, gateway
 #
 # Design principles:
 #   - Zero idle cost: services only start when requested
@@ -47,6 +47,12 @@ HEARTBEAT_SCRIPT="$MMA_DIR/src/heartbeat/heartbeat-daemon.ts"
 HEARTBEAT_PID_DIR="${HOME}/.matrix-heartbeat"
 HEARTBEAT_PID_FILE="${HEARTBEAT_PID_DIR}/heartbeat.pid"
 HEARTBEAT_DEFAULT_PORT=37892
+
+# Gateway (Phase C / ADR-018)
+GATEWAY_SCRIPT="$MMA_DIR/src/gateway/matrix-gateway.ts"
+GATEWAY_PID_DIR="${HOME}/.matrix-gateway"
+GATEWAY_PID_FILE="${GATEWAY_PID_DIR}/gateway.pid"
+GATEWAY_DEFAULT_PORT=8082
 
 # ─── Helpers ──────────────────────────────────────────────────
 
@@ -379,6 +385,99 @@ heartbeat_status() {
     fi
 }
 
+# ─── Gateway Service (Phase C / ADR-018) ─────────────────────
+
+gateway_start() {
+    if pid=$(read_pid "$GATEWAY_PID_FILE" 2>/dev/null); then
+        echo "[gateway] Already running (PID $pid)"
+        return 0
+    fi
+
+    if is_port_open "$GATEWAY_DEFAULT_PORT"; then
+        echo "[gateway] Port $GATEWAY_DEFAULT_PORT already in use"
+        return 0
+    fi
+
+    check_bun || return 1
+    check_mma || return 1
+
+    # Check for required env vars
+    if [ -z "${TELEGRAM_BOT_TOKEN:-}" ]; then
+        echo "[gateway] Missing TELEGRAM_BOT_TOKEN. Get one from @BotFather."
+        return 1
+    fi
+
+    # Need at least one LLM provider
+    if [ -z "${GOOGLE_API_KEY:-}" ] && [ -z "${GEMINI_API_KEY:-}" ] && \
+       [ -z "${OPENAI_API_KEY:-}" ] && [ -z "${ANTHROPIC_API_KEY:-}" ]; then
+        echo "[gateway] No LLM provider configured."
+        echo "[gateway] Set one of: GOOGLE_API_KEY, OPENAI_API_KEY, ANTHROPIC_API_KEY"
+        return 1
+    fi
+
+    echo "[gateway] Starting..."
+    mkdir -p "$GATEWAY_PID_DIR"
+
+    cd "$MMA_DIR"
+    PROJECT_ROOT="$PROJECT_ROOT" nohup bun run src/gateway/matrix-gateway.ts start \
+        > "$LOG_DIR/gateway.log" 2>&1 &
+
+    local bg_pid=$!
+    sleep 2
+
+    if is_process_alive "$bg_pid"; then
+        echo "[gateway] Started (PID $bg_pid, port $GATEWAY_DEFAULT_PORT)"
+    else
+        echo "[gateway] FAILED to start. Check $LOG_DIR/gateway.log"
+        return 1
+    fi
+}
+
+gateway_stop() {
+    if ! pid=$(read_pid "$GATEWAY_PID_FILE" 2>/dev/null); then
+        echo "[gateway] Not running"
+        return 0
+    fi
+
+    echo "[gateway] Stopping (PID $pid)..."
+
+    if is_port_open "$GATEWAY_DEFAULT_PORT"; then
+        curl -s -X POST "http://localhost:${GATEWAY_DEFAULT_PORT}/stop" 2>/dev/null || true
+        sleep 1
+    fi
+
+    if is_process_alive "$pid"; then
+        kill -TERM "$pid" 2>/dev/null || true
+        sleep 1
+    fi
+
+    if is_process_alive "$pid"; then
+        kill -9 "$pid" 2>/dev/null || true
+    fi
+
+    rm -f "$GATEWAY_PID_FILE" 2>/dev/null
+    echo "[gateway] Stopped"
+}
+
+gateway_status() {
+    if ! pid=$(read_pid "$GATEWAY_PID_FILE" 2>/dev/null); then
+        echo "[gateway] Status: stopped"
+        return 1
+    fi
+
+    local health
+    health=$(http_health "$GATEWAY_DEFAULT_PORT" "/status" 2>/dev/null || echo "")
+
+    if [ -n "$health" ]; then
+        local msgs tokens
+        msgs=$(echo "$health" | grep -o '"totalMessages":[0-9]*' | cut -d: -f2 || echo "?")
+        tokens=$(echo "$health" | grep -o '"totalTokens":[0-9]*' | cut -d: -f2 || echo "?")
+        echo "[gateway] Status: running (PID $pid, port $GATEWAY_DEFAULT_PORT, $msgs msgs, $tokens tokens)"
+    else
+        echo "[gateway] Status: running (PID $pid) — API not responding"
+    fi
+}
+
 # ─── Dispatch ─────────────────────────────────────────────────
 
 dispatch_service() {
@@ -389,9 +488,10 @@ dispatch_service() {
         indexer)    "indexer_${action}" ;;
         hub)       "hub_${action}" ;;
         heartbeat) "heartbeat_${action}" ;;
+        gateway)   "gateway_${action}" ;;
         *)
             echo "[matrix-services] Unknown service: $service"
-            echo "Available services: indexer, hub, heartbeat"
+            echo "Available services: indexer, hub, heartbeat, gateway"
             return 1
             ;;
     esac
@@ -401,7 +501,7 @@ dispatch_all() {
     local action="$1"
     local failed=0
 
-    for svc in indexer hub heartbeat; do
+    for svc in indexer hub heartbeat gateway; do
         dispatch_service "$action" "$svc" || failed=$((failed + 1))
     done
 
@@ -470,6 +570,7 @@ Services:
   indexer    Code indexer daemon (auto-indexes on file changes)
   hub        Matrix Hub (cross-project WebSocket messaging)
   heartbeat  Heartbeat daemon (periodic health checks between sessions)
+  gateway    Telegram Gateway (messaging bridge to Oracle Construct)
   all        All services (default)
 
 Examples:

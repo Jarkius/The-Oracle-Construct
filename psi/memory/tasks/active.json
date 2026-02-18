@@ -32,12 +32,30 @@
     {
       "id": "task-0004",
       "task": "Phase B: Agent Messaging — inter-agent coordination protocol",
-      "status": "in_progress",
+      "status": "completed",
       "assignee": "Architect",
       "created": "2026-02-18T13:55:00Z",
-      "updated": "2026-02-18T13:55:00Z",
-      "context": "Enable dispatched agents to communicate with each other. Shared state, message passing, team coordination. Phase A agents spawn isolated — Phase B connects them."
+      "updated": "2026-02-18T14:00:00Z",
+      "context": "ADR-017. File-based message bus, team orchestrator, context-loader wiring. Tested team create/message/collect/dissolve cycle."
+    },
+    {
+      "id": "task-0005",
+      "task": "Phase C: Gateway — Telegram + multi-provider LLM bridge",
+      "status": "completed",
+      "assignee": "Oracle",
+      "created": "2026-02-18T14:05:00Z",
+      "updated": "2026-02-18T14:30:00Z",
+      "context": "ADR-018. grammY Telegram bot + Gemini/GPT/Claude provider abstraction + security + alert forwarding. Needs TELEGRAM_BOT_TOKEN + GOOGLE_API_KEY to activate."
+    },
+    {
+      "id": "task-0006",
+      "task": "Phase D: Dispatch Learning — self-tuning rule confidence",
+      "status": "completed",
+      "assignee": "Oracle",
+      "created": "2026-02-18T14:15:00Z",
+      "updated": "2026-02-18T14:30:00Z",
+      "context": "Outcome tracking, rule effectiveness analysis, auto-tune cooldowns and auto_dispatch based on success rates."
     }
   ],
-  "lastUpdated": "2026-02-18T13:55:00Z"
+  "lastUpdated": "2026-02-18T14:30:00Z"
 }

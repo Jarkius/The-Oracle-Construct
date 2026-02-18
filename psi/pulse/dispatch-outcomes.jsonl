@@ -1,0 +1,5 @@
+{"ts":"2026-02-18T14:09:10Z","rule_id":"ci-failure-investigate","result":"success","notes":"Smith found the bug"}
+{"ts":"2026-02-18T14:09:11Z","rule_id":"ci-failure-investigate","result":"success","notes":"Root cause identified"}
+{"ts":"2026-02-18T14:09:11Z","rule_id":"ci-failure-investigate","result":"failure","notes":"No CI failure found"}
+{"ts":"2026-02-18T14:09:11Z","rule_id":"blocked-task-unblock","result":"success","notes":"Task unblocked"}
+{"ts":"2026-02-18T14:09:11Z","rule_id":"blocked-task-unblock","result":"timeout","notes":"No response"}

@@ -27,6 +27,8 @@ All ADR-010 integration sprints (0-4) complete. System now self-improving. The O
 | Phase 13: SELF-EVOLUTION | Tier 1 Done | Sandbox branching, 5 test gates, evolution log, sacred files |
 | Phase A: EVENT DISPATCHER | Done | Dispatch rules, event→action loop, context loader, heartbeat wiring, proactive boot |
 | Phase B: AGENT MESSAGING | Done | File-based message bus, team orchestrator, context-loader team wiring, agent messenger |
+| Phase C: GATEWAY | Done | Telegram bot, multi-provider LLM (Gemini/GPT/Claude), agent router, security, alerts |
+| Phase D: DISPATCH LEARNING | Done | Outcome tracking, rule effectiveness analysis, self-tuning confidence |
 
 ## Completed
 
@@ -64,11 +66,13 @@ All ADR-010 integration sprints (0-4) complete. System now self-improving. The O
 - [ ] Tier 2: Intelligent Evolution (requires Phase 11 / Claude API)
 - [ ] Tier 3: Cascading Evolution (after Tier 2 proven)
 
-### Phase 11: GATEWAY — Messaging as UI (ADR-013 — Proposed)
-- [ ] Telegram bot (grammY) → Agent Router → Claude API Bridge
-- [ ] Security layer (allowlist, pairing, rate limiting, shell sandbox)
-- [ ] Heartbeat → Gateway notification bridge
-- [ ] Prerequisites: Telegram Bot Token, ANTHROPIC_API_KEY
+### Phase 11: GATEWAY — Messaging as UI (ADR-018 — Done)
+- [x] Telegram bot (grammY) → Agent Router → Multi-provider LLM Bridge
+- [x] Multi-provider: Gemini (Google), GPT (OpenAI), Claude (optional)
+- [x] Security layer (allowlist, pairing, rate limiting, shell sandbox, token budget)
+- [x] Heartbeat → Gateway notification bridge (HTTP /notify)
+- [x] Provider abstraction (providers.ts) with auto-detection from env vars
+- [ ] Prerequisites: Telegram Bot Token + GOOGLE_API_KEY or OPENAI_API_KEY
 
 ### Phase 14: SKILLS ECOSYSTEM (New — Inspired by ClawHub/Awesome-Agent-Skills)
 - [x] YouTube Player skill (yt-dlp + mpv)
@@ -96,4 +100,4 @@ All ADR-010 integration sprints (0-4) complete. System now self-improving. The O
 
 ---
 
-*Updated by Oracle - 2026-02-18 (Phase 13 + 11 planned, Phase 14 Skills Ecosystem started)*
+*Updated by Oracle - 2026-02-18 (Phase C Gateway + Phase D Learning done, multi-provider LLM support)*

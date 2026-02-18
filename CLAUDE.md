@@ -631,5 +631,99 @@ bash .claude/hooks/pulse-agent-messenger.sh complete <team_id> <agent> "result s
 - **Team state**: `psi/swarm/teams/<team-id>.json`
 - **Messages**: `psi/swarm/messages/<team-id>.jsonl`
 
+## 📱 GATEWAY: Messaging as UI (Phase C / ADR-018)
+
+> *"The Matrix has you... on your phone now."*
+
+A Telegram bot bridges messaging to the Oracle Construct's agent system. Multi-provider LLM support — works with Gemini, GPT, or Claude.
+
+### Provider Auto-Detection
+
+The gateway auto-detects available LLM providers from environment variables:
+
+| Provider | Env Var | Priority |
+|----------|---------|----------|
+| **Gemini** | `GOOGLE_API_KEY` or `GEMINI_API_KEY` | 1st (default) |
+| **OpenAI** | `OPENAI_API_KEY` | 2nd |
+| **Anthropic** | `ANTHROPIC_API_KEY` | 3rd (optional) |
+
+At least one provider must be configured. Claude API key is **not required**.
+
+### Agent Tier → Model Mapping
+
+| Tier | Gemini | OpenAI | Anthropic |
+|------|--------|--------|-----------|
+| Opus | gemini-2.0-flash | gpt-4o | claude-opus-4-6 |
+| Sonnet | gemini-2.0-flash | gpt-4o-mini | claude-sonnet-4-5 |
+| Haiku | gemini-2.0-flash-lite | gpt-4o-mini | claude-haiku-4-5 |
+
+### Management
+```bash
+bash .claude/hooks/matrix-services.sh start gateway   # Start
+bash .claude/hooks/matrix-services.sh stop gateway    # Stop
+bash .claude/hooks/matrix-services.sh status          # Check all services
+```
+
+### Setup
+1. Create bot via @BotFather → get token
+2. `export TELEGRAM_BOT_TOKEN="your-token"`
+3. `export GOOGLE_API_KEY="your-key"` (or OPENAI_API_KEY)
+4. Configure `.matrix.json` with your Telegram user ID in `gateway.channels.telegram.allowed_users`
+5. `bash .claude/hooks/matrix-services.sh start gateway`
+
+### Telegram Commands
+| Command | Action |
+|---------|--------|
+| `/start` | Welcome + command list |
+| `/status` | System status |
+| `/tasks` | Active task list |
+| `/events` | Recent PULSE events |
+| `/health` | System health check |
+| `/neo <task>` | Route to Neo (developer) |
+| `/smith <task>` | Route to Smith (debugger) |
+| `/oracle <task>` | Route to Oracle (orchestrator) |
+| `/provider` | Show active LLM provider |
+| `/sudo` | Elevated mode (5 min) |
+| `/pair` | Device pairing |
+
+### Security
+- **Allowlist**: Only pre-approved Telegram user IDs
+- **Rate limit**: 10 messages/minute (configurable)
+- **Token budget**: 100K tokens/day (configurable)
+- **Shell sandbox**: Only safe commands (git, bun, cat, ls, grep)
+- **Path sandbox**: Blocks .env, .ssh, credentials
+- **Pairing**: Verify device ownership via code
+
+### Alert Forwarding
+Heartbeat daemon sends alerts to gateway via HTTP POST to `http://127.0.0.1:8082/notify`. Critical and warning alerts get forwarded to all allowed Telegram users.
+
+## 🧠 DISPATCH LEARNING: Self-Tuning Rules (Phase D)
+
+> *"The system learns which dispatches succeed and which don't."*
+
+### Recording Outcomes
+```bash
+bash .claude/hooks/pulse-dispatch-learner.sh outcome <rule_id> success "Tests fixed"
+bash .claude/hooks/pulse-dispatch-learner.sh outcome <rule_id> failure "Agent couldn't find the issue"
+bash .claude/hooks/pulse-dispatch-learner.sh outcome <rule_id> timeout "Took too long"
+```
+
+### Analysis
+```bash
+bash .claude/hooks/pulse-dispatch-learner.sh analyze   # Rule effectiveness report
+bash .claude/hooks/pulse-dispatch-learner.sh tune       # Auto-adjust rule confidence
+bash .claude/hooks/pulse-dispatch-learner.sh report     # Full learning report
+```
+
+### Self-Tuning Logic
+- **High success (>= 80%)**: Reduce cooldown, promote to auto-dispatch
+- **Low success (<= 30%)**: Increase cooldown, demote from auto-dispatch
+- Requires 3+ outcomes per rule before adjustments
+- All adjustments logged to `psi/pulse/dispatch-learnings.json`
+
+### Data
+- **Outcomes**: `psi/pulse/dispatch-outcomes.jsonl`
+- **Learnings**: `psi/pulse/dispatch-learnings.json`
+
 ---
-*Portable Matrix Interface v9.0 — Autonomy Edition (Phase A: Dispatch + Phase B: Messaging)*
+*Portable Matrix Interface v10.0 — Gateway + Learning Edition (Phase A-D: Full Autonomy Loop)*
