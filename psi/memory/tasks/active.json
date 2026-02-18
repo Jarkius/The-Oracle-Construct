@@ -19,7 +19,25 @@
       "created": "2026-02-15T12:00:00Z",
       "updated": "2026-02-15T12:00:00Z",
       "context": "Main project mission. Oracle Construct evolution phases are infrastructure for this work."
+    },
+    {
+      "id": "task-0003",
+      "task": "Phase A: Event Dispatcher — nervous system",
+      "status": "completed",
+      "assignee": "Oracle",
+      "created": "2026-02-18T13:36:00Z",
+      "updated": "2026-02-18T13:50:00Z",
+      "context": "ADR-016. Dispatcher + context loader + proactive boot + heartbeat wiring. Tested end-to-end."
+    },
+    {
+      "id": "task-0004",
+      "task": "Phase B: Agent Messaging — inter-agent coordination protocol",
+      "status": "in_progress",
+      "assignee": "Architect",
+      "created": "2026-02-18T13:55:00Z",
+      "updated": "2026-02-18T13:55:00Z",
+      "context": "Enable dispatched agents to communicate with each other. Shared state, message passing, team coordination. Phase A agents spawn isolated — Phase B connects them."
     }
   ],
-  "lastUpdated": "2026-02-15T12:00:00Z"
+  "lastUpdated": "2026-02-18T13:55:00Z"
 }

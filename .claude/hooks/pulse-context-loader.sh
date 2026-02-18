@@ -13,7 +13,7 @@ set -euo pipefail
 # 5. Last related session memory
 #
 # Usage:
-#   bash pulse-context-loader.sh <agent_name> <task_description>
+#   bash pulse-context-loader.sh <agent_name> <task_description> [team_id]
 #
 # Output: Markdown context block to stdout (for injection into agent prompt)
 #
@@ -25,6 +25,7 @@ PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 
 AGENT_NAME="${1:-Oracle}"
 TASK_DESC="${2:-General task}"
+TEAM_ID="${3:-}"
 AGENT_LOWER=$(echo "$AGENT_NAME" | tr '[:upper:]' '[:lower:]')
 
 MMA_DIR="$PROJECT_ROOT/lib/matrix-memory-agents"
@@ -120,3 +121,15 @@ ${LAST_SESSION:-No recent session context available.}
 - If blocked, report the blocker clearly
 - Work silently, return concise results
 CONTEXT_EOF
+
+# ─── 7. Team Context (Phase B) ────────────────────────────────
+if [ -n "$TEAM_ID" ]; then
+    ORCHESTRATOR="$PROJECT_ROOT/.claude/hooks/pulse-team-orchestrator.sh"
+    if [ -f "$ORCHESTRATOR" ] && [ -x "$ORCHESTRATOR" ]; then
+        echo ""
+        echo "---"
+        echo ""
+        bash "$ORCHESTRATOR" spawn-prompt "$TEAM_ID" "$AGENT_NAME" 2>/dev/null || \
+            echo "*Team context loading failed — operate independently*"
+    fi
+fi

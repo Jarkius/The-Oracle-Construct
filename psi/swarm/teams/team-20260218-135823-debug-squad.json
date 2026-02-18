@@ -1,0 +1,26 @@
+{
+  "id": "team-20260218-135823-debug-squad",
+  "name": "Debug Squad",
+  "mission": "Investigate and fix CI failure in jest test suite",
+  "status": "dissolved",
+  "created": "2026-02-18T13:58:23.839532+00:00",
+  "agents": [
+    {
+      "name": "Smith",
+      "status": "complete",
+      "last_report": "2026-02-18T13:58:36Z",
+      "last_summary": "Analyzing event queue for failure patterns",
+      "result": "Root cause identified and confirmed fix works"
+    },
+    {
+      "name": "Neo",
+      "status": "complete",
+      "last_report": "2026-02-18T13:58:36Z",
+      "last_summary": "Fixing auth.test.ts based on Smith findings",
+      "result": "Fixed missing mock in auth.test.ts, tests pass"
+    }
+  ],
+  "lead": "Oracle",
+  "message_channel": "psi/swarm/messages/team-20260218-135823-debug-squad.jsonl",
+  "dissolved": "2026-02-18T13:59:23.802479+00:00"
+}

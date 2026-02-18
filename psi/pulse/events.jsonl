@@ -203,3 +203,12 @@
 {"ts":"2026-02-18T13:48:50Z","type":"session:end","agent":"System","session":"6707b501-b2a0-4c1f-ac51-9359544129de","data":{"reason":"stop_hook"}}}
 {"ts":"2026-02-18T13:50:33Z","type":"git:push","agent":"Neo","session":"6707b501-b2a0-4c1f-ac51-9359544129de","data":{"tool":"Bash","action":"git push"}}}
 {"ts":"2026-02-18T13:50:36Z","type":"session:end","agent":"System","session":"6707b501-b2a0-4c1f-ac51-9359544129de","data":{"reason":"stop_hook"}}}
+{"ts":"2026-02-18T13:50:55Z","type":"git:push","agent":"Neo","session":"6707b501-b2a0-4c1f-ac51-9359544129de","data":{"tool":"Bash","action":"git push"}}}
+{"ts":"2026-02-18T13:50:59Z","type":"session:end","agent":"System","session":"6707b501-b2a0-4c1f-ac51-9359544129de","data":{"reason":"stop_hook"}}}
+{"ts":"2026-02-18T13:58:23Z","type":"team:created","agent":"Oracle","session":"unknown","data":{"team":"team-20260218-135823-debug-squad","agents":"Smith,Neo","mission":"Investigate and fix CI failure in jest test suite"}}}
+{"ts":"2026-02-18T13:58:24Z","type":"ci:pass","agent":"Smith","session":"6707b501-b2a0-4c1f-ac51-9359544129de","data":{"tool":"Bash","exit_code":0,"runner":"detected"}}}
+{"ts":"2026-02-18T13:58:36Z","type":"team:agent_complete","agent":"Neo","session":"unknown","data":{"team":"team-20260218-135823-debug-squad","agent":"Neo"}}}
+{"ts":"2026-02-18T13:58:36Z","type":"team:agent_complete","agent":"Smith","session":"unknown","data":{"team":"team-20260218-135823-debug-squad","agent":"Smith"}}}
+{"ts":"2026-02-18T13:58:47Z","type":"ci:pass","agent":"Smith","session":"6707b501-b2a0-4c1f-ac51-9359544129de","data":{"tool":"Bash","exit_code":0,"runner":"detected"}}}
+{"ts":"2026-02-18T13:59:13Z","type":"ci:pass","agent":"Smith","session":"6707b501-b2a0-4c1f-ac51-9359544129de","data":{"tool":"Bash","exit_code":0,"runner":"detected"}}}
+{"ts":"2026-02-18T13:59:23Z","type":"team:dissolved","agent":"Oracle","session":"unknown","data":{"team":"team-20260218-135823-debug-squad"}}}

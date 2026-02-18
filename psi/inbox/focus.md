@@ -26,6 +26,7 @@ All ADR-010 integration sprints (0-4) complete. System now self-improving. The O
 | Phase 12: AUTO-EVOLVE | Done | pulse-auto-evolve.sh, risk classification, kill switch |
 | Phase 13: SELF-EVOLUTION | Tier 1 Done | Sandbox branching, 5 test gates, evolution log, sacred files |
 | Phase A: EVENT DISPATCHER | Done | Dispatch rules, event→action loop, context loader, heartbeat wiring, proactive boot |
+| Phase B: AGENT MESSAGING | Done | File-based message bus, team orchestrator, context-loader team wiring, agent messenger |
 
 ## Completed
 

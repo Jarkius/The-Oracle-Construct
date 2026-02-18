@@ -588,5 +588,48 @@ dispatch:ready          — critical alerts queued (from heartbeat)
 dispatch:proactive_boot — boot dispatcher executed auto-actions
 ```
 
+## 🤖 AGENT MESSAGING: Team Coordination (Phase B / ADR-017)
+
+> *"A swarm is not a group of individuals — it is individuals who know how to talk to each other."*
+
+Dispatched agents can now coordinate via a file-based message bus. Teams are created, agents communicate, results are collected.
+
+### Team Orchestrator
+```bash
+bash .claude/hooks/pulse-team-orchestrator.sh create "Review Squad" "Smith,Trinity,Architect" "Review auth module"
+bash .claude/hooks/pulse-team-orchestrator.sh spawn-prompt <team_id> Smith
+bash .claude/hooks/pulse-team-orchestrator.sh status <team_id>
+bash .claude/hooks/pulse-team-orchestrator.sh collect <team_id>
+bash .claude/hooks/pulse-team-orchestrator.sh dissolve <team_id>
+```
+
+### Agent Messenger (used by spawned agents)
+```bash
+bash .claude/hooks/pulse-agent-messenger.sh send <team_id> <from> <to|all> "message"
+bash .claude/hooks/pulse-agent-messenger.sh read <team_id> <agent> --unread
+bash .claude/hooks/pulse-agent-messenger.sh report <team_id> <agent> "working" "summary"
+bash .claude/hooks/pulse-agent-messenger.sh block <team_id> <agent> "what's blocking"
+bash .claude/hooks/pulse-agent-messenger.sh complete <team_id> <agent> "result summary"
+```
+
+### Team Lifecycle
+1. **Create** → team state + message channel initialized
+2. **Spawn** → each agent gets context-rich prompt with messaging instructions
+3. **Work** → agents send/read/report/block/complete
+4. **Collect** → gather all results into single summary
+5. **Dissolve** → archive team
+
+### Message Types
+| Type | Purpose |
+|------|---------|
+| `message` | Direct agent-to-agent communication |
+| `report` | Status update (working/blocked/reviewing/done) |
+| `blocked` | Blocker announcement → triggers dispatch event |
+| `complete` | Task done with result summary |
+
+### Data
+- **Team state**: `psi/swarm/teams/<team-id>.json`
+- **Messages**: `psi/swarm/messages/<team-id>.jsonl`
+
 ---
-*Portable Matrix Interface v8.0 — Autonomy Edition (Phase 1-5 + Phase 10 + Phase A: Event Dispatcher)*
+*Portable Matrix Interface v9.0 — Autonomy Edition (Phase A: Dispatch + Phase B: Messaging)*
