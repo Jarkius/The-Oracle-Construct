@@ -4,10 +4,10 @@
       "type": "session_rhythm",
       "pattern": "Peak activity at 06:00 UTC (5 sessions)",
       "frequency": 5,
-      "confidence": 0.2,
+      "confidence": 0.19230769230769232,
       "data": {
         "peak_hour": 6,
-        "total_sessions": 25
+        "total_sessions": 26
       },
       "recommendation": "Context preloading optimized for 06:00 UTC sessions"
     },
@@ -18,7 +18,7 @@
       "confidence": 0.8,
       "data": {
         "total_commits": 21,
-        "total_pushes": 45
+        "total_pushes": 47
       },
       "recommendation": null
     },
@@ -36,17 +36,17 @@
     },
     {
       "type": "activity_density",
-      "pattern": "59 events/day over 3 active day(s)",
-      "frequency": 176,
+      "pattern": "60 events/day over 3 active day(s)",
+      "frequency": 181,
       "confidence": 0.6,
       "data": {
-        "events_last_7d": 176,
+        "events_last_7d": 181,
         "active_days": 3
       },
       "recommendation": null
     }
   ],
-  "scanned_at": "2026-02-18T09:57:14.001408+00:00",
-  "event_count": 176,
-  "recent_event_count": 176
+  "scanned_at": "2026-02-18T10:39:55.586577+00:00",
+  "event_count": 181,
+  "recent_event_count": 181
 }
