@@ -54,6 +54,11 @@ GATEWAY_PID_DIR="${HOME}/.matrix-gateway"
 GATEWAY_PID_FILE="${GATEWAY_PID_DIR}/gateway.pid"
 GATEWAY_DEFAULT_PORT=8082
 
+# Watchdog (Phase G)
+WATCHDOG_SCRIPT="$SCRIPT_DIR/pulse-watchdog.sh"
+WATCHDOG_PID_DIR="${HOME}/.matrix-watchdog"
+WATCHDOG_PID_FILE="${WATCHDOG_PID_DIR}/watchdog.pid"
+
 # ─── Helpers ──────────────────────────────────────────────────
 
 check_bun() {
@@ -478,6 +483,30 @@ gateway_status() {
     fi
 }
 
+# ─── Watchdog Service (Phase G) ────────────────────────────────
+
+watchdog_start() {
+    if [ -f "$WATCHDOG_PID_FILE" ]; then
+        local pid
+        pid=$(cat "$WATCHDOG_PID_FILE" 2>/dev/null | tr -d '[:space:]')
+        if [ -n "$pid" ] && kill -0 "$pid" 2>/dev/null; then
+            echo "[watchdog] Already running (PID $pid)"
+            return 0
+        fi
+    fi
+
+    echo "[watchdog] Starting..."
+    bash "$WATCHDOG_SCRIPT" start 2>&1
+}
+
+watchdog_stop() {
+    bash "$WATCHDOG_SCRIPT" stop 2>&1
+}
+
+watchdog_status() {
+    bash "$WATCHDOG_SCRIPT" status 2>&1
+}
+
 # ─── Dispatch ─────────────────────────────────────────────────
 
 dispatch_service() {
@@ -489,9 +518,10 @@ dispatch_service() {
         hub)       "hub_${action}" ;;
         heartbeat) "heartbeat_${action}" ;;
         gateway)   "gateway_${action}" ;;
+        watchdog)  "watchdog_${action}" ;;
         *)
             echo "[matrix-services] Unknown service: $service"
-            echo "Available services: indexer, hub, heartbeat, gateway"
+            echo "Available services: indexer, hub, heartbeat, gateway, watchdog"
             return 1
             ;;
     esac
@@ -501,7 +531,7 @@ dispatch_all() {
     local action="$1"
     local failed=0
 
-    for svc in indexer hub heartbeat gateway; do
+    for svc in indexer hub heartbeat gateway watchdog; do
         dispatch_service "$action" "$svc" || failed=$((failed + 1))
     done
 

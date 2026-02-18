@@ -38,6 +38,7 @@ import {
   checkTokenBudget, recordTokenUsage, isElevated, elevate,
   generatePairingCode, verifyPairingCode,
 } from './security';
+import { saveMessage, getStats } from './conversation-store';
 
 // ============ Configuration ============
 
@@ -284,6 +285,17 @@ async function handleMessage(ctx: Context, config: GatewayConfig): Promise<void>
     return;
   }
 
+  if (text === '/history') {
+    const stats = getStats(PROJECT_ROOT, userId);
+    await ctx.reply(
+      `Conversation History:\n` +
+      `Messages: ${stats.totalMessages}\n` +
+      `First: ${stats.firstMessage || 'never'}\n` +
+      `Last: ${stats.lastMessage || 'never'}`
+    );
+    return;
+  }
+
   // Token budget check
   const budgetCheck = checkTokenBudget(session, config.security.daily_token_budget);
   if (!budgetCheck.allowed) {
@@ -291,8 +303,8 @@ async function handleMessage(ctx: Context, config: GatewayConfig): Promise<void>
     return;
   }
 
-  // Route message to agent
-  const route = routeMessage(text, PROJECT_ROOT, config);
+  // Route message to agent (with conversation history)
+  const route = routeMessage(text, PROJECT_ROOT, config, userId);
 
   log(`[${userId}] → ${route.agent.agent}: "${text.slice(0, 50)}..." (${route.provider.name}/${route.modelId})`);
 
@@ -325,6 +337,11 @@ async function handleMessage(ctx: Context, config: GatewayConfig): Promise<void>
     recordTokenUsage(session, response.tokensUsed);
     saveSession(userId, PROJECT_ROOT);
     totalTokens += response.tokensUsed;
+
+    // Save conversation (Phase I)
+    const ts = new Date().toISOString();
+    saveMessage(PROJECT_ROOT, userId, { ts, role: 'user', agent: route.agent.agent, provider: route.provider.name, text });
+    saveMessage(PROJECT_ROOT, userId, { ts, role: 'assistant', agent: route.agent.agent, provider: route.provider.name, text: response.text, tokensUsed: response.tokensUsed });
 
     // Send response (split if too long for Telegram)
     const maxLen = 4000;

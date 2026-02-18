@@ -725,5 +725,226 @@ bash .claude/hooks/pulse-dispatch-learner.sh report     # Full learning report
 - **Outcomes**: `psi/pulse/dispatch-outcomes.jsonl`
 - **Learnings**: `psi/pulse/dispatch-learnings.json`
 
+## 🔍 PROACTIVE INTELLIGENCE: Anomaly Detection (Phase E)
+
+> *"I don't predict the future. I see the patterns that make it inevitable."*
+
+Automated intelligence analysis — anomaly detection, trend analysis, and task suggestions.
+
+### Usage
+```bash
+bash .claude/hooks/pulse-proactive-intel.sh analyze     # Full analysis
+bash .claude/hooks/pulse-proactive-intel.sh anomalies   # Detect anomalies only
+bash .claude/hooks/pulse-proactive-intel.sh trends      # Trend analysis
+bash .claude/hooks/pulse-proactive-intel.sh suggest      # Task suggestions
+bash .claude/hooks/pulse-proactive-intel.sh brief        # One-line briefing
+```
+
+### Anomaly Detection
+| Anomaly | Trigger | Severity |
+|---------|---------|----------|
+| Error spike | 3+ failures in 1 hour | high |
+| Dispatch storm | 5+ dispatches in 30 min | medium |
+| System silence | 0 events in 2 hours (during active period) | low |
+| Persistent failures | Same rule failing 3+ times | high |
+
+### Output
+- **File**: `psi/pulse/proactive-intel.json`
+- **Health score**: 0-100 (100 = no issues)
+
+## 🏥 SELF-HEALING: Auto-Repair (Phase F)
+
+> *"The body heals itself. The Matrix should too."*
+
+Detects and repairs common infrastructure issues automatically.
+
+### Usage
+```bash
+bash .claude/hooks/pulse-self-heal.sh scan     # Read-only diagnostic
+bash .claude/hooks/pulse-self-heal.sh heal     # Fix detected issues
+bash .claude/hooks/pulse-self-heal.sh hooks    # Check hook permissions + syntax
+bash .claude/hooks/pulse-self-heal.sh state    # Validate JSON/JSONL state files
+bash .claude/hooks/pulse-self-heal.sh pids     # Clean stale PID files
+bash .claude/hooks/pulse-self-heal.sh services # Verify directory structure
+```
+
+### What It Fixes
+| Issue | Detection | Fix |
+|-------|-----------|-----|
+| Non-executable hooks | Missing +x on .sh files | `chmod +x` |
+| Malformed JSON | Trailing garbage, parse errors | Truncate to valid JSON |
+| Malformed JSONL | Lines with trailing `}}}` | Remove extra braces |
+| Stale PIDs | PID files with dead processes | Remove PID file |
+| Missing directories | Required psi/ subdirs missing | `mkdir -p` |
+| Missing state files | reminders.json, heartbeat.json | Create with defaults |
+
+### Audit
+- **Log**: `psi/pulse/heal-log.jsonl` — every fix recorded with timestamp
+
+## 🐕 WATCHDOG: Service Monitor (Phase G)
+
+> *"While you sleep, the watchdog keeps the gates."*
+
+Background daemon that monitors Matrix services and auto-restarts crashed ones.
+
+### Usage
+```bash
+bash .claude/hooks/pulse-watchdog.sh start     # Start daemon (background)
+bash .claude/hooks/pulse-watchdog.sh stop      # Stop daemon
+bash .claude/hooks/pulse-watchdog.sh status    # Show service health
+bash .claude/hooks/pulse-watchdog.sh check     # Run one check cycle
+bash .claude/hooks/pulse-watchdog.sh report    # Full uptime report
+```
+
+### Monitored Services
+| Service | Port | PID File |
+|---------|------|----------|
+| Heartbeat | 37892 | `~/.matrix-heartbeat/heartbeat.pid` |
+| Gateway | 8082 | `~/.matrix-gateway/gateway.pid` |
+| Indexer | 37890 | `~/.indexer-daemon/indexer.pid` |
+| Hub | 8081 | `~/.matrix-hub/hub.pid` |
+
+### Guard Rails
+- **Max restarts**: 3 per service per hour (prevents restart loops)
+- **Check interval**: 120s (configurable via `WATCHDOG_INTERVAL`)
+- **Self-heal**: Triggers `pulse-self-heal.sh` when issues detected
+- **Status**: `psi/pulse/watchdog-status.json`
+
+### Management via matrix-services.sh
+```bash
+bash .claude/hooks/matrix-services.sh start watchdog
+bash .claude/hooks/matrix-services.sh stop watchdog
+```
+
+## 📦 DISPATCH BUNDLING: Smart Grouping (Phase H)
+
+> *"One agent, one task? Efficient. One team, related tasks? Powerful."*
+
+Groups related dispatches into team operations for parallel execution.
+
+### Usage
+```bash
+bash .claude/hooks/pulse-dispatch-bundler.sh bundle    # Group pending dispatches
+bash .claude/hooks/pulse-dispatch-bundler.sh preview    # Preview without acting
+bash .claude/hooks/pulse-dispatch-bundler.sh history    # Recent bundle history
+```
+
+### Bundling Logic
+| Trigger | Strategy |
+|---------|----------|
+| Same topic prefix (e.g., `ci-*`) | Group into single team operation |
+| Same agent, 3+ tasks | Bundle to reduce context switches |
+| Time proximity (<5min apart) | Candidate for grouping |
+
+### Output
+- **Log**: `psi/pulse/bundle-log.jsonl`
+
+## 💬 GATEWAY MEMORY: Persistent Conversations (Phase I)
+
+> *"Memory makes the messenger wise."*
+
+Telegram conversations persist across sessions. Context injected into agent system prompts.
+
+### How It Works
+- Messages saved to `psi/pulse/gateway-conversations/<userId>.jsonl`
+- Last 10 messages injected into agent system prompt as conversation history
+- Auto-rotation at 200 messages (keeps last 100)
+
+### Telegram Commands
+| Command | Purpose |
+|---------|---------|
+| `/history` | View recent conversation context |
+
+### Programmatic Access
+```typescript
+import { saveMessage, loadContext, getStats } from './conversation-store';
+saveMessage(projectRoot, userId, 'user', 'Hello');
+const context = loadContext(projectRoot, userId); // last 10 messages
+```
+
+## 🔧 AUTO GIT OPS: Git Automation (Phase J)
+
+> *"Git is the source of truth. Keep it clean."*
+
+Automated git health checks and PR preparation.
+
+### Usage
+```bash
+bash .claude/hooks/pulse-auto-git.sh check        # Full git health check
+bash .claude/hooks/pulse-auto-git.sh pr-ready      # Validate PR readiness
+bash .claude/hooks/pulse-auto-git.sh suggest-pr    # Generate PR title + body
+bash .claude/hooks/pulse-auto-git.sh stale [days]  # Find stale branches (default 14)
+bash .claude/hooks/pulse-auto-git.sh uncommitted   # Check for uncommitted changes
+```
+
+### PR Readiness Checks
+| Check | Requirement |
+|-------|-------------|
+| Not on main/master | Feature branch required |
+| Clean working tree | No uncommitted changes |
+| Has commits | At least 1 commit ahead of main |
+| Pushed to remote | Branch must be pushed |
+
+### suggest-pr Output
+Generates PR title and body from branch name and commit history, formatted for `gh pr create`.
+
+## 📊 HEALTH DASHBOARD: Visual Status (Phase K)
+
+> *"You can't improve what you can't see."*
+
+Matrix-themed HTML dashboard showing system health at a glance.
+
+### Usage
+```bash
+bash .claude/hooks/pulse-dashboard.sh generate    # Generate HTML + JSON
+bash .claude/hooks/pulse-dashboard.sh serve        # Generate and open
+bash .claude/hooks/pulse-dashboard.sh json          # JSON data only
+```
+
+### Dashboard Sections
+| Section | Source |
+|---------|--------|
+| Health Score | Proactive intel analysis |
+| Services | Watchdog status |
+| Tasks | `active.json` |
+| Recent Events | `events.jsonl` (last 20) |
+| Dispatches | `dispatch-log.jsonl` |
+| Patterns | `patterns.json` |
+
+### Output
+- **HTML**: `psi/pulse/dashboard.html` — green-on-black terminal aesthetic
+- **JSON**: `psi/pulse/dashboard.json` — structured data for programmatic access
+
+## 🔎 SKILL DISCOVERY: Auto-Registry (Phase L)
+
+> *"Know your arsenal."*
+
+Automatically scans and validates all skills in the system.
+
+### Usage
+```bash
+bash .claude/hooks/pulse-skill-discovery.sh scan       # Discover all skills
+bash .claude/hooks/pulse-skill-discovery.sh validate    # Check skill quality
+bash .claude/hooks/pulse-skill-discovery.sh registry    # Show skill registry
+bash .claude/hooks/pulse-skill-discovery.sh stats       # Summary statistics
+```
+
+### What It Scans
+| Location | Format |
+|----------|--------|
+| `.claude/commands/*.md` | Claude Code skills |
+| `.agent/workflows/*.md` | Workflow skills |
+
+### Quality Checks
+| Check | Issue |
+|-------|-------|
+| Missing description | Skill has no description line |
+| Missing companion script | Skill references .sh but file missing |
+| Empty content | Skill file is blank or near-blank |
+
+### Output
+- **Registry**: `psi/pulse/skill-registry.json`
+- Stats include: total skills, by source, by agent, quality issues
+
 ---
-*Portable Matrix Interface v10.0 — Gateway + Learning Edition (Phase A-D: Full Autonomy Loop)*
+*Portable Matrix Interface v11.0 — Full Autonomy Edition (Phase A-L: Detection → Action → Healing → Learning)*

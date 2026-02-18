@@ -9,6 +9,7 @@ import { readFileSync, existsSync } from 'fs';
 import { join } from 'path';
 import { AGENT_ROUTES, type AgentRoute, type GatewayConfig } from './types';
 import { selectProvider, getModelForTier, type LLMProvider } from './providers';
+import { loadContext, formatContextForPrompt } from './conversation-store';
 
 export interface RoutingResult {
   agent: AgentRoute;
@@ -65,7 +66,7 @@ export function parseAgentIntent(text: string): { agent: string | null; message:
 
 // ============ System Prompt Builder ============
 
-export function buildSystemPrompt(agent: AgentRoute, projectRoot: string): string {
+export function buildSystemPrompt(agent: AgentRoute, projectRoot: string, userId?: string): string {
   const parts: string[] = [];
 
   // 1. Agent personality
@@ -98,7 +99,18 @@ export function buildSystemPrompt(agent: AgentRoute, projectRoot: string): strin
     } catch { /* ignore */ }
   }
 
-  // 4. Gateway-specific instructions
+  // 4. Conversation history (Phase I)
+  if (userId) {
+    try {
+      const context = loadContext(projectRoot, userId);
+      const contextStr = formatContextForPrompt(context);
+      if (contextStr) {
+        parts.push(contextStr);
+      }
+    } catch { /* skip if conversation store unavailable */ }
+  }
+
+  // 5. Gateway-specific instructions
   parts.push(`## Gateway Mode
 You are responding via Telegram. Keep responses concise (under 4000 chars).
 Use Telegram MarkdownV2 sparingly — prefer plain text.
@@ -113,11 +125,12 @@ The Operator is on mobile — respect their time.`);
 export function routeMessage(
   text: string,
   projectRoot: string,
-  config: GatewayConfig
+  config: GatewayConfig,
+  userId?: string
 ): RoutingResult {
   const { agent: agentKey, message } = parseAgentIntent(text);
   const agent = AGENT_ROUTES[agentKey || 'oracle'] || AGENT_ROUTES['oracle']!;
-  const systemPrompt = buildSystemPrompt(agent, projectRoot);
+  const systemPrompt = buildSystemPrompt(agent, projectRoot, userId);
 
   // Select provider based on config
   const provider = selectProvider(config.llm?.provider);

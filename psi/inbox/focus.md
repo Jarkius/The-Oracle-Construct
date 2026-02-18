@@ -29,6 +29,14 @@ All ADR-010 integration sprints (0-4) complete. System now self-improving. The O
 | Phase B: AGENT MESSAGING | Done | File-based message bus, team orchestrator, context-loader team wiring, agent messenger |
 | Phase C: GATEWAY | Done | Telegram bot, multi-provider LLM (Gemini/GPT/Claude), agent router, security, alerts |
 | Phase D: DISPATCH LEARNING | Done | Outcome tracking, rule effectiveness analysis, self-tuning confidence |
+| Phase E: PROACTIVE INTEL | Done | Anomaly detection, trend analysis, health scoring, task suggestions |
+| Phase F: SELF-HEALING | Done | Hook repair, JSON/JSONL fix, stale PID cleanup, directory structure |
+| Phase G: WATCHDOG | Done | Background daemon, service monitoring, auto-restart (max 3/hr) |
+| Phase H: DISPATCH BUNDLING | Done | Related dispatch grouping, agent overload detection, team bundling |
+| Phase I: GATEWAY MEMORY | Done | Persistent Telegram conversations, context injection, auto-rotation |
+| Phase J: AUTO GIT OPS | Done | PR readiness check, suggest-pr, stale branch detection, uncommitted warnings |
+| Phase K: HEALTH DASHBOARD | Done | Matrix-themed HTML dashboard, JSON data, health scoring |
+| Phase L: SKILL DISCOVERY | Done | Auto-scan skills, quality validation, registry, 59 skills found |
 
 ## Completed
 
@@ -54,6 +62,14 @@ All ADR-010 integration sprints (0-4) complete. System now self-improving. The O
 - [x] Phase 12: Auto-evolve script (pulse-auto-evolve.sh, risk classification, ADR-014)
 - [x] Phase 13 Tier 1: Sandbox evolution (5 test gates, evolution-log.jsonl, sacred files, ADR-015)
 - [x] Phase 14: Learning skills namespace (/learn:concept, :teach, :flash, :plan, :research, :course)
+- [x] Phase E: Proactive Intelligence (anomaly detection, trend analysis, health scoring)
+- [x] Phase F: Self-Healing (hook repair, JSON fix, stale PID cleanup)
+- [x] Phase G: Watchdog Daemon (background service monitor + auto-restart)
+- [x] Phase H: Dispatch Bundling (related dispatch grouping into team operations)
+- [x] Phase I: Gateway Memory (persistent Telegram conversations + context injection)
+- [x] Phase J: Auto Git Ops (PR readiness, suggest-pr, stale branch detection)
+- [x] Phase K: Health Dashboard (Matrix-themed HTML dashboard + JSON data)
+- [x] Phase L: Skill Auto-Discovery (scan + validate + registry, 59 skills)
 
 ## Next Priority
 
@@ -100,4 +116,4 @@ All ADR-010 integration sprints (0-4) complete. System now self-improving. The O
 
 ---
 
-*Updated by Oracle - 2026-02-18 (Phase C Gateway + Phase D Learning done, multi-provider LLM support)*
+*Updated by Oracle - 2026-02-18 (Phase E-L: Full autonomy infrastructure — 8 phases in one session)*
