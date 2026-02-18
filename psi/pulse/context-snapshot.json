@@ -1,8 +1,8 @@
 {
-  "commits": [{"ts":"2026-02-18T14:20:09Z","agent":"Neo","data":{"tool":"Bash","action":"git commit"}},{"ts":"2026-02-18T14:39:02Z","agent":"Neo","data":{"tool":"Bash","action":"git commit"}},{"ts":"2026-02-18T14:47:49Z","agent":"Neo","data":{"tool":"Bash","action":"git commit"}}],
+  "commits": [{"ts":"2026-02-18T14:20:09Z","agent":"Neo","data":{"tool":"Bash","action":"git commit"}},{"ts":"2026-02-18T14:39:02Z","agent":"Neo","data":{"tool":"Bash","action":"git commit"}},{"ts":"2026-02-18T14:47:49Z","agent":"Neo","data":{"tool":"Bash","action":"git commit"}},{"ts":"2026-02-18T14:52:00Z","agent":"Neo","data":{"tool":"Bash","action":"git commit"}}],
   "failures": [],
   "completions": [],
-  "dispatch_failures": [{"ts":"2026-02-18T14:09:10Z","agent":"Learner","data":{"rule_id":"ci-failure-investigate","result":"success"}},{"ts":"2026-02-18T14:09:11Z","agent":"Learner","data":{"rule_id":"ci-failure-investigate","result":"success"}},{"ts":"2026-02-18T14:09:11Z","agent":"Learner","data":{"rule_id":"ci-failure-investigate","result":"failure"}}],
+  "dispatch_failures": [],
   "focus_changes": [],
-  "timestamp": "2026-02-18T14:51:00Z"
+  "timestamp": "2026-02-18T14:55:21Z"
 }
