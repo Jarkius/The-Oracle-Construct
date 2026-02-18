@@ -1,0 +1,54 @@
+{
+  "generated_at": "2026-02-18T14:33:33.663144+00:00",
+  "health": {
+    "score": 100,
+    "status": "healthy"
+  },
+  "services": {},
+  "tasks": {
+    "pending": 2,
+    "completed": 4,
+    "blocked": 0,
+    "total": 6
+  },
+  "events": {
+    "total": 0,
+    "last_24h": 0,
+    "by_type": {}
+  },
+  "dispatches": {
+    "total": 5,
+    "success": 3,
+    "failure": 1,
+    "timeout": 1
+  },
+  "patterns": [
+    {
+      "type": "session_rhythm",
+      "pattern": "Peak activity at 06:00 UTC (5 sessions)",
+      "confidence": 0.17857142857142858
+    },
+    {
+      "type": "git_velocity",
+      "pattern": "0.8 commits/session (22 total)",
+      "confidence": 0.8
+    },
+    {
+      "type": "failure_cluster",
+      "pattern": "2 failure event(s) detected",
+      "confidence": 0.9
+    },
+    {
+      "type": "activity_density",
+      "pattern": "74 events/day over 3 active day(s)",
+      "confidence": 0.6
+    }
+  ],
+  "intel": {
+    "health_score": 100,
+    "anomalies": 0,
+    "suggestions": 2,
+    "trends": 0,
+    "summary": "System healthy (100/100). 2 suggestion(s), 0 trend(s)."
+  }
+}

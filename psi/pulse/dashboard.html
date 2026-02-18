@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Oracle Construct — Dashboard</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Courier New', monospace; background: #0a0a0a; color: #00ff41; padding: 20px; }
+  .header { text-align: center; margin-bottom: 30px; border-bottom: 1px solid #1a3a1a; padding-bottom: 15px; }
+  .header h1 { font-size: 24px; color: #00ff41; }
+  .header .subtitle { color: #666; font-size: 12px; margin-top: 5px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+  .card { background: #111; border: 1px solid #1a3a1a; border-radius: 8px; padding: 15px; }
+  .card h2 { font-size: 14px; color: #888; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px; }
+  .health-score { font-size: 48px; text-align: center; color: #22c55e; }
+  .health-label { text-align: center; color: #888; font-size: 12px; }
+  .stat { display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid #1a1a1a; }
+  .stat-label { color: #888; }
+  .stat-value { color: #00ff41; }
+  .stat-value.warn { color: #eab308; }
+  .stat-value.crit { color: #ef4444; }
+  .service { display: flex; justify-content: space-between; padding: 6px 0; }
+  .service-status { padding: 2px 8px; border-radius: 4px; font-size: 11px; }
+  .service-status.running { background: #0a2a0a; color: #22c55e; }
+  .service-status.stopped { background: #2a0a0a; color: #ef4444; }
+  .service-status.restarted { background: #2a2a0a; color: #eab308; }
+  .pattern { padding: 6px 0; border-bottom: 1px solid #1a1a1a; font-size: 12px; }
+  .event-type { display: inline-block; padding: 2px 6px; margin: 2px; border-radius: 3px; background: #1a2a1a; font-size: 11px; }
+  .footer { text-align: center; margin-top: 30px; color: #333; font-size: 11px; }
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>THE ORACLE CONSTRUCT</h1>
+  <div class="subtitle">System Dashboard — Generated 2026-02-18T14:33:33Z</div>
+</div>
+
+<div class="grid">
+  <div class="card">
+    <h2>System Health</h2>
+    <div class="health-score">100</div>
+    <div class="health-label">HEALTHY</div>
+
+    <div style="margin-top: 15px; font-size: 12px; color: #888;">
+      System healthy (100/100). 2 suggestion(s), 0 trend(s).
+    </div>
+    <div style="margin-top: 10px;">
+      <div class="stat"><span class="stat-label">Anomalies</span><span class="stat-value ">0</span></div>
+      <div class="stat"><span class="stat-label">Suggestions</span><span class="stat-value">2</span></div>
+      <div class="stat"><span class="stat-label">Trends</span><span class="stat-value">0</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Services</h2>
+    <div style="color: #666;">No service data (run watchdog check)</div>
+  </div>
+
+  <div class="card">
+    <h2>Tasks</h2>
+
+    <div class="stat"><span class="stat-label">Total</span><span class="stat-value">6</span></div>
+    <div class="stat"><span class="stat-label">Pending</span><span class="stat-value">2</span></div>
+    <div class="stat"><span class="stat-label">Completed</span><span class="stat-value">4</span></div>
+    <div class="stat"><span class="stat-label">Blocked</span><span class="stat-value ">0</span></div>
+  </div>
+
+  <div class="card">
+    <h2>Events</h2>
+
+    <div class="stat"><span class="stat-label">Total</span><span class="stat-value">0</span></div>
+    <div class="stat"><span class="stat-label">Last 24h</span><span class="stat-value">0</span></div>
+    <div style="margin-top: 10px;">
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Dispatches</h2>
+
+    <div class="stat"><span class="stat-label">Total</span><span class="stat-value">5</span></div>
+    <div class="stat"><span class="stat-label">Success</span><span class="stat-value">3</span></div>
+    <div class="stat"><span class="stat-label">Failure</span><span class="stat-value crit">1</span></div>
+    <div class="stat"><span class="stat-label">Success Rate</span><span class="stat-value">60%</span></div>
+  </div>
+
+  <div class="card">
+    <h2>Patterns</h2>
+    <div class="pattern">session_rhythm: Peak activity at 06:00 UTC (5 sessions) <span style="color:#555">[#]</span></div>
+    <div class="pattern">git_velocity: 0.8 commits/session (22 total) <span style="color:#555">[########]</span></div>
+    <div class="pattern">failure_cluster: 2 failure event(s) detected <span style="color:#555">[#########]</span></div>
+    <div class="pattern">activity_density: 74 events/day over 3 active day(s) <span style="color:#555">[######]</span></div>
+  </div>
+</div>
+
+<div class="footer">
+  Oracle Construct Dashboard v1.0 — Phase K<br>
+  "Everything that has a beginning has an end."
+</div>
+</body>
+</html>
