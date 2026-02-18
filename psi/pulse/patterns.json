@@ -4,28 +4,28 @@
       "type": "session_rhythm",
       "pattern": "Peak activity at 06:00 UTC (5 sessions)",
       "frequency": 5,
-      "confidence": 0.18518518518518517,
+      "confidence": 0.17857142857142858,
       "data": {
         "peak_hour": 6,
-        "total_sessions": 27
+        "total_sessions": 28
       },
       "recommendation": "Context preloading optimized for 06:00 UTC sessions"
     },
     {
       "type": "git_velocity",
-      "pattern": "0.8 commits/session (21 total)",
-      "frequency": 21,
+      "pattern": "0.8 commits/session (22 total)",
+      "frequency": 22,
       "confidence": 0.8,
       "data": {
-        "total_commits": 21,
-        "total_pushes": 51
+        "total_commits": 22,
+        "total_pushes": 58
       },
       "recommendation": null
     },
     {
       "type": "failure_cluster",
-      "pattern": "1 failure event(s) detected",
-      "frequency": 1,
+      "pattern": "2 failure event(s) detected",
+      "frequency": 2,
       "confidence": 0.9,
       "data": {
         "failure_types": [
@@ -36,17 +36,17 @@
     },
     {
       "type": "activity_density",
-      "pattern": "63 events/day over 3 active day(s)",
-      "frequency": 190,
+      "pattern": "74 events/day over 3 active day(s)",
+      "frequency": 223,
       "confidence": 0.6,
       "data": {
-        "events_last_7d": 190,
+        "events_last_7d": 223,
         "active_days": 3
       },
       "recommendation": null
     }
   ],
-  "scanned_at": "2026-02-18T13:36:30.630985+00:00",
-  "event_count": 190,
-  "recent_event_count": 190
+  "scanned_at": "2026-02-18T14:10:55.006504+00:00",
+  "event_count": 223,
+  "recent_event_count": 223
 }
