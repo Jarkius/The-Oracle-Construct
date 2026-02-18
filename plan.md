@@ -495,10 +495,113 @@ Session N+3: Track E Tier 2 (INTELLIGENT EVOLUTION)
 
 ---
 
+## Track F: SKILLS ECOSYSTEM (Phase 14)
+
+> *"Guns. Lots of guns." — Neo. The right ones, composable, on demand.*
+
+Inspired by ClawHub (5,700+ skills), Awesome-Agent-Skills (50+), and Memori's knowledge patterns. Build a curated skill library that makes daily life and development easier.
+
+### What It Does
+
+Transform the Matrix from a fixed agent system to an extensible skill platform. Skills follow the Claude Code native SKILL.md format, enhanced with Matrix extensions for agent personality, model tier, and permissions.
+
+### Skill Format (Matrix Standard)
+
+```yaml
+---
+name: skill-name
+description: When to use. Under 100 words. (Progressive disclosure — only this loads at boot)
+matrix:
+  agent: Neo|Oracle|Smith         # Agent personality
+  tier: wise|intelligent|mechanical  # Model tier (ADR-003)
+  requires:
+    bins: [tool1, tool2]          # Required CLI tools
+    skills: [dependency-skill]    # Skill dependencies
+---
+
+# Skill Title
+Instructions for Claude to follow when invoked.
+```
+
+### Skill Categories
+
+| Category | Skills | Purpose |
+|----------|--------|---------|
+| **Life & Daily** | youtube-player, file-organizer, finance-monitor, google-workspace | Make daily life easier |
+| **Learning** | learn-concept, study-planner, flashcard-generator, research-deep-dive, course-tracker | Accelerate knowledge acquisition |
+| **Development** | skill-creator, mcp-builder, changelog, browser-stealth | Enhance dev productivity |
+| **Matrix Native** | evolution-trigger, memory-graph, pulse-monitor | Extend Matrix capabilities |
+
+### Learning Skills (Priority — User Requested)
+
+| Skill | What It Does | How |
+|-------|-------------|-----|
+| **learn-concept** | Deep-dive into any concept with structured output | Web search → synthesize → save to psi/learn/ with examples, analogies, quiz |
+| **study-planner** | Create study plans for any topic/certification | Break topic into modules → schedule → track progress in tasks |
+| **flashcard-generator** | Generate Anki-compatible flashcards from learnings | Read psi/learn/ → extract key facts → output .apkg or CSV |
+| **research-deep-dive** | Multi-source research with Morpheus | Parallel web searches → cross-reference → synthesize → save |
+| **course-tracker** | Track progress through online courses/tutorials | Log completed sections → quiz → identify gaps → next steps |
+| **teach-me** | Explain anything using the Feynman technique | ELI5 → analogies → diagrams → gotchas → practice problems |
+
+### Implementation Plan
+
+```
+Immediate (already done):
+  ├── youtube-player (yt-dlp + mpv)
+  └── skill-creator (meta-skill)
+
+Next session:
+  ├── learn-concept (Morpheus + web search + psi/learn/)
+  ├── teach-me (Feynman technique explanations)
+  ├── browser-stealth (brave-real-browser-mcp-server)
+  └── file-organizer
+
+Later:
+  ├── study-planner
+  ├── flashcard-generator
+  ├── research-deep-dive
+  ├── finance-monitor
+  ├── google-workspace (needs OAuth)
+  ├── mcp-builder
+  └── changelog
+```
+
+### Key Insights from Research
+
+**From Memori (GibsonAI)**:
+- Semantic triples (Subject → Predicate → Object) with frequency tracking
+- Async augmentation — extract facts in background, never block interaction
+- Hybrid recall — vector + lexical with dynamic weighting
+
+**From ClawHub/Kimi Claw**:
+- Progressive disclosure — only name+description load at boot
+- Memory flush before compaction — save durable memories before context shrinks
+- Composable skills RFC — `requires.skills` for dependency chains
+
+**From Awesome-Agent-Skills**:
+- Cross-agent SKILL.md standard — works in Claude, Cursor, VS Code, Amp
+- Three resource types: scripts/ (executable), references/ (docs), assets/ (templates)
+
+**From Browser Automation Research**:
+- brave-real-browser-mcp-server: 50+ stealth features, Cloudflare Turnstile solver
+- Camoufox: C++ level Firefox anti-detection (heaviest option)
+- Named browser profiles with cookie persistence for session continuity
+
+### Security
+
+- **No ClawHub marketplace** — 341+ malicious skills discovered Feb 2026
+- Build all skills ourselves, learning from patterns
+- Every skill declares permissions in frontmatter (visibility, not enforcement)
+- No secrets in SKILL.md — use environment variables
+
+---
+
 ## What We're NOT Doing
 
-- **No marketplace/ClawHub** — personal construct, not a platform
+- **No ClawHub marketplace install** — security risk (341 malicious skills). Learn patterns, build our own.
 - **No WhatsApp** — unofficial API, ban risk, not worth it
 - **No social network for agents** (Moltbook) — fun but frivolous
 - **No autonomous execution without review** for high-risk changes
 - **No auto-evolution of sacred files** — SOUL.md, CLAUDE.md are human-gated
+- **No Kimi Claw cloud** — $39/month for capabilities we can build locally
+- **No Memori cloud augmentation** — paid API, our local pipeline is sufficient

@@ -63,6 +63,16 @@ All ADR-010 integration sprints (0-4) complete. System now self-improving. The O
 - [ ] Heartbeat → Gateway notification bridge
 - [ ] Prerequisites: Telegram Bot Token, ANTHROPIC_API_KEY
 
+### Phase 14: SKILLS ECOSYSTEM (New — Inspired by ClawHub/Awesome-Agent-Skills)
+- [x] YouTube Player skill (yt-dlp + mpv)
+- [x] Skill Creator meta-skill (bootstrap new skills)
+- [ ] Browser Stealth skill (enhance Morpheus anti-detection)
+- [ ] File Organizer skill
+- [ ] Finance Monitor skill (Yahoo Finance)
+- [ ] Google Workspace skill (Gmail/Calendar/Drive)
+- [ ] MCP Builder skill
+- [ ] Changelog Generator skill
+
 ### Remaining Infrastructure
 - [ ] Agent Teams: Blocked on Issue #24316
 - [ ] Phase 9 Sprint C (optional): Event processor daemon
@@ -72,4 +82,4 @@ All ADR-010 integration sprints (0-4) complete. System now self-improving. The O
 
 ---
 
-*Updated by Oracle - 2026-02-18 (ADR-015 + ADR-013 proposed — Phase 13 + Phase 11 planned)*
+*Updated by Oracle - 2026-02-18 (Phase 13 + 11 planned, Phase 14 Skills Ecosystem started)*
