@@ -524,5 +524,69 @@ bash .claude/hooks/pulse-auto-evolve.sh --dry-run     # Preview changes
 - **Git safety**: Commits on current branch, never force-pushes
 - **Audit**: Every auto-evolution logged as `evolution:auto-applied` event
 
+## 🧠 EVENT DISPATCHER: The Nervous System (Phase A / ADR-016)
+
+> *"The system that sees but does not act is merely a mirror. The system that acts on what it sees — that is alive."*
+
+The Event Dispatcher bridges detection to action. It reads recommendations, heartbeat alerts, and events, then dispatches agents to handle them.
+
+### How It Works
+
+```
+recommendations.json ─┐
+heartbeat alerts ──────┼─→ Rule Matcher → Dispatch Queue → Agent Spawn
+recent events ─────────┘
+```
+
+### Dispatch Rules
+Configurable in `psi/pulse/dispatch-rules.json`:
+
+| Trigger | Agent | Action | Auto? |
+|---------|-------|--------|-------|
+| `ci:fail` event | Smith | Investigate CI failure | Yes |
+| Error spike alert | Smith | Analyze failure pattern | Yes |
+| Blocked task (>2d) | Oracle | Unblock or escalate | Yes |
+| Stale task (>3d) | Oracle | Review and update | No |
+| Failure cluster | Smith | Root-cause analysis | Yes |
+| PR CI failing | Smith | Check PR logs | Yes |
+| Overdue reminder | Oracle | Address or reschedule | No |
+| Focus churn | Oracle | Recommend single focus | No |
+
+### Usage
+```bash
+bash .claude/hooks/pulse-event-dispatcher.sh              # Full dispatch cycle
+bash .claude/hooks/pulse-event-dispatcher.sh --dry-run     # Preview dispatches
+bash .claude/hooks/pulse-event-dispatcher.sh --check-only  # Count matches only
+bash .claude/hooks/pulse-event-dispatcher.sh --status       # Show dispatch log
+```
+
+### Boot Integration
+At session start, `pulse-proactive-boot.sh` runs the dispatcher and outputs spawn instructions:
+- **Auto-dispatch** (priority ≤ 2, `auto_dispatch: true`): Agent spawns immediately
+- **Pending approval** (lower priority): Displayed for operator to approve/skip
+- **Cooldown**: Rules that fired recently are suppressed
+
+### Context Loading
+When agents spawn via dispatch, `pulse-context-loader.sh` preloads:
+1. Agent personality (from `.claude/agents/`)
+2. Relevant memory (semantic search)
+3. Recent related events
+4. Active tasks for that agent
+5. Last session context
+6. Current focus
+
+### Guard Rails
+- **Cooldown per rule**: Prevents dispatch storms (configurable minutes)
+- **Max concurrent**: Cap on simultaneous auto-dispatches (default: 3)
+- **Approval threshold**: Low-priority actions require human approval
+- **Audit trail**: Every dispatch logged to `psi/pulse/dispatch-log.jsonl`
+
+### Event Types
+```
+dispatch:cycle          — dispatcher ran evaluation cycle
+dispatch:ready          — critical alerts queued (from heartbeat)
+dispatch:proactive_boot — boot dispatcher executed auto-actions
+```
+
 ---
-*Portable Matrix Interface v7.0 — Autonomy Edition (Phase 1-5 + Phase 10: Heartbeat, Permissions, Auto-Evolve)*
+*Portable Matrix Interface v8.0 — Autonomy Edition (Phase 1-5 + Phase 10 + Phase A: Event Dispatcher)*

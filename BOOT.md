@@ -74,6 +74,18 @@ After completing steps 1-8, synthesize a **Morning Brief**:
 
 If nothing is pending, simply greet and await instructions.
 
+### 10. Proactive Dispatch (Phase A: Event Dispatcher)
+After the morning brief, run the event dispatcher to check for actionable items:
+```bash
+bash .claude/hooks/pulse-proactive-boot.sh
+```
+If dispatches are returned:
+- **Auto-dispatch** agents: Spawn them as Task agents immediately (use the Task tool)
+- **Pending approval**: Display to operator and wait for approval/skip
+- If no dispatches, skip silently
+
+**Key rule**: When spawning auto-dispatched agents, use `pulse-context-loader.sh` output as the agent prompt. This ensures agents start informed, not blank.
+
 ---
 
 ## Rules
@@ -86,4 +98,4 @@ If nothing is pending, simply greet and await instructions.
 
 ---
 
-*"The Matrix has you. But now, you remember — and you see patterns." — Phase 1-5 + Sprint 3-4: AWAKENING*
+*"The Matrix has you. But now, you remember, you see patterns — and you act." — Phase 1-5 + Sprint 3-4 + Phase A: AUTONOMY*

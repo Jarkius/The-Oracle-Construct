@@ -1,0 +1,150 @@
+{
+  "version": 1,
+  "description": "Event Dispatcher Rules — Phase A (ADR-016). Maps events/recommendations to agent actions.",
+  "enabled": true,
+  "rules": [
+    {
+      "id": "ci-failure-investigate",
+      "trigger": {
+        "type": "event",
+        "event_type": "ci:fail",
+        "min_severity": "critical"
+      },
+      "action": {
+        "agent": "Smith",
+        "task": "Investigate CI failure: ${event.data.runner} exited ${event.data.exit_code}. Check recent changes, identify root cause, propose fix.",
+        "priority": 1,
+        "auto_dispatch": true
+      },
+      "cooldown_minutes": 15,
+      "description": "CI failure → Smith investigates"
+    },
+    {
+      "id": "error-spike-alert",
+      "trigger": {
+        "type": "heartbeat_alert",
+        "check": "error_spikes",
+        "min_severity": "critical"
+      },
+      "action": {
+        "agent": "Smith",
+        "task": "Error spike detected: ${alert.message}. Analyze event queue for failure pattern, identify common cause, report findings.",
+        "priority": 1,
+        "auto_dispatch": true
+      },
+      "cooldown_minutes": 60,
+      "description": "Error spike → Smith deep analysis"
+    },
+    {
+      "id": "stale-task-escalate",
+      "trigger": {
+        "type": "recommendation",
+        "rec_type": "stale_task",
+        "min_urgency": "medium"
+      },
+      "action": {
+        "agent": "Oracle",
+        "task": "Stale task detected: ${rec.message}. Review task, determine if still relevant, update status or reassign.",
+        "priority": 2,
+        "auto_dispatch": false
+      },
+      "cooldown_minutes": 1440,
+      "description": "Stale task → Oracle reviews (daily)"
+    },
+    {
+      "id": "blocked-task-unblock",
+      "trigger": {
+        "type": "recommendation",
+        "rec_type": "blocked_task",
+        "min_urgency": "high"
+      },
+      "action": {
+        "agent": "Oracle",
+        "task": "Blocked task needs unblocking: ${rec.message}. Investigate blocker, propose resolution path.",
+        "priority": 1,
+        "auto_dispatch": true
+      },
+      "cooldown_minutes": 240,
+      "description": "Blocked task → Oracle unblocks"
+    },
+    {
+      "id": "failure-cluster-debug",
+      "trigger": {
+        "type": "recommendation",
+        "rec_type": "failure_alert",
+        "min_urgency": "high"
+      },
+      "action": {
+        "agent": "Smith",
+        "task": "Failure cluster detected: ${rec.message}. Search event queue for failure patterns, correlate with recent changes, identify root cause.",
+        "priority": 1,
+        "auto_dispatch": true
+      },
+      "cooldown_minutes": 60,
+      "description": "Failure cluster → Smith hunts"
+    },
+    {
+      "id": "ci-status-failing",
+      "trigger": {
+        "type": "heartbeat_alert",
+        "check": "ci_status",
+        "min_severity": "critical"
+      },
+      "action": {
+        "agent": "Smith",
+        "task": "PR CI checks failing: ${alert.message}. Review PR, check logs, identify what broke.",
+        "priority": 1,
+        "auto_dispatch": true
+      },
+      "cooldown_minutes": 30,
+      "description": "PR CI failing → Smith investigates"
+    },
+    {
+      "id": "overdue-reminder",
+      "trigger": {
+        "type": "recommendation",
+        "rec_type": "overdue_reminder",
+        "min_urgency": "high"
+      },
+      "action": {
+        "agent": "Oracle",
+        "task": "Overdue reminder: ${rec.message}. Address the reminder or reschedule with justification.",
+        "priority": 2,
+        "auto_dispatch": false
+      },
+      "cooldown_minutes": 1440,
+      "description": "Overdue reminder → Oracle addresses (daily)"
+    },
+    {
+      "id": "focus-churn-stabilize",
+      "trigger": {
+        "type": "recommendation",
+        "rec_type": "focus_churn",
+        "min_urgency": "medium"
+      },
+      "action": {
+        "agent": "Oracle",
+        "task": "Focus churn detected: ${rec.message}. Recommend single focus for next 2 sessions.",
+        "priority": 3,
+        "auto_dispatch": false
+      },
+      "cooldown_minutes": 1440,
+      "description": "Focus churn → Oracle stabilizes (daily)"
+    }
+  ],
+  "urgency_map": {
+    "critical": 0,
+    "high": 1,
+    "medium": 2,
+    "low": 3,
+    "none": 4
+  },
+  "severity_map": {
+    "critical": 0,
+    "warning": 1,
+    "info": 2
+  },
+  "dispatch_log": "psi/pulse/dispatch-log.jsonl",
+  "max_concurrent_dispatches": 3,
+  "require_approval_above_priority": 2
+}

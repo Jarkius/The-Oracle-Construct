@@ -185,3 +185,14 @@
 {"ts":"2026-02-18T10:40:45Z","type":"session:end","agent":"System","session":"51902d00-56a4-4e1d-bb21-7e0d73c4c2df","data":{"reason":"stop_hook"}}}
 {"ts":"2026-02-18T10:42:44Z","type":"git:push","agent":"Neo","session":"51902d00-56a4-4e1d-bb21-7e0d73c4c2df","data":{"tool":"Bash","action":"git push"}}}
 {"ts":"2026-02-18T10:44:25Z","type":"session:end","agent":"System","session":"51902d00-56a4-4e1d-bb21-7e0d73c4c2df","data":{"reason":"stop_hook"}}}
+{"ts":"2026-02-18T10:44:47Z","type":"git:push","agent":"Neo","session":"51902d00-56a4-4e1d-bb21-7e0d73c4c2df","data":{"tool":"Bash","action":"git push"}}}
+{"ts":"2026-02-18T10:44:50Z","type":"session:end","agent":"System","session":"51902d00-56a4-4e1d-bb21-7e0d73c4c2df","data":{"reason":"stop_hook"}}}
+{"ts":"2026-02-18T13:36:30Z","type":"session:start","agent":"System","session":"unknown","data":{"hook":"SessionStart"}}}
+{"ts":"2026-02-18T13:37:48Z","type":"git:push","agent":"Neo","session":"6707b501-b2a0-4c1f-ac51-9359544129de","data":{"tool":"Bash","action":"git push"}}}
+{"ts":"2026-02-18T13:46:00Z","type":"ci:fail","agent":"Smith","session":"unknown","data":{"tool":"Bash","exit_code":1,"runner":"jest"}}}
+{"ts":"2026-02-18T13:46:00Z","type":"ci:pass","agent":"Smith","session":"6707b501-b2a0-4c1f-ac51-9359544129de","data":{"tool":"Bash","exit_code":0,"runner":"detected"}}}
+{"ts":"2026-02-18T13:46:36Z","type":"ci:pass","agent":"Smith","session":"6707b501-b2a0-4c1f-ac51-9359544129de","data":{"tool":"Bash","exit_code":0,"runner":"detected"}}}
+{"ts":"2026-02-18T13:46:54Z","type":"dispatch:cycle","agent":"Dispatcher","session":"unknown","data":{"matches":1}}}
+{"ts":"2026-02-18T13:46:55Z","type":"dispatch:proactive_boot","agent":"Dispatcher","session":"unknown","data":{"auto_dispatches":1}}}
+{"ts":"2026-02-18T13:46:55Z","type":"ci:pass","agent":"Smith","session":"6707b501-b2a0-4c1f-ac51-9359544129de","data":{"tool":"Bash","exit_code":0,"runner":"detected"}}}
+{"ts":"2026-02-18T13:47:06Z","type":"ci:pass","agent":"Smith","session":"6707b501-b2a0-4c1f-ac51-9359544129de","data":{"tool":"Bash","exit_code":0,"runner":"detected"}}}

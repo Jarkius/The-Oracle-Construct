@@ -343,6 +343,8 @@ async function runChecks(): Promise<CheckResult[]> {
   } else {
     log(`Check complete — ${allAlerts.length} alert(s) from ${results.length} checks`);
     await notify(allAlerts, config);
+    // Phase A: Trigger event dispatcher after alerts are logged
+    await triggerDispatcher(allAlerts);
   }
 
   return results;
@@ -364,6 +366,42 @@ async function notify(alerts: Alert[], config: HeartbeatConfig): Promise<void> {
     const existing = existsSync(logPath) ? readFileSync(logPath, 'utf8') : '';
     writeFileSync(logPath, existing + lines.join('\n') + '\n');
   } catch { /* log dir might not exist */ }
+}
+
+// ============ Event Dispatcher Integration (Phase A / ADR-016) ============
+
+async function triggerDispatcher(alerts: Alert[]): Promise<void> {
+  const dispatcherPath = join(PROJECT_ROOT, '.claude', 'hooks', 'pulse-event-dispatcher.sh');
+
+  if (!existsSync(dispatcherPath)) {
+    log('Event dispatcher not found — skipping dispatch');
+    return;
+  }
+
+  const hasCritical = alerts.some(a => a.severity === 'critical');
+  if (!hasCritical) {
+    log('No critical alerts — dispatcher will run at next session boot');
+    return;
+  }
+
+  try {
+    const output = execSync(`bash "${dispatcherPath}" --check-only`, {
+      encoding: 'utf8',
+      timeout: 10000,
+      cwd: PROJECT_ROOT,
+      env: { ...process.env, PROJECT_ROOT },
+    });
+    log(`Dispatcher: ${output.trim()}`);
+
+    // Write dispatch-ready event so next session picks it up
+    writeEvent('dispatch:ready', JSON.stringify({
+      critical_alerts: alerts.filter(a => a.severity === 'critical').length,
+      source: 'heartbeat',
+      message: 'Critical alerts detected — dispatches queued for next session',
+    }));
+  } catch (err) {
+    log(`Dispatcher check failed: ${err}`);
+  }
 }
 
 // ============ Event Writer ============
