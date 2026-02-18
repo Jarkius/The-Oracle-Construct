@@ -1,6 +1,6 @@
 # ADR-015: True Self-Evolution — Sandbox, Test, Apply, Learn (Phase 13)
 
-**Status**: Proposed
+**Status**: Accepted (Tier 1 Implemented)
 **Date**: 2026-02-18
 **Deciders**: Oracle, Architect
 **Context**: Extending ADR-014 (Auto-Evolution) from config tweaks to full self-improvement

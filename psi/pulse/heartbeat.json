@@ -18,5 +18,11 @@
     "fallback": "log"
   },
   "auto_evolve": false,
+  "sandbox_evolution": {
+    "enabled": true,
+    "max_risk": "low",
+    "force_sandbox": false,
+    "sacred_files_enforced": true
+  },
   "log_file": "psi/pulse/daemon-logs/heartbeat.log"
 }

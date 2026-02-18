@@ -24,6 +24,7 @@ All ADR-010 integration sprints (0-4) complete. System now self-improving. The O
 | Phase 10: HEARTBEAT | Done | Always-on daemon, 5 health checks, matrix-services.sh integration |
 | Phase 10C: PERMISSIONS | Done | Agent permission declarations in frontmatter (all 8 agents) |
 | Phase 12: AUTO-EVOLVE | Done | pulse-auto-evolve.sh, risk classification, kill switch |
+| Phase 13: SELF-EVOLUTION | Tier 1 Done | Sandbox branching, 5 test gates, evolution log, sacred files |
 
 ## Completed
 
@@ -47,15 +48,19 @@ All ADR-010 integration sprints (0-4) complete. System now self-improving. The O
 - [x] Phase 10: Heartbeat daemon (heartbeat-daemon.ts, heartbeat.json, HEARTBEAT.md, ADR-012)
 - [x] Phase 10C: Agent permission declarations (all 8 agents, CLAUDE.md section)
 - [x] Phase 12: Auto-evolve script (pulse-auto-evolve.sh, risk classification, ADR-014)
+- [x] Phase 13 Tier 1: Sandbox evolution (5 test gates, evolution-log.jsonl, sacred files, ADR-015)
+- [x] Phase 14: Learning skills namespace (/learn:concept, :teach, :flash, :plan, :research, :course)
 
 ## Next Priority
 
-### Phase 13: TRUE SELF-EVOLUTION (ADR-015 — Proposed)
-- [ ] Tier 1: Sandbox Evolution — branch → test gates → merge/rollback
-- [ ] Extend pulse-auto-evolve.sh with sandbox branching
-- [ ] Add 5 test gates (syntax, hooks, memory, services, custom)
-- [ ] Evolution log (evolution-log.jsonl) + sacred files exclusion
-- [ ] Wire to heartbeat as optional trigger
+### Phase 13: TRUE SELF-EVOLUTION (ADR-015 — Tier 1 Done)
+- [x] Tier 1: Sandbox Evolution — branch → test gates → merge/rollback
+- [x] Extend pulse-auto-evolve.sh with sandbox branching
+- [x] Add 5 test gates (syntax, hooks, memory, services, custom)
+- [x] Evolution log (evolution-log.jsonl) + sacred files exclusion
+- [x] Wire to heartbeat as optional trigger (sandbox_evolution config)
+- [ ] Tier 2: Intelligent Evolution (requires Phase 11 / Claude API)
+- [ ] Tier 3: Cascading Evolution (after Tier 2 proven)
 
 ### Phase 11: GATEWAY — Messaging as UI (ADR-013 — Proposed)
 - [ ] Telegram bot (grammY) → Agent Router → Claude API Bridge
