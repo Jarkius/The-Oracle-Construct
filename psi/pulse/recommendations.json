@@ -1,14 +1,28 @@
 {
   "recommendations": [
     {
+      "type": "stale_task",
+      "urgency": "medium",
+      "message": "Task 'Monitor GitHub Issue #24316 \u2014 .claude/agents/ as agent team teammates' pending for 4d \u2014 start or deprioritize",
+      "action": "Either begin task-0001 or move to backlog with reason.",
+      "assignee": "Oracle"
+    },
+    {
+      "type": "stale_task",
+      "urgency": "medium",
+      "message": "Task 'Resume CIS Modernization \u2014 React SPA + Laravel API' pending for 4d \u2014 start or deprioritize",
+      "action": "Either begin task-0002 or move to backlog with reason.",
+      "assignee": "Neo"
+    },
+    {
       "type": "push_heavy",
       "urgency": "low",
-      "message": "Push:commit ratio high (67 pushes for 26 commits) \u2014 batch commits",
+      "message": "Push:commit ratio high (68 pushes for 27 commits) \u2014 batch commits",
       "action": "Group related changes into fewer, meaningful commits",
       "assignee": "Neo"
     }
   ],
-  "generated_at": "2026-02-18T15:59:18.795863+00:00",
+  "generated_at": "2026-02-19T15:21:38.744215+00:00",
   "pattern_count": 4,
   "task_count": 7
 }
