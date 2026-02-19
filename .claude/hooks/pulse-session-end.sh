@@ -29,13 +29,56 @@ if [ -z "${CLAUDE_SESSION_ID:-}" ] || [ "${CLAUDE_SESSION_ID:-}" = "unknown" ]; 
     fi
 fi
 
+# ─── Deduplication guard ──────────────────────────────────────
+# Prevent duplicate session:end events when Stop hook fires multiple times
+DEDUP_DIR="$PROJECT_ROOT/.claude/.session-end-dedup"
+mkdir -p "$DEDUP_DIR"
+SID="${CLAUDE_SESSION_ID:-unknown}"
+DEDUP_FILE="$DEDUP_DIR/$SID"
+NOW_EPOCH=$(date +%s)
+if [ -f "$DEDUP_FILE" ]; then
+    LAST_EPOCH=$(cat "$DEDUP_FILE" 2>/dev/null || echo "0")
+    DIFF=$((NOW_EPOCH - LAST_EPOCH))
+    if [ "$DIFF" -lt 10 ]; then
+        exit 0
+    fi
+fi
+echo "$NOW_EPOCH" > "$DEDUP_FILE"
+# Clean old dedup files (>1 hour old)
+find "$DEDUP_DIR" -type f -mmin +60 -delete 2>/dev/null || true
+
 # Log session end event
 bash "$EVENT_WRITER" "session:end" "System" '{"reason":"stop_hook"}'
+
+# ─── Build a meaningful session summary ──────────────────────
+# Gather context from focus, tasks, and recent events
+SUMMARY_PARTS=""
+
+FOCUS=$(head -20 "$PROJECT_ROOT/psi/inbox/focus.md" 2>/dev/null | grep -A1 "Task:" | tail -1 || echo "")
+[ -n "$FOCUS" ] && SUMMARY_PARTS="**Focus**: $FOCUS"
+
+TASK_PENDING=$(grep -c '"status": "pending"' "$PROJECT_ROOT/psi/memory/tasks/active.json" 2>/dev/null || echo "0")
+TASK_PROGRESS=$(grep -c '"status": "in_progress"' "$PROJECT_ROOT/psi/memory/tasks/active.json" 2>/dev/null || echo "0")
+if [ "$TASK_PENDING" != "0" ] || [ "$TASK_PROGRESS" != "0" ]; then
+    SUMMARY_PARTS="$SUMMARY_PARTS
+**Tasks**: ${TASK_PROGRESS} in-progress, ${TASK_PENDING} pending"
+fi
+
+RECENT_COMMITS=$(git -C "$PROJECT_ROOT" log --oneline --since="1 hour ago" 2>/dev/null | head -5 || echo "")
+[ -n "$RECENT_COMMITS" ] && SUMMARY_PARTS="$SUMMARY_PARTS
+**Recent commits**:
+$RECENT_COMMITS"
+
+if [ -n "$SUMMARY_PARTS" ]; then
+    FINAL_SUMMARY="$SUMMARY_PARTS"
+else
+    FINAL_SUMMARY="Session ended without explicit summary. Check retrospectives for details."
+fi
 
 # Auto-save session memory to psi/ markdown (Phase 1)
 SESSION_FILE=""
 if [ -f "$MEMORY_SAVE" ]; then
-    SESSION_FILE=$(bash "$MEMORY_SAVE" "auto-pulse" 2>/dev/null || echo "")
+    SESSION_FILE=$(bash "$MEMORY_SAVE" "auto-pulse" "$FINAL_SUMMARY" 2>/dev/null || echo "")
 fi
 
 # ─── ADR-010: Dual-layer persistence ────────────────────────────
