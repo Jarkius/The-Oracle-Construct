@@ -357,3 +357,6 @@
 {"ts":"2026-02-21T10:40:23Z","type":"session:end","agent":"System","session":"db3ae0b8-1494-47c4-8355-98092744025f","data":{"reason":"stop_hook"}}}
 {"ts":"2026-02-21T11:04:07Z","type":"session:start","agent":"System","session":"unknown","data":{"hook":"SessionStart"}}}
 {"ts":"2026-02-21T11:04:13Z","type":"session:end","agent":"System","session":"9fa7b1cb-90b8-4fc5-b72d-bf200b7e09c3","data":{"reason":"stop_hook"}}}
+{"ts":"2026-02-21T11:04:40Z","type":"git:push","agent":"Neo","session":"9fa7b1cb-90b8-4fc5-b72d-bf200b7e09c3","data":{"tool":"Bash","action":"git push"}}}
+{"ts":"2026-02-21T11:04:43Z","type":"session:end","agent":"System","session":"9fa7b1cb-90b8-4fc5-b72d-bf200b7e09c3","data":{"reason":"stop_hook"}}}
+{"ts":"2026-02-21T11:06:00Z","type":"session:end","agent":"System","session":"9fa7b1cb-90b8-4fc5-b72d-bf200b7e09c3","data":{"reason":"stop_hook"}}}
