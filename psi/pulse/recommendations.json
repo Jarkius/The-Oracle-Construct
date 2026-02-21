@@ -3,26 +3,26 @@
     {
       "type": "stale_task",
       "urgency": "medium",
-      "message": "Task 'Monitor GitHub Issue #24316 \u2014 .claude/agents/ as agent team teammates' pending for 4d \u2014 start or deprioritize",
+      "message": "Task 'Monitor GitHub Issue #24316 \u2014 .claude/agents/ as agent team teammates' pending for 5d \u2014 start or deprioritize",
       "action": "Either begin task-0001 or move to backlog with reason.",
       "assignee": "Oracle"
     },
     {
       "type": "stale_task",
       "urgency": "medium",
-      "message": "Task 'Resume CIS Modernization \u2014 React SPA + Laravel API' pending for 4d \u2014 start or deprioritize",
+      "message": "Task 'Resume CIS Modernization \u2014 React SPA + Laravel API' pending for 5d \u2014 start or deprioritize",
       "action": "Either begin task-0002 or move to backlog with reason.",
       "assignee": "Neo"
     },
     {
       "type": "push_heavy",
       "urgency": "low",
-      "message": "Push:commit ratio high (70 pushes for 29 commits) \u2014 batch commits",
+      "message": "Push:commit ratio high (77 pushes for 31 commits) \u2014 batch commits",
       "action": "Group related changes into fewer, meaningful commits",
       "assignee": "Neo"
     }
   ],
-  "generated_at": "2026-02-19T15:29:55.412429+00:00",
+  "generated_at": "2026-02-21T09:33:29.528415+00:00",
   "pattern_count": 4,
   "task_count": 7
 }
