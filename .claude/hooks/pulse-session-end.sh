@@ -82,20 +82,22 @@ if [ -f "$MEMORY_SAVE" ]; then
 fi
 
 # ─── ADR-010: Dual-layer persistence ────────────────────────────
-# Save to SQLite + ChromaDB if matrix-memory-agents is available
+# Save to SQLite (ChromaDB optional) if matrix-memory-agents is available
+MEMORY_LOG="$PROJECT_ROOT/psi/pulse/memory-errors.log"
 if [ -d "$MMA_DIR" ] && command -v bun &> /dev/null; then
     cd "$MMA_DIR"
 
-    # Save session to SQLite
-    bun memory save "Auto-saved session via pulse hook" 2>/dev/null || true
+    # Save session to SQLite — log errors instead of hiding them
+    if ! bun memory save "Auto-saved session via pulse hook" 2>>"$MEMORY_LOG"; then
+        echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] bun memory save failed" >> "$MEMORY_LOG"
+    fi
 
     # If we captured a markdown session file, also ingest it
     if [ -n "$SESSION_FILE" ] && [ -f "$SESSION_FILE" ]; then
-        bun memory learn "$SESSION_FILE" 2>/dev/null || true
+        if ! bun memory learn "$SESSION_FILE" 2>>"$MEMORY_LOG"; then
+            echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] bun memory learn failed for $SESSION_FILE" >> "$MEMORY_LOG"
+        fi
     fi
-
-    # Trigger distillation — extract patterns from recent sessions
-    bun memory distill 2>/dev/null || true
 fi
 
 exit 0

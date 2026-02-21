@@ -41,7 +41,7 @@
           {
             "type": "command",
             "command": "bash \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/pulse-session-end.sh",
-            "async": true
+            "timeout": 15000
           }
         ]
       }

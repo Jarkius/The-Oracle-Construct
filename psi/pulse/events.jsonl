@@ -338,3 +338,6 @@
 {"ts":"2026-02-21T10:11:41Z","type":"session:end","agent":"System","session":"92c773c0-3848-4071-add7-c6b356a53a37","data":{"reason":"stop_hook"}}}
 {"ts":"2026-02-21T10:16:31Z","type":"session:start","agent":"System","session":"unknown","data":{"hook":"SessionStart"}}}
 {"ts":"2026-02-21T10:21:03Z","type":"session:end","agent":"System","session":"db3ae0b8-1494-47c4-8355-98092744025f","data":{"reason":"stop_hook"}}}
+{"ts":"2026-02-21T10:21:22Z","type":"git:push","agent":"Neo","session":"db3ae0b8-1494-47c4-8355-98092744025f","data":{"tool":"Bash","action":"git push"}}}
+{"ts":"2026-02-21T10:24:34Z","type":"git:push","agent":"Neo","session":"db3ae0b8-1494-47c4-8355-98092744025f","data":{"tool":"Bash","action":"git push"}}}
+{"ts":"2026-02-21T10:24:48Z","type":"session:end","agent":"System","session":"db3ae0b8-1494-47c4-8355-98092744025f","data":{"reason":"stop_hook"}}}

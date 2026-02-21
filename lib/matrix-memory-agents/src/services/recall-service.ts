@@ -313,10 +313,20 @@ export async function hybridSearchLearnings(
   }
 
   // Run vector and keyword searches in parallel
-  const [vectorResults, ftsResults] = await Promise.all([
-    searchLearnings(query, { limit: limit * 2, agentId, includeShared, projectPath }),
-    Promise.resolve(searchLearningsFTS(query, limit * 2)),
-  ]);
+  // Vector search gracefully degrades — returns empty if ChromaDB is down
+  let vectorResults: { ids: string[][]; distances?: number[][] } = { ids: [[]], distances: [[]] };
+  let ftsResults: Array<{ id: number; rank?: number }> = [];
+
+  try {
+    [vectorResults, ftsResults] = await Promise.all([
+      searchLearnings(query, { limit: limit * 2, agentId, includeShared, projectPath })
+        .catch(() => ({ ids: [[]], distances: [[]] } as { ids: string[][]; distances?: number[][] })),
+      Promise.resolve(searchLearningsFTS(query, limit * 2)),
+    ]);
+  } catch {
+    // If even FTS fails, return empty
+    ftsResults = searchLearningsFTS(query, limit * 2);
+  }
 
   // Score map: learningId -> { vector: score, keyword: score }
   const scoreMap = new Map<number, { vector: number; keyword: number }>();
@@ -615,6 +625,7 @@ async function recallLearningById(
 
 /**
  * Recall by semantic search - with optional context-aware retrieval
+ * Gracefully degrades to FTS-only when ChromaDB is unavailable.
  */
 async function recallBySearch(
   query: string,
@@ -626,9 +637,16 @@ async function recallBySearch(
   useSmartRetrieval: boolean = true,
   projectPath?: string
 ): Promise<RecallResult> {
-  // Initialize vector DB if needed
-  if (!isInitialized()) {
-    await initVectorDB();
+  // Initialize vector DB if needed — graceful fallback to FTS-only
+  let vectorAvailable = isInitialized();
+  if (!vectorAvailable) {
+    try {
+      await initVectorDB();
+      vectorAvailable = true;
+    } catch (e) {
+      console.log('[Recall] Vector DB unavailable, using FTS-only mode');
+      vectorAvailable = false;
+    }
   }
 
   // Detect task type for context-aware retrieval with category boosting
@@ -636,28 +654,40 @@ async function recallBySearch(
   const retrievalStrategy = getRetrievalStrategy(taskContext.type);
   console.log(`[Recall] Detected task type: ${taskContext.type} (confidence: ${(taskContext.confidence * 100).toFixed(0)}%)`);
   console.log(`[Recall] Category boosts: ${Object.entries(retrievalStrategy.categoryBoost).filter(([_, v]) => v > 1).map(([k, v]) => `${k}:${v}x`).join(', ') || 'none'}`);
+  if (!vectorAvailable) {
+    console.log('[Recall] Mode: FTS-only (ChromaDB not connected)');
+  }
 
   // Build search options with agent and project scoping
   const searchOptions = { limit, agentId, includeShared, projectPath };
 
-  // Run parallel searches
-  // Learnings handled separately for smart retrieval with category boosting
-  const [sessionResults, taskResults] = await Promise.all([
-    searchSessions(query, searchOptions),
-    searchSessionTasks(query, limit),
-  ]);
+  // Run parallel searches — vector searches wrapped in try/catch for graceful degradation
+  let sessionResults: { ids: string[][]; distances?: number[][] } = { ids: [[]], distances: [[]] };
+  let taskResults: Array<{ id: number; session_id: string; description: string; status: string; notes?: string; similarity: number }> = [];
+
+  if (vectorAvailable) {
+    try {
+      [sessionResults, taskResults] = await Promise.all([
+        searchSessions(query, searchOptions),
+        searchSessionTasks(query, limit),
+      ]);
+    } catch (e) {
+      console.log('[Recall] Vector search failed, falling back to FTS-only');
+      vectorAvailable = false;
+    }
+  }
 
   // For learnings, use hybrid search (vector + keyword) for better recall
-  // This combines semantic similarity with exact keyword matching
-  // Weights tuned via validation feedback loop (see scripts/memory/validate-search.ts)
+  // When vector is down, hybridSearchLearnings falls back to FTS-only
   const hybridResults = await hybridSearchLearnings(query, {
     limit: limit + 2,
     agentId,
     includeShared,
     projectPath,
     // Tuned weights: FTS outperforms vector for keyword queries
-    vectorWeight: 0.36,
-    keywordWeight: 0.64,
+    // When vector is unavailable, only keyword results are returned
+    vectorWeight: vectorAvailable ? 0.36 : 0,
+    keywordWeight: vectorAvailable ? 0.64 : 1.0,
   });
 
   // Convert hybrid results to expected format for processing below
