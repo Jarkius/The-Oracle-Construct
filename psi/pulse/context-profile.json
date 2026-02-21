@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-21T09:33:29.610392+00:00",
+  "generated_at": "2026-02-21T10:06:25.869992+00:00",
   "context_depth": "minimal",
   "predicted_focus": "CIS Modernization",
   "session_density": "normal",
@@ -9,7 +9,7 @@
     "psi/memory/adr/"
   ],
   "insights": [
-    "Session at typical hour (09:00 UTC, 4 prior sessions)",
+    "Session at typical hour (10:00 UTC, 2 prior sessions)",
     "Heavy git activity \u2014 likely in implementation mode",
     "Rapid re-entry (<1h gap) \u2014 minimal context needed"
   ]
