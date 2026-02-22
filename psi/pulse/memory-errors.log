@@ -416,3 +416,79 @@ ChromaConnectionError: Failed to connect to Chroma
       at async learnFromFile (/home/user/The-Oracle-Construct/lib/matrix-memory-agents/scripts/memory/learn.ts:157:15)
       at async main (/home/user/The-Oracle-Construct/lib/matrix-memory-agents/scripts/memory/learn.ts:720:15)
 
+$ bun run scripts/memory/index.ts save "Auto-saved session via pulse hook"
+[VectorDB] Using Transformers.js with model: multilingual-e5-base
+[VectorDB] Failed to initialize: 4364 |     if (offlineError(err)) {
+4365 |       throw new ChromaConnectionError(
+4366 |         "Failed to connect to chromadb. Make sure your server is running and try again. If you are running from a browser, make sure that your chromadb instance is configured to allow requests from the current origin using the CHROMA_SERVER_CORS_ALLOW_ORIGINS environment variable."
+4367 |       );
+4368 |     }
+4369 |     throw new ChromaConnectionError("Failed to connect to Chroma");
+                 ^
+ChromaConnectionError: Failed to connect to Chroma
+ cause: undefined,
+
+      at <anonymous> (/home/user/The-Oracle-Construct/lib/matrix-memory-agents/node_modules/chromadb/dist/chromadb.mjs:4369:11)
+      at async <anonymous> (/home/user/The-Oracle-Construct/lib/matrix-memory-agents/node_modules/chromadb/dist/chromadb.mjs:338:32)
+      at async getOrCreateCollection (/home/user/The-Oracle-Construct/lib/matrix-memory-agents/node_modules/chromadb/dist/chromadb.mjs:4877:43)
+      at async initVectorDB (/home/user/The-Oracle-Construct/lib/matrix-memory-agents/src/vector-db.ts:500:33)
+      at async saveCurrentSession (/home/user/The-Oracle-Construct/lib/matrix-memory-agents/scripts/memory/save-session.ts:723:11)
+
+$ bun run scripts/memory/index.ts learn "/home/user/The-Oracle-Construct/psi/memory/sessions/2026-02/2026-02-21_11.06_auto-pulse.md"
+[VectorDB] Using Transformers.js with model: multilingual-e5-base
+[VectorDB] Failed to initialize: 4364 |     if (offlineError(err)) {
+4365 |       throw new ChromaConnectionError(
+4366 |         "Failed to connect to chromadb. Make sure your server is running and try again. If you are running from a browser, make sure that your chromadb instance is configured to allow requests from the current origin using the CHROMA_SERVER_CORS_ALLOW_ORIGINS environment variable."
+4367 |       );
+4368 |     }
+4369 |     throw new ChromaConnectionError("Failed to connect to Chroma");
+                 ^
+ChromaConnectionError: Failed to connect to Chroma
+ cause: undefined,
+
+      at <anonymous> (/home/user/The-Oracle-Construct/lib/matrix-memory-agents/node_modules/chromadb/dist/chromadb.mjs:4369:11)
+      at async <anonymous> (/home/user/The-Oracle-Construct/lib/matrix-memory-agents/node_modules/chromadb/dist/chromadb.mjs:338:32)
+      at async getOrCreateCollection (/home/user/The-Oracle-Construct/lib/matrix-memory-agents/node_modules/chromadb/dist/chromadb.mjs:4877:43)
+      at async initVectorDB (/home/user/The-Oracle-Construct/lib/matrix-memory-agents/src/vector-db.ts:500:33)
+      at async saveLearning (/home/user/The-Oracle-Construct/lib/matrix-memory-agents/scripts/memory/learn.ts:578:11)
+      at async learnFromFile (/home/user/The-Oracle-Construct/lib/matrix-memory-agents/scripts/memory/learn.ts:157:15)
+      at async main (/home/user/The-Oracle-Construct/lib/matrix-memory-agents/scripts/memory/learn.ts:720:15)
+
+$ bun run scripts/memory/index.ts save "Auto-saved session via pulse hook"
+[VectorDB] Using Transformers.js with model: multilingual-e5-base
+[VectorDB] Failed to initialize: 4364 |     if (offlineError(err)) {
+4365 |       throw new ChromaConnectionError(
+4366 |         "Failed to connect to chromadb. Make sure your server is running and try again. If you are running from a browser, make sure that your chromadb instance is configured to allow requests from the current origin using the CHROMA_SERVER_CORS_ALLOW_ORIGINS environment variable."
+4367 |       );
+4368 |     }
+4369 |     throw new ChromaConnectionError("Failed to connect to Chroma");
+                 ^
+ChromaConnectionError: Failed to connect to Chroma
+ cause: undefined,
+
+      at <anonymous> (/home/user/The-Oracle-Construct/lib/matrix-memory-agents/node_modules/chromadb/dist/chromadb.mjs:4369:11)
+      at async <anonymous> (/home/user/The-Oracle-Construct/lib/matrix-memory-agents/node_modules/chromadb/dist/chromadb.mjs:338:32)
+      at async getOrCreateCollection (/home/user/The-Oracle-Construct/lib/matrix-memory-agents/node_modules/chromadb/dist/chromadb.mjs:4877:43)
+      at async initVectorDB (/home/user/The-Oracle-Construct/lib/matrix-memory-agents/src/vector-db.ts:500:33)
+      at async saveCurrentSession (/home/user/The-Oracle-Construct/lib/matrix-memory-agents/scripts/memory/save-session.ts:723:11)
+
+$ bun run scripts/memory/index.ts learn "/home/user/The-Oracle-Construct/psi/memory/sessions/2026-02/2026-02-21_11.09_auto-pulse.md"
+[VectorDB] Using Transformers.js with model: multilingual-e5-base
+[VectorDB] Failed to initialize: 4364 |     if (offlineError(err)) {
+4365 |       throw new ChromaConnectionError(
+4366 |         "Failed to connect to chromadb. Make sure your server is running and try again. If you are running from a browser, make sure that your chromadb instance is configured to allow requests from the current origin using the CHROMA_SERVER_CORS_ALLOW_ORIGINS environment variable."
+4367 |       );
+4368 |     }
+4369 |     throw new ChromaConnectionError("Failed to connect to Chroma");
+                 ^
+ChromaConnectionError: Failed to connect to Chroma
+ cause: undefined,
+
+      at <anonymous> (/home/user/The-Oracle-Construct/lib/matrix-memory-agents/node_modules/chromadb/dist/chromadb.mjs:4369:11)
+      at async <anonymous> (/home/user/The-Oracle-Construct/lib/matrix-memory-agents/node_modules/chromadb/dist/chromadb.mjs:338:32)
+      at async getOrCreateCollection (/home/user/The-Oracle-Construct/lib/matrix-memory-agents/node_modules/chromadb/dist/chromadb.mjs:4877:43)
+      at async initVectorDB (/home/user/The-Oracle-Construct/lib/matrix-memory-agents/src/vector-db.ts:500:33)
+      at async saveLearning (/home/user/The-Oracle-Construct/lib/matrix-memory-agents/scripts/memory/learn.ts:578:11)
+      at async learnFromFile (/home/user/The-Oracle-Construct/lib/matrix-memory-agents/scripts/memory/learn.ts:157:15)
+      at async main (/home/user/The-Oracle-Construct/lib/matrix-memory-agents/scripts/memory/learn.ts:720:15)
+
