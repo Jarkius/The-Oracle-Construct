@@ -13,6 +13,7 @@
 import { Hono } from "hono";
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
+import type { Supervisor } from "../../nerve/supervisor";
 
 const PORT = Number(process.env.CONTROL_PORT) || 8100;
 const CWD = process.env.MATRIX_ROOT || join(import.meta.dir, "../../../..");
@@ -34,6 +35,17 @@ const DAEMONS = [
 ];
 
 const app = new Hono();
+
+// Optional Nerve supervisor integration (set via wireNerve)
+let nerveSupervisor: Supervisor | null = null;
+
+/**
+ * Wire a Nerve supervisor for live escalation data.
+ * Call this after creating the supervisor to enable /api/nerve/live.
+ */
+export function wireNerve(supervisor: Supervisor): void {
+  nerveSupervisor = supervisor;
+}
 
 // Security: validate daemon names to prevent injection
 const VALID_DAEMON_NAMES = new Set(DAEMONS.map(d => d.name));
@@ -138,6 +150,17 @@ app.get("/api/nerve", async (c) => {
   } catch {
     return c.json({ events: [] });
   }
+});
+
+app.get("/api/nerve/live", async (c) => {
+  if (!nerveSupervisor) {
+    return c.json({ status: "not-wired", message: "Nerve supervisor not connected" });
+  }
+  return c.json({
+    daemons: nerveSupervisor.getStatus(),
+    l4Usage: nerveSupervisor.getL4Usage(),
+    fixes: nerveSupervisor.getFixStats(),
+  });
 });
 
 app.get("/api/known-fixes", async (c) => {
