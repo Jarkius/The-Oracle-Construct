@@ -119,7 +119,7 @@ export class Supervisor {
     }
 
     // Send keepalive if all stable
-    const states = new Map<string, any>();
+    const states = new Map<string, ServiceState>();
     for (const [name, daemon] of this.daemons) {
       states.set(name, daemon.state);
     }
@@ -138,8 +138,8 @@ export class Supervisor {
       });
       const newState = response.ok ? 'healthy' : 'degraded';
 
-      // Detect state transition
-      const transition = await this.stateDetector.check(name, newState);
+      // Detect state transition (side effect: emits PULSE events)
+      await this.stateDetector.check(name, newState);
       daemon.previousState = daemon.state;
       daemon.state = newState;
 
@@ -148,8 +148,8 @@ export class Supervisor {
         this.escalation.reset(daemon);
       }
     } catch {
-      const newState = 'unhealthy';
-      const transition = await this.stateDetector.check(name, newState);
+      const newState: ServiceState = 'unhealthy';
+      await this.stateDetector.check(name, newState);
       daemon.previousState = daemon.state;
       daemon.state = newState;
 
@@ -250,6 +250,13 @@ export class Supervisor {
       port: d.port,
       lastCheck: d.lastHealthCheck,
     }));
+  }
+
+  /**
+   * Wire a notification function (e.g., Telegram gateway).
+   */
+  wireNotify(fn: (message: string) => Promise<void>): void {
+    this.escalation.wire({ notify: fn });
   }
 
   /**

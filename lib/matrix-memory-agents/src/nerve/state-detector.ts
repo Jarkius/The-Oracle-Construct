@@ -47,8 +47,8 @@ export class StateDetector {
       detail,
     };
 
-    // Rising edge: healthy → unhealthy
-    if (prev === 'healthy' && currentState !== 'healthy') {
+    // Rising edge: healthy → unhealthy (not degraded — that gets its own event)
+    if (prev === 'healthy' && currentState === 'unhealthy') {
       await this.emitEvent('heartbeat:fail', 'nerve', {
         service,
         from: prev,
@@ -57,9 +57,9 @@ export class StateDetector {
       });
     }
 
-    // Falling edge: unhealthy → healthy
-    if (prev !== 'healthy' && currentState === 'healthy') {
-      await this.emitEvent('heartbeat:recover', 'nerve', {
+    // Degraded transition: healthy → degraded
+    if (prev === 'healthy' && currentState === 'degraded') {
+      await this.emitEvent('heartbeat:degraded', 'nerve', {
         service,
         from: prev,
         to: currentState,
@@ -67,10 +67,12 @@ export class StateDetector {
       });
     }
 
-    // Degraded transitions
-    if (prev === 'healthy' && currentState === 'degraded') {
-      await this.emitEvent('heartbeat:degraded', 'nerve', {
+    // Falling edge: unhealthy/degraded → healthy
+    if (prev !== 'healthy' && currentState === 'healthy') {
+      await this.emitEvent('heartbeat:recover', 'nerve', {
         service,
+        from: prev,
+        to: currentState,
         detail,
       });
     }
