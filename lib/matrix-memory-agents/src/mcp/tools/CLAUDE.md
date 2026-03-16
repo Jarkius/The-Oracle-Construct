@@ -7,5 +7,5 @@
 
 | ID | Time | T | Title | Read |
 |----|------|---|-------|------|
-| #1142 | 10:33 PM | 🟣 | CDP proxy daemon migrated to Matrix | ~815 |
+| #1093 | 10:07 PM | 🟣 | Gemini MCP tools registered in tool index | ~433 |
 </claude-mem-context>

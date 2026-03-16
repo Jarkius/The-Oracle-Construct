@@ -7,5 +7,5 @@
 
 | ID | Time | T | Title | Read |
 |----|------|---|-------|------|
-| #1142 | 10:33 PM | 🟣 | CDP proxy daemon migrated to Matrix | ~815 |
+| #1060 | 6:06 PM | 🔵 | MCP Server v3.0 implementation examined | ~522 |
 </claude-mem-context>

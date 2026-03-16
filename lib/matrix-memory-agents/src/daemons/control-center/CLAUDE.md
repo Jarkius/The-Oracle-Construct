@@ -7,5 +7,5 @@
 
 | ID | Time | T | Title | Read |
 |----|------|---|-------|------|
-| #1142 | 10:33 PM | 🟣 | CDP proxy daemon migrated to Matrix | ~815 |
+| #1180 | 10:40 PM | ✅ | Control Center Wired to Nerve Supervisor Type | ~316 |
 </claude-mem-context>

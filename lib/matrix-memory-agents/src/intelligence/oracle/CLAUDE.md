@@ -7,5 +7,5 @@
 
 | ID | Time | T | Title | Read |
 |----|------|---|-------|------|
-| #1142 | 10:33 PM | 🟣 | CDP proxy daemon migrated to Matrix | ~815 |
+| #1146 | 10:33 PM | 🟣 | Gemini MCP Bridge Integrated into Council Router | ~375 |
 </claude-mem-context>
