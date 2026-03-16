@@ -4,9 +4,9 @@
  */
 
 import { describe, it, expect, beforeEach, afterEach } from 'bun:test';
-import { MissionQueue } from '../pty/mission-queue';
-import { db, saveMission, loadPendingMissions, getMissionFromDb, createLearning, updateLearning } from '../db';
-import type { Mission, MissionResult } from '../interfaces/mission';
+import { MissionQueue } from '../intelligence/pty/mission-queue';
+import { db, saveMission, loadPendingMissions, getMissionFromDb, createLearning, updateLearning } from '../core/db';
+import type { Mission, MissionResult } from '../core/types/mission';
 
 describe('E2E: Mission Lifecycle', () => {
   let queue: MissionQueue;

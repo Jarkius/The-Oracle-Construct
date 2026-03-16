@@ -10,7 +10,7 @@
  * Phase 3: Now supports WebSocket real-time delivery via matrix hub
  */
 
-import { createLearning, db, getInboxMessages, getUnreadCount as dbGetUnreadCount, clearInbox as dbClearInbox, type MatrixMessageRecord } from '../../src/db';
+import { createLearning, db, getInboxMessages, getUnreadCount as dbGetUnreadCount, clearInbox as dbClearInbox, type MatrixMessageRecord } from '../../src/core/db';
 import { connectToHub, sendMessage as sendViaHub, sendDirect, broadcast, isConnected, disconnect, waitForFlush } from '../../src/matrix-client';
 import { execSync } from 'child_process';
 import { basename, join } from 'path';

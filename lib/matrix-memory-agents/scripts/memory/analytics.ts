@@ -20,7 +20,7 @@ import {
   listAllDecisions,
   getMostAccessedResources,
   getRecentLearningEvents,
-} from '../../src/db/behavioral-logs';
+} from '../../src/core/db/behavioral-logs';
 
 // Parse command line arguments
 const { positionals, values } = parseArgs({

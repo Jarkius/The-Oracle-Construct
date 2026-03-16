@@ -5,7 +5,7 @@
 
 import { z } from 'zod';
 import type { ToolDefinition, ToolHandler, MCPResponse } from '../../types';
-import { jsonResponse, errorResponse } from '../../utils/response';
+import { jsonResponse, errorResponse } from '../../core/utils/response';
 import { AgentSpawner, getAgentSpawner } from '../../../pty/spawner';
 import { MissionQueue, getMissionQueue } from '../../../pty/mission-queue';
 import { getPTYManager } from '../../../pty/manager';

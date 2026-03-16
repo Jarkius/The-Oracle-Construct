@@ -9,7 +9,7 @@
  */
 
 import { z } from 'zod';
-import { jsonResponse, errorResponse, successResponse } from '../../utils/response';
+import { jsonResponse, errorResponse, successResponse } from '../../core/utils/response';
 import {
   GeminiBrowserClient,
   parallelGeminiQueries,

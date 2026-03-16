@@ -26,7 +26,7 @@ import {
   type SessionRecord,
   type FullContext,
   type SessionTask,
-} from '../../src/db';
+} from '../../src/core/db';
 import {
   initVectorDB,
   saveSession as saveSessionToChroma,
@@ -34,8 +34,8 @@ import {
   embedSessionTask,
   saveLearning as saveLearningToChroma,
   findSimilarLearnings,
-} from '../../src/vector-db';
-import { createLearningLink } from '../../src/db';
+} from '../../src/memory/vector-db';
+import { createLearningLink } from '../../src/core/db';
 import {
   captureFromClaudeCode,
   formatCapturedContext,
@@ -43,7 +43,7 @@ import {
   suggestFilesToRead,
   type CapturedContext,
 } from './capture-context';
-import { getLearningLoop } from '../../src/learning/loop';
+import { getLearningLoop } from '../../src/memory/learning/loop';
 
 // ============ Git Context Auto-Capture ============
 

@@ -10,8 +10,8 @@
  * Imports from: ~/workspace/The-matrix/psi/memory/retrospectives/
  */
 
-import { createSession, getSessionById, type SessionRecord } from '../../src/db';
-import { initVectorDB, saveSession as saveSessionToVector } from '../../src/vector-db';
+import { createSession, getSessionById, type SessionRecord } from '../../src/core/db';
+import { initVectorDB, saveSession as saveSessionToVector } from '../../src/memory/vector-db';
 import { existsSync, readdirSync, readFileSync, statSync } from 'fs';
 import { join, dirname, basename } from 'path';
 import { execSync } from 'child_process';

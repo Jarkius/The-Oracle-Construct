@@ -11,7 +11,7 @@
  * Exports to: ~/workspace/The-matrix/psi/memory/learnings/{category}/
  */
 
-import { listLearningsFromDb, type LearningRecord } from '../../src/db';
+import { listLearningsFromDb, type LearningRecord } from '../../src/core/db';
 import { existsSync, mkdirSync, writeFileSync, readFileSync } from 'fs';
 import { join, dirname } from 'path';
 import { execSync } from 'child_process';

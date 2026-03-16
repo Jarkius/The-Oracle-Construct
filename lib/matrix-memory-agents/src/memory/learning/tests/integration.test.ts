@@ -5,7 +5,7 @@
 
 import { describe, it, expect, beforeEach } from 'bun:test';
 import { LearningLoop } from '../loop';
-import type { CompletedMission, FailedMission } from '../../interfaces/learning';
+import type { CompletedMission, FailedMission } from '../../core/types/learning';
 
 describe('Learning Loop Integration', () => {
   let loop: LearningLoop;

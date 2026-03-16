@@ -3,7 +3,7 @@
  * MCP tools for managing learnings with SQLite + ChromaDB sync
  */
 
-import { jsonResponse, errorResponse } from '../../utils/response';
+import { jsonResponse, errorResponse } from '../../core/utils/response';
 import {
   createLearning,
   getLearningById,

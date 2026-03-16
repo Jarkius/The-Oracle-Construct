@@ -7,12 +7,12 @@
 
 import { mkdir, writeFile, readFile } from "fs/promises";
 import { existsSync } from "fs";
-import { CONFIG } from '../../config';
-import { successResponse, jsonResponse } from '../../utils/response';
+import { CONFIG } from '../../core/config';
+import { successResponse, jsonResponse } from '../../core/utils/response';
 import {
   UpdateSharedContextSchema,
   type UpdateSharedContextInput,
-} from '../../utils/validation';
+} from '../../core/utils/validation';
 import type { ToolDefinition, ToolHandler } from '../../types';
 import { embedContext, isInitialized } from '../../../vector-db';
 import { db } from '../../../db';

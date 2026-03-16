@@ -11,8 +11,8 @@
  * All entries get FTS-indexed automatically via SQLite triggers.
  */
 
-import { createLearning, createSession, getSessionById } from '../../src/db';
-import type { LearningRecord, SessionRecord } from '../../src/db';
+import { createLearning, createSession, getSessionById } from '../../src/core/db';
+import type { LearningRecord, SessionRecord } from '../../src/core/db';
 import { existsSync, readFileSync, readdirSync, statSync } from 'fs';
 import { join, basename } from 'path';
 

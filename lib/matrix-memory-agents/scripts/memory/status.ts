@@ -3,7 +3,7 @@
  * /memory-status - Show matrix communication status at a glance
  */
 
-import { db } from '../../src/db';
+import { db } from '../../src/core/db';
 import { execSync } from 'child_process';
 import { basename, join } from 'path';
 import { existsSync, readFileSync } from 'fs';

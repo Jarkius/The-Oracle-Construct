@@ -5,7 +5,7 @@
 
 import { writeFileSync } from 'fs';
 import { z } from 'zod';
-import { jsonResponse, errorResponse } from '../../utils/response';
+import { jsonResponse, errorResponse } from '../../core/utils/response';
 import {
   getSessionStats,
   getImprovementReport,

@@ -5,8 +5,8 @@
 
 import { describe, it, expect, beforeEach, afterEach, mock } from 'bun:test';
 import { AgentSpawner } from '../spawner';
-import { selectModel, ROLE_PROMPTS } from '../../interfaces/spawner';
-import type { Task, AgentRole, ModelTier } from '../../interfaces/spawner';
+import { selectModel, ROLE_PROMPTS } from '../../core/types/spawner';
+import type { Task, AgentRole, ModelTier } from '../../core/types/spawner';
 
 describe('AgentSpawner', () => {
   let spawner: AgentSpawner;

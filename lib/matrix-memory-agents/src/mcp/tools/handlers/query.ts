@@ -6,8 +6,8 @@
 
 import { unlink } from "fs/promises";
 import { existsSync } from "fs";
-import { CONFIG } from '../../config';
-import { successResponse, jsonResponse, notFoundResponse, errorResponse } from '../../utils/response';
+import { CONFIG } from '../../core/config';
+import { successResponse, jsonResponse, notFoundResponse, errorResponse } from '../../core/utils/response';
 import {
   QueryTaskHistorySchema,
   GetTaskDetailsSchema,
@@ -19,7 +19,7 @@ import {
   type GetAgentMetricsInput,
   type GetMessageHistoryInput,
   type CancelTaskInput,
-} from '../../utils/validation';
+} from '../../core/utils/validation';
 import {
   getTask,
   getAgentTasks,

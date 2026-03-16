@@ -5,8 +5,8 @@
 
 import { describe, it, expect, beforeEach } from 'bun:test';
 import { MissionQueue } from '../mission-queue';
-import { calculateBackoff, isRecoverable } from '../../interfaces/mission';
-import type { Mission, ErrorContext, Priority } from '../../interfaces/mission';
+import { calculateBackoff, isRecoverable } from '../../core/types/mission';
+import type { Mission, ErrorContext, Priority } from '../../core/types/mission';
 
 describe('MissionQueue', () => {
   let queue: MissionQueue;

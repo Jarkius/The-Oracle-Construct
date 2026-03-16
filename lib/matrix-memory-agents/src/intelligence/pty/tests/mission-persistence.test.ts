@@ -4,7 +4,7 @@
  */
 
 import { describe, it, expect, beforeEach, afterEach } from 'bun:test';
-import { db, saveMission, loadPendingMissions, updateMissionStatus, getMissionFromDb, type MissionRecord } from '../../db';
+import { db, saveMission, loadPendingMissions, updateMissionStatus, getMissionFromDb, type MissionRecord } from '../../core/db';
 
 describe('Mission Persistence', () => {
   // Generate unique test ID per test to avoid conflicts

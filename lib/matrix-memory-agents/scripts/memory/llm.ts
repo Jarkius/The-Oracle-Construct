@@ -12,7 +12,7 @@
  *   bun memory llm providers                       # List available providers
  */
 
-import { ExternalLLM, type LLMProvider, type LLMOptions } from '../../src/services/external-llm';
+import { ExternalLLM, type LLMProvider, type LLMOptions } from '../../src/intelligence/services/external-llm';
 
 function printUsage() {
   console.log(`

@@ -13,11 +13,11 @@ import {
   resetAllMemory,
   getSessionStats,
   type PurgeResult,
-} from '../../src/db';
+} from '../../src/core/db';
 import {
   initVectorDB,
   resetVectorCollections,
-} from '../../src/vector-db';
+} from '../../src/memory/vector-db';
 
 async function promptInput(message: string): Promise<string> {
   const readline = await import('readline');

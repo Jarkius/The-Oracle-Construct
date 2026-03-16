@@ -31,14 +31,14 @@ import {
   type UnifiedTask,
   type UnifiedTaskStatus,
   type UnifiedTaskDomain,
-} from '../../src/db';
+} from '../../src/core/db';
 import {
   getProjectGitHubRepo,
   parseCommitIssueRefs,
   detectTaskCompletion,
   type CommitWithRefs,
   type TaskCompletionHint,
-} from '../../src/utils/git-context';
+} from '../../src/core/utils/git-context';
 import { $ } from 'bun';
 
 // ANSI color codes

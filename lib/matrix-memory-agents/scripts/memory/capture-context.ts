@@ -16,7 +16,7 @@ import { readFileSync, readdirSync, statSync, existsSync } from 'fs';
 import { join } from 'path';
 import { homedir } from 'os';
 import { execSync } from 'child_process';
-import type { MidChangeState, CodeBreadcrumb, ContinuationBundle, StructuredNextStep } from '../../src/db';
+import type { MidChangeState, CodeBreadcrumb, ContinuationBundle, StructuredNextStep } from '../../src/core/db';
 
 const CLAUDE_DIR = join(homedir(), '.claude');
 

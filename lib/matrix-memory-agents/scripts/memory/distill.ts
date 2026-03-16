@@ -21,10 +21,10 @@ process.argv = process.argv.filter(a =>
   a !== '--yes' && a !== '-y' && a !== '--smart' && a !== '--dedupe'
 );
 
-import { initVectorDB, saveLearning as saveLearningToChroma, findSimilarLearnings } from '../../src/vector-db';
-import { smartDistill } from '../../src/learning/distill-engine';
-import { runSmartConsolidation } from '../../src/learning/consolidation';
-import { getSessionById, listSessionsFromDb, createLearning, createLearningLink, type SessionRecord } from '../../src/db';
+import { initVectorDB, saveLearning as saveLearningToChroma, findSimilarLearnings } from '../../src/memory/vector-db';
+import { smartDistill } from '../../src/memory/learning/distill-engine';
+import { runSmartConsolidation } from '../../src/memory/learning/consolidation';
+import { getSessionById, listSessionsFromDb, createLearning, createLearningLink, type SessionRecord } from '../../src/core/db';
 import * as readline from 'readline';
 
 const TECHNICAL_CATEGORIES = ['performance', 'architecture', 'tooling', 'debugging', 'security', 'testing', 'process'] as const;

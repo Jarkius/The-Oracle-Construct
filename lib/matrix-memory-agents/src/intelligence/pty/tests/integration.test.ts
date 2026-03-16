@@ -7,9 +7,9 @@ import { describe, it, expect, beforeEach, afterEach } from 'bun:test';
 import { PTYManager, getPTYManager } from '../manager';
 import { AgentSpawner, getAgentSpawner } from '../spawner';
 import { MissionQueue, getMissionQueue } from '../mission-queue';
-import { selectModel } from '../../interfaces/spawner';
-import type { Task, Agent } from '../../interfaces/spawner';
-import type { Mission } from '../../interfaces/mission';
+import { selectModel } from '../../core/types/spawner';
+import type { Task, Agent } from '../../core/types/spawner';
+import type { Mission } from '../../core/types/mission';
 
 describe('Integration: Mission Queue + Spawner', () => {
   let queue: MissionQueue;

@@ -7,5 +7,6 @@
 
 | ID | Time | T | Title | Read |
 |----|------|---|-------|------|
-| #1206 | 10:46 PM | 🔄 | Phase 2 modular restructure - 111 files reorganized into layered architecture | ~1024 |
+| #1204 | 10:46 PM | 🔵 | 264 broken import paths discovered across Matrix codebase requiring Phase 2 modular restructure | ~850 |
+| #1037 | 6:02 PM | 🔵 | Memory backfill script examined | ~436 |
 </claude-mem-context>

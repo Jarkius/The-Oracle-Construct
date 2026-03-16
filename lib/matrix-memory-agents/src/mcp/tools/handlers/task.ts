@@ -8,14 +8,14 @@
  */
 
 import { mkdir, writeFile } from "fs/promises";
-import { CONFIG } from '../../config';
-import { successResponse, errorResponse } from '../../utils/response';
+import { CONFIG } from '../../core/config';
+import { successResponse, errorResponse } from '../../core/utils/response';
 import {
   AssignTaskSchema,
   BroadcastTaskSchema,
   type AssignTaskInput,
   type BroadcastTaskInput,
-} from '../../utils/validation';
+} from '../../core/utils/validation';
 import {
   getAllAgents,
   sendMessage,

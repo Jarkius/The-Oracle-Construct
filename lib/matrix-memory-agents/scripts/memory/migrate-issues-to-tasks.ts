@@ -10,7 +10,7 @@
  *   bun scripts/memory/migrate-issues-to-tasks.ts --apply   # Apply changes
  */
 
-import { db, createUnifiedTask, type UnifiedTaskCreate } from '../../src/db';
+import { db, createUnifiedTask, type UnifiedTaskCreate } from '../../src/core/db';
 
 interface DebugLearning {
   id: number;

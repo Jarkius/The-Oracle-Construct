@@ -4,13 +4,13 @@
  * Usage: bun scripts/memory/context.ts ["optional query"]
  */
 
-import { initVectorDB, searchSessions, searchLearnings } from '../../src/vector-db';
+import { initVectorDB, searchSessions, searchLearnings } from '../../src/memory/vector-db';
 import {
   listSessionsFromDb,
   listLearningsFromDb,
   getSessionStats,
   getSessionById
-} from '../../src/db';
+} from '../../src/core/db';
 
 const query = process.argv[2];
 

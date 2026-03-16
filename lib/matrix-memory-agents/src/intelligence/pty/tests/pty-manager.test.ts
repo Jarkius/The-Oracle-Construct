@@ -5,7 +5,7 @@
 
 import { describe, it, expect, beforeEach, afterEach, mock } from 'bun:test';
 import { PTYManager } from '../manager';
-import type { AgentEvent, HealthStatus } from '../../interfaces/pty';
+import type { AgentEvent, HealthStatus } from '../../core/types/pty';
 
 // Mock tmux commands for testing without actual tmux
 const mockTmux = {

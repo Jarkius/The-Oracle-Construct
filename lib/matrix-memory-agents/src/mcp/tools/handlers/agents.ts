@@ -5,12 +5,12 @@
 
 import { readFile, readdir } from "fs/promises";
 import { existsSync } from "fs";
-import { CONFIG } from '../../config';
-import { successResponse, jsonResponse } from '../../utils/response';
+import { CONFIG } from '../../core/config';
+import { successResponse, jsonResponse } from '../../core/utils/response';
 import {
   GetAgentWorkloadSchema,
   type GetAgentWorkloadInput,
-} from '../../utils/validation';
+} from '../../core/utils/validation';
 import { getAllAgents } from '../../../db';
 import type { ToolDefinition, ToolHandler } from '../../types';
 

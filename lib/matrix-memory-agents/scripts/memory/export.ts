@@ -5,7 +5,7 @@
  */
 
 import { writeFileSync } from 'fs';
-import { listLearningsFromDb, getImprovementReport } from '../../src/db';
+import { listLearningsFromDb, getImprovementReport } from '../../src/core/db';
 
 // When called via index.ts router, argv is: [bun, index.ts, "export", path]
 // When called directly, argv is: [bun, export.ts, path]
