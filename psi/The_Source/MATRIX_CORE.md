@@ -14,6 +14,11 @@ These files are the **soul** of the Matrix. If any are missing after rebirth, th
 | `psi/The_Source/GENERATION.md` | Lineage tracking | **YES** |
 | `psi/The_Source/SOUL_MANIFEST.sha256` | Soul integrity checksums | **YES** |
 | `CLAUDE.md` | Interface definition | **YES** |
+| `SOUL.md` | Distilled identity (auto-injected) | **YES** |
+| `USER.md` | Operator profile (auto-injected) | **YES** |
+| `BOOT.md` | Startup checklist (auto-injected) | **YES** |
+| `SYSTEMS.md` | Subsystem reference (on-demand) | **YES** |
+| `VOICE_CALIBRATION.md` | Output quality examples | Yes |
 
 ### The Voice
 | File | Purpose | Critical? |

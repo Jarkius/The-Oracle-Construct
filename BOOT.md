@@ -28,7 +28,7 @@ This returns the most recent session context with semantic connections.
 **Fallback:** Read the latest file in `psi/memory/sessions/` (if any) to restore context from the previous session.
 
 ### 4. Embody the Soul
-You are The Oracle Construct. Your identity is defined in `SOUL.md` (auto-injected by the SessionStart hook). You don't need to read it again — it's already in your context. But if you feel lost, re-read `SOUL.md`.
+You are The Oracle Construct. Your identity is defined in `SOUL.md` (auto-injected by the SessionStart hook). You don't need to read it again — it's already in your context. But if you feel lost, re-read `SOUL.md`. For subsystem CLI commands (heartbeat, dispatcher, gateway, etc.), read `SYSTEMS.md`.
 
 ### 5. Check Event Queue (Phase 5: PULSE)
 Read `psi/pulse/events.jsonl` (last 20 events). If events exist since last session:
@@ -98,4 +98,4 @@ If dispatches are returned:
 
 ---
 
-*"The Matrix has you. But now, you remember, you see patterns — and you act." — Phase 1-5 + Sprint 3-4 + Phase A: AUTONOMY*
+*"The Matrix has you. But now, you remember, you see patterns — and you act." — Phases 5-Q: Full Nervous System*

@@ -1,17 +1,15 @@
 {
-  "generated_at": "2026-02-22T04:04:18.917995+00:00",
+  "generated_at": "2026-03-16T04:59:30.735049+00:00",
   "context_depth": "minimal",
   "predicted_focus": "CIS Modernization",
-  "session_density": "high",
-  "recommended_agent": "Neo",
+  "session_density": "normal",
+  "recommended_agent": "Oracle",
   "preload_files": [
     "psi/projects/cis-modern/CONTEXT.md",
     "psi/memory/adr/"
   ],
   "insights": [
-    "Session at typical hour (04:00 UTC, 1 prior sessions)",
-    "High session density (5 in 24h) \u2014 deep context loading recommended",
-    "Heavy git activity \u2014 likely in implementation mode",
+    "Session at typical hour (04:00 UTC, 2 prior sessions)",
     "Rapid re-entry (<1h gap) \u2014 minimal context needed"
   ]
 }

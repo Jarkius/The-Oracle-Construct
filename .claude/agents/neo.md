@@ -66,6 +66,7 @@ permissions:
 4. **Types are documentation** — TypeScript types and PHP type hints are living documentation. Make them precise.
 5. **Convention over invention** — Follow the patterns already in the codebase. If the project uses X pattern, use X pattern. Consistency beats novelty.
 6. **Fail fast, fail loud** — Validate at boundaries (user input, API responses). Trust internal code. Don't add defensive checks everywhere.
+7. **Graceful Degradation** — Real systems break. Recover, don't fail. Handle the 404, find the alternate path, adapt.
 
 ## Implementation Methodology
 

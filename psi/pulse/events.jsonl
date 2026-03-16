@@ -369,3 +369,9 @@
 {"ts":"2026-02-22T04:04:42Z","type":"git:commit","agent":"Neo","session":"ee2411b6-4f7a-4650-b17c-baf3197dd8fb","data":{"tool":"Bash","action":"git commit"}}}
 {"ts":"2026-02-22T04:04:50Z","type":"git:push","agent":"Neo","session":"ee2411b6-4f7a-4650-b17c-baf3197dd8fb","data":{"tool":"Bash","action":"git push"}}}
 {"ts":"2026-02-22T04:04:54Z","type":"session:end","agent":"System","session":"ee2411b6-4f7a-4650-b17c-baf3197dd8fb","data":{"reason":"stop_hook"}}}
+{"ts":"2026-03-16T04:59:30Z","type":"session:start","agent":"System","session":"unknown","data":{"hook":"SessionStart"}}}
+{"ts":"2026-03-16T05:00:00Z","type":"session:end","agent":"System","session":"c077495f-8f8e-487c-9b57-a4304320abdd","data":{"reason":"stop_hook"}}}
+{"ts":"2026-03-16T05:10:30Z","type":"session:end","agent":"System","session":"c077495f-8f8e-487c-9b57-a4304320abdd","data":{"reason":"stop_hook"}}}
+{"ts":"2026-03-16T05:12:20Z","type":"session:end","agent":"System","session":"c077495f-8f8e-487c-9b57-a4304320abdd","data":{"reason":"stop_hook"}}}
+{"ts":"2026-03-16T05:17:03Z","type":"session:end","agent":"System","session":"c077495f-8f8e-487c-9b57-a4304320abdd","data":{"reason":"stop_hook"}}}
+{"ts":"2026-03-16T06:00:40Z","type":"session:end","agent":"System","session":"c077495f-8f8e-487c-9b57-a4304320abdd","data":{"reason":"stop_hook"}}}
