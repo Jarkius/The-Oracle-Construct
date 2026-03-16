@@ -6,9 +6,9 @@
  * Usage: bun scripts/memory/evaluate-search.ts
  */
 
-import { searchLearnings, initVectorDB } from '../src/memory/vector-db';
-import { searchLearningsFTS, getLearningById } from '../src/core/db';
-import { hybridSearchLearnings } from '../src/intelligence/services/recall-service';
+import { searchLearnings, initVectorDB } from '../../src/memory/vector-db';
+import { searchLearningsFTS, getLearningById } from '../../src/core/db';
+import { hybridSearchLearnings } from '../../src/intelligence/services/recall-service';
 
 // Test cases: query -> expected learning IDs that should be in top results
 const TEST_CASES: Array<{

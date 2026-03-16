@@ -25,7 +25,7 @@ export LC_ALL=C
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
-MMA_DIR="$PROJECT_ROOT/lib/matrix-memory-agents"
+MMA_DIR="$PROJECT_ROOT"
 LOG_DIR="$PROJECT_ROOT/psi/pulse/daemon-logs"
 
 mkdir -p "$LOG_DIR"
@@ -70,7 +70,7 @@ check_bun() {
 
 check_mma() {
     if [ ! -d "$MMA_DIR" ]; then
-        echo "[matrix-services] ERROR: matrix-memory-agents not found at $MMA_DIR"
+        echo "[matrix-services] ERROR: src/ directory not found at $MMA_DIR"
         return 1
     fi
 }

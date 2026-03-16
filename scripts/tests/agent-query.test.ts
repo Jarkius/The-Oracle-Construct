@@ -14,15 +14,15 @@ import {
   isExpired,
   type AgentAddress,
   type RpcRequest,
-} from '../src/core/types/agent-protocol';
-import { AgentRpcClient, AgentRpcServer, AgentRpc } from '../src/intelligence/services/agent-rpc';
+} from '../../src/core/types/agent-protocol';
+import { AgentRpcClient, AgentRpcServer, AgentRpc } from '../../src/intelligence/services/agent-rpc';
 import {
   createConversation,
   getConversation,
   saveConversationMessage,
   getConversationMessages,
   getThreadMessages,
-} from '../src/core/db';
+} from '../../src/core/db';
 
 describe('Agent Protocol Types', () => {
   test('ulid generates unique IDs', () => {

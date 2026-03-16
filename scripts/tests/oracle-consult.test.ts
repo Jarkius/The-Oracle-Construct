@@ -4,7 +4,7 @@
  */
 
 import { describe, it, expect, beforeEach, beforeAll } from 'bun:test';
-import { oracleConsultHandlers } from '../src/mcp/tools/handlers/oracle-consult';
+import { oracleConsultHandlers } from '../../src/mcp/tools/handlers/oracle-consult';
 
 describe('Oracle Consultation', () => {
   describe('Input Validation', () => {

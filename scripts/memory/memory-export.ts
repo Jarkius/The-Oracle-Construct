@@ -22,7 +22,7 @@ import {
   scanAndImport,
   importMarkdownFile,
   importLearningToDb,
-} from '../src/memory';
+} from '../../src/memory';
 
 // Parse command line arguments
 const { positionals, values } = parseArgs({

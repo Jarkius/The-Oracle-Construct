@@ -15,7 +15,7 @@ import {
   findEntityPath,
   getEntityLearnings,
   getEntityByName,
-} from '../src/core/db';
+} from '../../src/core/db';
 
 const args = process.argv.slice(2);
 const mermaidMode = args.includes('--mermaid');

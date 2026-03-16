@@ -13,7 +13,7 @@ export LC_ALL=C
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
-MMA_DIR="$PROJECT_ROOT/lib/matrix-memory-agents"
+MMA_DIR="$PROJECT_ROOT"
 
 EVENT_WRITER="$PROJECT_ROOT/.claude/hooks/pulse-event-writer.sh"
 MEMORY_SAVE="$PROJECT_ROOT/.claude/hooks/session-memory-save.sh"
@@ -82,7 +82,7 @@ if [ -f "$MEMORY_SAVE" ]; then
 fi
 
 # ─── ADR-010: Dual-layer persistence ────────────────────────────
-# Save to SQLite (ChromaDB optional) if matrix-memory-agents is available
+# Save to SQLite (ChromaDB optional) if src/ is available
 MEMORY_LOG="$PROJECT_ROOT/psi/pulse/memory-errors.log"
 if [ -d "$MMA_DIR" ] && command -v bun &> /dev/null; then
     cd "$MMA_DIR"

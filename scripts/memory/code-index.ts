@@ -10,11 +10,11 @@
  *   bun memory index search "q" - Search indexed code
  */
 
-import { CodeIndexer, getDefaultIndexer } from '../src/memory/indexer/code-indexer';
-import { getCodeFileStats, findIndexedFiles, findFilesBySymbol, findSymbolByName, getSymbolStats, getFilesByPattern, getPatternStats, getAllCodeFiles } from '../src/core/db';
-import { hybridSearch, fastSearch, getIndexHealth } from '../src/memory/indexer/hybrid-search';
-import { initVectorDB } from '../src/memory/vector-db';
-import { analyzeAndPersistPatterns } from '../src/memory/learning/code-analyzer';
+import { CodeIndexer, getDefaultIndexer } from '../../src/memory/indexer/code-indexer';
+import { getCodeFileStats, findIndexedFiles, findFilesBySymbol, findSymbolByName, getSymbolStats, getFilesByPattern, getPatternStats, getAllCodeFiles } from '../../src/core/db';
+import { hybridSearch, fastSearch, getIndexHealth } from '../../src/memory/indexer/hybrid-search';
+import { initVectorDB } from '../../src/memory/vector-db';
+import { analyzeAndPersistPatterns } from '../../src/memory/learning/code-analyzer';
 
 const args = process.argv.slice(2);
 const subcommand = args[0];

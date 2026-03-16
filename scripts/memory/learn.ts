@@ -15,10 +15,10 @@
  *   Wisdom:    philosophy, principle, insight, pattern, retrospective
  */
 
-import { initVectorDB, saveLearning as saveLearningToChroma, findSimilarLearnings } from '../src/memory/vector-db';
-import { createLearning, createLearningLink, extractAndLinkEntities } from '../src/core/db';
-import { distillFromContent } from '../src/memory/learning/distill-engine';
-import { analyzeRepository } from '../src/memory/learning/code-analyzer';
+import { initVectorDB, saveLearning as saveLearningToChroma, findSimilarLearnings } from '../../src/memory/vector-db';
+import { createLearning, createLearningLink, extractAndLinkEntities } from '../../src/core/db';
+import { distillFromContent } from '../../src/memory/learning/distill-engine';
+import { analyzeRepository } from '../../src/memory/learning/code-analyzer';
 import * as readline from 'readline';
 import { existsSync, readFileSync } from 'fs';
 import { basename } from 'path';

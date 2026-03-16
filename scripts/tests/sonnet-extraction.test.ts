@@ -8,10 +8,10 @@
  */
 
 import { describe, it, expect, beforeAll } from 'bun:test';
-import { QualityScorer, getQualityScorer, type QualityScore } from '../src/memory/learning/quality-scorer';
-import { smartDistill, distillFromContent, type EnhancedLearning } from '../src/memory/learning/distill-engine';
-import { smartDeduplicate, type SmartDeduplicationResult } from '../src/memory/learning/consolidation';
-import type { LearningRecord } from '../src/core/db';
+import { QualityScorer, getQualityScorer, type QualityScore } from '../../src/memory/learning/quality-scorer';
+import { smartDistill, distillFromContent, type EnhancedLearning } from '../../src/memory/learning/distill-engine';
+import { smartDeduplicate, type SmartDeduplicationResult } from '../../src/memory/learning/consolidation';
+import type { LearningRecord } from '../../src/core/db';
 
 // ============ Quality Scorer Tests ============
 

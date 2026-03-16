@@ -23,7 +23,7 @@ import { readdirSync, statSync, readFileSync, lstatSync, readlinkSync } from 'fs
 import { join, basename, dirname } from 'path';
 import { homedir } from 'os';
 import { execSync } from 'child_process';
-import { recall, type RecallResult, type SessionWithContext, type LearningWithContext } from '../src/intelligence/services/recall-service';
+import { recall, type RecallResult, type SessionWithContext, type LearningWithContext } from '../../src/intelligence/services/recall-service';
 import {
   type SessionTask,
   getLearningEntities,
@@ -32,9 +32,9 @@ import {
   getUnifiedTasks,
   getUnifiedTaskStats,
   type UnifiedTask,
-} from '../src/core/db';
-import { formatFullContext, formatFullContextEnhanced, getStatusIcon, getConfidenceBadge, truncate } from '../src/core/utils/formatters';
-import { getGitStatus, getChangesSinceCommit, getLastCommitHash, detectTaskCompletion, type TaskCompletionHint } from '../src/core/utils/git-context';
+} from '../../src/core/db';
+import { formatFullContext, formatFullContextEnhanced, getStatusIcon, getConfidenceBadge, truncate } from '../../src/core/utils/formatters';
+import { getGitStatus, getChangesSinceCommit, getLastCommitHash, detectTaskCompletion, type TaskCompletionHint } from '../../src/core/utils/git-context';
 
 // ============ Unified Tasks Display ============
 

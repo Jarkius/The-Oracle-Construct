@@ -10,8 +10,8 @@
  *   bun memory quality --limit 20      - Score only N learnings
  */
 
-import { listLearningsFromDb, type LearningRecord } from '../src/core/db';
-import { QualityScorer, type QualityScore } from '../src/memory/learning/quality-scorer';
+import { listLearningsFromDb, type LearningRecord } from '../../src/core/db';
+import { QualityScorer, type QualityScore } from '../../src/memory/learning/quality-scorer';
 
 const args = process.argv.slice(2);
 const showHelp = args.includes('--help') || args.includes('-h');

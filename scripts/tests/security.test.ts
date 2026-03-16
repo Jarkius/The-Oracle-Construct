@@ -12,7 +12,7 @@ import {
   escapeShellPath,
   isValidEnvVarName,
   buildEnvAssignment,
-} from '../src/core/utils/shell';
+} from '../../src/core/utils/shell';
 
 describe('Shell Escaping Security', () => {
   describe('escapeShellArg', () => {

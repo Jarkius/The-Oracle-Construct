@@ -16,8 +16,8 @@ import {
   getCorrelationSummary,
   findLearningsForCode,
   findCodeForLearning,
-} from '../src/memory/learning/code-correlation';
-import { getLearningById, listLearningsFromDb } from '../src/core/db';
+} from '../../src/memory/learning/code-correlation';
+import { getLearningById, listLearningsFromDb } from '../../src/core/db';
 
 const args = process.argv.slice(2);
 const showHelp = args.includes('--help') || args.includes('-h');

@@ -16,8 +16,8 @@ import {
   purgeDuplicateLearnings,
   getSessionStats,
   type PurgeResult,
-} from '../src/core/db';
-import { initVectorDB } from '../src/memory/vector-db';
+} from '../../src/core/db';
+import { initVectorDB } from '../../src/memory/vector-db';
 
 const args = process.argv.slice(2);
 

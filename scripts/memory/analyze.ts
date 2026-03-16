@@ -13,12 +13,12 @@ import {
   CrossSessionAnalyzer,
   analyzeRecentSessions,
   type CrossSessionPattern,
-} from '../src/memory/learning/cross-session';
+} from '../../src/memory/learning/cross-session';
 import {
   analyzeCodebaseWithGemini,
   analyzeRepository,
   type CodebaseInsight,
-} from '../src/memory/learning/code-analyzer';
+} from '../../src/memory/learning/code-analyzer';
 
 const args = process.argv.slice(2);
 const showHelp = args.includes('--help') || args.includes('-h');

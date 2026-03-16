@@ -46,7 +46,7 @@ Event-driven intelligence. Append-only log at `psi/pulse/events.jsonl`.
 **Mandatory: Search before you speak.** Before answering about prior work, decisions, dates, preferences, or project history — search memory first. Do NOT guess.
 
 ```bash
-cd lib/matrix-memory-agents
+# memory commands run from root now
 bun memory recall "query"    # Semantic search (primary)
 bun memory save "summary"    # Save session context
 bun memory status            # Health check

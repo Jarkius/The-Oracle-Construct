@@ -19,8 +19,8 @@ import {
   MATURITY_ICONS,
   type LearningRecord,
   type MaturityStage,
-} from '../src/core/db/learnings';
-import { logAccess } from '../src/core/db/behavioral-logs';
+} from '../../src/core/db/learnings';
+import { logAccess } from '../../src/core/db/behavioral-logs';
 
 // Parse command line arguments
 const { values } = parseArgs({

@@ -11,7 +11,7 @@
  *   bun memory map --output FILE      - Output to specific file
  */
 
-import { getCodeIndexStats, searchCodeVector, initVectorDB } from '../src/memory/vector-db';
+import { getCodeIndexStats, searchCodeVector, initVectorDB } from '../../src/memory/vector-db';
 import { readFile, writeFile } from 'fs/promises';
 import { existsSync } from 'fs';
 import { basename } from 'path';

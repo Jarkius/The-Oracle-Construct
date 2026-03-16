@@ -28,7 +28,7 @@ TASK_DESC="${2:-General task}"
 TEAM_ID="${3:-}"
 AGENT_LOWER=$(echo "$AGENT_NAME" | tr '[:upper:]' '[:lower:]')
 
-MMA_DIR="$PROJECT_ROOT/lib/matrix-memory-agents"
+MMA_DIR="$PROJECT_ROOT"
 
 # ─── 1. Agent Personality ────────────────────────────────────
 PERSONALITY=""

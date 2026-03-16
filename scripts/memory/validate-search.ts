@@ -12,9 +12,9 @@
  *   bun scripts/memory/validate-search.ts problems  # Show problematic queries
  */
 
-import { searchLearnings, initVectorDB } from '../src/memory/vector-db';
-import { searchLearningsFTS } from '../src/core/db';
-import { hybridSearchLearnings } from '../src/intelligence/services/recall-service';
+import { searchLearnings, initVectorDB } from '../../src/memory/vector-db';
+import { searchLearningsFTS } from '../../src/core/db';
+import { hybridSearchLearnings } from '../../src/intelligence/services/recall-service';
 import {
   runValidationTests,
   calculateSearchMetrics,
@@ -22,7 +22,7 @@ import {
   getProblematicQueries,
   getRecentFeedback,
   recordValidationResult,
-} from '../src/memory/learning/search-validation';
+} from '../../src/memory/learning/search-validation';
 
 // Test cases for validation
 // These are query -> expected learning ID pairs for measuring search quality

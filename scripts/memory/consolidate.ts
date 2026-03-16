@@ -15,8 +15,8 @@ import {
   findConsolidationCandidates,
   calculateMergeStrategy,
   type ConsolidationCandidate,
-} from '../src/memory/learning/consolidation';
-import { getConfidenceBadge } from '../src/core/utils/formatters';
+} from '../../src/memory/learning/consolidation';
+import { getConfidenceBadge } from '../../src/core/utils/formatters';
 
 // Parse arguments
 const args = process.argv.slice(2);

@@ -13,19 +13,19 @@ import {
   getCrossSessionAnalyzer,
   analyzeRecentSessions,
   type CrossSessionPattern,
-} from '../src/memory/learning/cross-session';
+} from '../../src/memory/learning/cross-session';
 import {
   CodeCorrelator,
   getCodeCorrelator,
   getCorrelationSummary,
   type CorrelationMatch,
-} from '../src/memory/learning/code-correlation';
+} from '../../src/memory/learning/code-correlation';
 import {
   analyzeCodebaseWithGemini,
   analyzeRepository,
   type CodebaseInsight,
-} from '../src/memory/learning/code-analyzer';
-import { ExternalLLM } from '../src/intelligence/services/external-llm';
+} from '../../src/memory/learning/code-analyzer';
+import { ExternalLLM } from '../../src/intelligence/services/external-llm';
 
 // ============ Cross-Session Tests ============
 

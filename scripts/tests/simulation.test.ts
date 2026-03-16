@@ -9,15 +9,15 @@
  */
 
 import { describe, it, expect, beforeEach, afterEach } from 'bun:test';
-import { getOracleOrchestrator } from '../src/intelligence/oracle/orchestrator';
-import { getTaskRouter } from '../src/intelligence/oracle/task-router';
-import { getTaskDecomposer } from '../src/intelligence/oracle/task-decomposer';
+import { getOracleOrchestrator } from '../../src/intelligence/oracle/orchestrator';
+import { getTaskRouter } from '../../src/intelligence/oracle/task-router';
+import { getTaskDecomposer } from '../../src/intelligence/oracle/task-decomposer';
 import {
   createTempDb,
   getTempDb,
   cleanupTempDb
 } from './test-utils';
-import type { AgentRole, ModelTier } from '../src/core/types/spawner';
+import type { AgentRole, ModelTier } from '../../src/core/types/spawner';
 
 // Simulated agent for testing
 interface SimulatedAgent {

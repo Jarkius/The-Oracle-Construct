@@ -4,7 +4,7 @@
  * Usage: bun scripts/memory/list.ts [sessions|learnings] [-i|--interactive]
  */
 
-import { listSessionsFromDb, listLearningsFromDb, getSessionTaskStats, getSessionById } from '../src/core/db';
+import { listSessionsFromDb, listLearningsFromDb, getSessionTaskStats, getSessionById } from '../../src/core/db';
 import Enquirer from 'enquirer';
 
 // Parse arguments

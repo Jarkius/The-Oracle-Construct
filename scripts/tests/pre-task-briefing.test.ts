@@ -4,8 +4,8 @@
  */
 
 import { describe, it, expect, beforeAll } from 'bun:test';
-import { taskHandlers } from '../src/mcp/tools/handlers/task';
-import { registerAgent } from '../src/core/db';
+import { taskHandlers } from '../../src/mcp/tools/handlers/task';
+import { registerAgent } from '../../src/core/db';
 
 describe('Pre-Task Briefing', () => {
   beforeAll(() => {

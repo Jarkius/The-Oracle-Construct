@@ -4,7 +4,7 @@
  * Usage: bun scripts/memory/stats.ts
  */
 
-import { getSessionStats, getImprovementReport, listSessionsFromDb } from '../src/core/db';
+import { getSessionStats, getImprovementReport, listSessionsFromDb } from '../../src/core/db';
 
 async function showStats() {
   console.log('\n📊 Memory System Statistics\n');

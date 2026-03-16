@@ -10,17 +10,17 @@
  */
 
 import { describe, it, expect, beforeEach, afterEach } from 'bun:test';
-import { getOracleOrchestrator } from '../src/intelligence/oracle/orchestrator';
-import { getTaskRouter } from '../src/intelligence/oracle/task-router';
-import { getTaskDecomposer } from '../src/intelligence/oracle/task-decomposer';
-import { MissionQueue } from '../src/intelligence/pty/mission-queue';
+import { getOracleOrchestrator } from '../../src/intelligence/oracle/orchestrator';
+import { getTaskRouter } from '../../src/intelligence/oracle/task-router';
+import { getTaskDecomposer } from '../../src/intelligence/oracle/task-decomposer';
+import { MissionQueue } from '../../src/intelligence/pty/mission-queue';
 import {
   createTempDb,
   getTempDb,
   cleanupTempDb
 } from './test-utils';
-import type { AgentRole, ModelTier } from '../src/core/types/spawner';
-import type { Mission } from '../src/core/types/mission';
+import type { AgentRole, ModelTier } from '../../src/core/types/spawner';
+import type { Mission } from '../../src/core/types/mission';
 
 // Chaos injection types
 type ChaosEvent =

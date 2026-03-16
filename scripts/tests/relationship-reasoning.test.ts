@@ -15,7 +15,7 @@ import {
   extractAndPersistEntities,
   type ExtractedEntity,
   type EnhancedRelationship,
-} from '../src/memory/learning/entity-extractor';
+} from '../../src/memory/learning/entity-extractor';
 import {
   addEntityRelationship,
   getEntityRelationships,
@@ -26,7 +26,7 @@ import {
   getEntityByName,
   type RelationshipType,
   type LearningRecord,
-} from '../src/core/db';
+} from '../../src/core/db';
 
 // ============ Entity Extraction Tests ============
 

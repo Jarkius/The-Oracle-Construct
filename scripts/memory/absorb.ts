@@ -15,8 +15,8 @@
 
 import * as fs from 'fs';
 import * as path from 'path';
-import { createLearning, type LearningRecord } from '../src/core/db';
-import { initVectorDB, isInitialized, saveLearning } from '../src/memory/vector-db';
+import { createLearning, type LearningRecord } from '../../src/core/db';
+import { initVectorDB, isInitialized, saveLearning } from '../../src/memory/vector-db';
 
 interface CodebaseAnalysis {
   name: string;

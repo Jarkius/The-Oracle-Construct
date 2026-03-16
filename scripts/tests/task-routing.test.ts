@@ -4,8 +4,8 @@
  */
 
 import { describe, it, expect, beforeEach } from 'bun:test';
-import { TaskRouter, getTaskRouter, type RoutingDecision } from '../src/intelligence/oracle/task-router';
-import { TaskDecomposer, getTaskDecomposer, type DecomposedTask } from '../src/intelligence/oracle/task-decomposer';
+import { TaskRouter, getTaskRouter, type RoutingDecision } from '../../src/intelligence/oracle/task-router';
+import { TaskDecomposer, getTaskDecomposer, type DecomposedTask } from '../../src/intelligence/oracle/task-decomposer';
 
 describe('Task Router', () => {
   let router: TaskRouter;

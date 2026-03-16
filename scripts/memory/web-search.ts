@@ -22,15 +22,15 @@ import {
   deepSearch,
   type SearchResult,
   type DeepSearchResult,
-} from '../src/intelligence/services/brave-search';
-import { ExternalLLM, type LLMProvider } from '../src/intelligence/services/external-llm';
+} from '../../src/intelligence/services/brave-search';
+import { ExternalLLM, type LLMProvider } from '../../src/intelligence/services/external-llm';
 import {
   fetchAndExtract,
   isExtractionAvailable,
   getBestProvider,
   type ExtractedInsight,
-} from '../src/intelligence/services/content-fetcher';
-import { createLearning } from '../src/core/db';
+} from '../../src/intelligence/services/content-fetcher';
+import { createLearning } from '../../src/core/db';
 
 // Parse command line arguments
 const { positionals, values } = parseArgs({

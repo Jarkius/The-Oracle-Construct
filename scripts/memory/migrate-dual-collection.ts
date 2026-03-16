@@ -3,9 +3,9 @@
  * Routes existing learnings to knowledge/lessons tables based on content classification
  */
 
-import { listLearningsFromDb, createKnowledge, findOrCreateLesson, type LearningRecord } from '../src/core/db';
-import { classifyContent, type ContentType } from '../src/memory/learning/content-router';
-import { embedKnowledge, embedLesson, isInitialized, initVectorDB } from '../src/memory/vector-db';
+import { listLearningsFromDb, createKnowledge, findOrCreateLesson, type LearningRecord } from '../../src/core/db';
+import { classifyContent, type ContentType } from '../../src/memory/learning/content-router';
+import { embedKnowledge, embedLesson, isInitialized, initVectorDB } from '../../src/memory/vector-db';
 
 interface MigrationStats {
   total: number;

@@ -10,7 +10,7 @@
  * Components: chromadb, sqlite, memory, mcp, agent, cli, other
  */
 
-import { createLearning, updateLearning, db } from '../src/core/db';
+import { createLearning, updateLearning, db } from '../../src/core/db';
 import { $ } from 'bun';
 
 interface IssueRecord {
