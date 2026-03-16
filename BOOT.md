@@ -19,7 +19,7 @@ Read `psi/memory/tasks/active.json` for any pending or in-progress tasks from pr
 - Use `/task` to manage the registry
 
 ### 3. Recall Recent Memory
-**Primary (ADR-010):** If `lib/matrix-memory-agents/` exists and bun is available:
+**Primary (ADR-010):** If `` exists and bun is available:
 ```bash
 cd lib/matrix-memory-agents && bun memory recall --last
 ```
