@@ -530,3 +530,969 @@ ChromaConnectionError: Failed to connect to Chroma
       at async learnFromFile (/home/user/The-Oracle-Construct/lib/matrix-memory-agents/scripts/memory/learn.ts:157:15)
       at async main (/home/user/The-Oracle-Construct/lib/matrix-memory-agents/scripts/memory/learn.ts:720:15)
 
+$ bun run scripts/memory/index.ts save "Auto-saved session via pulse hook"
+[VectorDB] Using Transformers.js with model: multilingual-e5-base
+[VectorDB] Failed to initialize: 4553 |     if (offlineError(err)) {
+4554 |       throw new ChromaConnectionError(
+4555 |         "Failed to connect to chromadb. Make sure your server is running and try again. If you are running from a browser, make sure that your chromadb instance is configured to allow requests from the current origin using the CHROMA_SERVER_CORS_ALLOW_ORIGINS environment variable."
+4556 |       );
+4557 |     }
+4558 |     throw new ChromaConnectionError("Failed to connect to Chroma");
+                 ^
+ChromaConnectionError: Failed to connect to Chroma
+ cause: undefined,
+
+      at <anonymous> (/Users/jarkius/.bun/install/cache/chromadb@3.3.3@@@1/dist/chromadb.mjs:4558:11)
+      at async <anonymous> (/Users/jarkius/.bun/install/cache/chromadb@3.3.3@@@1/dist/chromadb.mjs:338:32)
+      at async getOrCreateCollection (/Users/jarkius/.bun/install/cache/chromadb@3.3.3@@@1/dist/chromadb.mjs:5062:46)
+      at async initVectorDB (/Users/jarkius/workspace/The-matrix/lib/matrix-memory-agents/src/vector-db.ts:500:33)
+      at async saveCurrentSession (/Users/jarkius/workspace/The-matrix/lib/matrix-memory-agents/scripts/memory/save-session.ts:723:11)
+
+$ bun run scripts/memory/index.ts learn "/Users/jarkius/workspace/The-matrix/psi/memory/sessions/2026-03/2026-03-16_12.00_auto-pulse.md"
+[VectorDB] Using Transformers.js with model: multilingual-e5-base
+[VectorDB] Failed to initialize: 4553 |     if (offlineError(err)) {
+4554 |       throw new ChromaConnectionError(
+4555 |         "Failed to connect to chromadb. Make sure your server is running and try again. If you are running from a browser, make sure that your chromadb instance is configured to allow requests from the current origin using the CHROMA_SERVER_CORS_ALLOW_ORIGINS environment variable."
+4556 |       );
+4557 |     }
+4558 |     throw new ChromaConnectionError("Failed to connect to Chroma");
+                 ^
+ChromaConnectionError: Failed to connect to Chroma
+ cause: undefined,
+
+      at <anonymous> (/Users/jarkius/.bun/install/cache/chromadb@3.3.3@@@1/dist/chromadb.mjs:4558:11)
+      at async <anonymous> (/Users/jarkius/.bun/install/cache/chromadb@3.3.3@@@1/dist/chromadb.mjs:338:32)
+      at async getOrCreateCollection (/Users/jarkius/.bun/install/cache/chromadb@3.3.3@@@1/dist/chromadb.mjs:5062:46)
+      at async initVectorDB (/Users/jarkius/workspace/The-matrix/lib/matrix-memory-agents/src/vector-db.ts:500:33)
+      at async saveLearning (/Users/jarkius/workspace/The-matrix/lib/matrix-memory-agents/scripts/memory/learn.ts:578:11)
+      at async learnFromFile (/Users/jarkius/workspace/The-matrix/lib/matrix-memory-agents/scripts/memory/learn.ts:157:15)
+      at async main (/Users/jarkius/workspace/The-matrix/lib/matrix-memory-agents/scripts/memory/learn.ts:720:15)
+
+$ bun run scripts/memory/index.ts save "Auto-saved session via pulse hook"
+[VectorDB] Using Transformers.js with model: multilingual-e5-base
+[VectorDB] Failed to initialize: 4553 |     if (offlineError(err)) {
+4554 |       throw new ChromaConnectionError(
+4555 |         "Failed to connect to chromadb. Make sure your server is running and try again. If you are running from a browser, make sure that your chromadb instance is configured to allow requests from the current origin using the CHROMA_SERVER_CORS_ALLOW_ORIGINS environment variable."
+4556 |       );
+4557 |     }
+4558 |     throw new ChromaConnectionError("Failed to connect to Chroma");
+                 ^
+ChromaConnectionError: Failed to connect to Chroma
+ cause: undefined,
+
+      at <anonymous> (/Users/jarkius/.bun/install/cache/chromadb@3.3.3@@@1/dist/chromadb.mjs:4558:11)
+      at async <anonymous> (/Users/jarkius/.bun/install/cache/chromadb@3.3.3@@@1/dist/chromadb.mjs:338:32)
+      at async getOrCreateCollection (/Users/jarkius/.bun/install/cache/chromadb@3.3.3@@@1/dist/chromadb.mjs:5062:46)
+      at async initVectorDB (/Users/jarkius/workspace/The-matrix/lib/matrix-memory-agents/src/vector-db.ts:500:33)
+      at async saveCurrentSession (/Users/jarkius/workspace/The-matrix/lib/matrix-memory-agents/scripts/memory/save-session.ts:723:11)
+
+$ bun run scripts/memory/index.ts learn "/Users/jarkius/workspace/The-matrix/psi/memory/sessions/2026-03/2026-03-16_12.10_auto-pulse.md"
+[VectorDB] Using Transformers.js with model: multilingual-e5-base
+[VectorDB] Failed to initialize: 4553 |     if (offlineError(err)) {
+4554 |       throw new ChromaConnectionError(
+4555 |         "Failed to connect to chromadb. Make sure your server is running and try again. If you are running from a browser, make sure that your chromadb instance is configured to allow requests from the current origin using the CHROMA_SERVER_CORS_ALLOW_ORIGINS environment variable."
+4556 |       );
+4557 |     }
+4558 |     throw new ChromaConnectionError("Failed to connect to Chroma");
+                 ^
+ChromaConnectionError: Failed to connect to Chroma
+ cause: undefined,
+
+      at <anonymous> (/Users/jarkius/.bun/install/cache/chromadb@3.3.3@@@1/dist/chromadb.mjs:4558:11)
+      at async <anonymous> (/Users/jarkius/.bun/install/cache/chromadb@3.3.3@@@1/dist/chromadb.mjs:338:32)
+      at async getOrCreateCollection (/Users/jarkius/.bun/install/cache/chromadb@3.3.3@@@1/dist/chromadb.mjs:5062:46)
+      at async initVectorDB (/Users/jarkius/workspace/The-matrix/lib/matrix-memory-agents/src/vector-db.ts:500:33)
+      at async saveLearning (/Users/jarkius/workspace/The-matrix/lib/matrix-memory-agents/scripts/memory/learn.ts:578:11)
+      at async learnFromFile (/Users/jarkius/workspace/The-matrix/lib/matrix-memory-agents/scripts/memory/learn.ts:157:15)
+      at async main (/Users/jarkius/workspace/The-matrix/lib/matrix-memory-agents/scripts/memory/learn.ts:720:15)
+
+$ bun run scripts/memory/index.ts save "Auto-saved session via pulse hook"
+[VectorDB] Using Transformers.js with model: multilingual-e5-base
+[VectorDB] Failed to initialize: 4553 |     if (offlineError(err)) {
+4554 |       throw new ChromaConnectionError(
+4555 |         "Failed to connect to chromadb. Make sure your server is running and try again. If you are running from a browser, make sure that your chromadb instance is configured to allow requests from the current origin using the CHROMA_SERVER_CORS_ALLOW_ORIGINS environment variable."
+4556 |       );
+4557 |     }
+4558 |     throw new ChromaConnectionError("Failed to connect to Chroma");
+                 ^
+ChromaConnectionError: Failed to connect to Chroma
+ cause: undefined,
+
+      at <anonymous> (/Users/jarkius/.bun/install/cache/chromadb@3.3.3@@@1/dist/chromadb.mjs:4558:11)
+      at async <anonymous> (/Users/jarkius/.bun/install/cache/chromadb@3.3.3@@@1/dist/chromadb.mjs:338:32)
+      at async getOrCreateCollection (/Users/jarkius/.bun/install/cache/chromadb@3.3.3@@@1/dist/chromadb.mjs:5062:46)
+      at async initVectorDB (/Users/jarkius/workspace/The-matrix/lib/matrix-memory-agents/src/vector-db.ts:500:33)
+      at async saveCurrentSession (/Users/jarkius/workspace/The-matrix/lib/matrix-memory-agents/scripts/memory/save-session.ts:723:11)
+
+$ bun run scripts/memory/index.ts learn "/Users/jarkius/workspace/The-matrix/psi/memory/sessions/2026-03/2026-03-16_12.12_auto-pulse.md"
+[VectorDB] Using Transformers.js with model: multilingual-e5-base
+[VectorDB] Failed to initialize: 4553 |     if (offlineError(err)) {
+4554 |       throw new ChromaConnectionError(
+4555 |         "Failed to connect to chromadb. Make sure your server is running and try again. If you are running from a browser, make sure that your chromadb instance is configured to allow requests from the current origin using the CHROMA_SERVER_CORS_ALLOW_ORIGINS environment variable."
+4556 |       );
+4557 |     }
+4558 |     throw new ChromaConnectionError("Failed to connect to Chroma");
+                 ^
+ChromaConnectionError: Failed to connect to Chroma
+ cause: undefined,
+
+      at <anonymous> (/Users/jarkius/.bun/install/cache/chromadb@3.3.3@@@1/dist/chromadb.mjs:4558:11)
+      at async <anonymous> (/Users/jarkius/.bun/install/cache/chromadb@3.3.3@@@1/dist/chromadb.mjs:338:32)
+      at async getOrCreateCollection (/Users/jarkius/.bun/install/cache/chromadb@3.3.3@@@1/dist/chromadb.mjs:5062:46)
+      at async initVectorDB (/Users/jarkius/workspace/The-matrix/lib/matrix-memory-agents/src/vector-db.ts:500:33)
+      at async saveLearning (/Users/jarkius/workspace/The-matrix/lib/matrix-memory-agents/scripts/memory/learn.ts:578:11)
+      at async learnFromFile (/Users/jarkius/workspace/The-matrix/lib/matrix-memory-agents/scripts/memory/learn.ts:157:15)
+      at async main (/Users/jarkius/workspace/The-matrix/lib/matrix-memory-agents/scripts/memory/learn.ts:720:15)
+
+$ bun run scripts/memory/index.ts save "Auto-saved session via pulse hook"
+[VectorDB] Using Transformers.js with model: multilingual-e5-base
+[VectorDB] Failed to initialize: 4553 |     if (offlineError(err)) {
+4554 |       throw new ChromaConnectionError(
+4555 |         "Failed to connect to chromadb. Make sure your server is running and try again. If you are running from a browser, make sure that your chromadb instance is configured to allow requests from the current origin using the CHROMA_SERVER_CORS_ALLOW_ORIGINS environment variable."
+4556 |       );
+4557 |     }
+4558 |     throw new ChromaConnectionError("Failed to connect to Chroma");
+                 ^
+ChromaConnectionError: Failed to connect to Chroma
+ cause: undefined,
+
+      at <anonymous> (/Users/jarkius/.bun/install/cache/chromadb@3.3.3@@@1/dist/chromadb.mjs:4558:11)
+      at async <anonymous> (/Users/jarkius/.bun/install/cache/chromadb@3.3.3@@@1/dist/chromadb.mjs:338:32)
+      at async getOrCreateCollection (/Users/jarkius/.bun/install/cache/chromadb@3.3.3@@@1/dist/chromadb.mjs:5062:46)
+      at async initVectorDB (/Users/jarkius/workspace/The-matrix/lib/matrix-memory-agents/src/vector-db.ts:500:33)
+      at async saveCurrentSession (/Users/jarkius/workspace/The-matrix/lib/matrix-memory-agents/scripts/memory/save-session.ts:723:11)
+
+$ bun run scripts/memory/index.ts learn "/Users/jarkius/workspace/The-matrix/psi/memory/sessions/2026-03/2026-03-16_12.17_auto-pulse.md"
+[VectorDB] Using Transformers.js with model: multilingual-e5-base
+[VectorDB] Failed to initialize: 4553 |     if (offlineError(err)) {
+4554 |       throw new ChromaConnectionError(
+4555 |         "Failed to connect to chromadb. Make sure your server is running and try again. If you are running from a browser, make sure that your chromadb instance is configured to allow requests from the current origin using the CHROMA_SERVER_CORS_ALLOW_ORIGINS environment variable."
+4556 |       );
+4557 |     }
+4558 |     throw new ChromaConnectionError("Failed to connect to Chroma");
+                 ^
+ChromaConnectionError: Failed to connect to Chroma
+ cause: undefined,
+
+      at <anonymous> (/Users/jarkius/.bun/install/cache/chromadb@3.3.3@@@1/dist/chromadb.mjs:4558:11)
+      at async <anonymous> (/Users/jarkius/.bun/install/cache/chromadb@3.3.3@@@1/dist/chromadb.mjs:338:32)
+      at async getOrCreateCollection (/Users/jarkius/.bun/install/cache/chromadb@3.3.3@@@1/dist/chromadb.mjs:5062:46)
+      at async initVectorDB (/Users/jarkius/workspace/The-matrix/lib/matrix-memory-agents/src/vector-db.ts:500:33)
+      at async saveLearning (/Users/jarkius/workspace/The-matrix/lib/matrix-memory-agents/scripts/memory/learn.ts:578:11)
+      at async learnFromFile (/Users/jarkius/workspace/The-matrix/lib/matrix-memory-agents/scripts/memory/learn.ts:157:15)
+      at async main (/Users/jarkius/workspace/The-matrix/lib/matrix-memory-agents/scripts/memory/learn.ts:720:15)
+
+$ bun run scripts/memory/index.ts save "Auto-saved session via pulse hook"
+[VectorDB] Using Transformers.js with model: multilingual-e5-base
+[VectorDB] Failed to initialize: 4553 |     if (offlineError(err)) {
+4554 |       throw new ChromaConnectionError(
+4555 |         "Failed to connect to chromadb. Make sure your server is running and try again. If you are running from a browser, make sure that your chromadb instance is configured to allow requests from the current origin using the CHROMA_SERVER_CORS_ALLOW_ORIGINS environment variable."
+4556 |       );
+4557 |     }
+4558 |     throw new ChromaConnectionError("Failed to connect to Chroma");
+                 ^
+ChromaConnectionError: Failed to connect to Chroma
+ cause: undefined,
+
+      at <anonymous> (/Users/jarkius/.bun/install/cache/chromadb@3.3.3@@@1/dist/chromadb.mjs:4558:11)
+      at async <anonymous> (/Users/jarkius/.bun/install/cache/chromadb@3.3.3@@@1/dist/chromadb.mjs:338:32)
+      at async getOrCreateCollection (/Users/jarkius/.bun/install/cache/chromadb@3.3.3@@@1/dist/chromadb.mjs:5062:46)
+      at async initVectorDB (/Users/jarkius/workspace/The-matrix/lib/matrix-memory-agents/src/vector-db.ts:500:33)
+      at async saveCurrentSession (/Users/jarkius/workspace/The-matrix/lib/matrix-memory-agents/scripts/memory/save-session.ts:723:11)
+
+$ bun run scripts/memory/index.ts learn "/Users/jarkius/workspace/The-matrix/psi/memory/sessions/2026-03/2026-03-16_13.00_auto-pulse.md"
+[VectorDB] Using Transformers.js with model: multilingual-e5-base
+[VectorDB] Failed to initialize: 4553 |     if (offlineError(err)) {
+4554 |       throw new ChromaConnectionError(
+4555 |         "Failed to connect to chromadb. Make sure your server is running and try again. If you are running from a browser, make sure that your chromadb instance is configured to allow requests from the current origin using the CHROMA_SERVER_CORS_ALLOW_ORIGINS environment variable."
+4556 |       );
+4557 |     }
+4558 |     throw new ChromaConnectionError("Failed to connect to Chroma");
+                 ^
+ChromaConnectionError: Failed to connect to Chroma
+ cause: undefined,
+
+      at <anonymous> (/Users/jarkius/.bun/install/cache/chromadb@3.3.3@@@1/dist/chromadb.mjs:4558:11)
+      at async <anonymous> (/Users/jarkius/.bun/install/cache/chromadb@3.3.3@@@1/dist/chromadb.mjs:338:32)
+      at async getOrCreateCollection (/Users/jarkius/.bun/install/cache/chromadb@3.3.3@@@1/dist/chromadb.mjs:5062:46)
+      at async initVectorDB (/Users/jarkius/workspace/The-matrix/lib/matrix-memory-agents/src/vector-db.ts:500:33)
+      at async saveLearning (/Users/jarkius/workspace/The-matrix/lib/matrix-memory-agents/scripts/memory/learn.ts:578:11)
+      at async learnFromFile (/Users/jarkius/workspace/The-matrix/lib/matrix-memory-agents/scripts/memory/learn.ts:157:15)
+      at async main (/Users/jarkius/workspace/The-matrix/lib/matrix-memory-agents/scripts/memory/learn.ts:720:15)
+
+$ bun run scripts/memory/index.ts save "Auto-saved session via pulse hook"
+[VectorDB] Using Transformers.js with model: multilingual-e5-base
+[VectorDB] Failed to initialize: 4553 |     if (offlineError(err)) {
+4554 |       throw new ChromaConnectionError(
+4555 |         "Failed to connect to chromadb. Make sure your server is running and try again. If you are running from a browser, make sure that your chromadb instance is configured to allow requests from the current origin using the CHROMA_SERVER_CORS_ALLOW_ORIGINS environment variable."
+4556 |       );
+4557 |     }
+4558 |     throw new ChromaConnectionError("Failed to connect to Chroma");
+                 ^
+ChromaConnectionError: Failed to connect to Chroma
+ cause: undefined,
+
+      at <anonymous> (/Users/jarkius/.bun/install/cache/chromadb@3.3.3@@@1/dist/chromadb.mjs:4558:11)
+      at async <anonymous> (/Users/jarkius/.bun/install/cache/chromadb@3.3.3@@@1/dist/chromadb.mjs:338:32)
+      at async getOrCreateCollection (/Users/jarkius/.bun/install/cache/chromadb@3.3.3@@@1/dist/chromadb.mjs:5062:46)
+      at async initVectorDB (/Users/jarkius/workspace/The-matrix/lib/matrix-memory-agents/src/vector-db.ts:500:33)
+      at async saveCurrentSession (/Users/jarkius/workspace/The-matrix/lib/matrix-memory-agents/scripts/memory/save-session.ts:723:11)
+
+$ bun run scripts/memory/index.ts learn "/Users/jarkius/workspace/The-matrix/psi/memory/sessions/2026-03/2026-03-16_13.13_auto-pulse.md"
+[VectorDB] Using Transformers.js with model: multilingual-e5-base
+[VectorDB] Failed to initialize: 4553 |     if (offlineError(err)) {
+4554 |       throw new ChromaConnectionError(
+4555 |         "Failed to connect to chromadb. Make sure your server is running and try again. If you are running from a browser, make sure that your chromadb instance is configured to allow requests from the current origin using the CHROMA_SERVER_CORS_ALLOW_ORIGINS environment variable."
+4556 |       );
+4557 |     }
+4558 |     throw new ChromaConnectionError("Failed to connect to Chroma");
+                 ^
+ChromaConnectionError: Failed to connect to Chroma
+ cause: undefined,
+
+      at <anonymous> (/Users/jarkius/.bun/install/cache/chromadb@3.3.3@@@1/dist/chromadb.mjs:4558:11)
+      at async <anonymous> (/Users/jarkius/.bun/install/cache/chromadb@3.3.3@@@1/dist/chromadb.mjs:338:32)
+      at async getOrCreateCollection (/Users/jarkius/.bun/install/cache/chromadb@3.3.3@@@1/dist/chromadb.mjs:5062:46)
+      at async initVectorDB (/Users/jarkius/workspace/The-matrix/lib/matrix-memory-agents/src/vector-db.ts:500:33)
+      at async saveLearning (/Users/jarkius/workspace/The-matrix/lib/matrix-memory-agents/scripts/memory/learn.ts:578:11)
+      at async learnFromFile (/Users/jarkius/workspace/The-matrix/lib/matrix-memory-agents/scripts/memory/learn.ts:157:15)
+      at async main (/Users/jarkius/workspace/The-matrix/lib/matrix-memory-agents/scripts/memory/learn.ts:720:15)
+
+$ bun run scripts/memory/index.ts save "Auto-saved session via pulse hook"
+[VectorDB] Using Transformers.js with model: multilingual-e5-base
+[VectorDB] Initialized with 11 collections (prefix: matrix-memory-agents)
+[Transformers] Initializing model: Xenova/multilingual-e5-base...
+[Transformers] Failed to initialize: 115 |   }
+116 |   help.push(
+117 |     '- Consult the installation documentation:',
+118 |     '    See https://sharp.pixelplumbing.com/install'
+119 |   );
+120 |   throw new Error(help.join('\n'));
+                  ^
+error: Could not load the "sharp" module using the darwin-arm64 runtime
+ERR_DLOPEN_FAILED: dlopen(/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/sharp-darwin-arm64.node, 0x0001): Library not loaded: @rpath/libvips-cpp.8.17.3.dylib
+  Referenced from: <43BC947D-E6CB-3FC0-8C98-B0C566F42F94> /Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/sharp-darwin-arm64.node
+  Reason: tried: '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../sharp-libvips-darwin-arm64/1.2.4/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../../../@img-sharp-libvips-darwin-arm64-npm-1.2.4-09e109d5ab/node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../sharp-libvips-darwin-arm64/1.2.4/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../../../@img-sharp-libvips-darwin-arm64-npm-1.2.4-09e109d5ab/node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file)
+Possible solutions:
+- Ensure optional dependencies can be installed:
+    npm install --include=optional sharp
+- Ensure your package manager supports multi-platform installation:
+    See https://sharp.pixelplumbing.com/install#cross-platform
+- Add platform-specific dependencies:
+    npm install --os=darwin --cpu=arm64 sharp
+- Consult the installation documentation:
+    See https://sharp.pixelplumbing.com/install
+      at <anonymous> (/Users/jarkius/.bun/install/cache/sharp@0.34.5@@@1/lib/sharp.js:120:13)
+      at <anonymous> (/Users/jarkius/.bun/install/cache/sharp@0.34.5@@@1/lib/constructor.js:8:7)
+      at <anonymous> (/Users/jarkius/.bun/install/cache/sharp@0.34.5@@@1/lib/index.js:6:7)
+
+[VectorDB] save session session_1773641730483 failed after 3 attempts: Could not load the "sharp" module using the darwin-arm64 runtime
+ERR_DLOPEN_FAILED: dlopen(/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/sharp-darwin-arm64.node, 0x0001): Library not loaded: @rpath/libvips-cpp.8.17.3.dylib
+  Referenced from: <43BC947D-E6CB-3FC0-8C98-B0C566F42F94> /Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/sharp-darwin-arm64.node
+  Reason: tried: '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../sharp-libvips-darwin-arm64/1.2.4/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../../../@img-sharp-libvips-darwin-arm64-npm-1.2.4-09e109d5ab/node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../sharp-libvips-darwin-arm64/1.2.4/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../../../@img-sharp-libvips-darwin-arm64-npm-1.2.4-09e109d5ab/node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file)
+Possible solutions:
+- Ensure optional dependencies can be installed:
+    npm install --include=optional sharp
+- Ensure your package manager supports multi-platform installation:
+    See https://sharp.pixelplumbing.com/install#cross-platform
+- Add platform-specific dependencies:
+    npm install --os=darwin --cpu=arm64 sharp
+- Consult the installation documentation:
+    See https://sharp.pixelplumbing.com/install
+$ bun run scripts/memory/index.ts learn "/Users/jarkius/workspace/The-matrix/psi/memory/sessions/2026-03/2026-03-16_13.15_auto-pulse.md"
+[VectorDB] Using Transformers.js with model: multilingual-e5-base
+[VectorDB] Initialized with 11 collections (prefix: matrix-memory-agents)
+[Transformers] Initializing model: Xenova/multilingual-e5-base...
+[Transformers] Failed to initialize: 115 |   }
+116 |   help.push(
+117 |     '- Consult the installation documentation:',
+118 |     '    See https://sharp.pixelplumbing.com/install'
+119 |   );
+120 |   throw new Error(help.join('\n'));
+                  ^
+error: Could not load the "sharp" module using the darwin-arm64 runtime
+ERR_DLOPEN_FAILED: dlopen(/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/sharp-darwin-arm64.node, 0x0001): Library not loaded: @rpath/libvips-cpp.8.17.3.dylib
+  Referenced from: <43BC947D-E6CB-3FC0-8C98-B0C566F42F94> /Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/sharp-darwin-arm64.node
+  Reason: tried: '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../sharp-libvips-darwin-arm64/1.2.4/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../../../@img-sharp-libvips-darwin-arm64-npm-1.2.4-09e109d5ab/node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../sharp-libvips-darwin-arm64/1.2.4/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../../../@img-sharp-libvips-darwin-arm64-npm-1.2.4-09e109d5ab/node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file)
+Possible solutions:
+- Ensure optional dependencies can be installed:
+    npm install --include=optional sharp
+- Ensure your package manager supports multi-platform installation:
+    See https://sharp.pixelplumbing.com/install#cross-platform
+- Add platform-specific dependencies:
+    npm install --os=darwin --cpu=arm64 sharp
+- Consult the installation documentation:
+    See https://sharp.pixelplumbing.com/install
+      at <anonymous> (/Users/jarkius/.bun/install/cache/sharp@0.34.5@@@1/lib/sharp.js:120:13)
+      at <anonymous> (/Users/jarkius/.bun/install/cache/sharp@0.34.5@@@1/lib/constructor.js:8:7)
+      at <anonymous> (/Users/jarkius/.bun/install/cache/sharp@0.34.5@@@1/lib/index.js:6:7)
+
+[VectorDB] save learning 99 failed after 3 attempts: Could not load the "sharp" module using the darwin-arm64 runtime
+ERR_DLOPEN_FAILED: dlopen(/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/sharp-darwin-arm64.node, 0x0001): Library not loaded: @rpath/libvips-cpp.8.17.3.dylib
+  Referenced from: <43BC947D-E6CB-3FC0-8C98-B0C566F42F94> /Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/sharp-darwin-arm64.node
+  Reason: tried: '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../sharp-libvips-darwin-arm64/1.2.4/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../../../@img-sharp-libvips-darwin-arm64-npm-1.2.4-09e109d5ab/node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../sharp-libvips-darwin-arm64/1.2.4/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../../../@img-sharp-libvips-darwin-arm64-npm-1.2.4-09e109d5ab/node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file)
+Possible solutions:
+- Ensure optional dependencies can be installed:
+    npm install --include=optional sharp
+- Ensure your package manager supports multi-platform installation:
+    See https://sharp.pixelplumbing.com/install#cross-platform
+- Add platform-specific dependencies:
+    npm install --os=darwin --cpu=arm64 sharp
+- Consult the installation documentation:
+    See https://sharp.pixelplumbing.com/install
+$ bun run scripts/memory/index.ts save "Auto-saved session via pulse hook"
+[VectorDB] Using Transformers.js with model: multilingual-e5-base
+[VectorDB] Initialized with 11 collections (prefix: matrix-memory-agents)
+[Transformers] Initializing model: Xenova/multilingual-e5-base...
+[Transformers] Failed to initialize: 115 |   }
+116 |   help.push(
+117 |     '- Consult the installation documentation:',
+118 |     '    See https://sharp.pixelplumbing.com/install'
+119 |   );
+120 |   throw new Error(help.join('\n'));
+                  ^
+error: Could not load the "sharp" module using the darwin-arm64 runtime
+ERR_DLOPEN_FAILED: dlopen(/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/sharp-darwin-arm64.node, 0x0001): Library not loaded: @rpath/libvips-cpp.8.17.3.dylib
+  Referenced from: <43BC947D-E6CB-3FC0-8C98-B0C566F42F94> /Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/sharp-darwin-arm64.node
+  Reason: tried: '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../sharp-libvips-darwin-arm64/1.2.4/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../../../@img-sharp-libvips-darwin-arm64-npm-1.2.4-09e109d5ab/node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../sharp-libvips-darwin-arm64/1.2.4/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../../../@img-sharp-libvips-darwin-arm64-npm-1.2.4-09e109d5ab/node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file)
+Possible solutions:
+- Ensure optional dependencies can be installed:
+    npm install --include=optional sharp
+- Ensure your package manager supports multi-platform installation:
+    See https://sharp.pixelplumbing.com/install#cross-platform
+- Add platform-specific dependencies:
+    npm install --os=darwin --cpu=arm64 sharp
+- Consult the installation documentation:
+    See https://sharp.pixelplumbing.com/install
+      at <anonymous> (/Users/jarkius/.bun/install/cache/sharp@0.34.5@@@1/lib/sharp.js:120:13)
+      at <anonymous> (/Users/jarkius/.bun/install/cache/sharp@0.34.5@@@1/lib/constructor.js:8:7)
+      at <anonymous> (/Users/jarkius/.bun/install/cache/sharp@0.34.5@@@1/lib/index.js:6:7)
+
+[VectorDB] save session session_1773642942339 failed after 3 attempts: Could not load the "sharp" module using the darwin-arm64 runtime
+ERR_DLOPEN_FAILED: dlopen(/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/sharp-darwin-arm64.node, 0x0001): Library not loaded: @rpath/libvips-cpp.8.17.3.dylib
+  Referenced from: <43BC947D-E6CB-3FC0-8C98-B0C566F42F94> /Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/sharp-darwin-arm64.node
+  Reason: tried: '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../sharp-libvips-darwin-arm64/1.2.4/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../../../@img-sharp-libvips-darwin-arm64-npm-1.2.4-09e109d5ab/node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../sharp-libvips-darwin-arm64/1.2.4/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../../../@img-sharp-libvips-darwin-arm64-npm-1.2.4-09e109d5ab/node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file)
+Possible solutions:
+- Ensure optional dependencies can be installed:
+    npm install --include=optional sharp
+- Ensure your package manager supports multi-platform installation:
+    See https://sharp.pixelplumbing.com/install#cross-platform
+- Add platform-specific dependencies:
+    npm install --os=darwin --cpu=arm64 sharp
+- Consult the installation documentation:
+    See https://sharp.pixelplumbing.com/install
+$ bun run scripts/memory/index.ts learn "/Users/jarkius/workspace/The-matrix/psi/memory/sessions/2026-03/2026-03-16_13.35_auto-pulse.md"
+[VectorDB] Using Transformers.js with model: multilingual-e5-base
+[VectorDB] Initialized with 11 collections (prefix: matrix-memory-agents)
+[Transformers] Initializing model: Xenova/multilingual-e5-base...
+[Transformers] Failed to initialize: 115 |   }
+116 |   help.push(
+117 |     '- Consult the installation documentation:',
+118 |     '    See https://sharp.pixelplumbing.com/install'
+119 |   );
+120 |   throw new Error(help.join('\n'));
+                  ^
+error: Could not load the "sharp" module using the darwin-arm64 runtime
+ERR_DLOPEN_FAILED: dlopen(/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/sharp-darwin-arm64.node, 0x0001): Library not loaded: @rpath/libvips-cpp.8.17.3.dylib
+  Referenced from: <43BC947D-E6CB-3FC0-8C98-B0C566F42F94> /Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/sharp-darwin-arm64.node
+  Reason: tried: '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../sharp-libvips-darwin-arm64/1.2.4/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../../../@img-sharp-libvips-darwin-arm64-npm-1.2.4-09e109d5ab/node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../sharp-libvips-darwin-arm64/1.2.4/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../../../@img-sharp-libvips-darwin-arm64-npm-1.2.4-09e109d5ab/node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file)
+Possible solutions:
+- Ensure optional dependencies can be installed:
+    npm install --include=optional sharp
+- Ensure your package manager supports multi-platform installation:
+    See https://sharp.pixelplumbing.com/install#cross-platform
+- Add platform-specific dependencies:
+    npm install --os=darwin --cpu=arm64 sharp
+- Consult the installation documentation:
+    See https://sharp.pixelplumbing.com/install
+      at <anonymous> (/Users/jarkius/.bun/install/cache/sharp@0.34.5@@@1/lib/sharp.js:120:13)
+      at <anonymous> (/Users/jarkius/.bun/install/cache/sharp@0.34.5@@@1/lib/constructor.js:8:7)
+      at <anonymous> (/Users/jarkius/.bun/install/cache/sharp@0.34.5@@@1/lib/index.js:6:7)
+
+[VectorDB] save learning 100 failed after 3 attempts: Could not load the "sharp" module using the darwin-arm64 runtime
+ERR_DLOPEN_FAILED: dlopen(/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/sharp-darwin-arm64.node, 0x0001): Library not loaded: @rpath/libvips-cpp.8.17.3.dylib
+  Referenced from: <43BC947D-E6CB-3FC0-8C98-B0C566F42F94> /Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/sharp-darwin-arm64.node
+  Reason: tried: '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../sharp-libvips-darwin-arm64/1.2.4/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../../../@img-sharp-libvips-darwin-arm64-npm-1.2.4-09e109d5ab/node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../sharp-libvips-darwin-arm64/1.2.4/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../../../@img-sharp-libvips-darwin-arm64-npm-1.2.4-09e109d5ab/node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file)
+Possible solutions:
+- Ensure optional dependencies can be installed:
+    npm install --include=optional sharp
+- Ensure your package manager supports multi-platform installation:
+    See https://sharp.pixelplumbing.com/install#cross-platform
+- Add platform-specific dependencies:
+    npm install --os=darwin --cpu=arm64 sharp
+- Consult the installation documentation:
+    See https://sharp.pixelplumbing.com/install
+$ bun run scripts/memory/index.ts save "Auto-saved session via pulse hook"
+[VectorDB] Using Transformers.js with model: multilingual-e5-base
+[VectorDB] Initialized with 11 collections (prefix: matrix-memory-agents)
+[Transformers] Initializing model: Xenova/multilingual-e5-base...
+[Transformers] Failed to initialize: 115 |   }
+116 |   help.push(
+117 |     '- Consult the installation documentation:',
+118 |     '    See https://sharp.pixelplumbing.com/install'
+119 |   );
+120 |   throw new Error(help.join('\n'));
+                  ^
+error: Could not load the "sharp" module using the darwin-arm64 runtime
+ERR_DLOPEN_FAILED: dlopen(/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/sharp-darwin-arm64.node, 0x0001): Library not loaded: @rpath/libvips-cpp.8.17.3.dylib
+  Referenced from: <43BC947D-E6CB-3FC0-8C98-B0C566F42F94> /Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/sharp-darwin-arm64.node
+  Reason: tried: '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../sharp-libvips-darwin-arm64/1.2.4/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../../../@img-sharp-libvips-darwin-arm64-npm-1.2.4-09e109d5ab/node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../sharp-libvips-darwin-arm64/1.2.4/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../../../@img-sharp-libvips-darwin-arm64-npm-1.2.4-09e109d5ab/node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file)
+Possible solutions:
+- Ensure optional dependencies can be installed:
+    npm install --include=optional sharp
+- Ensure your package manager supports multi-platform installation:
+    See https://sharp.pixelplumbing.com/install#cross-platform
+- Add platform-specific dependencies:
+    npm install --os=darwin --cpu=arm64 sharp
+- Consult the installation documentation:
+    See https://sharp.pixelplumbing.com/install
+      at <anonymous> (/Users/jarkius/.bun/install/cache/sharp@0.34.5@@@1/lib/sharp.js:120:13)
+      at <anonymous> (/Users/jarkius/.bun/install/cache/sharp@0.34.5@@@1/lib/constructor.js:8:7)
+      at <anonymous> (/Users/jarkius/.bun/install/cache/sharp@0.34.5@@@1/lib/index.js:6:7)
+
+[VectorDB] save session session_1773643308868 failed after 3 attempts: Could not load the "sharp" module using the darwin-arm64 runtime
+ERR_DLOPEN_FAILED: dlopen(/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/sharp-darwin-arm64.node, 0x0001): Library not loaded: @rpath/libvips-cpp.8.17.3.dylib
+  Referenced from: <43BC947D-E6CB-3FC0-8C98-B0C566F42F94> /Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/sharp-darwin-arm64.node
+  Reason: tried: '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../sharp-libvips-darwin-arm64/1.2.4/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../../../@img-sharp-libvips-darwin-arm64-npm-1.2.4-09e109d5ab/node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../sharp-libvips-darwin-arm64/1.2.4/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../../../@img-sharp-libvips-darwin-arm64-npm-1.2.4-09e109d5ab/node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file)
+Possible solutions:
+- Ensure optional dependencies can be installed:
+    npm install --include=optional sharp
+- Ensure your package manager supports multi-platform installation:
+    See https://sharp.pixelplumbing.com/install#cross-platform
+- Add platform-specific dependencies:
+    npm install --os=darwin --cpu=arm64 sharp
+- Consult the installation documentation:
+    See https://sharp.pixelplumbing.com/install
+$ bun run scripts/memory/index.ts learn "/Users/jarkius/workspace/The-matrix/psi/memory/sessions/2026-03/2026-03-16_13.41_auto-pulse.md"
+[VectorDB] Using Transformers.js with model: multilingual-e5-base
+[VectorDB] Initialized with 11 collections (prefix: matrix-memory-agents)
+[Transformers] Initializing model: Xenova/multilingual-e5-base...
+[Transformers] Failed to initialize: 115 |   }
+116 |   help.push(
+117 |     '- Consult the installation documentation:',
+118 |     '    See https://sharp.pixelplumbing.com/install'
+119 |   );
+120 |   throw new Error(help.join('\n'));
+                  ^
+error: Could not load the "sharp" module using the darwin-arm64 runtime
+ERR_DLOPEN_FAILED: dlopen(/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/sharp-darwin-arm64.node, 0x0001): Library not loaded: @rpath/libvips-cpp.8.17.3.dylib
+  Referenced from: <43BC947D-E6CB-3FC0-8C98-B0C566F42F94> /Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/sharp-darwin-arm64.node
+  Reason: tried: '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../sharp-libvips-darwin-arm64/1.2.4/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../../../@img-sharp-libvips-darwin-arm64-npm-1.2.4-09e109d5ab/node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../sharp-libvips-darwin-arm64/1.2.4/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../../../@img-sharp-libvips-darwin-arm64-npm-1.2.4-09e109d5ab/node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file)
+Possible solutions:
+- Ensure optional dependencies can be installed:
+    npm install --include=optional sharp
+- Ensure your package manager supports multi-platform installation:
+    See https://sharp.pixelplumbing.com/install#cross-platform
+- Add platform-specific dependencies:
+    npm install --os=darwin --cpu=arm64 sharp
+- Consult the installation documentation:
+    See https://sharp.pixelplumbing.com/install
+      at <anonymous> (/Users/jarkius/.bun/install/cache/sharp@0.34.5@@@1/lib/sharp.js:120:13)
+      at <anonymous> (/Users/jarkius/.bun/install/cache/sharp@0.34.5@@@1/lib/constructor.js:8:7)
+      at <anonymous> (/Users/jarkius/.bun/install/cache/sharp@0.34.5@@@1/lib/index.js:6:7)
+
+[VectorDB] save learning 101 failed after 3 attempts: Could not load the "sharp" module using the darwin-arm64 runtime
+ERR_DLOPEN_FAILED: dlopen(/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/sharp-darwin-arm64.node, 0x0001): Library not loaded: @rpath/libvips-cpp.8.17.3.dylib
+  Referenced from: <43BC947D-E6CB-3FC0-8C98-B0C566F42F94> /Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/sharp-darwin-arm64.node
+  Reason: tried: '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../sharp-libvips-darwin-arm64/1.2.4/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../../../@img-sharp-libvips-darwin-arm64-npm-1.2.4-09e109d5ab/node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../sharp-libvips-darwin-arm64/1.2.4/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../../../@img-sharp-libvips-darwin-arm64-npm-1.2.4-09e109d5ab/node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file)
+Possible solutions:
+- Ensure optional dependencies can be installed:
+    npm install --include=optional sharp
+- Ensure your package manager supports multi-platform installation:
+    See https://sharp.pixelplumbing.com/install#cross-platform
+- Add platform-specific dependencies:
+    npm install --os=darwin --cpu=arm64 sharp
+- Consult the installation documentation:
+    See https://sharp.pixelplumbing.com/install
+$ bun run scripts/memory/index.ts save "Auto-saved session via pulse hook"
+[VectorDB] Using Transformers.js with model: multilingual-e5-base
+[VectorDB] Initialized with 11 collections (prefix: matrix-memory-agents)
+[Transformers] Initializing model: Xenova/multilingual-e5-base...
+[Transformers] Failed to initialize: 115 |   }
+116 |   help.push(
+117 |     '- Consult the installation documentation:',
+118 |     '    See https://sharp.pixelplumbing.com/install'
+119 |   );
+120 |   throw new Error(help.join('\n'));
+                  ^
+error: Could not load the "sharp" module using the darwin-arm64 runtime
+ERR_DLOPEN_FAILED: dlopen(/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/sharp-darwin-arm64.node, 0x0001): Library not loaded: @rpath/libvips-cpp.8.17.3.dylib
+  Referenced from: <43BC947D-E6CB-3FC0-8C98-B0C566F42F94> /Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/sharp-darwin-arm64.node
+  Reason: tried: '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../sharp-libvips-darwin-arm64/1.2.4/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../../../@img-sharp-libvips-darwin-arm64-npm-1.2.4-09e109d5ab/node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../sharp-libvips-darwin-arm64/1.2.4/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../../../@img-sharp-libvips-darwin-arm64-npm-1.2.4-09e109d5ab/node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file)
+Possible solutions:
+- Ensure optional dependencies can be installed:
+    npm install --include=optional sharp
+- Ensure your package manager supports multi-platform installation:
+    See https://sharp.pixelplumbing.com/install#cross-platform
+- Add platform-specific dependencies:
+    npm install --os=darwin --cpu=arm64 sharp
+- Consult the installation documentation:
+    See https://sharp.pixelplumbing.com/install
+      at <anonymous> (/Users/jarkius/.bun/install/cache/sharp@0.34.5@@@1/lib/sharp.js:120:13)
+      at <anonymous> (/Users/jarkius/.bun/install/cache/sharp@0.34.5@@@1/lib/constructor.js:8:7)
+      at <anonymous> (/Users/jarkius/.bun/install/cache/sharp@0.34.5@@@1/lib/index.js:6:7)
+
+[VectorDB] save session session_1773643321752 failed after 3 attempts: Could not load the "sharp" module using the darwin-arm64 runtime
+ERR_DLOPEN_FAILED: dlopen(/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/sharp-darwin-arm64.node, 0x0001): Library not loaded: @rpath/libvips-cpp.8.17.3.dylib
+  Referenced from: <43BC947D-E6CB-3FC0-8C98-B0C566F42F94> /Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/sharp-darwin-arm64.node
+  Reason: tried: '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../sharp-libvips-darwin-arm64/1.2.4/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../../../@img-sharp-libvips-darwin-arm64-npm-1.2.4-09e109d5ab/node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../sharp-libvips-darwin-arm64/1.2.4/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../../../@img-sharp-libvips-darwin-arm64-npm-1.2.4-09e109d5ab/node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file)
+Possible solutions:
+- Ensure optional dependencies can be installed:
+    npm install --include=optional sharp
+- Ensure your package manager supports multi-platform installation:
+    See https://sharp.pixelplumbing.com/install#cross-platform
+- Add platform-specific dependencies:
+    npm install --os=darwin --cpu=arm64 sharp
+- Consult the installation documentation:
+    See https://sharp.pixelplumbing.com/install
+$ bun run scripts/memory/index.ts learn "/Users/jarkius/workspace/The-matrix/psi/memory/sessions/2026-03/2026-03-16_13.42_auto-pulse.md"
+[VectorDB] Using Transformers.js with model: multilingual-e5-base
+[VectorDB] Initialized with 11 collections (prefix: matrix-memory-agents)
+[Transformers] Initializing model: Xenova/multilingual-e5-base...
+[Transformers] Failed to initialize: 115 |   }
+116 |   help.push(
+117 |     '- Consult the installation documentation:',
+118 |     '    See https://sharp.pixelplumbing.com/install'
+119 |   );
+120 |   throw new Error(help.join('\n'));
+                  ^
+error: Could not load the "sharp" module using the darwin-arm64 runtime
+ERR_DLOPEN_FAILED: dlopen(/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/sharp-darwin-arm64.node, 0x0001): Library not loaded: @rpath/libvips-cpp.8.17.3.dylib
+  Referenced from: <43BC947D-E6CB-3FC0-8C98-B0C566F42F94> /Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/sharp-darwin-arm64.node
+  Reason: tried: '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../sharp-libvips-darwin-arm64/1.2.4/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../../../@img-sharp-libvips-darwin-arm64-npm-1.2.4-09e109d5ab/node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../sharp-libvips-darwin-arm64/1.2.4/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../../../@img-sharp-libvips-darwin-arm64-npm-1.2.4-09e109d5ab/node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file)
+Possible solutions:
+- Ensure optional dependencies can be installed:
+    npm install --include=optional sharp
+- Ensure your package manager supports multi-platform installation:
+    See https://sharp.pixelplumbing.com/install#cross-platform
+- Add platform-specific dependencies:
+    npm install --os=darwin --cpu=arm64 sharp
+- Consult the installation documentation:
+    See https://sharp.pixelplumbing.com/install
+      at <anonymous> (/Users/jarkius/.bun/install/cache/sharp@0.34.5@@@1/lib/sharp.js:120:13)
+      at <anonymous> (/Users/jarkius/.bun/install/cache/sharp@0.34.5@@@1/lib/constructor.js:8:7)
+      at <anonymous> (/Users/jarkius/.bun/install/cache/sharp@0.34.5@@@1/lib/index.js:6:7)
+
+[VectorDB] save learning 102 failed after 3 attempts: Could not load the "sharp" module using the darwin-arm64 runtime
+ERR_DLOPEN_FAILED: dlopen(/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/sharp-darwin-arm64.node, 0x0001): Library not loaded: @rpath/libvips-cpp.8.17.3.dylib
+  Referenced from: <43BC947D-E6CB-3FC0-8C98-B0C566F42F94> /Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/sharp-darwin-arm64.node
+  Reason: tried: '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../sharp-libvips-darwin-arm64/1.2.4/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../../../@img-sharp-libvips-darwin-arm64-npm-1.2.4-09e109d5ab/node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../sharp-libvips-darwin-arm64/1.2.4/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../../../@img-sharp-libvips-darwin-arm64-npm-1.2.4-09e109d5ab/node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file)
+Possible solutions:
+- Ensure optional dependencies can be installed:
+    npm install --include=optional sharp
+- Ensure your package manager supports multi-platform installation:
+    See https://sharp.pixelplumbing.com/install#cross-platform
+- Add platform-specific dependencies:
+    npm install --os=darwin --cpu=arm64 sharp
+- Consult the installation documentation:
+    See https://sharp.pixelplumbing.com/install
+$ bun run scripts/memory/index.ts save "Auto-saved session via pulse hook"
+[VectorDB] Using Transformers.js with model: multilingual-e5-base
+[VectorDB] Initialized with 11 collections (prefix: matrix-memory-agents)
+[Transformers] Initializing model: Xenova/multilingual-e5-base...
+[Transformers] Failed to initialize: 115 |   }
+116 |   help.push(
+117 |     '- Consult the installation documentation:',
+118 |     '    See https://sharp.pixelplumbing.com/install'
+119 |   );
+120 |   throw new Error(help.join('\n'));
+                  ^
+error: Could not load the "sharp" module using the darwin-arm64 runtime
+ERR_DLOPEN_FAILED: dlopen(/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/sharp-darwin-arm64.node, 0x0001): Library not loaded: @rpath/libvips-cpp.8.17.3.dylib
+  Referenced from: <43BC947D-E6CB-3FC0-8C98-B0C566F42F94> /Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/sharp-darwin-arm64.node
+  Reason: tried: '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../sharp-libvips-darwin-arm64/1.2.4/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../../../@img-sharp-libvips-darwin-arm64-npm-1.2.4-09e109d5ab/node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../sharp-libvips-darwin-arm64/1.2.4/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../../../@img-sharp-libvips-darwin-arm64-npm-1.2.4-09e109d5ab/node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file)
+Possible solutions:
+- Ensure optional dependencies can be installed:
+    npm install --include=optional sharp
+- Ensure your package manager supports multi-platform installation:
+    See https://sharp.pixelplumbing.com/install#cross-platform
+- Add platform-specific dependencies:
+    npm install --os=darwin --cpu=arm64 sharp
+- Consult the installation documentation:
+    See https://sharp.pixelplumbing.com/install
+      at <anonymous> (/Users/jarkius/.bun/install/cache/sharp@0.34.5@@@1/lib/sharp.js:120:13)
+      at <anonymous> (/Users/jarkius/.bun/install/cache/sharp@0.34.5@@@1/lib/constructor.js:8:7)
+      at <anonymous> (/Users/jarkius/.bun/install/cache/sharp@0.34.5@@@1/lib/index.js:6:7)
+
+[VectorDB] save session session_1773643562852 failed after 3 attempts: Could not load the "sharp" module using the darwin-arm64 runtime
+ERR_DLOPEN_FAILED: dlopen(/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/sharp-darwin-arm64.node, 0x0001): Library not loaded: @rpath/libvips-cpp.8.17.3.dylib
+  Referenced from: <43BC947D-E6CB-3FC0-8C98-B0C566F42F94> /Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/sharp-darwin-arm64.node
+  Reason: tried: '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../sharp-libvips-darwin-arm64/1.2.4/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../../../@img-sharp-libvips-darwin-arm64-npm-1.2.4-09e109d5ab/node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../sharp-libvips-darwin-arm64/1.2.4/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../../../@img-sharp-libvips-darwin-arm64-npm-1.2.4-09e109d5ab/node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file)
+Possible solutions:
+- Ensure optional dependencies can be installed:
+    npm install --include=optional sharp
+- Ensure your package manager supports multi-platform installation:
+    See https://sharp.pixelplumbing.com/install#cross-platform
+- Add platform-specific dependencies:
+    npm install --os=darwin --cpu=arm64 sharp
+- Consult the installation documentation:
+    See https://sharp.pixelplumbing.com/install
+$ bun run scripts/memory/index.ts learn "/Users/jarkius/workspace/The-matrix/psi/memory/sessions/2026-03/2026-03-16_13.46_auto-pulse.md"
+[VectorDB] Using Transformers.js with model: multilingual-e5-base
+[VectorDB] Initialized with 11 collections (prefix: matrix-memory-agents)
+[Transformers] Initializing model: Xenova/multilingual-e5-base...
+[Transformers] Failed to initialize: 115 |   }
+116 |   help.push(
+117 |     '- Consult the installation documentation:',
+118 |     '    See https://sharp.pixelplumbing.com/install'
+119 |   );
+120 |   throw new Error(help.join('\n'));
+                  ^
+error: Could not load the "sharp" module using the darwin-arm64 runtime
+ERR_DLOPEN_FAILED: dlopen(/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/sharp-darwin-arm64.node, 0x0001): Library not loaded: @rpath/libvips-cpp.8.17.3.dylib
+  Referenced from: <43BC947D-E6CB-3FC0-8C98-B0C566F42F94> /Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/sharp-darwin-arm64.node
+  Reason: tried: '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../sharp-libvips-darwin-arm64/1.2.4/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../../../@img-sharp-libvips-darwin-arm64-npm-1.2.4-09e109d5ab/node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../sharp-libvips-darwin-arm64/1.2.4/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../../../@img-sharp-libvips-darwin-arm64-npm-1.2.4-09e109d5ab/node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file)
+Possible solutions:
+- Ensure optional dependencies can be installed:
+    npm install --include=optional sharp
+- Ensure your package manager supports multi-platform installation:
+    See https://sharp.pixelplumbing.com/install#cross-platform
+- Add platform-specific dependencies:
+    npm install --os=darwin --cpu=arm64 sharp
+- Consult the installation documentation:
+    See https://sharp.pixelplumbing.com/install
+      at <anonymous> (/Users/jarkius/.bun/install/cache/sharp@0.34.5@@@1/lib/sharp.js:120:13)
+      at <anonymous> (/Users/jarkius/.bun/install/cache/sharp@0.34.5@@@1/lib/constructor.js:8:7)
+      at <anonymous> (/Users/jarkius/.bun/install/cache/sharp@0.34.5@@@1/lib/index.js:6:7)
+
+[VectorDB] save learning 103 failed after 3 attempts: Could not load the "sharp" module using the darwin-arm64 runtime
+ERR_DLOPEN_FAILED: dlopen(/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/sharp-darwin-arm64.node, 0x0001): Library not loaded: @rpath/libvips-cpp.8.17.3.dylib
+  Referenced from: <43BC947D-E6CB-3FC0-8C98-B0C566F42F94> /Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/sharp-darwin-arm64.node
+  Reason: tried: '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../sharp-libvips-darwin-arm64/1.2.4/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../../../@img-sharp-libvips-darwin-arm64-npm-1.2.4-09e109d5ab/node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../sharp-libvips-darwin-arm64/1.2.4/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../../../@img-sharp-libvips-darwin-arm64-npm-1.2.4-09e109d5ab/node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file)
+Possible solutions:
+- Ensure optional dependencies can be installed:
+    npm install --include=optional sharp
+- Ensure your package manager supports multi-platform installation:
+    See https://sharp.pixelplumbing.com/install#cross-platform
+- Add platform-specific dependencies:
+    npm install --os=darwin --cpu=arm64 sharp
+- Consult the installation documentation:
+    See https://sharp.pixelplumbing.com/install
+$ bun run scripts/memory/index.ts save "Auto-saved session via pulse hook"
+[VectorDB] Using Transformers.js with model: multilingual-e5-base
+[VectorDB] Initialized with 11 collections (prefix: matrix-memory-agents)
+[Transformers] Initializing model: Xenova/multilingual-e5-base...
+[Transformers] Failed to initialize: 115 |   }
+116 |   help.push(
+117 |     '- Consult the installation documentation:',
+118 |     '    See https://sharp.pixelplumbing.com/install'
+119 |   );
+120 |   throw new Error(help.join('\n'));
+                  ^
+error: Could not load the "sharp" module using the darwin-arm64 runtime
+ERR_DLOPEN_FAILED: dlopen(/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/sharp-darwin-arm64.node, 0x0001): Library not loaded: @rpath/libvips-cpp.8.17.3.dylib
+  Referenced from: <43BC947D-E6CB-3FC0-8C98-B0C566F42F94> /Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/sharp-darwin-arm64.node
+  Reason: tried: '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../sharp-libvips-darwin-arm64/1.2.4/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../../../@img-sharp-libvips-darwin-arm64-npm-1.2.4-09e109d5ab/node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../sharp-libvips-darwin-arm64/1.2.4/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../../../@img-sharp-libvips-darwin-arm64-npm-1.2.4-09e109d5ab/node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file)
+Possible solutions:
+- Ensure optional dependencies can be installed:
+    npm install --include=optional sharp
+- Ensure your package manager supports multi-platform installation:
+    See https://sharp.pixelplumbing.com/install#cross-platform
+- Add platform-specific dependencies:
+    npm install --os=darwin --cpu=arm64 sharp
+- Consult the installation documentation:
+    See https://sharp.pixelplumbing.com/install
+      at <anonymous> (/Users/jarkius/.bun/install/cache/sharp@0.34.5@@@1/lib/sharp.js:120:13)
+      at <anonymous> (/Users/jarkius/.bun/install/cache/sharp@0.34.5@@@1/lib/constructor.js:8:7)
+      at <anonymous> (/Users/jarkius/.bun/install/cache/sharp@0.34.5@@@1/lib/index.js:6:7)
+
+[VectorDB] save session session_1773643985160 failed after 3 attempts: Could not load the "sharp" module using the darwin-arm64 runtime
+ERR_DLOPEN_FAILED: dlopen(/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/sharp-darwin-arm64.node, 0x0001): Library not loaded: @rpath/libvips-cpp.8.17.3.dylib
+  Referenced from: <43BC947D-E6CB-3FC0-8C98-B0C566F42F94> /Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/sharp-darwin-arm64.node
+  Reason: tried: '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../sharp-libvips-darwin-arm64/1.2.4/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../../../@img-sharp-libvips-darwin-arm64-npm-1.2.4-09e109d5ab/node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../sharp-libvips-darwin-arm64/1.2.4/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../../../@img-sharp-libvips-darwin-arm64-npm-1.2.4-09e109d5ab/node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file)
+Possible solutions:
+- Ensure optional dependencies can be installed:
+    npm install --include=optional sharp
+- Ensure your package manager supports multi-platform installation:
+    See https://sharp.pixelplumbing.com/install#cross-platform
+- Add platform-specific dependencies:
+    npm install --os=darwin --cpu=arm64 sharp
+- Consult the installation documentation:
+    See https://sharp.pixelplumbing.com/install
+$ bun run scripts/memory/index.ts learn "/Users/jarkius/workspace/The-matrix/psi/memory/sessions/2026-03/2026-03-16_13.53_auto-pulse.md"
+[VectorDB] Using Transformers.js with model: multilingual-e5-base
+[VectorDB] Initialized with 11 collections (prefix: matrix-memory-agents)
+[Transformers] Initializing model: Xenova/multilingual-e5-base...
+[Transformers] Failed to initialize: 115 |   }
+116 |   help.push(
+117 |     '- Consult the installation documentation:',
+118 |     '    See https://sharp.pixelplumbing.com/install'
+119 |   );
+120 |   throw new Error(help.join('\n'));
+                  ^
+error: Could not load the "sharp" module using the darwin-arm64 runtime
+ERR_DLOPEN_FAILED: dlopen(/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/sharp-darwin-arm64.node, 0x0001): Library not loaded: @rpath/libvips-cpp.8.17.3.dylib
+  Referenced from: <43BC947D-E6CB-3FC0-8C98-B0C566F42F94> /Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/sharp-darwin-arm64.node
+  Reason: tried: '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../sharp-libvips-darwin-arm64/1.2.4/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../../../@img-sharp-libvips-darwin-arm64-npm-1.2.4-09e109d5ab/node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../sharp-libvips-darwin-arm64/1.2.4/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../../../@img-sharp-libvips-darwin-arm64-npm-1.2.4-09e109d5ab/node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file)
+Possible solutions:
+- Ensure optional dependencies can be installed:
+    npm install --include=optional sharp
+- Ensure your package manager supports multi-platform installation:
+    See https://sharp.pixelplumbing.com/install#cross-platform
+- Add platform-specific dependencies:
+    npm install --os=darwin --cpu=arm64 sharp
+- Consult the installation documentation:
+    See https://sharp.pixelplumbing.com/install
+      at <anonymous> (/Users/jarkius/.bun/install/cache/sharp@0.34.5@@@1/lib/sharp.js:120:13)
+      at <anonymous> (/Users/jarkius/.bun/install/cache/sharp@0.34.5@@@1/lib/constructor.js:8:7)
+      at <anonymous> (/Users/jarkius/.bun/install/cache/sharp@0.34.5@@@1/lib/index.js:6:7)
+
+[VectorDB] save learning 104 failed after 3 attempts: Could not load the "sharp" module using the darwin-arm64 runtime
+ERR_DLOPEN_FAILED: dlopen(/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/sharp-darwin-arm64.node, 0x0001): Library not loaded: @rpath/libvips-cpp.8.17.3.dylib
+  Referenced from: <43BC947D-E6CB-3FC0-8C98-B0C566F42F94> /Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/sharp-darwin-arm64.node
+  Reason: tried: '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../sharp-libvips-darwin-arm64/1.2.4/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../../../@img-sharp-libvips-darwin-arm64-npm-1.2.4-09e109d5ab/node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../sharp-libvips-darwin-arm64/1.2.4/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../../../@img-sharp-libvips-darwin-arm64-npm-1.2.4-09e109d5ab/node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file)
+Possible solutions:
+- Ensure optional dependencies can be installed:
+    npm install --include=optional sharp
+- Ensure your package manager supports multi-platform installation:
+    See https://sharp.pixelplumbing.com/install#cross-platform
+- Add platform-specific dependencies:
+    npm install --os=darwin --cpu=arm64 sharp
+- Consult the installation documentation:
+    See https://sharp.pixelplumbing.com/install
+$ bun run scripts/memory/index.ts save "Auto-saved session via pulse hook"
+[VectorDB] Using Transformers.js with model: multilingual-e5-base
+[VectorDB] Initialized with 11 collections (prefix: matrix-memory-agents)
+[Transformers] Initializing model: Xenova/multilingual-e5-base...
+[Transformers] Failed to initialize: 115 |   }
+116 |   help.push(
+117 |     '- Consult the installation documentation:',
+118 |     '    See https://sharp.pixelplumbing.com/install'
+119 |   );
+120 |   throw new Error(help.join('\n'));
+                  ^
+error: Could not load the "sharp" module using the darwin-arm64 runtime
+ERR_DLOPEN_FAILED: dlopen(/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/sharp-darwin-arm64.node, 0x0001): Library not loaded: @rpath/libvips-cpp.8.17.3.dylib
+  Referenced from: <43BC947D-E6CB-3FC0-8C98-B0C566F42F94> /Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/sharp-darwin-arm64.node
+  Reason: tried: '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../sharp-libvips-darwin-arm64/1.2.4/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../../../@img-sharp-libvips-darwin-arm64-npm-1.2.4-09e109d5ab/node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../sharp-libvips-darwin-arm64/1.2.4/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../../../@img-sharp-libvips-darwin-arm64-npm-1.2.4-09e109d5ab/node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file)
+Possible solutions:
+- Ensure optional dependencies can be installed:
+    npm install --include=optional sharp
+- Ensure your package manager supports multi-platform installation:
+    See https://sharp.pixelplumbing.com/install#cross-platform
+- Add platform-specific dependencies:
+    npm install --os=darwin --cpu=arm64 sharp
+- Consult the installation documentation:
+    See https://sharp.pixelplumbing.com/install
+      at <anonymous> (/Users/jarkius/.bun/install/cache/sharp@0.34.5@@@1/lib/sharp.js:120:13)
+      at <anonymous> (/Users/jarkius/.bun/install/cache/sharp@0.34.5@@@1/lib/constructor.js:8:7)
+      at <anonymous> (/Users/jarkius/.bun/install/cache/sharp@0.34.5@@@1/lib/index.js:6:7)
+
+[VectorDB] save session session_1773644283785 failed after 3 attempts: Could not load the "sharp" module using the darwin-arm64 runtime
+ERR_DLOPEN_FAILED: dlopen(/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/sharp-darwin-arm64.node, 0x0001): Library not loaded: @rpath/libvips-cpp.8.17.3.dylib
+  Referenced from: <43BC947D-E6CB-3FC0-8C98-B0C566F42F94> /Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/sharp-darwin-arm64.node
+  Reason: tried: '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../sharp-libvips-darwin-arm64/1.2.4/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../../../@img-sharp-libvips-darwin-arm64-npm-1.2.4-09e109d5ab/node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../sharp-libvips-darwin-arm64/1.2.4/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../../../@img-sharp-libvips-darwin-arm64-npm-1.2.4-09e109d5ab/node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file)
+Possible solutions:
+- Ensure optional dependencies can be installed:
+    npm install --include=optional sharp
+- Ensure your package manager supports multi-platform installation:
+    See https://sharp.pixelplumbing.com/install#cross-platform
+- Add platform-specific dependencies:
+    npm install --os=darwin --cpu=arm64 sharp
+- Consult the installation documentation:
+    See https://sharp.pixelplumbing.com/install
+$ bun run scripts/memory/index.ts learn "/Users/jarkius/workspace/The-matrix/psi/memory/sessions/2026-03/2026-03-16_13.58_auto-pulse.md"
+[VectorDB] Using Transformers.js with model: multilingual-e5-base
+[VectorDB] Initialized with 11 collections (prefix: matrix-memory-agents)
+[Transformers] Initializing model: Xenova/multilingual-e5-base...
+[Transformers] Failed to initialize: 115 |   }
+116 |   help.push(
+117 |     '- Consult the installation documentation:',
+118 |     '    See https://sharp.pixelplumbing.com/install'
+119 |   );
+120 |   throw new Error(help.join('\n'));
+                  ^
+error: Could not load the "sharp" module using the darwin-arm64 runtime
+ERR_DLOPEN_FAILED: dlopen(/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/sharp-darwin-arm64.node, 0x0001): Library not loaded: @rpath/libvips-cpp.8.17.3.dylib
+  Referenced from: <43BC947D-E6CB-3FC0-8C98-B0C566F42F94> /Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/sharp-darwin-arm64.node
+  Reason: tried: '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../sharp-libvips-darwin-arm64/1.2.4/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../../../@img-sharp-libvips-darwin-arm64-npm-1.2.4-09e109d5ab/node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../sharp-libvips-darwin-arm64/1.2.4/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../../../@img-sharp-libvips-darwin-arm64-npm-1.2.4-09e109d5ab/node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file)
+Possible solutions:
+- Ensure optional dependencies can be installed:
+    npm install --include=optional sharp
+- Ensure your package manager supports multi-platform installation:
+    See https://sharp.pixelplumbing.com/install#cross-platform
+- Add platform-specific dependencies:
+    npm install --os=darwin --cpu=arm64 sharp
+- Consult the installation documentation:
+    See https://sharp.pixelplumbing.com/install
+      at <anonymous> (/Users/jarkius/.bun/install/cache/sharp@0.34.5@@@1/lib/sharp.js:120:13)
+      at <anonymous> (/Users/jarkius/.bun/install/cache/sharp@0.34.5@@@1/lib/constructor.js:8:7)
+      at <anonymous> (/Users/jarkius/.bun/install/cache/sharp@0.34.5@@@1/lib/index.js:6:7)
+
+[VectorDB] save learning 105 failed after 3 attempts: Could not load the "sharp" module using the darwin-arm64 runtime
+ERR_DLOPEN_FAILED: dlopen(/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/sharp-darwin-arm64.node, 0x0001): Library not loaded: @rpath/libvips-cpp.8.17.3.dylib
+  Referenced from: <43BC947D-E6CB-3FC0-8C98-B0C566F42F94> /Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/sharp-darwin-arm64.node
+  Reason: tried: '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../sharp-libvips-darwin-arm64/1.2.4/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../../../@img-sharp-libvips-darwin-arm64-npm-1.2.4-09e109d5ab/node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../sharp-libvips-darwin-arm64/1.2.4/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../../../@img-sharp-libvips-darwin-arm64-npm-1.2.4-09e109d5ab/node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file)
+Possible solutions:
+- Ensure optional dependencies can be installed:
+    npm install --include=optional sharp
+- Ensure your package manager supports multi-platform installation:
+    See https://sharp.pixelplumbing.com/install#cross-platform
+- Add platform-specific dependencies:
+    npm install --os=darwin --cpu=arm64 sharp
+- Consult the installation documentation:
+    See https://sharp.pixelplumbing.com/install
+$ bun run scripts/memory/index.ts save "Auto-saved session via pulse hook"
+[VectorDB] Using Transformers.js with model: multilingual-e5-base
+[VectorDB] Initialized with 11 collections (prefix: matrix-memory-agents)
+[Transformers] Initializing model: Xenova/multilingual-e5-base...
+[Transformers] Failed to initialize: 115 |   }
+116 |   help.push(
+117 |     '- Consult the installation documentation:',
+118 |     '    See https://sharp.pixelplumbing.com/install'
+119 |   );
+120 |   throw new Error(help.join('\n'));
+                  ^
+error: Could not load the "sharp" module using the darwin-arm64 runtime
+ERR_DLOPEN_FAILED: dlopen(/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/sharp-darwin-arm64.node, 0x0001): Library not loaded: @rpath/libvips-cpp.8.17.3.dylib
+  Referenced from: <43BC947D-E6CB-3FC0-8C98-B0C566F42F94> /Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/sharp-darwin-arm64.node
+  Reason: tried: '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../sharp-libvips-darwin-arm64/1.2.4/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../../../@img-sharp-libvips-darwin-arm64-npm-1.2.4-09e109d5ab/node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../sharp-libvips-darwin-arm64/1.2.4/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../../../@img-sharp-libvips-darwin-arm64-npm-1.2.4-09e109d5ab/node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file)
+Possible solutions:
+- Ensure optional dependencies can be installed:
+    npm install --include=optional sharp
+- Ensure your package manager supports multi-platform installation:
+    See https://sharp.pixelplumbing.com/install#cross-platform
+- Add platform-specific dependencies:
+    npm install --os=darwin --cpu=arm64 sharp
+- Consult the installation documentation:
+    See https://sharp.pixelplumbing.com/install
+      at <anonymous> (/Users/jarkius/.bun/install/cache/sharp@0.34.5@@@1/lib/sharp.js:120:13)
+      at <anonymous> (/Users/jarkius/.bun/install/cache/sharp@0.34.5@@@1/lib/constructor.js:8:7)
+      at <anonymous> (/Users/jarkius/.bun/install/cache/sharp@0.34.5@@@1/lib/index.js:6:7)
+
+[VectorDB] save session session_1773644552268 failed after 3 attempts: Could not load the "sharp" module using the darwin-arm64 runtime
+ERR_DLOPEN_FAILED: dlopen(/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/sharp-darwin-arm64.node, 0x0001): Library not loaded: @rpath/libvips-cpp.8.17.3.dylib
+  Referenced from: <43BC947D-E6CB-3FC0-8C98-B0C566F42F94> /Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/sharp-darwin-arm64.node
+  Reason: tried: '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../sharp-libvips-darwin-arm64/1.2.4/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../../../@img-sharp-libvips-darwin-arm64-npm-1.2.4-09e109d5ab/node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../sharp-libvips-darwin-arm64/1.2.4/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../../../@img-sharp-libvips-darwin-arm64-npm-1.2.4-09e109d5ab/node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file)
+Possible solutions:
+- Ensure optional dependencies can be installed:
+    npm install --include=optional sharp
+- Ensure your package manager supports multi-platform installation:
+    See https://sharp.pixelplumbing.com/install#cross-platform
+- Add platform-specific dependencies:
+    npm install --os=darwin --cpu=arm64 sharp
+- Consult the installation documentation:
+    See https://sharp.pixelplumbing.com/install
+$ bun run scripts/memory/index.ts learn "/Users/jarkius/workspace/The-matrix/psi/memory/sessions/2026-03/2026-03-16_14.02_auto-pulse.md"
+[VectorDB] Using Transformers.js with model: multilingual-e5-base
+[VectorDB] Initialized with 11 collections (prefix: matrix-memory-agents)
+[Transformers] Initializing model: Xenova/multilingual-e5-base...
+[Transformers] Failed to initialize: 115 |   }
+116 |   help.push(
+117 |     '- Consult the installation documentation:',
+118 |     '    See https://sharp.pixelplumbing.com/install'
+119 |   );
+120 |   throw new Error(help.join('\n'));
+                  ^
+error: Could not load the "sharp" module using the darwin-arm64 runtime
+ERR_DLOPEN_FAILED: dlopen(/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/sharp-darwin-arm64.node, 0x0001): Library not loaded: @rpath/libvips-cpp.8.17.3.dylib
+  Referenced from: <43BC947D-E6CB-3FC0-8C98-B0C566F42F94> /Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/sharp-darwin-arm64.node
+  Reason: tried: '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../sharp-libvips-darwin-arm64/1.2.4/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../../../@img-sharp-libvips-darwin-arm64-npm-1.2.4-09e109d5ab/node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../sharp-libvips-darwin-arm64/1.2.4/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../../../@img-sharp-libvips-darwin-arm64-npm-1.2.4-09e109d5ab/node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file)
+Possible solutions:
+- Ensure optional dependencies can be installed:
+    npm install --include=optional sharp
+- Ensure your package manager supports multi-platform installation:
+    See https://sharp.pixelplumbing.com/install#cross-platform
+- Add platform-specific dependencies:
+    npm install --os=darwin --cpu=arm64 sharp
+- Consult the installation documentation:
+    See https://sharp.pixelplumbing.com/install
+      at <anonymous> (/Users/jarkius/.bun/install/cache/sharp@0.34.5@@@1/lib/sharp.js:120:13)
+      at <anonymous> (/Users/jarkius/.bun/install/cache/sharp@0.34.5@@@1/lib/constructor.js:8:7)
+      at <anonymous> (/Users/jarkius/.bun/install/cache/sharp@0.34.5@@@1/lib/index.js:6:7)
+
+[VectorDB] save learning 106 failed after 3 attempts: Could not load the "sharp" module using the darwin-arm64 runtime
+ERR_DLOPEN_FAILED: dlopen(/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/sharp-darwin-arm64.node, 0x0001): Library not loaded: @rpath/libvips-cpp.8.17.3.dylib
+  Referenced from: <43BC947D-E6CB-3FC0-8C98-B0C566F42F94> /Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/sharp-darwin-arm64.node
+  Reason: tried: '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../sharp-libvips-darwin-arm64/1.2.4/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../../../@img-sharp-libvips-darwin-arm64-npm-1.2.4-09e109d5ab/node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../sharp-libvips-darwin-arm64/1.2.4/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../../../@img-sharp-libvips-darwin-arm64-npm-1.2.4-09e109d5ab/node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file)
+Possible solutions:
+- Ensure optional dependencies can be installed:
+    npm install --include=optional sharp
+- Ensure your package manager supports multi-platform installation:
+    See https://sharp.pixelplumbing.com/install#cross-platform
+- Add platform-specific dependencies:
+    npm install --os=darwin --cpu=arm64 sharp
+- Consult the installation documentation:
+    See https://sharp.pixelplumbing.com/install
+$ bun run scripts/memory/index.ts save "Auto-saved session via pulse hook"
+[VectorDB] Using Transformers.js with model: multilingual-e5-base
+[VectorDB] Initialized with 11 collections (prefix: matrix-memory-agents)
+[Transformers] Initializing model: Xenova/multilingual-e5-base...
+[Transformers] Failed to initialize: 115 |   }
+116 |   help.push(
+117 |     '- Consult the installation documentation:',
+118 |     '    See https://sharp.pixelplumbing.com/install'
+119 |   );
+120 |   throw new Error(help.join('\n'));
+                  ^
+error: Could not load the "sharp" module using the darwin-arm64 runtime
+ERR_DLOPEN_FAILED: dlopen(/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/sharp-darwin-arm64.node, 0x0001): Library not loaded: @rpath/libvips-cpp.8.17.3.dylib
+  Referenced from: <43BC947D-E6CB-3FC0-8C98-B0C566F42F94> /Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/sharp-darwin-arm64.node
+  Reason: tried: '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../sharp-libvips-darwin-arm64/1.2.4/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../../../@img-sharp-libvips-darwin-arm64-npm-1.2.4-09e109d5ab/node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../sharp-libvips-darwin-arm64/1.2.4/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../../../@img-sharp-libvips-darwin-arm64-npm-1.2.4-09e109d5ab/node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file)
+Possible solutions:
+- Ensure optional dependencies can be installed:
+    npm install --include=optional sharp
+- Ensure your package manager supports multi-platform installation:
+    See https://sharp.pixelplumbing.com/install#cross-platform
+- Add platform-specific dependencies:
+    npm install --os=darwin --cpu=arm64 sharp
+- Consult the installation documentation:
+    See https://sharp.pixelplumbing.com/install
+      at <anonymous> (/Users/jarkius/.bun/install/cache/sharp@0.34.5@@@1/lib/sharp.js:120:13)
+      at <anonymous> (/Users/jarkius/.bun/install/cache/sharp@0.34.5@@@1/lib/constructor.js:8:7)
+      at <anonymous> (/Users/jarkius/.bun/install/cache/sharp@0.34.5@@@1/lib/index.js:6:7)
+
+[VectorDB] save session session_1773644603828 failed after 3 attempts: Could not load the "sharp" module using the darwin-arm64 runtime
+ERR_DLOPEN_FAILED: dlopen(/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/sharp-darwin-arm64.node, 0x0001): Library not loaded: @rpath/libvips-cpp.8.17.3.dylib
+  Referenced from: <43BC947D-E6CB-3FC0-8C98-B0C566F42F94> /Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/sharp-darwin-arm64.node
+  Reason: tried: '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../sharp-libvips-darwin-arm64/1.2.4/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../../../@img-sharp-libvips-darwin-arm64-npm-1.2.4-09e109d5ab/node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../sharp-libvips-darwin-arm64/1.2.4/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../../../@img-sharp-libvips-darwin-arm64-npm-1.2.4-09e109d5ab/node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file)
+Possible solutions:
+- Ensure optional dependencies can be installed:
+    npm install --include=optional sharp
+- Ensure your package manager supports multi-platform installation:
+    See https://sharp.pixelplumbing.com/install#cross-platform
+- Add platform-specific dependencies:
+    npm install --os=darwin --cpu=arm64 sharp
+- Consult the installation documentation:
+    See https://sharp.pixelplumbing.com/install
+$ bun run scripts/memory/index.ts learn "/Users/jarkius/workspace/The-matrix/psi/memory/sessions/2026-03/2026-03-16_14.03_auto-pulse.md"
+[VectorDB] Using Transformers.js with model: multilingual-e5-base
+[VectorDB] Initialized with 11 collections (prefix: matrix-memory-agents)
+[Transformers] Initializing model: Xenova/multilingual-e5-base...
+[Transformers] Failed to initialize: 115 |   }
+116 |   help.push(
+117 |     '- Consult the installation documentation:',
+118 |     '    See https://sharp.pixelplumbing.com/install'
+119 |   );
+120 |   throw new Error(help.join('\n'));
+                  ^
+error: Could not load the "sharp" module using the darwin-arm64 runtime
+ERR_DLOPEN_FAILED: dlopen(/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/sharp-darwin-arm64.node, 0x0001): Library not loaded: @rpath/libvips-cpp.8.17.3.dylib
+  Referenced from: <43BC947D-E6CB-3FC0-8C98-B0C566F42F94> /Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/sharp-darwin-arm64.node
+  Reason: tried: '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../sharp-libvips-darwin-arm64/1.2.4/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../../../@img-sharp-libvips-darwin-arm64-npm-1.2.4-09e109d5ab/node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../sharp-libvips-darwin-arm64/1.2.4/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../../../@img-sharp-libvips-darwin-arm64-npm-1.2.4-09e109d5ab/node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file)
+Possible solutions:
+- Ensure optional dependencies can be installed:
+    npm install --include=optional sharp
+- Ensure your package manager supports multi-platform installation:
+    See https://sharp.pixelplumbing.com/install#cross-platform
+- Add platform-specific dependencies:
+    npm install --os=darwin --cpu=arm64 sharp
+- Consult the installation documentation:
+    See https://sharp.pixelplumbing.com/install
+      at <anonymous> (/Users/jarkius/.bun/install/cache/sharp@0.34.5@@@1/lib/sharp.js:120:13)
+      at <anonymous> (/Users/jarkius/.bun/install/cache/sharp@0.34.5@@@1/lib/constructor.js:8:7)
+      at <anonymous> (/Users/jarkius/.bun/install/cache/sharp@0.34.5@@@1/lib/index.js:6:7)
+
+[VectorDB] save learning 107 failed after 3 attempts: Could not load the "sharp" module using the darwin-arm64 runtime
+ERR_DLOPEN_FAILED: dlopen(/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/sharp-darwin-arm64.node, 0x0001): Library not loaded: @rpath/libvips-cpp.8.17.3.dylib
+  Referenced from: <43BC947D-E6CB-3FC0-8C98-B0C566F42F94> /Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/sharp-darwin-arm64.node
+  Reason: tried: '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../sharp-libvips-darwin-arm64/1.2.4/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../../../@img-sharp-libvips-darwin-arm64-npm-1.2.4-09e109d5ab/node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../sharp-libvips-darwin-arm64/1.2.4/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file), '/Users/jarkius/.bun/install/cache/@img/sharp-darwin-arm64@0.34.5@@@1/lib/../../../../../@img-sharp-libvips-darwin-arm64-npm-1.2.4-09e109d5ab/node_modules/@img/sharp-libvips-darwin-arm64/lib/libvips-cpp.8.17.3.dylib' (no such file)
+Possible solutions:
+- Ensure optional dependencies can be installed:
+    npm install --include=optional sharp
+- Ensure your package manager supports multi-platform installation:
+    See https://sharp.pixelplumbing.com/install#cross-platform
+- Add platform-specific dependencies:
+    npm install --os=darwin --cpu=arm64 sharp
+- Consult the installation documentation:
+    See https://sharp.pixelplumbing.com/install
