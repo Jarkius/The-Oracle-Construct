@@ -13,14 +13,14 @@ import {
   getLinkedLearnings,
   type LearningRecord,
   type Visibility,
-} from '../../../db';
+} from '../../../core/db';
 import {
   saveLearning as saveLearningToChroma,
   searchLearnings,
   findSimilarLearnings,
   isInitialized,
   initVectorDB,
-} from '../../../vector-db';
+} from '../../../memory/vector-db';
 import type { ToolDefinition, ToolHandler } from '../../types';
 import { z } from 'zod';
 

@@ -17,8 +17,8 @@ import {
   isEventMessage,
   isExpired,
   createRpcResponse,
-} from './types/agent-protocol';
-import { wsLogger as log } from './utils/logger';
+} from '../../core/types/agent-protocol';
+import { wsLogger as log } from '../../core/utils/logger';
 
 // ============ Configuration ============
 

@@ -28,7 +28,7 @@ import {
   getInboxMessages,
   markMessagesRead,
   type MatrixMessageRecord
-} from './db';
+} from '../../core/db';
 
 // ============ Configuration ============
 

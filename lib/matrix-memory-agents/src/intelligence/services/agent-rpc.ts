@@ -18,7 +18,7 @@ import {
   isRpcResponse,
   isExpired,
   ulid,
-} from '../types/agent-protocol';
+} from '../../core/types/agent-protocol';
 
 // ============================================================================
 // Types

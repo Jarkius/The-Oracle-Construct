@@ -28,7 +28,7 @@ import {
   getAgentMessages,
   getRecentMessages,
   cancelTask as dbCancelTask,
-} from '../../../db';
+} from '../../../core/db';
 import type { ToolDefinition, ToolHandler } from '../../types';
 
 // ============ Tool Definitions ============

@@ -13,9 +13,9 @@ import { jsonResponse, errorResponse, successResponse } from '../../core/utils/r
 import {
   GeminiBrowserClient,
   parallelGeminiQueries,
-} from '../../../services/mqtt-client';
-import { createLearning } from '../../../db/learnings';
-import { saveLearning as saveLearningToChroma, initVectorDB, isInitialized } from '../../../vector-db';
+} from '../../../intelligence/services/mqtt-client';
+import { createLearning } from '../../../core/db/learnings';
+import { saveLearning as saveLearningToChroma, initVectorDB, isInitialized } from '../../../memory/vector-db';
 import type { ToolDefinition, ToolHandler } from '../../types';
 
 // ============ Schemas ============

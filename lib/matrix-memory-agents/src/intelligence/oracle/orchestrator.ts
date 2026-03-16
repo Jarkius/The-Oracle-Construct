@@ -5,10 +5,10 @@
 
 import { getAgentSpawner, AgentSpawner } from '../pty/spawner';
 import { getMissionQueue, MissionQueue } from '../pty/mission-queue';
-import { getLearningLoop, LearningLoop } from '../learning/loop';
-import type { Agent, AgentRole, ModelTier } from '../interfaces/spawner';
-import type { Mission, Priority } from '../interfaces/mission';
-import type { Pattern } from '../interfaces/learning';
+import { getLearningLoop, LearningLoop } from '../../memory/learning/loop';
+import type { Agent, AgentRole, ModelTier } from '../../core/types/spawner';
+import type { Mission, Priority } from '../../core/types/mission';
+import type { Pattern } from '../../core/types/learning';
 
 // ============ Types ============
 

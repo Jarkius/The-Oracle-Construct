@@ -27,15 +27,15 @@ import {
   updateUnifiedTaskStatus,
   type SessionRecord,
   type LearningRecord,
-} from '../../../db';
+} from '../../../core/db';
 import type { ToolDefinition, ToolHandler } from '../../types';
 import {
   isServerRunning,
   isAgentConnected,
   sendTaskToAgent,
   broadcastTask as wsBroadcastTask,
-} from '../../../ws-server';
-import { getOracleOrchestrator } from '../../../oracle';
+} from '../../../daemons/hub/ws-server';
+import { getOracleOrchestrator } from '../../../intelligence/oracle';
 
 // ============ Utility Functions ============
 

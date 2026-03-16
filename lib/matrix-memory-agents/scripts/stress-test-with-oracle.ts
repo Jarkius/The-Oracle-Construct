@@ -8,9 +8,9 @@
  * 4. Verifies learnings accumulate correctly
  */
 
-import { LearningLoop } from '../src/learning/loop';
-import { initVectorDB, getCollectionStats } from '../src/vector-db';
-import { listLearningsFromDb, listKnowledge, listLessons } from '../src/db';
+import { LearningLoop } from '../src/memory/learning/loop';
+import { initVectorDB, getCollectionStats } from '../src/memory/vector-db';
+import { listLearningsFromDb, listKnowledge, listLessons } from '../src/core/db';
 import { readdir, readFile, stat } from 'fs/promises';
 import { join, extname } from 'path';
 

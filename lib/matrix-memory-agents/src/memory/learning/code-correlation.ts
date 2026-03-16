@@ -5,7 +5,7 @@
  * Analyzes code patterns and learning content to find meaningful connections.
  */
 
-import type { LearningRecord, CodeFileRecord, LearningCodeLinkRecord } from '../db';
+import type { LearningRecord, CodeFileRecord, LearningCodeLinkRecord } from '../../core/db';
 import {
   listLearningsFromDb as listLearnings,
   getAllCodeFiles as listCodeFiles,
@@ -13,8 +13,8 @@ import {
   getLearningsForFile,
   getFilesForLearning,
   getLearningCodeLinkStats as getCodeLinkStats,
-} from '../db';
-import { ExternalLLM, type LLMProvider } from '../services/external-llm';
+} from '../../core/db';
+import { ExternalLLM, type LLMProvider } from '../../intelligence/services/external-llm';
 
 // ============ Types ============
 

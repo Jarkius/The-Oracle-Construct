@@ -28,7 +28,7 @@ import {
   type Visibility,
   type ListSessionsOptions,
   type ListLearningsOptions,
-} from '../db';
+} from '../../core/db';
 
 import {
   saveSession as saveSessionToVector,
@@ -41,7 +41,7 @@ import {
   isInitialized,
   type SessionSearchOptions,
   type LearningSearchOptions,
-} from '../vector-db';
+} from '../../memory/vector-db';
 
 // ============ Types ============
 

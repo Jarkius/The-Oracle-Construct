@@ -14,7 +14,7 @@
 
 import { $ } from 'bun';
 import { existsSync, mkdirSync, rmSync } from 'fs';
-import type { WorktreeConfig } from '../interfaces/pty';
+import type { WorktreeConfig } from '../../core/types/pty';
 
 export interface WorktreeInfo {
   agentId: number;

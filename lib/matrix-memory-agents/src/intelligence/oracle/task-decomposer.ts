@@ -6,7 +6,7 @@
  */
 
 import { ExternalLLM, type LLMProvider } from '../services/external-llm';
-import type { AgentRole, ModelTier } from '../interfaces/spawner';
+import type { AgentRole, ModelTier } from '../../core/types/spawner';
 import { getOracleOrchestrator } from './orchestrator';
 
 // ============ Types ============

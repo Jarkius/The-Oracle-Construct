@@ -11,7 +11,7 @@
  */
 
 import { createLearning, db, getInboxMessages, getUnreadCount as dbGetUnreadCount, clearInbox as dbClearInbox, type MatrixMessageRecord } from '../../src/core/db';
-import { connectToHub, sendMessage as sendViaHub, sendDirect, broadcast, isConnected, disconnect, waitForFlush } from '../../src/matrix-client';
+import { connectToHub, sendMessage as sendViaHub, sendDirect, broadcast, isConnected, disconnect, waitForFlush } from '../../src/daemons/matrix-client';
 import { execSync } from 'child_process';
 import { basename, join } from 'path';
 import { existsSync, readFileSync } from 'fs';

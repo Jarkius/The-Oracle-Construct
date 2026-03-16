@@ -4,7 +4,7 @@
  * Use this to snapshot progress before clearing context
  */
 
-import { initVectorDB, embedContext, checkChromaHealth, ensureChromaRunning } from "../src/vector-db";
+import { initVectorDB, embedContext, checkChromaHealth, ensureChromaRunning } from "../src/memory/vector-db";
 
 const SESSION_CONTEXT = `
 # Session Summary - FastEmbed & Transformers.js Integration (2026-01-16)

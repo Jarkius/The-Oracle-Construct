@@ -22,7 +22,7 @@ export type {
   HealthStatus,
   AgentEvent,
   AgentStatus,
-} from '../interfaces/pty';
+} from '../../core/types/pty';
 
 export type {
   IAgentSpawner,
@@ -31,7 +31,7 @@ export type {
   Task,
   AgentRole,
   ModelTier,
-} from '../interfaces/spawner';
+} from '../../core/types/spawner';
 
 export type {
   IMissionQueue,
@@ -40,8 +40,8 @@ export type {
   MissionStatus,
   Priority,
   ErrorContext,
-} from '../interfaces/mission';
+} from '../../core/types/mission';
 
 // Utility functions
-export { selectModel, ROLE_PROMPTS } from '../interfaces/spawner';
-export { calculateBackoff, isRecoverable } from '../interfaces/mission';
+export { selectModel, ROLE_PROMPTS } from '../../core/types/spawner';
+export { calculateBackoff, isRecoverable } from '../../core/types/mission';

@@ -4,8 +4,8 @@
  */
 
 import { describe, it, expect, beforeAll, afterAll, afterEach } from 'bun:test';
-import { startHub, stopHub } from '../matrix-hub';
-import * as client from '../matrix-client';
+import { startHub, stopHub } from '../daemons/hub/matrix-hub';
+import * as client from '../daemons/matrix-client';
 
 const TEST_PORT = 18081; // Use different port to avoid conflicts
 const TEST_HUB_URL = `ws://localhost:${TEST_PORT}`;

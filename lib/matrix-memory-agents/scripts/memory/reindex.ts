@@ -18,7 +18,7 @@ import {
   getCollectionStats,
   ensureChromaRunning,
   checkChromaHealth,
-} from "../../src/vector-db";
+} from "../../src/memory/vector-db";
 
 import {
   listSessionsFromDb,

@@ -8,10 +8,10 @@
  */
 
 import { describe, it, expect, beforeAll } from 'bun:test';
-import { QualityScorer, getQualityScorer, type QualityScore } from '../../src/learning/quality-scorer';
-import { smartDistill, distillFromContent, type EnhancedLearning } from '../../src/learning/distill-engine';
-import { smartDeduplicate, type SmartDeduplicationResult } from '../../src/learning/consolidation';
-import type { LearningRecord } from '../../src/db';
+import { QualityScorer, getQualityScorer, type QualityScore } from '../../src/memory/learning/quality-scorer';
+import { smartDistill, distillFromContent, type EnhancedLearning } from '../../src/memory/learning/distill-engine';
+import { smartDeduplicate, type SmartDeduplicationResult } from '../../src/memory/learning/consolidation';
+import type { LearningRecord } from '../../src/core/db';
 
 // ============ Quality Scorer Tests ============
 
@@ -244,14 +244,14 @@ describe('smartDeduplicate', () => {
 
 describe('Phase 5 Integration', () => {
   it('should have all required exports from quality-scorer', async () => {
-    const module = await import('../../src/learning/quality-scorer');
+    const module = await import('../../src/memory/learning/quality-scorer');
 
     expect(module.QualityScorer).toBeDefined();
     expect(module.getQualityScorer).toBeDefined();
   });
 
   it('should have all required exports from distill-engine', async () => {
-    const module = await import('../../src/learning/distill-engine');
+    const module = await import('../../src/memory/learning/distill-engine');
 
     expect(module.smartDistill).toBeDefined();
     expect(module.distillFromContent).toBeDefined();
@@ -259,7 +259,7 @@ describe('Phase 5 Integration', () => {
   });
 
   it('should have all required exports from consolidation', async () => {
-    const module = await import('../../src/learning/consolidation');
+    const module = await import('../../src/memory/learning/consolidation');
 
     expect(module.smartDeduplicate).toBeDefined();
     expect(module.runSmartConsolidation).toBeDefined();

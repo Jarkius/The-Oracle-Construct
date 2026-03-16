@@ -15,8 +15,8 @@
  *   const result = await smartDistill(markdownContent, { sourcePath: './README.md' });
  */
 
-import type { LearningCategory } from '../interfaces/learning';
-import { ExternalLLM, type LLMProvider } from '../services/external-llm';
+import type { LearningCategory } from '../../core/types/learning';
+import { ExternalLLM, type LLMProvider } from '../../intelligence/services/external-llm';
 
 // ============ Interfaces ============
 

@@ -13,19 +13,19 @@ import {
   getCrossSessionAnalyzer,
   analyzeRecentSessions,
   type CrossSessionPattern,
-} from '../../src/learning/cross-session';
+} from '../../src/memory/learning/cross-session';
 import {
   CodeCorrelator,
   getCodeCorrelator,
   getCorrelationSummary,
   type CorrelationMatch,
-} from '../../src/learning/code-correlation';
+} from '../../src/memory/learning/code-correlation';
 import {
   analyzeCodebaseWithGemini,
   analyzeRepository,
   type CodebaseInsight,
-} from '../../src/learning/code-analyzer';
-import { ExternalLLM } from '../../src/services/external-llm';
+} from '../../src/memory/learning/code-analyzer';
+import { ExternalLLM } from '../../src/intelligence/services/external-llm';
 
 // ============ Cross-Session Tests ============
 
@@ -196,7 +196,7 @@ describe('ExternalLLM', () => {
 
 describe('Phase 7 Integration', () => {
   it('should have all required exports from cross-session', async () => {
-    const module = await import('../../src/learning/cross-session');
+    const module = await import('../../src/memory/learning/cross-session');
 
     expect(module.CrossSessionAnalyzer).toBeDefined();
     expect(module.getCrossSessionAnalyzer).toBeDefined();
@@ -205,7 +205,7 @@ describe('Phase 7 Integration', () => {
   });
 
   it('should have all required exports from code-correlation', async () => {
-    const module = await import('../../src/learning/code-correlation');
+    const module = await import('../../src/memory/learning/code-correlation');
 
     expect(module.CodeCorrelator).toBeDefined();
     expect(module.getCodeCorrelator).toBeDefined();
@@ -216,14 +216,14 @@ describe('Phase 7 Integration', () => {
   });
 
   it('should have Gemini analysis exports from code-analyzer', async () => {
-    const module = await import('../../src/learning/code-analyzer');
+    const module = await import('../../src/memory/learning/code-analyzer');
 
     expect(module.analyzeCodebaseWithGemini).toBeDefined();
     expect(module.analyzeRepository).toBeDefined();
   });
 
   it('should have complete method in ExternalLLM', async () => {
-    const module = await import('../../src/services/external-llm');
+    const module = await import('../../src/intelligence/services/external-llm');
 
     expect(module.ExternalLLM.prototype.complete).toBeDefined();
   });

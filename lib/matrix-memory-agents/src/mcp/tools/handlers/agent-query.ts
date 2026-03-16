@@ -12,7 +12,7 @@ import {
   getConnectedAgents,
   isAgentConnected,
   sendAgentMessage,
-} from '../../../ws-server';
+} from '../../../daemons/hub/ws-server';
 import {
   type RpcRequest,
   type RpcResponse,
@@ -20,7 +20,7 @@ import {
   createRpcRequest,
   createEvent,
   ulid,
-} from '../../../types/agent-protocol';
+} from '../../../core/types/agent-protocol';
 
 // ============================================================================
 // Schemas

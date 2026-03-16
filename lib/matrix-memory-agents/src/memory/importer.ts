@@ -12,7 +12,7 @@ import {
   getLearningById,
   updateLearning,
   type LearningRecord,
-} from '../db';
+} from '../../core/db';
 
 // ============================================================================
 // Types

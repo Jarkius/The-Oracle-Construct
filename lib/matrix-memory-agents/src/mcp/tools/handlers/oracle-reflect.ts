@@ -14,8 +14,8 @@ import {
   getRandomWisdomBatch,
   MATURITY_ICONS,
   type LearningRecord,
-} from '../../../db';
-import { logAccess } from '../../../db/behavioral-logs';
+} from '../../../core/db';
+import { logAccess } from '../../../core/db/behavioral-logs';
 import type { ToolDefinition, ToolHandler } from '../../types';
 
 // ============ Input Validation ============

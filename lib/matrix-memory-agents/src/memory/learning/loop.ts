@@ -14,8 +14,8 @@ import type {
   KnowledgeEntry,
   LessonEntry,
   AgentRecommendation,
-} from '../interfaces/learning';
-import type { Mission } from '../interfaces/mission';
+} from '../../core/types/learning';
+import type { Mission } from '../../core/types/mission';
 import {
   createLearning,
   getLearningById,
@@ -35,7 +35,7 @@ import {
   type LearningRecord,
   type KnowledgeRecord,
   type LessonRecord,
-} from '../db';
+} from '../../core/db';
 import {
   searchLearnings,
   initVectorDB,

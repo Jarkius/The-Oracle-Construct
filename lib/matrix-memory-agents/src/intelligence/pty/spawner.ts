@@ -11,9 +11,9 @@ import type {
   Task,
   AgentRole,
   ModelTier,
-} from '../interfaces/spawner';
-import type { PTYHandle } from '../interfaces/pty';
-import { selectModel, ROLE_PROMPTS, ROLE_MODELS } from '../interfaces/spawner';
+} from '../../core/types/spawner';
+import type { PTYHandle } from '../../core/types/pty';
+import { selectModel, ROLE_PROMPTS, ROLE_MODELS } from '../../core/types/spawner';
 import { createAgentSession, searchAgentLearnings } from '../services/agent-memory-service';
 
 const DEFAULT_AGENT_CONFIG: Required<Omit<AgentConfig, 'worktree'>> & { worktree: undefined } = {

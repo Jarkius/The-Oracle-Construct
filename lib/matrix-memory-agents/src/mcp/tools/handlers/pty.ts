@@ -6,15 +6,15 @@
 import { z } from 'zod';
 import type { ToolDefinition, ToolHandler, MCPResponse } from '../../types';
 import { jsonResponse, errorResponse } from '../../core/utils/response';
-import { AgentSpawner, getAgentSpawner } from '../../../pty/spawner';
-import { MissionQueue, getMissionQueue } from '../../../pty/mission-queue';
-import { getPTYManager } from '../../../pty/manager';
-import { getWorktreeManager } from '../../../pty/worktree-manager';
-import { getLearningLoop } from '../../../learning';
-import { getOracleOrchestrator } from '../../../oracle/orchestrator';
-import { selectModel, ROLE_PROMPTS } from '../../../interfaces/spawner';
-import type { AgentRole, ModelTier, Task } from '../../../interfaces/spawner';
-import type { Priority } from '../../../interfaces/mission';
+import { AgentSpawner, getAgentSpawner } from '../../../intelligence/pty/spawner';
+import { MissionQueue, getMissionQueue } from '../../../intelligence/pty/mission-queue';
+import { getPTYManager } from '../../../intelligence/pty/manager';
+import { getWorktreeManager } from '../../../intelligence/pty/worktree-manager';
+import { getLearningLoop } from '../../../memory/learning';
+import { getOracleOrchestrator } from '../../../intelligence/oracle/orchestrator';
+import { selectModel, ROLE_PROMPTS } from '../../../core/types/spawner';
+import type { AgentRole, ModelTier, Task } from '../../../core/types/spawner';
+import type { Priority } from '../../../core/types/mission';
 
 // ============ Schemas ============
 

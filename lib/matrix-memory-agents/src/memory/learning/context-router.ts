@@ -10,8 +10,8 @@ import {
   isInitialized,
   initVectorDB,
 } from '../vector-db';
-import { getLearningById, getKnowledgeById, getLessonById } from '../db';
-import type { LearningCategory } from '../interfaces/learning';
+import { getLearningById, getKnowledgeById, getLessonById } from '../../core/db';
+import type { LearningCategory } from '../../core/types/learning';
 
 // Task types for context-aware routing
 export type TaskType = 'debugging' | 'architecture' | 'implementation' | 'research' | 'general';

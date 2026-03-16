@@ -16,7 +16,7 @@
 import mqtt from "mqtt";
 import { appendFile } from "node:fs/promises";
 import { resolve } from "node:path";
-import { createLogger } from "../../utils/logger";
+import { createLogger } from "../../core/utils/logger";
 
 // === LOGGER ===
 const log = createLogger("cdp-proxy");

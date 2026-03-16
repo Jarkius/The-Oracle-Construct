@@ -15,8 +15,8 @@
 
 import { readFileSync, existsSync, readdirSync, statSync } from 'fs';
 import { basename, join, extname, relative } from 'path';
-import type { LearningCategory } from '../interfaces/learning';
-import { upsertCodePattern, clearPatternsForFile, getPatternStats } from '../db';
+import type { LearningCategory } from '../../core/types/learning';
+import { upsertCodePattern, clearPatternsForFile, getPatternStats } from '../../core/db';
 
 // ============ Interfaces ============
 
@@ -768,7 +768,7 @@ export function analyzeRepository(
 
 // ============ Phase 7: Gemini-Powered Codebase Insights ============
 
-import { ExternalLLM, type LLMProvider } from '../services/external-llm';
+import { ExternalLLM, type LLMProvider } from '../../intelligence/services/external-llm';
 
 export interface CodePattern {
   name: string;

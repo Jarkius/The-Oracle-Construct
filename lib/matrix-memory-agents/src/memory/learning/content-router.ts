@@ -3,9 +3,9 @@
  * Routes to: knowledge (facts), lessons (problem→solution), learnings (insights)
  */
 
-import { createLearning, createKnowledge, createLesson, findOrCreateLesson } from '../db';
+import { createLearning, createKnowledge, createLesson, findOrCreateLesson } from '../../core/db';
 import { getLearningLoop } from './loop';
-import type { LearningCategory } from '../interfaces/learning';
+import type { LearningCategory } from '../../core/types/learning';
 
 // Content types for dual-collection routing
 export type ContentType = 'knowledge' | 'lesson' | 'learning';

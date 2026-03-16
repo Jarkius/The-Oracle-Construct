@@ -14,7 +14,7 @@ import {
   createLearningLink,
   deleteLearning,
   type LearningRecord,
-} from '../db';
+} from '../../core/db';
 import {
   searchLearnings,
   saveLearning,
@@ -23,7 +23,7 @@ import {
 } from '../vector-db';
 import { Database } from 'bun:sqlite';
 import { ChromaClient } from 'chromadb';
-import { ExternalLLM, type LLMProvider } from '../services/external-llm';
+import { ExternalLLM, type LLMProvider } from '../../intelligence/services/external-llm';
 
 // Types
 export interface ConsolidationCandidate {

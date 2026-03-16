@@ -12,7 +12,7 @@ import {
   onResult,
   onDisconnect,
   getConnectionStats
-} from "../../src/ws-server.ts";
+} from "../../src/daemons/hub/ws-server.ts";
 
 async function runTest() {
   console.log("=== WebSocket Agent Communication Test ===\n");

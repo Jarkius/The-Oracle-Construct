@@ -27,7 +27,7 @@ import {
   clearSymbolsForFile,
   bulkInsertSymbols,
   type SymbolRecord,
-} from '../db';
+} from '../../core/db';
 import { analyzeAndPersistPatterns } from '../learning/code-analyzer';
 
 // Supported file extensions and their language mappings

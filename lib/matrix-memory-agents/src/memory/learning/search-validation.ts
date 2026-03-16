@@ -9,7 +9,7 @@
  * This enables continuous improvement of search quality.
  */
 
-import { db } from '../db';
+import { db } from '../../core/db';
 
 // ============ Schema ============
 

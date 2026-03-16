@@ -5,14 +5,14 @@
  * Falls back to heuristics when LLM is unavailable.
  */
 
-import type { LearningRecord, EntityRecord, RelationshipType } from '../db';
+import type { LearningRecord, EntityRecord, RelationshipType } from '../../core/db';
 import {
   getOrCreateEntity,
   linkLearningToEntity,
   addEntityRelationship,
   extractEntities as extractEntitiesHeuristic,
-} from '../db';
-import { ExternalLLM } from '../services/external-llm';
+} from '../../core/db';
+import { ExternalLLM } from '../../intelligence/services/external-llm';
 
 // ============ Types ============
 

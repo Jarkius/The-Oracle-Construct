@@ -11,7 +11,7 @@ import {
   GetAgentWorkloadSchema,
   type GetAgentWorkloadInput,
 } from '../../core/utils/validation';
-import { getAllAgents } from '../../../db';
+import { getAllAgents } from '../../../core/db';
 import type { ToolDefinition, ToolHandler } from '../../types';
 
 // ============ Tool Definitions ============

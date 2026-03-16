@@ -5,9 +5,9 @@
  * Falls back to heuristics when LLM is unavailable.
  */
 
-import type { SessionRecord, LearningRecord } from '../db';
-import { listSessionsFromDb as listSessions, getSessionById, searchLearnings, getLearningStats } from '../db';
-import { ExternalLLM, type LLMProvider } from '../services/external-llm';
+import type { SessionRecord, LearningRecord } from '../../core/db';
+import { listSessionsFromDb as listSessions, getSessionById, searchLearnings, getLearningStats } from '../../core/db';
+import { ExternalLLM, type LLMProvider } from '../../intelligence/services/external-llm';
 
 // ============ Types ============
 

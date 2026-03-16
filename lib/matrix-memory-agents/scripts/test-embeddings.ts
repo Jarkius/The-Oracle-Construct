@@ -13,7 +13,7 @@
  *   bun run scripts/test-embeddings.ts nomic  # test nomic model
  */
 
-import { TransformersEmbeddingFunction } from "../src/embeddings/transformers-provider";
+import { TransformersEmbeddingFunction } from "../src/memory/embeddings/transformers-provider";
 
 // Test data - semantically grouped
 const TEST_CORPUS = {

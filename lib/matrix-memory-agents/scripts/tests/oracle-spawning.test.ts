@@ -4,9 +4,9 @@
  */
 
 import { describe, it, expect, beforeEach, afterEach } from 'bun:test';
-import { OracleOrchestrator } from '../../src/oracle/orchestrator';
-import { MissionQueue } from '../../src/pty/mission-queue';
-import { db } from '../../src/db';
+import { OracleOrchestrator } from '../../src/intelligence/oracle/orchestrator';
+import { MissionQueue } from '../../src/intelligence/pty/mission-queue';
+import { db } from '../../src/core/db';
 
 describe('Oracle Proactive Spawning', () => {
   let oracle: OracleOrchestrator;

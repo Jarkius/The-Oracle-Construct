@@ -6,7 +6,7 @@
  * Usage: bun run download-model
  */
 
-import { TransformersEmbeddingFunction } from "../src/embeddings/transformers-provider";
+import { TransformersEmbeddingFunction } from "../src/memory/embeddings/transformers-provider";
 
 async function main() {
   const modelName = process.env.EMBEDDING_MODEL || "multilingual-e5-base";

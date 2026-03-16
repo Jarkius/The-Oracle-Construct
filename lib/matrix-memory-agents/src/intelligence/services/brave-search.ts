@@ -220,7 +220,7 @@ export async function searchTech(
 // Memory Integration
 // ============================================================================
 
-import { createLearning } from '../db';
+import { createLearning } from '../../core/db';
 import {
   fetchAndExtract,
   isExtractionAvailable,

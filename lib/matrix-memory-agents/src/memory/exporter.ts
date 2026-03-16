@@ -16,7 +16,7 @@ import {
   type LearningRecord,
   type SessionRecord,
   type Decision,
-} from '../db';
+} from '../../core/db';
 
 // ============================================================================
 // Types

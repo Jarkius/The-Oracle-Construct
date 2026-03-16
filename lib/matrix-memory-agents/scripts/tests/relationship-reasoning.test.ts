@@ -15,7 +15,7 @@ import {
   extractAndPersistEntities,
   type ExtractedEntity,
   type EnhancedRelationship,
-} from '../../src/learning/entity-extractor';
+} from '../../src/memory/learning/entity-extractor';
 import {
   addEntityRelationship,
   getEntityRelationships,
@@ -26,7 +26,7 @@ import {
   getEntityByName,
   type RelationshipType,
   type LearningRecord,
-} from '../../src/db';
+} from '../../src/core/db';
 
 // ============ Entity Extraction Tests ============
 
@@ -281,7 +281,7 @@ describe('Entity Relationships DB', () => {
 
 describe('Phase 6 Integration', () => {
   it('should have all required exports from entity-extractor', async () => {
-    const module = await import('../../src/learning/entity-extractor');
+    const module = await import('../../src/memory/learning/entity-extractor');
 
     expect(module.EntityExtractor).toBeDefined();
     expect(module.getEntityExtractor).toBeDefined();
@@ -289,7 +289,7 @@ describe('Phase 6 Integration', () => {
   });
 
   it('should have relationship functions in db', async () => {
-    const module = await import('../../src/db');
+    const module = await import('../../src/core/db');
 
     expect(module.addEntityRelationship).toBeDefined();
     expect(module.getEntityRelationships).toBeDefined();

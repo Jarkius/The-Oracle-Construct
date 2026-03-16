@@ -10,7 +10,7 @@ import {
   embedTask,
   searchSimilarTasks,
   getCollectionStats,
-} from "../src/vector-db";
+} from "../src/memory/vector-db";
 
 async function main() {
   console.log("=== FastEmbed Semantic Search Test ===\n");

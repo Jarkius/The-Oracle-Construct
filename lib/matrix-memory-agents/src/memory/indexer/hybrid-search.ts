@@ -18,7 +18,7 @@ import {
   getCodeFileStats,
   logSearch,
   type CodeFileRecord,
-} from '../db';
+} from '../../core/db';
 import { searchCodeVector, getCodeIndexStats } from '../vector-db';
 
 export interface HybridSearchOptions {

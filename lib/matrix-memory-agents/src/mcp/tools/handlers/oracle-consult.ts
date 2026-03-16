@@ -19,14 +19,14 @@ import {
   recordDecision,
   type LearningRecord,
   type Decision,
-} from '../../../db';
+} from '../../../core/db';
 import {
   searchLearnings,
   searchSimilarResults,
   isInitialized,
   initVectorDB,
-} from '../../../vector-db';
-import { getOracleOrchestrator } from '../../../oracle';
+} from '../../../memory/vector-db';
+import { getOracleOrchestrator } from '../../../intelligence/oracle';
 import type { ToolDefinition, ToolHandler } from '../../types';
 
 // ============ Input Validation ============

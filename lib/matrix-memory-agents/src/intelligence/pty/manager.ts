@@ -4,9 +4,9 @@
  */
 
 import { $ } from 'bun';
-import type { IPTYManager, PTYHandle, PTYConfig, HealthStatus, AgentEvent, AgentStatus } from '../interfaces/pty';
+import type { IPTYManager, PTYHandle, PTYConfig, HealthStatus, AgentEvent, AgentStatus } from '../../core/types/pty';
 import { getWorktreeManager } from './worktree-manager';
-import { buildEnvAssignment, escapeShellPath, isValidEnvVarName } from '../utils/shell';
+import { buildEnvAssignment, escapeShellPath, isValidEnvVarName } from '../../core/utils/shell';
 
 const DEFAULT_CONFIG: Required<Omit<PTYConfig, 'worktree'>> & { worktree: undefined } = {
   cwd: process.cwd(),

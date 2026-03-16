@@ -10,8 +10,8 @@
  * Falls back to heuristic scoring when LLM is unavailable.
  */
 
-import { ExternalLLM, type LLMOptions } from '../services/external-llm';
-import type { LearningRecord } from '../db';
+import { ExternalLLM, type LLMOptions } from '../../intelligence/services/external-llm';
+import type { LearningRecord } from '../../core/db';
 
 // ============ Types ============
 

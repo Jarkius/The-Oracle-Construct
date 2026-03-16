@@ -215,7 +215,7 @@ async function main() {
       const daemonCmd = args[1] || 'status';
       const daemonArgs = args.slice(2);
       process.argv = [process.argv[0]!, process.argv[1]!, daemonCmd, ...daemonArgs];
-      await import('../../src/indexer/indexer-daemon');
+      await import('../../src/memory/indexer/indexer-daemon');
       break;
     }
 

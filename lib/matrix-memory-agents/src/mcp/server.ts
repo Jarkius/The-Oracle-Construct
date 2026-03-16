@@ -18,9 +18,9 @@ import {
 import { CONFIG } from './config';
 import { allTools, allHandlers } from './tools';
 import { errorResponse } from './utils/response';
-import { initVectorDBWithAutoStart, getHealthStatus } from '../vector-db';
-import { startServer as startWsServer, isServerRunning, getConnectionStats } from '../ws-server';
-import { connectToHub, onMessage, isConnected as isHubConnected, getStatus as getHubStatus } from '../matrix-client';
+import { initVectorDBWithAutoStart, getHealthStatus } from '../memory/vector-db';
+import { startServer as startWsServer, isServerRunning, getConnectionStats } from '../daemons/hub/ws-server';
+import { connectToHub, onMessage, isConnected as isHubConnected, getStatus as getHubStatus } from '../daemons/matrix-client';
 import { checkStartupHealth, formatStartupWarning } from './startup-health';
 
 // Create MCP server

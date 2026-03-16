@@ -12,12 +12,12 @@ import type {
   MissionStatus,
   Priority,
   ErrorContext,
-} from '../interfaces/mission';
-import { calculateBackoff, isRecoverable } from '../interfaces/mission';
+} from '../../core/types/mission';
+import { calculateBackoff, isRecoverable } from '../../core/types/mission';
 import { randomUUID } from 'crypto';
-import { saveMission, loadPendingMissions, updateMissionStatus, atomicDequeueWithExecutionId, type MissionRecord } from '../db';
-import { missionLogger as log } from '../utils/logger';
-import { hasRecentCheckpoint } from '../ws-server';
+import { saveMission, loadPendingMissions, updateMissionStatus, atomicDequeueWithExecutionId, type MissionRecord } from '../../core/db';
+import { missionLogger as log } from '../../core/utils/logger';
+import { hasRecentCheckpoint } from '../../daemons/hub/ws-server';
 
 // Queue backpressure configuration
 const MAX_QUEUE_SIZE = parseInt(process.env.MAX_QUEUE_SIZE || '1000');

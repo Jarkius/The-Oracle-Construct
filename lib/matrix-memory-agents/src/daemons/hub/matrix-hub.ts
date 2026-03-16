@@ -22,7 +22,7 @@ import {
   touchMatrix,
   markStaleMatricesOffline,
   type MatrixStatus,
-} from './db';
+} from '../../core/db';
 
 // ============ Configuration ============
 

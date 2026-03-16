@@ -8,7 +8,7 @@
  * matrix-memory-agents routing engine.
  */
 
-import type { AgentRole, ModelTier } from '../interfaces/spawner';
+import type { AgentRole, ModelTier } from '../../core/types/spawner';
 import type { RoutingDecision } from './task-router';
 import { getTaskRouter } from './task-router';
 

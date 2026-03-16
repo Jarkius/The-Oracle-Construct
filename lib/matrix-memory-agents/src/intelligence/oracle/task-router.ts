@@ -9,13 +9,13 @@
  */
 
 import { ExternalLLM, type LLMProvider } from '../services/external-llm';
-import type { AgentRole, ModelTier, Agent } from '../interfaces/spawner';
-import type { Mission } from '../interfaces/mission';
+import type { AgentRole, ModelTier, Agent } from '../../core/types/spawner';
+import type { Mission } from '../../core/types/mission';
 import {
   getHighConfidenceLearnings,
   searchLearningsFTS,
   type LearningRecord,
-} from '../db';
+} from '../../core/db';
 import { getOracleOrchestrator } from './orchestrator';
 
 // ============ Types ============

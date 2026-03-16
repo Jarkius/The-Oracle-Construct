@@ -12,13 +12,13 @@ import {
   listSessionsFromDb,
   listLearningsFromDb,
   getDashboardData,
-} from '../../../db';
+} from '../../../core/db';
 import {
   searchLearnings,
   getCollectionStats,
   isInitialized,
   initVectorDB,
-} from '../../../vector-db';
+} from '../../../memory/vector-db';
 import type { ToolDefinition, ToolHandler } from '../../types';
 
 // ============ Schemas ============

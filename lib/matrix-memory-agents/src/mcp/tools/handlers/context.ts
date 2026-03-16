@@ -14,9 +14,9 @@ import {
   type UpdateSharedContextInput,
 } from '../../core/utils/validation';
 import type { ToolDefinition, ToolHandler } from '../../types';
-import { embedContext, isInitialized } from '../../../vector-db';
-import { db } from '../../../db';
-import { isConnected as isHubConnected, getStatus as getHubStatus } from '../../../matrix-client';
+import { embedContext, isInitialized } from '../../../memory/vector-db';
+import { db } from '../../../core/db';
+import { isConnected as isHubConnected, getStatus as getHubStatus } from '../../../daemons/matrix-client';
 
 // ============ Tool Definitions ============
 

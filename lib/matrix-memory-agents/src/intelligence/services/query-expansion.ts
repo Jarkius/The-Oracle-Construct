@@ -15,8 +15,8 @@ import {
   type TaskType,
   type TaskContext,
   type RetrievalStrategy,
-} from '../learning/context-router';
-import type { LearningCategory } from '../interfaces/learning';
+} from '../../memory/learning/context-router';
+import type { LearningCategory } from '../../core/types/learning';
 
 // ============ Types ============
 

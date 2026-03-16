@@ -17,9 +17,9 @@ import {
   reconnectVectorDB,
   searchCodeVector,
   getCodeIndexStats,
-} from '../../../vector-db';
-import { hybridSearch } from '../../../indexer/hybrid-search';
-import { getCodeFileStats } from '../../../db';
+} from '../../../memory/vector-db';
+import { hybridSearch } from '../../../memory/indexer/hybrid-search';
+import { getCodeFileStats } from '../../../core/db';
 import { checkStartupHealth } from '../../startup-health';
 import type { ToolDefinition, ToolHandler } from '../../types';
 

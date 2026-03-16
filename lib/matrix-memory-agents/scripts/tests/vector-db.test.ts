@@ -15,7 +15,7 @@ import {
   getPendingEmbeddingCount,
   isInitialized,
   getEmbeddingProviderInfo,
-} from '../../src/vector-db';
+} from '../../src/memory/vector-db';
 
 // ============================================================================
 // Content Chunking Tests

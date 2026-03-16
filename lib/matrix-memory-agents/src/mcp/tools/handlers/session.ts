@@ -10,7 +10,7 @@ import {
   findSimilarSessions,
   isInitialized,
   initVectorDB,
-} from '../../../vector-db';
+} from '../../../memory/vector-db';
 import {
   createSession,
   getSessionById,
@@ -21,7 +21,7 @@ import {
   type SessionRecord,
   type FullContext,
   type Visibility,
-} from '../../../db';
+} from '../../../core/db';
 import type { ToolDefinition, ToolHandler } from '../../types';
 import { z } from 'zod';
 

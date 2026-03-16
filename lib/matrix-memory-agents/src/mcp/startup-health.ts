@@ -4,7 +4,7 @@
  */
 
 import { existsSync } from 'fs';
-import { getSystemStateQuick } from '../db';
+import { getSystemStateQuick } from '../core/db';
 
 const DB_PATH = './agents.db';
 

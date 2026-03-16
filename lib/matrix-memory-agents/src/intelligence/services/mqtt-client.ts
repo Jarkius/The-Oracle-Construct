@@ -8,7 +8,7 @@
  */
 
 import mqtt, { MqttClient, IClientOptions } from 'mqtt';
-import { createLogger } from '../utils/logger';
+import { createLogger } from '../../core/utils/logger';
 
 const log = createLogger('mqtt-client');
 

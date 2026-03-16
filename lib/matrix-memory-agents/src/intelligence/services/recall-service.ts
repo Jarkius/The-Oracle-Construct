@@ -21,7 +21,7 @@ import {
   type SessionRecord,
   type LearningRecord,
   type SessionTask,
-} from '../db';
+} from '../../core/db';
 
 import {
   searchSessions,
@@ -29,15 +29,15 @@ import {
   searchSessionTasks,
   initVectorDB,
   isInitialized,
-} from '../vector-db';
+} from '../../memory/vector-db';
 
 import {
   detectTaskType,
   getRetrievalStrategy,
   executeSmartRetrieval,
   type TaskType,
-} from '../learning/context-router';
-import type { LearningCategory } from '../interfaces/learning';
+} from '../../memory/learning/context-router';
+import type { LearningCategory } from '../../core/types/learning';
 import { expandQuery, type ExpandedQuery } from './query-expansion';
 
 // ============ Query Cache ============

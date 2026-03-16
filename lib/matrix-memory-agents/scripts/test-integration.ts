@@ -16,7 +16,7 @@ import {
   embedResult,
   isInitialized,
   preloadEmbeddingModel,
-} from '../src/vector-db';
+} from '../src/memory/vector-db';
 import {
   createSession,
   createLearning,
@@ -35,8 +35,8 @@ import {
   sendMessage,
   type SessionRecord,
   type FullContext,
-} from '../src/db';
-import { createEmbeddingFunction, getEmbeddingConfig } from '../src/embeddings';
+} from '../src/core/db';
+import { createEmbeddingFunction, getEmbeddingConfig } from '../src/memory/embeddings';
 
 // ============ Test Utilities ============
 
