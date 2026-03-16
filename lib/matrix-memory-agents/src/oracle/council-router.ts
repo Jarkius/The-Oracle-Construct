@@ -213,3 +213,41 @@ export function formatRoutingDecision(
   const confidence = Math.round(decision.confidence * 100);
   return `${agent} (${mapping.tier}) — ${mapping.description} [${confidence}% confidence]`;
 }
+
+// ============ Gemini MCP Bridge (Phase 5) ============
+
+/**
+ * Check if a task should be dispatched to the Gemini MCP agent
+ * (matrix-gemini-agent) for deep research instead of handled locally.
+ *
+ * Triggers when:
+ * - Morpheus is the selected agent AND
+ * - Task contains research-indicating keywords
+ */
+export function shouldDispatchToGeminiMCP(
+  agent: CouncilAgent,
+  task: string,
+): boolean {
+  if (agent !== 'Morpheus') return false;
+
+  const researchKeywords = [
+    'deep research', 'research', 'investigate', 'analyze',
+    'compare', 'summarize', 'youtube', 'transcribe',
+    'gemini', 'web search', 'find out',
+  ];
+  const lower = task.toLowerCase();
+  return researchKeywords.some(kw => lower.includes(kw));
+}
+
+/**
+ * Get the Gemini MCP tool name for a research task.
+ * Maps task intent to the appropriate gemini-agent MCP tool.
+ */
+export function getGeminiMCPTool(task: string): string {
+  const lower = task.toLowerCase();
+  if (lower.includes('youtube') || lower.includes('transcribe')) return 'gemini_youtube';
+  if (lower.includes('compare')) return 'gemini_compare';
+  if (lower.includes('summarize')) return 'gemini_summarize';
+  if (lower.includes('deep research') || lower.includes('investigate')) return 'gemini_deep_research';
+  return 'gemini_research';
+}
