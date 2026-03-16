@@ -11,6 +11,7 @@ tools:
   - Grep
   - Glob
   - Bash
+  - Skill
 memory: project
 skills:
   - rrr

@@ -35,6 +35,12 @@ const DAEMONS = [
 
 const app = new Hono();
 
+// Security: validate daemon names to prevent injection
+const VALID_DAEMON_NAMES = new Set(DAEMONS.map(d => d.name));
+function isValidDaemon(name: string): boolean {
+  return VALID_DAEMON_NAMES.has(name);
+}
+
 // ─── Helper ─────────────────────────────────────────────────────────────────
 
 async function readFileOr<T>(path: string, fallback: T): Promise<T | string> {
@@ -141,6 +147,9 @@ app.get("/api/known-fixes", async (c) => {
 
 app.post("/api/restart/:daemon", async (c) => {
   const daemon = c.req.param("daemon");
+  if (!isValidDaemon(daemon)) {
+    return c.json({ error: "Invalid daemon name" }, 400);
+  }
   try {
     const proc = Bun.spawn(["bash", SERVICES_SCRIPT, "restart", daemon], { stdout: "pipe", stderr: "pipe" });
     await proc.exited;
@@ -244,6 +253,7 @@ app.get("/", (c) => {
   <div id="updated"></div>
 
   <script>
+    function esc(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
     async function refresh() {
       try {
         const [status, events, nerve, fixes] = await Promise.all([
@@ -255,7 +265,7 @@ app.get("/", (c) => {
 
         // Services
         document.getElementById('services').innerHTML = Object.entries(status.daemons).map(([name, d]) =>
-          '<div class="service"><span><span class="dot ' + (d.running ? 'on' : 'off') + '"></span><span class="name">' + name + '</span> <span class="time">:' + d.port + '</span></span><span><button class="btn" onclick="restartDaemon(\\'' + name + '\\')" style="font-size:10px;padding:2px 8px;">Restart</button></span></div>'
+          '<div class="service"><span><span class="dot ' + (d.running ? 'on' : 'off') + '"></span><span class="name">' + esc(name) + '</span> <span class="time">:' + d.port + '</span></span><span><button class="btn" onclick="restartDaemon(\\'' + esc(name) + '\\')" style="font-size:10px;padding:2px 8px;">Restart</button></span></div>'
         ).join('');
 
         // Health
@@ -273,7 +283,7 @@ app.get("/", (c) => {
         if (nerve.events?.length > 0) {
           document.getElementById('nerve').innerHTML = nerve.events.slice(-5).reverse().map(e => {
             const level = e.data?.level || 0;
-            return '<div class="nerve-event l' + level + '">' + e.type + ' — ' + (e.data?.daemon || '') + ' L' + level + '</div>';
+            return '<div class="nerve-event l' + level + '">' + esc(e.type) + ' — ' + esc(e.data?.daemon || '') + ' L' + level + '</div>';
           }).join('');
         }
 
@@ -290,7 +300,7 @@ app.get("/", (c) => {
         // Events
         document.getElementById('eventlog').innerHTML = events.reverse().map(e => {
           const t = e.ts?.slice(11,19) || '';
-          return '<div><span class="time">' + t + '</span> ' + e.type + ' <span class="time">' + (e.agent || '') + '</span></div>';
+          return '<div><span class="time">' + t + '</span> ' + esc(e.type) + ' <span class="time">' + esc(e.agent || '') + '</span></div>';
         }).join('');
 
         document.getElementById('updated').textContent = 'Updated: ' + new Date().toLocaleTimeString();

@@ -65,7 +65,7 @@ export const COUNCIL_MAP: Record<CouncilAgent, CouncilMapping> = {
   Trinity: {
     agent: 'Trinity',
     role: 'reviewer',
-    tier: 'opus',
+    tier: 'sonnet',
     skills: ['/trinity', '/tokens', '/component-spec', '/design-review', '/handoff'],
     description: 'Design Lead — design tokens, review, guide',
   },
@@ -86,7 +86,7 @@ export const COUNCIL_MAP: Record<CouncilAgent, CouncilMapping> = {
   Smith: {
     agent: 'Smith',
     role: 'debugger',
-    tier: 'opus',
+    tier: 'sonnet',
     skills: ['/smith', '/review', '/patrol', '/cause', '/correct', '/fix'],
     description: 'Debugger — bugs, security, anomalies',
   },
@@ -100,7 +100,7 @@ export const COUNCIL_MAP: Record<CouncilAgent, CouncilMapping> = {
   Scribe: {
     agent: 'Scribe',
     role: 'scribe',
-    tier: 'opus',
+    tier: 'sonnet',
     skills: ['/rrr', '/recap', '/distill', '/wisdom', '/snapshot'],
     description: 'Memory — retrospectives, documentation',
   },

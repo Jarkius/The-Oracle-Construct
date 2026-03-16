@@ -12,6 +12,7 @@ tools:
   - Glob
   - Bash
   - Agent
+  - Skill
 memory: project
 skills:
   - review
