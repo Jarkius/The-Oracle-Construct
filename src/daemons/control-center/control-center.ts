@@ -19,12 +19,12 @@ const PORT = Number(process.env.CONTROL_PORT) || 8100;
 const CWD = process.env.MATRIX_ROOT || join(import.meta.dir, "../../../..");
 
 // Paths
-const EVENTS_PATH = join(CWD, "psi/pulse/events.jsonl");
-const HEARTBEAT_PATH = join(CWD, "psi/pulse/heartbeat.json");
-const KNOWN_FIXES_PATH = join(CWD, "psi/pulse/known-fixes.json");
-const DAEMON_LOGS_DIR = join(CWD, "psi/pulse/daemon-logs");
+const EVENTS_PATH = join(CWD, "psi/state/pulse/events.jsonl");
+const HEARTBEAT_PATH = join(CWD, "psi/state/pulse/heartbeat.json");
+const KNOWN_FIXES_PATH = join(CWD, "psi/state/pulse/known-fixes.json");
+const DAEMON_LOGS_DIR = join(CWD, "psi/state/pulse/daemon-logs");
 const TASKS_PATH = join(CWD, "psi/memory/tasks/active.json");
-const SERVICES_SCRIPT = join(CWD, ".claude/hooks/matrix-services.sh");
+const SERVICES_SCRIPT = join(CWD, ".claude/hooks/core/matrix-services.sh");
 
 // Matrix daemons (port-based health check)
 const DAEMONS = [

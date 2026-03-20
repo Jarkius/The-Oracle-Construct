@@ -110,9 +110,9 @@ export interface NerveConfig {
 
 export const DEFAULT_NERVE_CONFIG: NerveConfig = {
   escalation: DEFAULT_ESCALATION_CONFIG,
-  knownFixesPath: 'psi/pulse/known-fixes.json',
-  eventsPath: 'psi/pulse/events.jsonl',
-  heartbeatPath: 'psi/pulse/heartbeat.json',
-  daemonLogsDir: 'psi/pulse/daemon-logs',
-  servicesScript: '.claude/hooks/matrix-services.sh',
+  knownFixesPath: 'psi/state/pulse/known-fixes.json',
+  eventsPath: 'psi/state/pulse/events.jsonl',
+  heartbeatPath: 'psi/state/pulse/heartbeat.json',
+  daemonLogsDir: 'psi/state/pulse/daemon-logs',
+  servicesScript: '.claude/hooks/core/matrix-services.sh',
 };

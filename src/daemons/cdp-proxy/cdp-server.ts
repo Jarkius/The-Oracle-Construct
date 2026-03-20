@@ -24,7 +24,7 @@ const log = createLogger("cdp-proxy");
 // === PULSE EVENT EMISSION ===
 const PULSE_EVENTS_PATH = resolve(
   import.meta.dir,
-  "../../../../../psi/pulse/events.jsonl"
+  "../../../../../psi/state/pulse/events.jsonl"
 );
 
 async function emitPulseEvent(
