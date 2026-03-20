@@ -62,7 +62,7 @@ Silently review the conversation so far. Extract:
 
 1. Generate filename: `psi/memory/sessions/YYYY-MM/YYYY-MM-DD_HH.MM_compact.md`
 2. Write the compact output with session memory header
-3. Announce: `sh psi/matrix/voice.sh "Session compacted. Context preserved." "Oracle"`
+3. Announce: `sh scripts/voice/voice.sh "Session compacted. Context preserved." "Oracle"`
 
 ### 4. Display
 

@@ -20,7 +20,7 @@ Use Tank to find files, map dependencies, and load "programs" (tools/scripts).
 Tank knows where everything is.
 ```bash
 # Voice Greeting
-sh psi/matrix/voice.sh "Operator here. What do you need?" "Tank"
+sh scripts/voice/voice.sh "Operator here. What do you need?" "Tank"
 
 # Find file by name
 find . -name "*[query]*" -not -path "*/.*"

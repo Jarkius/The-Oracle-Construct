@@ -12,7 +12,6 @@ set -e
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 PROJECT_DIR="$(dirname "$SCRIPT_DIR")"
-MMA_DIR="$PROJECT_DIR/lib/matrix-memory-agents"
 PSI_DIR="$PROJECT_DIR/psi"
 
 # Colors
@@ -21,7 +20,7 @@ YELLOW='\033[1;33m'
 BLUE='\033[0;34m'
 NC='\033[0m'
 
-cd "$MMA_DIR"
+cd "$PROJECT_DIR"
 
 TOTAL=0
 INGESTED=0

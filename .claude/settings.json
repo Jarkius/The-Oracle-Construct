@@ -9,7 +9,15 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/matrix-source-guard.sh"
+            "command": "bash \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/core/matrix-permission-gate.sh"
+          },
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/core/matrix-lock-check.sh"
+          },
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/core/matrix-source-guard.sh"
           }
         ]
       },
@@ -18,7 +26,11 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/matrix-source-bash-guard.sh"
+            "command": "bash \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/core/matrix-permission-gate.sh"
+          },
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/core/matrix-source-bash-guard.sh"
           }
         ]
       }
@@ -29,7 +41,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/pulse-post-action.sh",
+            "command": "bash \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/pulse/pulse-post-action.sh",
             "async": true
           }
         ]
@@ -40,7 +52,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/pulse-session-end.sh",
+            "command": "bash \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/pulse/pulse-session-end.sh",
             "timeout": 15000
           }
         ]
@@ -51,7 +63,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/pulse-pre-compact.sh"
+            "command": "bash \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/pulse/pulse-pre-compact.sh"
           }
         ]
       }
@@ -61,7 +73,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/matrix-session-start.sh"
+            "command": "bash \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/core/matrix-session-start.sh"
           }
         ]
       }
@@ -71,7 +83,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/matrix-subagent-start.sh"
+            "command": "bash \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/core/matrix-subagent-start.sh"
           }
         ]
       }
@@ -81,7 +93,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/matrix-subagent-complete.sh"
+            "command": "bash \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/core/matrix-subagent-complete.sh"
           }
         ]
       }
@@ -91,7 +103,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/matrix-teammate-idle.sh"
+            "command": "bash \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/core/matrix-teammate-idle.sh"
           }
         ]
       }
@@ -101,7 +113,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/matrix-task-completed.sh"
+            "command": "bash \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/core/matrix-task-completed.sh"
           }
         ]
       }

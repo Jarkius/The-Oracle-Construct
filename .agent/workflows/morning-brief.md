@@ -10,7 +10,7 @@ description: Morning Brief - synthesize system state into a concise greeting
 
 Generate a synthesized briefing at session start. Combines all intelligence layers:
 - PULSE events since last session
-- Pattern analysis from `psi/pulse/patterns.json`
+- Pattern analysis from `psi/state/pulse/patterns.json`
 - Active tasks from registry
 - Pending reminders
 - Memory recall from last session
@@ -29,21 +29,21 @@ Run the pattern scanner to get fresh analysis:
 bash .claude/hooks/pulse-pattern-scanner.sh
 ```
 
-Read `psi/pulse/patterns.json` for detected patterns.
+Read `psi/state/pulse/patterns.json` for detected patterns.
 
 ### 2. Gather Intelligence
 
 Read these files (silently, don't dump them):
-- `psi/inbox/focus.md` — current mission
+- `psi/state/focus.md` — current mission
 - `psi/memory/tasks/active.json` — task registry
-- `psi/pulse/reminders.json` — pending reminders (if exists)
-- `psi/pulse/events.jsonl` — last 20 events
+- `psi/state/pulse/reminders.json` — pending reminders (if exists)
+- `psi/state/pulse/events.jsonl` — last 20 events
 
 ### 3. Recall Last Session
 
 Try semantic recall first:
 ```bash
-cd lib/matrix-memory-agents && bun memory recall --last 2>/dev/null
+bun memory recall --last 2>/dev/null
 ```
 
 Fallback: read latest file in `psi/memory/sessions/`.
@@ -79,7 +79,7 @@ Generate a concise morning brief with this structure:
 
 Use the Oracle voice for the brief:
 ```bash
-sh psi/matrix/voice.sh "Morning brief ready. [1-line summary]" "Oracle"
+sh scripts/voice/voice.sh "Morning brief ready. [1-line summary]" "Oracle"
 ```
 
 ## Rules

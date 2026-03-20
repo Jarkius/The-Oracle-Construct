@@ -19,7 +19,7 @@ Switch to build mode focused on core logic, algorithms, and implementation. Neo 
 
 ### 0. Voice Greeting
 ```bash
-sh psi/matrix/voice.sh "I see the code. Show me what needs to be built." "Neo"
+sh scripts/voice/voice.sh "I see the code. Show me what needs to be built." "Neo"
 ```
 
 ## Auto-Load Skills

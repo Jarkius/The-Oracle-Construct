@@ -50,7 +50,7 @@ echo ""
 # ============================================
 echo -e "${GREEN}[1/6] Creating directory structure...${NC}"
 
-mkdir -p "$TARGET_REPO/psi/The_Source"
+mkdir -p "$TARGET_REPO/psi/source"
 mkdir -p "$TARGET_REPO/psi/memory/retrospectives"
 mkdir -p "$TARGET_REPO/psi/memory/learnings"
 mkdir -p "$TARGET_REPO/psi/memory/adr"
@@ -65,24 +65,24 @@ mkdir -p "$TARGET_REPO/.claude/commands"
 echo -e "${GREEN}[2/6] Extracting The Source (core philosophy)...${NC}"
 
 # The Soul (Root)
-cp "$SOURCE_DIR/psi/The_Source/BIBLE.md" "$TARGET_REPO/psi/The_Source/" 2>/dev/null || true
+cp "$SOURCE_DIR/psi/source/BIBLE.md" "$TARGET_REPO/psi/source/" 2>/dev/null || true
 echo "  ✓ BIBLE.md (The Soul)"
 
 # Evolution (Chapter 0)
-cp "$SOURCE_DIR/psi/The_Source/00_evolution.md" "$TARGET_REPO/psi/The_Source/" 2>/dev/null || true
+cp "$SOURCE_DIR/psi/source/00_evolution.md" "$TARGET_REPO/psi/source/" 2>/dev/null || true
 echo "  ✓ 00_evolution.md"
 
 # Core chapters (1-9) - Philosophy that doesn't change
 for chapter in 01 02 03 04 05 06 07 08 09; do
-    src_file=$(ls "$SOURCE_DIR/psi/The_Source/${chapter}_"*.md 2>/dev/null | head -1)
+    src_file=$(ls "$SOURCE_DIR/psi/source/${chapter}_"*.md 2>/dev/null | head -1)
     if [[ -f "$src_file" ]]; then
-        cp "$src_file" "$TARGET_REPO/psi/The_Source/"
+        cp "$src_file" "$TARGET_REPO/psi/source/"
         echo "  ✓ $(basename "$src_file")"
     fi
 done
 
 # Core documents
-cp "$SOURCE_DIR/psi/The_Source/MATRIX_CORE.md" "$TARGET_REPO/psi/The_Source/" 2>/dev/null || true
+cp "$SOURCE_DIR/psi/source/MATRIX_CORE.md" "$TARGET_REPO/psi/source/" 2>/dev/null || true
 
 echo "  ✓ MATRIX_CORE.md"
 

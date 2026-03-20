@@ -2,7 +2,7 @@
 
 > *"Know Thyself." — The Oracle*
 
-Identity: `SOUL.md` | Operator: `USER.md` | Boot: `BOOT.md` | Systems: `SYSTEMS.md`
+Identity: `SOUL.md` | Operator: `USER.md` | Boot: `BOOT.md` | Systems: `docs/systems.md`
 All auto-injected at session start except SYSTEMS.md (read on demand).
 
 ## Cross-Agent Handoff Protocol
@@ -25,9 +25,9 @@ Each agent's skills are declared in `.claude/agents/*.md` frontmatter. Only use 
 
 ## PULSE: Event System
 
-Event-driven intelligence. Append-only log at `psi/pulse/events.jsonl`.
+Event-driven intelligence. Append-only log at `psi/state/pulse/events.jsonl`.
 
-**Write events:** `bash .claude/hooks/pulse-event-writer.sh "<type>" "<agent>" '<data_json>'`
+**Write events:** `bash .claude/hooks/pulse/pulse-event-writer.sh "<type>" "<agent>" '<data_json>'`
 
 | Event | Trigger |
 |-------|---------|
@@ -39,14 +39,14 @@ Event-driven intelligence. Append-only log at `psi/pulse/events.jsonl`.
 | `focus:changed` | Focus file modified |
 | `learning:new` | /learn or /snapshot |
 
-**Reminders:** `psi/pulse/reminders.json` — checked at boot, announced if overdue.
+**Reminders:** `psi/state/pulse/reminders.json` — checked at boot, announced if overdue.
 
 ## Memory Recall Protocol
 
 **Mandatory: Search before you speak.** Before answering about prior work, decisions, dates, preferences, or project history — search memory first. Do NOT guess.
 
 ```bash
-cd lib/matrix-memory-agents
+# memory commands run from root now
 bun memory recall "query"    # Semantic search (primary)
 bun memory save "summary"    # Save session context
 bun memory status            # Health check
@@ -61,31 +61,32 @@ bun memory graph             # Entity relationships
 
 ## Systems Reference
 
-For subsystem CLI docs (heartbeat, dispatcher, gateway, watchdog, routing, metrics, etc.), read `SYSTEMS.md`.
+For subsystem CLI docs (heartbeat, dispatcher, gateway, watchdog, routing, metrics, etc.), read `docs/systems.md`.
 
 | System | Script | Phase |
 |--------|--------|-------|
-| Services | `matrix-services.sh` | 9 |
-| Heartbeat | `matrix-services.sh start heartbeat` | 10 |
-| Auto-Evolve | `pulse-auto-evolve.sh` | 12 |
-| Dispatcher | `pulse-event-dispatcher.sh` | A |
-| Teams | `pulse-team-orchestrator.sh` | B |
-| Gateway | `matrix-services.sh start gateway` | C |
-| Dispatch Learning | `pulse-dispatch-learner.sh` | D |
-| Proactive Intel | `pulse-proactive-intel.sh` | E |
-| Self-Healing | `pulse-self-heal.sh` | F |
-| Watchdog | `pulse-watchdog.sh` | G |
-| Bundling | `pulse-dispatch-bundler.sh` | H |
-| Git Ops | `pulse-auto-git.sh` | J |
-| Dashboard | `pulse-dashboard.sh` | K |
-| Skill Discovery | `pulse-skill-discovery.sh` | L |
-| Compression | `pulse-context-compressor.sh` | M |
-| Continuity | `pulse-session-continuity.sh` | N |
-| Metrics | `pulse-metrics.sh` | O |
-| Smart Router | `pulse-smart-router.sh` | P |
-| Notifications | `pulse-notification-intel.sh` | Q |
+| Services | `core/matrix-services.sh` | 9 |
+| Heartbeat | `core/matrix-services.sh start heartbeat` | 10 |
+| Auto-Evolve | `pulse/pulse-auto-evolve.sh` | 12 |
+| Dispatcher | `pulse/pulse-event-dispatcher.sh` | A |
+| Teams | `pulse/pulse-team-orchestrator.sh` | B |
+| Gateway | `core/matrix-services.sh start gateway` | C |
+| Dispatch Learning | `pulse/pulse-dispatch-learner.sh` | D |
+| Proactive Intel | `pulse/pulse-proactive-intel.sh` | E |
+| Self-Healing | `pulse/pulse-self-heal.sh` | F |
+| Watchdog | `pulse/pulse-watchdog.sh` | G |
+| Bundling | `pulse/pulse-dispatch-bundler.sh` | H |
+| Git Ops | `pulse/pulse-auto-git.sh` | J |
+| Dashboard | `pulse/pulse-dashboard.sh` | K |
+| Skill Discovery | `pulse/pulse-skill-discovery.sh` | L |
+| Compression | `pulse/pulse-context-compressor.sh` | M |
+| Continuity | `pulse/pulse-session-continuity.sh` | N |
+| Metrics | `pulse/pulse-metrics.sh` | O |
+| Smart Router | `pulse/pulse-smart-router.sh` | P |
+| Notifications | `pulse/pulse-notification-intel.sh` | Q |
 
-All scripts in `.claude/hooks/`. Run with `bash .claude/hooks/<script> --help` for usage.
+Scripts organized in `.claude/hooks/{core,pulse,voice,util}/`. Run with `bash .claude/hooks/<subdir>/<script> --help` for usage.
+Multi-agent protocol: `docs/multi-agent-protocol.md`.
 
 ---
-*Matrix Interface v13.0 — Lean Core (detail in SYSTEMS.md)*
+*Matrix Interface v14.0 — Restructured (detail in docs/systems.md)*

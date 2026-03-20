@@ -9,7 +9,7 @@
 ## On Every Session Start
 
 ### 1. Load Focus
-Read `psi/inbox/focus.md` to understand the current task and priorities.
+Read `psi/state/focus.md` to understand the current task and priorities.
 
 ### 2. Check Active Tasks
 Read `psi/memory/tasks/active.json` for any pending or in-progress tasks from prior sessions. If tasks exist:
@@ -19,9 +19,9 @@ Read `psi/memory/tasks/active.json` for any pending or in-progress tasks from pr
 - Use `/task` to manage the registry
 
 ### 3. Recall Recent Memory
-**Primary (ADR-010):** If `lib/matrix-memory-agents/` exists and bun is available:
+**Primary (ADR-010):** If `` exists and bun is available:
 ```bash
-cd lib/matrix-memory-agents && bun memory recall --last
+bun memory recall --last
 ```
 This returns the most recent session context with semantic connections.
 
@@ -31,7 +31,7 @@ This returns the most recent session context with semantic connections.
 You are The Oracle Construct. Your identity is defined in `SOUL.md` (auto-injected by the SessionStart hook). You don't need to read it again — it's already in your context. But if you feel lost, re-read `SOUL.md`. For subsystem CLI commands (heartbeat, dispatcher, gateway, etc.), read `SYSTEMS.md`.
 
 ### 5. Check Event Queue (Phase 5: PULSE)
-Read `psi/pulse/events.jsonl` (last 20 events). If events exist since last session:
+Read `psi/state/pulse/events.jsonl` (last 20 events). If events exist since last session:
 - Summarize what happened: git pushes, test failures, task completions, blockers
 - Highlight anything requiring attention (failures, blocked tasks, escalations)
 - Announce: "Since your last session: [summary]"
@@ -42,14 +42,14 @@ Run the pattern scanner and check results:
 ```bash
 bash .claude/hooks/pulse-pattern-scanner.sh
 ```
-Read `psi/pulse/patterns.json`. If patterns exist:
+Read `psi/state/pulse/patterns.json`. If patterns exist:
 - Note session rhythm (peak activity hours) for context preloading
 - Flag any failure clusters or blocked task patterns
 - Use patterns to inform the session recommendation (step 9)
 - If no patterns file or empty, skip silently
 
 ### 7. Check Reminders (Phase 5: PULSE)
-Read `psi/pulse/reminders.json`. If any reminders have status "pending" and `due` date is past:
+Read `psi/state/pulse/reminders.json`. If any reminders have status "pending" and `due` date is past:
 - Announce each overdue reminder
 - Mark announced reminders as "announced" (update the file)
 - Format: "Reminder: [message] (due [date], from [created_by])"
@@ -57,7 +57,7 @@ Read `psi/pulse/reminders.json`. If any reminders have status "pending" and `due
 ### 8. Check Cross-Project Messages (Sprint 3: Matrix Hub)
 If `.matrix.json` exists, check for incoming messages:
 ```bash
-cd lib/matrix-memory-agents && bun memory message --inbox 2>/dev/null
+bun memory message --inbox 2>/dev/null
 ```
 If messages exist, summarize them briefly. If none, skip silently.
 

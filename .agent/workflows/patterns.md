@@ -25,7 +25,7 @@ bash .claude/hooks/pulse-pattern-scanner.sh
 
 ### 2. Read Results
 
-Read `psi/pulse/patterns.json` and display patterns grouped by type:
+Read `psi/state/pulse/patterns.json` and display patterns grouped by type:
 
 **Session Rhythm** — When does the operator work? Peak hours, session duration.
 **Git Velocity** — Commits per session, push frequency.
@@ -58,14 +58,14 @@ Read `psi/pulse/patterns.json` and display patterns grouped by type:
 
 If `bun memory analyze --sessions` is available, run it for deeper analysis:
 ```bash
-cd lib/matrix-memory-agents && bun memory analyze --sessions 2>/dev/null
+bun memory analyze --sessions 2>/dev/null
 ```
 
 ### 5. Announce Significant Findings
 
 If any pattern has confidence > 0.8 or is a failure cluster:
 ```bash
-sh psi/matrix/voice.sh "Pattern detected: [summary]" "Oracle"
+sh scripts/voice/voice.sh "Pattern detected: [summary]" "Oracle"
 ```
 
 ## Rules

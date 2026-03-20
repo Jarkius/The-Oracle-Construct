@@ -39,13 +39,13 @@ psi/
 
 1. **Voice Greeting**:
 ```bash
-sh psi/matrix/voice.sh "Let me show you what we know." "Oracle"
+sh scripts/voice/voice.sh "Let me show you what we know." "Oracle"
 ```
 
 2. **Gather Stats**:
 ```bash
 LEARNINGS=$(ls psi/memory/learnings/*.md 2>/dev/null | wc -l)
-ARCHIVE=$(find psi/learn/archive -name "*.md" 2>/dev/null | wc -l)
+ARCHIVE=$(find psi/knowledge/archive -name "*.md" 2>/dev/null | wc -l)
 ADR=$(ls psi/memory/adr/*.md 2>/dev/null | wc -l)
 PROJECT_DOCS=$(find psi/projects/*/docs -name "*.md" 2>/dev/null | wc -l)
 ```
@@ -57,7 +57,7 @@ PROJECT_DOCS=$(find psi/projects/*/docs -name "*.md" 2>/dev/null | wc -l)
 | Area | Count | Location |
 |------|-------|----------|
 | Matrix Learnings | $LEARNINGS | psi/memory/learnings/ |
-| Research Archive | $ARCHIVE | psi/learn/archive/ |
+| Research Archive | $ARCHIVE | psi/knowledge/archive/ |
 | Architecture Decisions | $ADR | psi/memory/adr/ |
 | Project Docs | $PROJECT_DOCS | psi/projects/*/docs/ |
 
@@ -65,7 +65,7 @@ PROJECT_DOCS=$(find psi/projects/*/docs -name "*.md" 2>/dev/null | wc -l)
 [list last 5 from psi/memory/learnings/]
 
 ### Recent Archive
-[list last 5 from psi/learn/archive/]
+[list last 5 from psi/knowledge/archive/]
 
 Use `/wisdom search <query>` to find specific knowledge.
 ```
@@ -78,7 +78,7 @@ Use `/wisdom search <query>` to find specific knowledge.
 grep -ril "<query>" psi/memory/learnings/ 2>/dev/null
 
 # Search archive
-grep -ril "<query>" psi/learn/archive/ 2>/dev/null
+grep -ril "<query>" psi/knowledge/archive/ 2>/dev/null
 
 # Search ADRs
 grep -ril "<query>" psi/memory/adr/ 2>/dev/null
@@ -96,7 +96,7 @@ grep -ril "<query>" psi/projects/*/docs/ 2>/dev/null
 - [file2.md](psi/memory/learnings/file2.md) - "matching context..."
 
 ### Research Archive
-- [file3.md](psi/learn/archive/2026-01/file3.md) - "matching context..."
+- [file3.md](psi/knowledge/archive/2026-01/file3.md) - "matching context..."
 
 ### Architecture Decisions
 - [ADR-001.md](psi/memory/adr/ADR-001.md) - "matching context..."
@@ -109,7 +109,7 @@ grep -ril "<query>" psi/projects/*/docs/ 2>/dev/null
 1. **Find relevant wisdom for a topic** (useful before starting work):
 ```bash
 # Search for topic keywords
-grep -ril "<topic>" psi/memory/learnings/ psi/learn/archive/ psi/memory/adr/ 2>/dev/null
+grep -ril "<topic>" psi/memory/learnings/ psi/knowledge/archive/ psi/memory/adr/ 2>/dev/null
 ```
 
 2. **Display with Context**:
@@ -174,7 +174,7 @@ Where did you apply this wisdom?
 
 4. **Confirm**:
 ```bash
-sh psi/matrix/voice.sh "Wisdom applied and recorded." "Oracle"
+sh scripts/voice/voice.sh "Wisdom applied and recorded." "Oracle"
 ```
 
 ### Statistics (`/wisdom stats`)

@@ -52,7 +52,7 @@ Ideas     ──┘                                   ├─→ Archive
 ## File Structure
 
 ```
-psi/learn/
+psi/knowledge/
 ├── inbox.md          # Quick capture (URLs, ideas)
 ├── backlog.md        # Prioritized learning queue
 ├── active/           # Currently researching
@@ -72,7 +72,7 @@ psi/learn/
 
 1. **Voice Greeting**:
 ```bash
-sh psi/matrix/voice.sh "Let me show you the paths of knowledge." "Morpheus"
+sh scripts/voice/voice.sh "Let me show you the paths of knowledge." "Morpheus"
 ```
 
 2. **Display Overview**:
@@ -96,14 +96,14 @@ sh psi/matrix/voice.sh "Let me show you the paths of knowledge." "Morpheus"
 
 **Model**: Main context (trivial)
 
-1. Append to `psi/learn/inbox.md`:
+1. Append to `psi/knowledge/inbox.md`:
 ```markdown
 - [ ] <url> - Added YYYY-MM-DD
 ```
 
 2. Confirm:
 ```bash
-sh psi/matrix/voice.sh "Captured. Ready when you are." "Morpheus"
+sh scripts/voice/voice.sh "Captured. Ready when you are." "Morpheus"
 ```
 
 ### Start Research (`/learn start <topic>`)
@@ -112,7 +112,7 @@ sh psi/matrix/voice.sh "Captured. Ready when you are." "Morpheus"
 
 1. **Voice Greeting**:
 ```bash
-sh psi/matrix/voice.sh "Beginning research. Let me understand the scope." "Morpheus"
+sh scripts/voice/voice.sh "Beginning research. Let me understand the scope." "Morpheus"
 ```
 
 2. **Spawn Morpheus (Sonnet)** for intelligent research setup:
@@ -128,14 +128,14 @@ Task:
        - Why is it relevant? (to Matrix or current projects)
        - What should we focus on?
 
-    2. Create research file at psi/learn/active/<topic>.md:
+    2. Create research file at psi/knowledge/active/<topic>.md:
        - Include context about why this matters
        - Set clear learning goals
        - Note any connections to existing knowledge
 
     3. If URL is a git repo, offer to clone:
        ghq get <url>
-       ln -s ~/ghq/... psi/learn/repos/<name>
+       ln -s ~/ghq/... psi/knowledge/repos/<name>
 
     Return:
     - Research file created
@@ -145,7 +145,7 @@ Task:
 
 3. **Announce**:
 ```bash
-sh psi/matrix/voice.sh "Research initiated. The path is open." "Morpheus"
+sh scripts/voice/voice.sh "Research initiated. The path is open." "Morpheus"
 ```
 
 ### Complete Research (`/learn done <topic>`)
@@ -154,7 +154,7 @@ sh psi/matrix/voice.sh "Research initiated. The path is open." "Morpheus"
 
 1. **Voice Greeting**:
 ```bash
-sh psi/matrix/voice.sh "Let me synthesize what we've learned." "Scribe"
+sh scripts/voice/voice.sh "Let me synthesize what we've learned." "Scribe"
 ```
 
 2. **Spawn Scribe (Opus)** for synthesis:
@@ -165,7 +165,7 @@ Task:
   prompt: |
     Synthesizing research on: <topic>
 
-    1. Read psi/learn/active/<topic>.md
+    1. Read psi/knowledge/active/<topic>.md
 
     2. Extract and distill:
        - Key insights (3-5 max)
@@ -190,7 +190,7 @@ Task:
 3. **Ask Destination** (if not determined):
 ```
 Where should this knowledge go?
-- [A] Archive only (psi/learn/archive/)
+- [A] Archive only (psi/knowledge/archive/)
 - [L] Learnings (psi/memory/learnings/)
 - [P] Project docs → suggest /architect review
 - [S] The Source → requires Oracle blessing
@@ -200,34 +200,34 @@ Where should this knowledge go?
 
 **IF destination == Project**:
 ```bash
-sh psi/matrix/voice.sh "Consider running architect review for structural impact." "Scribe"
+sh scripts/voice/voice.sh "Consider running architect review for structural impact." "Scribe"
 ```
 → Suggest: `/architect review`
 
 **IF destination == The Source**:
 ```bash
-sh psi/matrix/voice.sh "This touches The Source. Oracle must bless this change." "Oracle"
+sh scripts/voice/voice.sh "This touches The Source. Oracle must bless this change." "Oracle"
 ```
 → Oracle (Opus) reviews alignment with philosophy
 → Only proceed with Oracle approval
 
 5. **Write and Archive**:
 - Write distilled content to destination
-- Move original to `psi/learn/archive/YYYY-MM/<topic>.md`
+- Move original to `psi/knowledge/archive/YYYY-MM/<topic>.md`
 
 6. **ADR-010: Dual-Layer Persistence**:
 - Ingest the archived file into SQLite + ChromaDB:
 ```bash
-cd lib/matrix-memory-agents && bun memory learn "$PROJECT_ROOT/psi/learn/archive/YYYY-MM/<topic>.md"
+bun memory learn "$PROJECT_ROOT/psi/knowledge/archive/YYYY-MM/<topic>.md"
 ```
 - If distilled to learnings, also ingest that:
 ```bash
-cd lib/matrix-memory-agents && bun memory learn "$PROJECT_ROOT/psi/memory/learnings/<category>/<topic>.md"
+bun memory learn "$PROJECT_ROOT/psi/memory/learnings/<category>/<topic>.md"
 ```
 
 7. **Announce**:
 ```bash
-sh psi/matrix/voice.sh "Knowledge synthesized. The path continues." "Scribe"
+sh scripts/voice/voice.sh "Knowledge synthesized. The path continues." "Scribe"
 ```
 
 ### Clone Learning Repo (`/learn clone <url>`)
@@ -242,12 +242,12 @@ ghq get <url>
 2. Create symlink:
 ```bash
 REPO_NAME=$(basename <url> .git)
-ln -s ~/ghq/.../<repo> psi/learn/repos/$REPO_NAME
+ln -s ~/ghq/.../<repo> psi/knowledge/repos/$REPO_NAME
 ```
 
 3. Confirm:
 ```bash
-sh psi/matrix/voice.sh "Repository cloned and linked. Ready for study." "Morpheus"
+sh scripts/voice/voice.sh "Repository cloned and linked. Ready for study." "Morpheus"
 ```
 
 ### List Learning Repos (`/learn repos`)
@@ -255,7 +255,7 @@ sh psi/matrix/voice.sh "Repository cloned and linked. Ready for study." "Morpheu
 **Model**: Main context (trivial)
 
 ```bash
-ls -la psi/learn/repos/
+ls -la psi/knowledge/repos/
 ```
 
 Display as table:
@@ -270,15 +270,15 @@ Display as table:
 ## The Knowledge Funnel
 
 ```
-psi/learn/inbox.md        Many quick captures
+psi/knowledge/inbox.md        Many quick captures
         ↓ (curate)
-psi/learn/active/         Focused research (Morpheus - Sonnet)
+psi/knowledge/active/         Focused research (Morpheus - Sonnet)
         ↓ (complete)
-psi/learn/archive/        Reference library
+psi/knowledge/archive/        Reference library
         ↓ (distill)        ← Scribe (Opus)
 psi/memory/learnings/     Matrix wisdom (few, high quality)
         ↓ (evolve)         ← Oracle gate
-psi/The_Source/           Matrix DNA (rare, sacred)
+psi/source/           Matrix DNA (rare, sacred)
 ```
 
 ## Principles

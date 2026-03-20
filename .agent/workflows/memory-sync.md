@@ -42,7 +42,7 @@ bun memory sync-from-psi
 
 3. **Announce completion**:
 ```bash
-sh /Users/jarkius/workspace/The-matrix/psi/matrix/voice.sh "Memory sync complete. Two systems, one consciousness." "Tank"
+sh /Users/jarkius/workspace/The-matrix/scripts/voice/voice.sh "Memory sync complete. Two systems, one consciousness." "Tank"
 ```
 
 ### Export Only (`/memory-sync to-psi`)

@@ -1,0 +1,41 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git clone https://github.com/Jarkius/The-Oracle-Construct.git \"C:/Workspace/Dev/the-matrix\")",
+      "Bash(xargs grep -l \"TODO\\\\|FIXME\\\\|WIP\\\\|PENDING\")",
+      "Bash(sed 's/\\\\..*//')",
+      "Bash(sed 's/-[^-]*$//')",
+      "Bash(wc -l /c/Workspace/Dev/the-matrix/lib/matrix-memory-agents/src/services/*.ts)",
+      "Bash(wc -l /c/Workspace/Dev/the-matrix/lib/matrix-memory-agents/src/mcp/tools/handlers/*.ts)",
+      "Bash(xargs wc -l)",
+      "Bash(wc -l /c/Workspace/Dev/the-matrix/psi/active/*.py /c/Workspace/Dev/the-matrix/psi/matrix/*.py)",
+      "Bash(wc -l /c/Workspace/Dev/the-matrix/lib/matrix-memory-agents/src/heartbeat/*.ts /c/Workspace/Dev/the-matrix/lib/matrix-memory-agents/src/indexer/*.ts /c/Workspace/Dev/the-matrix/lib/matrix-memory-agents/src/pty/*.ts)",
+      "Bash(grep -l \"daemon\\\\|service\\\\|queue\\\\|server\" /c/Workspace/Dev/the-matrix/.claude/hooks/*.sh)",
+      "Bash(xargs grep -l \"voice\\\\|tts\\\\|audio\")",
+      "Bash(/tmp/services_list.txt:*)",
+      "Read(//tmp/**)",
+      "Bash(wc -l src/**/*.ts)",
+      "Bash(wc -l /tmp/matrix-memory-agents/src/**/*.ts /c/Workspace/Dev/the-matrix/lib/matrix-memory-agents/src/**/*.ts)",
+      "Bash(mkdir -p mcp)",
+      "Bash(cp -r /tmp/matrix-gemini-agent mcp/gemini-agent)",
+      "Bash(rm -rf mcp/gemini-agent/.git)",
+      "Bash(ls -1 *.sh *.py)",
+      "Bash(ls -d */)",
+      "Bash(sed -i 's|psi/inbox/focus\\\\.md|psi/state/focus.md|g' BOOT.md)",
+      "Bash(sed -i 's|psi/pulse/events\\\\.jsonl|psi/state/pulse/events.jsonl|g' BOOT.md)",
+      "Bash(sed -i 's|psi/pulse/patterns\\\\.json|psi/state/pulse/patterns.json|g' BOOT.md)",
+      "Bash(sed -i 's|psi/pulse/reminders\\\\.json|psi/state/pulse/reminders.json|g' BOOT.md)",
+      "Bash(wc -l \"C:\\\\Workspace\\\\Dev\\\\the-matrix/lib/matrix-memory-agents/src\"/**/*.ts)",
+      "WebFetch(domain:github.com)",
+      "Bash(xargs ls -lh)",
+      "Bash(xargs grep -l \"skill\\\\|command\")",
+      "Bash(npx tsc --noEmit src/coordination/types.ts src/coordination/lock-manager.ts src/coordination/coordinator.ts src/coordination/index.ts)",
+      "Bash(bun build --no-bundle src/coordination/index.ts)",
+      "Bash(bun build src/coordination/merge-queue.ts --no-bundle --outdir /tmp/merge-queue-check)",
+      "Bash(bun build src/coordination/index.ts --no-bundle --outdir /tmp/coord-check)",
+      "Bash(bun build src/pty/worktree-manager.ts --no-bundle --outdir /tmp/wt-check)",
+      "Bash(bun build src/security/index.ts --no-bundle --outdir /tmp/sec-check)",
+      "Bash(bun build scripts/security/check-permission.ts --no-bundle --outdir /tmp/sec-script-check)"
+    ]
+  }
+}

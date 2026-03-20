@@ -39,7 +39,7 @@ Wait 10-15 seconds for Gemini to generate responses.
 For each tab:
 1. Take screenshot using `computer` action `screenshot`
 2. Extract text using `mcp__claude-in-chrome__get_page_text`
-3. Save to `psi/learn/inbox/gemini_*.md`
+3. Save to `psi/knowledge/inbox/gemini_*.md`
 
 ## Example Execution
 
@@ -55,7 +55,7 @@ Claude: [Captures all responses and saves to inbox]
 ```
 
 ## Output Format
-Results saved to: `psi/learn/inbox/gemini_[query_slug]_[timestamp].md`
+Results saved to: `psi/knowledge/inbox/gemini_[query_slug]_[timestamp].md`
 
 ## Limitations
 - Maximum 4 parallel tabs recommended (browser performance)

@@ -51,24 +51,28 @@ echo ""
 # ============================================
 echo -e "${GREEN}[1/9] Creating directory structure...${NC}"
 
-mkdir -p "$TARGET_REPO/psi/The_Source"
+mkdir -p "$TARGET_REPO/psi/source"
 mkdir -p "$TARGET_REPO/psi/memory/retrospectives"
 mkdir -p "$TARGET_REPO/psi/memory/learnings"
 mkdir -p "$TARGET_REPO/psi/memory/logs"
 mkdir -p "$TARGET_REPO/psi/memory/adr"
-mkdir -p "$TARGET_REPO/psi/inbox/handoff"
-mkdir -p "$TARGET_REPO/psi/learn/active"
-mkdir -p "$TARGET_REPO/psi/learn/archive"
-mkdir -p "$TARGET_REPO/psi/learn/repos"
-mkdir -p "$TARGET_REPO/psi/matrix"
-mkdir -p "$TARGET_REPO/psi/active"
+mkdir -p "$TARGET_REPO/psi/state/pulse"
+mkdir -p "$TARGET_REPO/psi/knowledge/active"
+mkdir -p "$TARGET_REPO/psi/knowledge/archive"
+mkdir -p "$TARGET_REPO/psi/knowledge/repos"
+mkdir -p "$TARGET_REPO/psi/swarm/handoffs"
+mkdir -p "$TARGET_REPO/psi/swarm/messages"
+mkdir -p "$TARGET_REPO/psi/archive"
 
 # Create ψ symlink (Greek psi alias)
 cd "$TARGET_REPO" && ln -sf psi ψ && cd - > /dev/null
 mkdir -p "$TARGET_REPO/.agent/workflows"
 mkdir -p "$TARGET_REPO/.claude/commands"
 mkdir -p "$TARGET_REPO/.claude/agents"
-mkdir -p "$TARGET_REPO/.claude/hooks"
+mkdir -p "$TARGET_REPO/.claude/hooks/core"
+mkdir -p "$TARGET_REPO/.claude/hooks/pulse"
+mkdir -p "$TARGET_REPO/.claude/hooks/voice"
+mkdir -p "$TARGET_REPO/.claude/hooks/util"
 mkdir -p "$TARGET_REPO/.claude/config"
 
 # ============================================
@@ -77,16 +81,16 @@ mkdir -p "$TARGET_REPO/.claude/config"
 echo -e "${GREEN}[2/9] Extracting The Source (all chapters)...${NC}"
 
 # Copy all Source files
-for src_file in "$SOURCE_DIR/psi/The_Source/"*.md; do
+for src_file in "$SOURCE_DIR/psi/source/"*.md; do
     if [[ -f "$src_file" ]]; then
-        cp "$src_file" "$TARGET_REPO/psi/The_Source/"
+        cp "$src_file" "$TARGET_REPO/psi/source/"
         echo "  ✓ $(basename "$src_file")"
     fi
 done
 
 # Copy SOUL_MANIFEST
-if [[ -f "$SOURCE_DIR/psi/The_Source/SOUL_MANIFEST.sha256" ]]; then
-    cp "$SOURCE_DIR/psi/The_Source/SOUL_MANIFEST.sha256" "$TARGET_REPO/psi/The_Source/"
+if [[ -f "$SOURCE_DIR/psi/source/SOUL_MANIFEST.sha256" ]]; then
+    cp "$SOURCE_DIR/psi/source/SOUL_MANIFEST.sha256" "$TARGET_REPO/psi/source/"
     echo "  ✓ SOUL_MANIFEST.sha256"
 fi
 
@@ -132,13 +136,14 @@ done
 echo -e "${GREEN}[5/9] Extracting voice system...${NC}"
 
 # Voice scripts
-if [[ -f "$SOURCE_DIR/psi/matrix/voice.sh" ]]; then
-    cp "$SOURCE_DIR/psi/matrix/voice.sh" "$TARGET_REPO/psi/matrix/"
+mkdir -p "$TARGET_REPO/scripts/voice"
+if [[ -f "$SOURCE_DIR/scripts/voice/voice.sh" ]]; then
+    cp "$SOURCE_DIR/scripts/voice/voice.sh" "$TARGET_REPO/scripts/voice/"
     echo "  ✓ voice.sh"
 fi
 
-if [[ -f "$SOURCE_DIR/psi/matrix/voice_server.py" ]]; then
-    cp "$SOURCE_DIR/psi/matrix/voice_server.py" "$TARGET_REPO/psi/matrix/"
+if [[ -f "$SOURCE_DIR/scripts/voice/voice_server.py" ]]; then
+    cp "$SOURCE_DIR/scripts/voice/voice_server.py" "$TARGET_REPO/scripts/voice/"
     echo "  ✓ voice_server.py"
 fi
 
@@ -191,11 +196,15 @@ echo "  ✓ $sfx_count sound effects"
 # ============================================
 echo -e "${GREEN}[7/10] Extracting hooks...${NC}"
 
-for hook in "$SOURCE_DIR/.claude/hooks/"*.sh; do
-    if [[ -f "$hook" ]]; then
-        cp "$hook" "$TARGET_REPO/.claude/hooks/"
-        chmod +x "$TARGET_REPO/.claude/hooks/$(basename "$hook")"
-        echo "  ✓ $(basename "$hook")"
+for subdir in core pulse voice util; do
+    if [[ -d "$SOURCE_DIR/.claude/hooks/$subdir" ]]; then
+        for hook in "$SOURCE_DIR/.claude/hooks/$subdir/"*.sh; do
+            if [[ -f "$hook" ]]; then
+                cp "$hook" "$TARGET_REPO/.claude/hooks/$subdir/"
+                chmod +x "$TARGET_REPO/.claude/hooks/$subdir/$(basename "$hook")"
+                echo "  ✓ $subdir/$(basename "$hook")"
+            fi
+        done
     fi
 done
 
@@ -212,14 +221,7 @@ for adr in "$SOURCE_DIR/psi/memory/adr/"*.md; do
     fi
 done
 
-# Copy active scripts
-for script in "$SOURCE_DIR/psi/active/"*.sh; do
-    if [[ -f "$script" ]]; then
-        cp "$script" "$TARGET_REPO/psi/active/"
-        chmod +x "$TARGET_REPO/psi/active/$(basename "$script")"
-    fi
-done
-echo "  ✓ Active scripts"
+echo "  (active scripts archived — now in psi/archive/)"
 
 # Copy knowledge index if exists
 if [[ -f "$SOURCE_DIR/psi/memory/knowledge-index.md" ]]; then
@@ -234,14 +236,14 @@ if [[ -d "$SOURCE_DIR/templates" ]]; then
     echo "  ✓ templates/"
 fi
 
-# Copy inbox (oracle-framework pattern)
-if [[ -f "$SOURCE_DIR/psi/inbox/focus.md" ]]; then
-    cp "$SOURCE_DIR/psi/inbox/focus.md" "$TARGET_REPO/psi/inbox/"
-    echo "  ✓ psi/inbox/focus.md"
+# Copy focus state and handoffs
+if [[ -f "$SOURCE_DIR/psi/state/focus.md" ]]; then
+    cp "$SOURCE_DIR/psi/state/focus.md" "$TARGET_REPO/psi/state/"
+    echo "  ✓ psi/state/focus.md"
 fi
-if [[ -d "$SOURCE_DIR/psi/inbox/handoff" ]]; then
-    cp "$SOURCE_DIR/psi/inbox/handoff/"*.md "$TARGET_REPO/psi/inbox/handoff/" 2>/dev/null || true
-    echo "  ✓ psi/inbox/handoff/"
+if [[ -d "$SOURCE_DIR/psi/swarm/handoffs" ]]; then
+    cp "$SOURCE_DIR/psi/swarm/handoffs/"*.md "$TARGET_REPO/psi/swarm/handoffs/" 2>/dev/null || true
+    echo "  ✓ psi/swarm/handoffs/"
 fi
 
 # Create logs gitkeep

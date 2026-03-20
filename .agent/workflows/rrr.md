@@ -16,7 +16,7 @@ Create a session retrospective capturing what happened.
 
 ## Voice Greeting
 ```bash
-sh psi/matrix/voice.sh "Recording session memory. What happened today?" "System"
+sh scripts/voice/voice.sh "Recording session memory. What happened today?" "System"
 ```
 
 ## Output Location
