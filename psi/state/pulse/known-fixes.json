@@ -1,0 +1,55 @@
+{
+  "version": 1,
+  "fixes": [
+    {
+      "id": "hub-port-conflict",
+      "match": { "service": "hub", "error_contains": "EADDRINUSE" },
+      "fix": "lsof -ti :8081 | xargs kill -9 2>/dev/null; sleep 1",
+      "description": "Kill process holding port 8081",
+      "auto": true,
+      "successCount": 0,
+      "failCount": 0,
+      "lastUsed": null
+    },
+    {
+      "id": "heartbeat-port-conflict",
+      "match": { "service": "heartbeat", "error_contains": "EADDRINUSE" },
+      "fix": "lsof -ti :37892 | xargs kill -9 2>/dev/null; sleep 1",
+      "description": "Kill process holding port 37892",
+      "auto": true,
+      "successCount": 0,
+      "failCount": 0,
+      "lastUsed": null
+    },
+    {
+      "id": "stale-pid-cleanup",
+      "match": { "error_contains": "stale PID" },
+      "fix": "find ~/.matrix-* -name '*.pid' -exec sh -c 'kill -0 $(cat \"$1\") 2>/dev/null || rm \"$1\"' _ {} \\;",
+      "description": "Remove PID files for dead processes",
+      "auto": true,
+      "successCount": 0,
+      "failCount": 0,
+      "lastUsed": null
+    },
+    {
+      "id": "chromadb-connection-retry",
+      "match": { "error_contains": "ChromaConnectionError" },
+      "fix": "docker start chromadb 2>/dev/null || echo 'ChromaDB not in docker'",
+      "description": "Attempt to restart ChromaDB container",
+      "auto": false,
+      "successCount": 0,
+      "failCount": 0,
+      "lastUsed": null
+    },
+    {
+      "id": "events-jsonl-corrupt",
+      "match": { "error_contains": "JSON Parse error" },
+      "fix": "python3 -c \"import json,sys;[print(l,end='') for l in open('psi/pulse/events.jsonl') if (lambda l: (json.loads(l) and True) if l.strip() else False)(l)]\" > /tmp/events-clean.jsonl && mv /tmp/events-clean.jsonl psi/pulse/events.jsonl",
+      "description": "Remove malformed JSON lines from events",
+      "auto": true,
+      "successCount": 0,
+      "failCount": 0,
+      "lastUsed": null
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 /**
  * Test script for memory consolidation
  */
-import { runConsolidation } from '../src/learning/consolidation';
+import { runConsolidation } from '../src/memory/learning/consolidation';
 
 async function main() {
   console.log('=== Memory Consolidation Test ===\n');

@@ -4,7 +4,7 @@
  * Queries matrix_messages table for new incoming messages
  */
 
-import { db } from '../../src/db';
+import { db } from '../../src/core/db';
 import { existsSync, readFileSync, writeFileSync, mkdirSync } from 'fs';
 import { dirname, basename } from 'path';
 import { execSync } from 'child_process';

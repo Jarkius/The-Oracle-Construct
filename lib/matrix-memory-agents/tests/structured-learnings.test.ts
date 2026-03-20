@@ -1,5 +1,5 @@
 import { describe, test, expect, beforeAll, afterAll } from 'bun:test';
-import { createLearning, getLearningById, type LearningRecord } from '../src/db';
+import { createLearning, getLearningById, type LearningRecord } from '../src/core/db';
 
 describe('Structured Learning Fields', () => {
   let testLearningId: number;

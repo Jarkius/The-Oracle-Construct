@@ -131,7 +131,7 @@ async function main() {
     log('Initializing SQLite database...');
     try {
       // Import db module to trigger table creation
-      await import('../src/db/index.ts');
+      await import('../src/core/db/index.ts');
       success('SQLite database initialized');
     } catch (e) {
       error(`Database init failed: ${e}`);

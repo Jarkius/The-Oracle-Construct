@@ -4,9 +4,9 @@
  * Demonstrates and verifies the learning loop works correctly
  */
 
-import { LearningLoop } from '../src/learning/loop';
-import { initVectorDB, getCollectionStats } from '../src/vector-db';
-import { listLearningsFromDb, listKnowledge, listLessons } from '../src/db';
+import { LearningLoop } from '../src/memory/learning/loop';
+import { initVectorDB, getCollectionStats } from '../src/memory/vector-db';
+import { listLearningsFromDb, listKnowledge, listLessons } from '../src/core/db';
 
 const colors = {
   green: (s: string) => `\x1b[32m${s}\x1b[0m`,

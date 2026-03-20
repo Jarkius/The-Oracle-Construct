@@ -13,7 +13,7 @@ set -euo pipefail
 
 REPO_ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
 ACTIVE_JSON="$REPO_ROOT/psi/memory/tasks/active.json"
-MMA_DIR="$REPO_ROOT/lib/matrix-memory-agents"
+MMA_DIR="$REPO_ROOT"
 
 DIRECTION="${1:-both}"
 
@@ -22,9 +22,9 @@ if [ ! -f "$ACTIVE_JSON" ]; then
   echo '{"version":1,"tasks":[],"lastUpdated":"'$(date -u +%Y-%m-%dT%H:%M:%SZ)'"}' > "$ACTIVE_JSON"
 fi
 
-# Check if bun + matrix-memory-agents are available
+# Check if bun + src/ are available
 if ! command -v bun &>/dev/null || [ ! -d "$MMA_DIR" ]; then
-  echo "[task-sync] bun or matrix-memory-agents not available, skipping" >&2
+  echo "[task-sync] bun or src/ not available, skipping" >&2
   exit 0
 fi
 

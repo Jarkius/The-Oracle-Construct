@@ -19,9 +19,9 @@ Read `psi/memory/tasks/active.json` for any pending or in-progress tasks from pr
 - Use `/task` to manage the registry
 
 ### 3. Recall Recent Memory
-**Primary (ADR-010):** If `lib/matrix-memory-agents/` exists and bun is available:
+**Primary (ADR-010):** If `` exists and bun is available:
 ```bash
-cd lib/matrix-memory-agents && bun memory recall --last
+bun memory recall --last
 ```
 This returns the most recent session context with semantic connections.
 
@@ -57,7 +57,7 @@ Read `psi/state/pulse/reminders.json`. If any reminders have status "pending" an
 ### 8. Check Cross-Project Messages (Sprint 3: Matrix Hub)
 If `.matrix.json` exists, check for incoming messages:
 ```bash
-cd lib/matrix-memory-agents && bun memory message --inbox 2>/dev/null
+bun memory message --inbox 2>/dev/null
 ```
 If messages exist, summarize them briefly. If none, skip silently.
 

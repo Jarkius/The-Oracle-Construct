@@ -34,7 +34,7 @@ REJECTED_DIR="$PROJECT_ROOT/psi/memory/evolution/rejected"
 HEARTBEAT_CONFIG="$PROJECT_ROOT/psi/state/pulse/heartbeat.json"
 EVENT_WRITER="$SCRIPT_DIR/pulse-event-writer.sh"
 EVOLUTION_LOG="$PROJECT_ROOT/psi/memory/evolution/evolution-log.jsonl"
-MMA_DIR="$PROJECT_ROOT/lib/matrix-memory-agents"
+MMA_DIR="$PROJECT_ROOT"
 
 # ─── Sacred Files (NEVER auto-evolved) ────────────────────────
 SACRED_FILES=(

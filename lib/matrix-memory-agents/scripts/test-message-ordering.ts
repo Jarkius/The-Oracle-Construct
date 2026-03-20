@@ -4,7 +4,7 @@
  * Verifies that parallel messages get sequential sequence numbers
  */
 
-import { db, saveMatrixMessage, getNextSequenceNumber } from '../src/db';
+import { db, saveMatrixMessage, getNextSequenceNumber } from '../src/core/db';
 
 const TEST_MATRIX = 'test-ordering-matrix';
 const NUM_MESSAGES = 10;

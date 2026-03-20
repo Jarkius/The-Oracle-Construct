@@ -1,0 +1,49 @@
+{
+  "name": "matrix-memory-agents",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "postinstall": "bun run scripts/postinstall.ts",
+    "download-model": "bun run scripts/download-embedding-model.ts",
+    "test:embeddings": "bun run scripts/test-embeddings.ts",
+    "test:transformers": "bun run scripts/test-embeddings.ts transformers",
+    "test:semantic": "bun run scripts/test-semantic-search.ts",
+    "memory": "bun run scripts/memory/index.ts",
+    "memory:save": "bun run scripts/memory/save-session.ts",
+    "memory:recall": "bun run scripts/memory/recall.ts",
+    "memory:export": "bun run scripts/memory/export.ts",
+    "memory:stats": "bun run scripts/memory/stats.ts",
+    "memory:list": "bun run scripts/memory/list.ts",
+    "memory:context": "bun run scripts/memory/context.ts",
+    "memory:sync-to-psi": "bun run scripts/memory/sync-to-psi.ts",
+    "memory:sync-from-psi": "bun run scripts/memory/sync-from-psi.ts"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.76.0",
+    "@anthropic-ai/tokenizer": "^0.0.4",
+    "@google/genai": "^1.38.0",
+    "@huggingface/transformers": "^3.8.1",
+    "@img/sharp-libvips-darwin-arm64": "^1.2.4",
+    "@modelcontextprotocol/sdk": "^1.25.2",
+    "chokidar": "^5.0.0",
+    "chromadb": "^3.2.2",
+    "chromadb-default-embed": "^2.14.0",
+    "enquirer": "^2.4.1",
+    "glob": "^13.0.0",
+    "grammy": "^1.40.0",
+    "gray-matter": "^4.0.3",
+    "hono": "^4.12.8",
+    "mqtt": "^5.15.0",
+    "openai": "^6.22.0",
+    "p-queue": "^9.1.0",
+    "sharp": "^0.34.5",
+    "zod": "^4.3.5"
+  }
+}

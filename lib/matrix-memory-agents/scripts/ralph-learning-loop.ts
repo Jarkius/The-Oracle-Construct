@@ -9,11 +9,11 @@
  * 5. Report metrics
  */
 
-import { getLearningLoop } from '../src/learning/loop';
-import { runConsolidation } from '../src/learning/consolidation';
+import { getLearningLoop } from '../src/memory/learning/loop';
+import { runConsolidation } from '../src/memory/learning/consolidation';
 import { runMigration } from './memory/migrate-dual-collection';
-import { listLearningsFromDb, listSessionsFromDb, validateLearning } from '../src/db';
-import { initVectorDB, isInitialized } from '../src/vector-db';
+import { listLearningsFromDb, listSessionsFromDb, validateLearning } from '../src/core/db';
+import { initVectorDB, isInitialized } from '../src/memory/vector-db';
 
 interface IterationStats {
   iteration: number;
