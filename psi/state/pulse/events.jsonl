@@ -475,3 +475,47 @@
 {"ts":"2026-03-16T16:13:15Z","type":"session:end","agent":"System","session":"c077495f-8f8e-487c-9b57-a4304320abdd","data":{"reason":"stop_hook"}}}
 {"ts":"2026-03-16T16:16:52Z","type":"git:push","agent":"Neo","session":"c077495f-8f8e-487c-9b57-a4304320abdd","data":{"tool":"Bash","action":"git push"}}}
 {"ts":"2026-03-16T16:17:09Z","type":"session:end","agent":"System","session":"c077495f-8f8e-487c-9b57-a4304320abdd","data":{"reason":"stop_hook"}}}
+{"ts":"2026-03-20T07:01:12Z","type":"session:end","agent":"System","session":"test-123","data":{"reason":"stop_hook"}}}
+{"ts":"2026-03-20T07:01:54Z","type":"session:end","agent":"System","session":"test-456","data":{"reason":"stop_hook"}}}
+{"ts":"2026-03-20T07:02:24Z","type":"session:end","agent":"System","session":"test-789","data":{"reason":"stop_hook"}}}
+{"ts":"2026-03-20T07:02:57Z","type":"session:end","agent":"System","session":"test-aaa","data":{"reason":"stop_hook"}}}
+{"ts":"2026-03-20T07:03:23Z","type":"session:end","agent":"System","session":"unknown","data":{"reason":"stop_hook"}}}
+{"ts":"2026-03-20T07:03:55Z","type":"session:end","agent":"System","session":"0ff9c29c-2935-4e3b-bb25-ec5c5fb3e6d3","data":{"reason":"stop_hook"}}}
+{"ts":"2026-03-20T07:11:57Z","type":"session:end","agent":"System","session":"0ff9c29c-2935-4e3b-bb25-ec5c5fb3e6d3","data":{"reason":"stop_hook"}}}
+{"ts":"2026-03-20T07:20:16Z","type":"session:end","agent":"System","session":"unknown","data":{"reason":"stop_hook"}}}
+{"ts":"2026-03-20T07:20:51Z","type":"session:start","agent":"System","session":"unknown","data":{"hook":"SessionStart"}}}
+{"ts":"2026-03-20T07:21:08Z","type":"session:start","agent":"System","session":"unknown","data":{"hook":"SessionStart"}}}
+{"ts":"2026-03-20T07:22:04Z","type":"session:end","agent":"System","session":"unknown","data":{"reason":"stop_hook"}}}
+{"ts":"2026-03-20T07:22:26Z","type":"session:start","agent":"System","session":"unknown","data":{"hook":"SessionStart"}}}
+{"ts":"2026-03-20T07:22:45Z","type":"session:start","agent":"System","session":"unknown","data":{"hook":"SessionStart"}}}
+{"ts":"2026-03-20T07:22:54Z","type":"git:push","agent":"Neo","session":"0ff9c29c-2935-4e3b-bb25-ec5c5fb3e6d3","data":{"tool":"Bash","action":"git push"}}}
+{"ts":"2026-03-20T07:23:04Z","type":"session:start","agent":"System","session":"unknown","data":{"hook":"SessionStart"}}}
+{"ts":"2026-03-20T07:23:34Z","type":"session:end","agent":"System","session":"0ff9c29c-2935-4e3b-bb25-ec5c5fb3e6d3","data":{"reason":"stop_hook"}}}
+{"ts":"2026-03-20T07:45:19Z","type":"session:end","agent":"System","session":"0ff9c29c-2935-4e3b-bb25-ec5c5fb3e6d3","data":{"reason":"stop_hook"}}}
+{"ts":"2026-03-20T07:47:48Z","type":"session:start","agent":"System","session":"unknown","data":{"hook":"SessionStart"}}}
+{"ts":"2026-03-20T07:47:58Z","type":"session:end","agent":"System","session":"unknown","data":{"reason":"stop_hook"}}}
+{"ts":"2026-03-20T07:48:25Z","type":"session:start","agent":"System","session":"unknown","data":{"hook":"SessionStart"}}}
+{"ts":"2026-03-20T07:49:04Z","type":"session:start","agent":"System","session":"unknown","data":{"hook":"SessionStart"}}}
+{"ts":"2026-03-20T07:49:46Z","type":"session:start","agent":"System","session":"unknown","data":{"hook":"SessionStart"}}}
+{"ts":"2026-03-20T07:49:54Z","type":"session:end","agent":"System","session":"unknown","data":{"reason":"stop_hook"}}}
+{"ts":"2026-03-20T07:50:21Z","type":"session:start","agent":"System","session":"unknown","data":{"hook":"SessionStart"}}}
+{"ts":"2026-03-20T07:51:26Z","type":"session:start","agent":"System","session":"unknown","data":{"hook":"SessionStart"}}}
+{"ts":"2026-03-20T07:51:43Z","type":"session:end","agent":"System","session":"unknown","data":{"reason":"stop_hook"}}}
+{"ts":"2026-03-20T07:52:06Z","type":"session:start","agent":"System","session":"unknown","data":{"hook":"SessionStart"}}}
+{"ts":"2026-03-20T07:52:11Z","type":"context:compacted","agent":"System","session":"unknown","data":{"reason":"pre_compact_hook"}}}
+{"ts":"2026-03-20T07:52:36Z","type":"session:end","agent":"System","session":"0ff9c29c-2935-4e3b-bb25-ec5c5fb3e6d3","data":{"reason":"stop_hook"}}}
+{"ts":"2026-03-20T07:59:35Z","type":"git:commit","agent":"Neo","session":"0ff9c29c-2935-4e3b-bb25-ec5c5fb3e6d3","data":{"tool":"Bash","action":"git commit"}}}
+{"ts":"2026-03-20T08:00:01Z","type":"git:commit","agent":"Neo","session":"0ff9c29c-2935-4e3b-bb25-ec5c5fb3e6d3","data":{"tool":"Bash","action":"git commit"}}}
+{"ts":"2026-03-20T08:00:13Z","type":"git:push","agent":"Neo","session":"0ff9c29c-2935-4e3b-bb25-ec5c5fb3e6d3","data":{"tool":"Bash","action":"git push"}}}
+{"ts":"2026-03-20T08:00:17Z","type":"session:end","agent":"System","session":"0ff9c29c-2935-4e3b-bb25-ec5c5fb3e6d3","data":{"reason":"stop_hook"}}}
+{"ts":"2026-03-20T08:17:57Z","type":"git:push","agent":"Neo","session":"0ff9c29c-2935-4e3b-bb25-ec5c5fb3e6d3","data":{"tool":"Bash","action":"git push"}}}
+{"ts":"2026-03-20T09:33:21Z","type":"git:commit","agent":"Neo","session":"0ff9c29c-2935-4e3b-bb25-ec5c5fb3e6d3","data":{"tool":"Bash","action":"git commit"}}}
+{"ts":"2026-03-20T09:34:23Z","type":"context:compacted","agent":"System","session":"unknown","data":{"reason":"pre_compact_hook"}}}
+{"ts":"2026-03-20T09:36:43Z","type":"session:start","agent":"System","session":"unknown","data":{"hook":"SessionStart"}}}
+{"ts":"2026-03-20T09:40:42Z","type":"session:end","agent":"System","session":"0ff9c29c-2935-4e3b-bb25-ec5c5fb3e6d3","data":{"reason":"stop_hook"}}}
+{"ts":"2026-03-20T09:41:15Z","type":"session:end","agent":"System","session":"0ff9c29c-2935-4e3b-bb25-ec5c5fb3e6d3","data":{"reason":"stop_hook"}}}
+{"ts":"2026-03-20T09:48:02Z","type":"git:push","agent":"Neo","session":"0ff9c29c-2935-4e3b-bb25-ec5c5fb3e6d3","data":{"tool":"Bash","action":"git push"}}}
+{"ts":"2026-03-20T09:48:13Z","type":"session:end","agent":"System","session":"0ff9c29c-2935-4e3b-bb25-ec5c5fb3e6d3","data":{"reason":"stop_hook"}}}
+{"ts":"2026-03-20T09:54:19Z","type":"session:end","agent":"System","session":"0ff9c29c-2935-4e3b-bb25-ec5c5fb3e6d3","data":{"reason":"stop_hook"}}}
+{"ts":"2026-03-20T09:59:26Z","type":"git:commit","agent":"Neo","session":"0ff9c29c-2935-4e3b-bb25-ec5c5fb3e6d3","data":{"tool":"Bash","action":"git commit"}}}
+{"ts":"2026-03-20T09:59:33Z","type":"session:end","agent":"System","session":"0ff9c29c-2935-4e3b-bb25-ec5c5fb3e6d3","data":{"reason":"stop_hook"}}}
