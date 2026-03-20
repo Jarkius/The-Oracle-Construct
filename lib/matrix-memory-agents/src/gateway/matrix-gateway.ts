@@ -56,7 +56,7 @@ function findProjectRoot(): string {
 
 const PROJECT_ROOT = process.env.PROJECT_ROOT || findProjectRoot();
 const CONFIG_PATH = join(PROJECT_ROOT, '.matrix.json');
-const EVENT_WRITER = join(PROJECT_ROOT, '.claude', 'hooks', 'pulse-event-writer.sh');
+const EVENT_WRITER = join(PROJECT_ROOT, '.claude', 'hooks', 'pulse', 'pulse-event-writer.sh');
 
 // ============ State ============
 

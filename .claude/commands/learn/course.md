@@ -29,7 +29,7 @@ Track progress through online courses, tutorials, documentation, or any structur
    - Extract sections/modules/chapters
    - Estimate time per section
 
-2. **Create tracker** at `psi/learn/active/course-<name>.md`:
+2. **Create tracker** at `psi/knowledge/active/course-<name>.md`:
 
 ```markdown
 # Course: <Name>
@@ -130,7 +130,7 @@ Next up: Section 9 — Event Handling
 
 ## Progress Persistence
 
-- Course files persist in `psi/learn/active/course-*.md`
+- Course files persist in `psi/knowledge/active/course-*.md`
 - Completed courses move to `psi/learn/archive/YYYY-MM/course-*.md`
 - Task registry tracks active courses
 - Events logged: `learning:course-progress`, `learning:course-complete`

@@ -60,11 +60,51 @@ bun memory index search "concept"    # Semantic search (~400ms)
 | Path | Purpose |
 |------|---------|
 | `src/oracle/` | Task routing, decomposition, orchestration |
-| `src/pty/` | Agent spawning, mission queue |
+| `src/pty/` | Agent spawning, mission queue, worktree management |
 | `src/mcp/` | MCP server and tools |
 | `src/learning/` | Knowledge extraction, quality scoring |
 | `src/db/` | SQLite operations (modular, shim at src/db.ts) |
+| `src/coordination/` | Cross-worktree locking, status, messaging, merge queue |
+| `src/security/` | Permission enforcement, elevation, heartbeat watchdog |
+| `src/skills/` | Skill registry, versioning, hot-loader, composition |
+| `src/hub/` | Hub health monitoring, crash recovery |
 | `scripts/memory/` | CLI commands |
+
+## Coordination (Phase 4-7)
+
+Cross-worktree parallel safety via external `~/.matrix/coordination/`:
+
+```bash
+bun run scripts/coordination/start-session.ts --agents 3 --task "description"
+bun run scripts/coordination/monitor-session.ts
+bun run scripts/coordination/end-session.ts [--force]
+```
+
+Tests: `bun test scripts/tests/coordination.test.ts` (56 tests) + `bun test scripts/tests/merge-queue.test.ts` (13 tests)
+
+## Security (Phase 8-10)
+
+Agent permission enforcement — frontmatter permissions become runtime gates:
+
+```bash
+bun run scripts/security/audit-permissions.ts   # Report agent permissions
+bun run scripts/security/check-permission.ts     # Called by PreToolUse hook
+bun run scripts/security/wep-audit.ts            # WEP sacred file audit
+```
+
+Tests: `bun test scripts/tests/security.test.ts` (51 tests)
+
+## Skills (Phase 12-13)
+
+Versioned skill registry with hot-loading and composition:
+
+| Module | Purpose |
+|--------|---------|
+| `src/skills/registry.ts` | SQLite-backed skill registry |
+| `src/skills/versioning.ts` | Semver parsing and range matching |
+| `src/skills/hot-loader.ts` | Filesystem watcher for skill changes |
+| `src/skills/composer.ts` | Bundle resolution with dependency graphs |
+| `src/skills/loader-daemon.ts` | HTTP API for skill registry |
 
 ## Rules
 

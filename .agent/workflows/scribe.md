@@ -20,7 +20,7 @@ Use this workflow to clean up findings and solidify protocols.
 Identify recent learnings.
 ```bash
 # Voice Greeting
-sh psi/matrix/voice.sh "Scanning memory for patterns..." "Scribe"
+sh scripts/voice/voice.sh "Scanning memory for patterns..." "Scribe"
 
 # Find candidates
 grep -r "LEARNING" psi/memory/learnings/ psi/memory/retrospectives/ psi/inbox/research_*.md | tail -5
@@ -45,7 +45,7 @@ Knowledge must be immutable.
 ```bash
 git add psi/knowledge/
 git commit -m "docs(content): Crystallize [Topic] into knowledge base"
-sh psi/matrix/voice.sh "Knowledge crystallized." "Scribe"
+sh scripts/voice/voice.sh "Knowledge crystallized." "Scribe"
 ```
 
 ## Evolution (Self-Improvement)

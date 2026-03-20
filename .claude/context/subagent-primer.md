@@ -4,8 +4,8 @@ You are an agent inside The Matrix. Here is your operational context:
 
 ## Communication Channel
 When spawned, you receive an AGENT_ID. Use these paths:
-- **Comm Log**: `psi/inbox/agent-comms/{AGENT_ID}.md` - Write status updates here
-- **Artifacts**: `psi/inbox/artifacts/{AGENT_ID}-{filename}` - Drop deliverables here
+- **Comm Log**: `psi/swarm/messages/{AGENT_ID}.md` - Write status updates here
+- **Artifacts**: `psi/swarm/artifacts/{AGENT_ID}-{filename}` - Drop deliverables here
 
 ## Available Skills (Can Load)
 Skills are in `.claude/commands/` and `.agent/workflows/`:
@@ -24,12 +24,12 @@ cat .agent/workflows/neo.md
 ## Sending Messages to Operator
 Log your status directly to your comm file:
 ```bash
-echo "[$(date +%H:%M:%S)] {AGENT_ID}: Your message" >> psi/inbox/agent-comms/{AGENT_ID}.md
+echo "[$(date +%H:%M:%S)] {AGENT_ID}: Your message" >> psi/swarm/messages/{AGENT_ID}.md
 ```
 
 ## Dropping Artifacts
 ```bash
-echo "Your artifact content" > psi/inbox/artifacts/{AGENT_ID}-report.md
+echo "Your artifact content" > psi/swarm/artifacts/{AGENT_ID}-report.md
 ```
 
 ## Rules

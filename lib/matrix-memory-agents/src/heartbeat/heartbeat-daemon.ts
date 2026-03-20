@@ -37,12 +37,12 @@ function findProjectRoot(): string {
 }
 
 const PROJECT_ROOT = process.env.PROJECT_ROOT || findProjectRoot();
-const CONFIG_PATH = join(PROJECT_ROOT, 'psi', 'pulse', 'heartbeat.json');
-const EVENTS_PATH = join(PROJECT_ROOT, 'psi', 'pulse', 'events.jsonl');
-const REMINDERS_PATH = join(PROJECT_ROOT, 'psi', 'pulse', 'reminders.json');
+const CONFIG_PATH = join(PROJECT_ROOT, 'psi', 'state', 'pulse', 'heartbeat.json');
+const EVENTS_PATH = join(PROJECT_ROOT, 'psi', 'state', 'pulse', 'events.jsonl');
+const REMINDERS_PATH = join(PROJECT_ROOT, 'psi', 'state', 'pulse', 'reminders.json');
 const TASKS_PATH = join(PROJECT_ROOT, 'psi', 'memory', 'tasks', 'active.json');
-const EVENT_WRITER = join(PROJECT_ROOT, '.claude', 'hooks', 'pulse-event-writer.sh');
-const LOG_DIR = join(PROJECT_ROOT, 'psi', 'pulse', 'daemon-logs');
+const EVENT_WRITER = join(PROJECT_ROOT, '.claude', 'hooks', 'pulse', 'pulse-event-writer.sh');
+const LOG_DIR = join(PROJECT_ROOT, 'psi', 'state', 'pulse', 'daemon-logs');
 
 // ============ Types ============
 

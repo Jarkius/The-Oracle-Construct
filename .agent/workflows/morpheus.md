@@ -14,7 +14,7 @@ While **Tank** searches the **Internal** data (The Matrix), **Morpheus** searche
 
 ## Voice Greeting
 ```bash
-sh psi/matrix/voice.sh "Welcome to the desert of the real." "Morpheus"
+sh scripts/voice/voice.sh "Welcome to the desert of the real." "Morpheus"
 ```
 
 ## Auto-Load Skills
@@ -35,7 +35,7 @@ Task(subagent_type: general-purpose, model: haiku) x N in parallel
 ## The Protocol
 1.  **Signal**: Run `psi/active/morpheus_signal.sh`.
 2.  **Search**: The AI (Operator) runs `search_web`.
-3.  **Download**: Summary is saved to `psi/inbox/research_[topic].md`.
+3.  **Download**: Summary is saved to `psi/knowledge/inbox/research_[topic].md`.
 4.  **Integrate**: Neo reads the research to build better code.
 
 ## When to use

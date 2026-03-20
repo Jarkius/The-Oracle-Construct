@@ -77,7 +77,7 @@ description: Create developer-ready user stories with acceptance criteria
 
 <step n="4" goal="Save Story">
   <action>Save to `psi/specs/stories/[feature-name].md`</action>
-  <action>Log to `psi/inbox/backlog.md` (if exists)</action>
+  <action>Log to `psi/state/backlog.md` (if exists)</action>
   <action>Report: "Story ready for implementation."</action>
 </step>
 

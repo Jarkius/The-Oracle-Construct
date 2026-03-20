@@ -17,7 +17,7 @@ Switch focus to UI/UX, styling, and visual presentation. When the code works but
 
 ## Voice Greeting
 ```bash
-sh psi/matrix/voice.sh "Everyone falls the first time. Let me show you beauty." "Trinity"
+sh scripts/voice/voice.sh "Everyone falls the first time. Let me show you beauty." "Trinity"
 ```
 
 ## Auto-Load Skills
@@ -53,7 +53,7 @@ Task(subagent_type: Explore, model: haiku) x N in parallel
    *If NO Spec exists -> Create it first (write to `psi/specs/`).*
    *If NO Design System exists -> Define it first.*
 
-3. Apply the **Woman in Red Guidelines** (`psi/The_Source/14_woman_in_red.md`) for the *soul* of the design:
+3. Apply the **Woman in Red Guidelines** (`psi/source/14_woman_in_red.md`) for the *soul* of the design:
    - [ ] **BOLD Direction**: Is the tone clear?
    - [ ] **Differentiation**: Is it unforgettable?
 

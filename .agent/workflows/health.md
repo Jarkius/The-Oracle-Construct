@@ -72,7 +72,7 @@ The Soul Integrity Check validates these tiers:
 
 | Tier | Name | What It Checks |
 |------|------|----------------|
-| 0 | **The Bible** | `psi/The_Source/BIBLE.md` - anchor of truth |
+| 0 | **The Bible** | `psi/source/BIBLE.md` - anchor of truth |
 | 1 | **The Soul** | `.claude/agents/*.md` - agent identities |
 | 2 | **The Voice** | Voice module, hooks, Piper models, music |
 | 3 | **The Philosophy** | Source documents, CLAUDE.md |

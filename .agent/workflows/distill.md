@@ -19,7 +19,7 @@ Extract lessons learned from retrospectives and create a portable **seed file** 
 
 ## Voice Greeting
 ```bash
-sh psi/matrix/voice.sh "Distilling wisdom. Extracting patterns from experience." "Scribe"
+sh scripts/voice/voice.sh "Distilling wisdom. Extracting patterns from experience." "Scribe"
 ```
 
 ## The Protocol
@@ -86,7 +86,7 @@ Output: `psi/memory/seeds/[project]_[date]_wisdom.md`
 ### Step 5: Confirm Distillation
 
 ```bash
-sh psi/matrix/voice.sh "Distillation complete. Seed file created. Wisdom preserved." "Scribe"
+sh scripts/voice/voice.sh "Distillation complete. Seed file created. Wisdom preserved." "Scribe"
 ```
 
 ## Output Location
@@ -112,4 +112,4 @@ The seed file is portable wisdom. It can be imported into any new Matrix to tran
 
 ---
 
-*Reference: psi/The_Source/BIBLE.md - Part V: Three Laws of Memory*
+*Reference: psi/source/BIBLE.md - Part V: Three Laws of Memory*

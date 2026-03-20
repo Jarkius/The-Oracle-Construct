@@ -15,6 +15,9 @@
 import { $ } from 'bun';
 import { existsSync, mkdirSync, rmSync } from 'fs';
 import type { WorktreeConfig } from '../interfaces/pty';
+import type { MergeQueueEntry, MergeQueueResult } from '../coordination/types';
+import { getMergeQueue } from '../coordination/merge-queue';
+import { getCoordinator } from '../coordination/coordinator';
 
 export interface WorktreeInfo {
   agentId: number;
@@ -283,6 +286,60 @@ export class WorktreeManager {
     }
 
     return worktrees;
+  }
+
+  // ============================================================================
+  // Merge Queue Integration (ADR-019)
+  // ============================================================================
+
+  /**
+   * Queue an agent's completed work for coordinated merging.
+   * Uses the MergeQueue to ensure merges happen in handshake order.
+   */
+  queueMerge(agentId: number, taskId: string, priority?: number): void {
+    const info = this.worktrees.get(agentId);
+    if (!info) {
+      throw new Error(`No worktree found for agent ${agentId}`);
+    }
+
+    const entry: MergeQueueEntry = {
+      agentId: String(agentId),
+      taskId,
+      branch: info.branch,
+      worktree: info.path,
+      completedAt: new Date().toISOString(),
+      priority: priority ?? 0,
+    };
+
+    getMergeQueue().enqueue(entry);
+  }
+
+  /**
+   * Process all queued merges in handshake order, then clean up worktrees.
+   * Returns merge results for each agent.
+   */
+  async processMergeQueue(): Promise<MergeQueueResult[]> {
+    const queue = getMergeQueue();
+    const results = await queue.processAll(this.repoPath);
+
+    // Clean up successfully merged worktrees
+    for (const result of results) {
+      if (result.success) {
+        const numericId = parseInt(result.agentId, 10);
+        if (!isNaN(numericId)) {
+          await this.cleanup(numericId);
+        }
+      }
+    }
+
+    return results;
+  }
+
+  /**
+   * Get the merge order from the active coordination session.
+   */
+  getMergeOrder(): string[] {
+    return getCoordinator().getMergeOrder();
   }
 
   /**

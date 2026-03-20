@@ -18,7 +18,7 @@ The Operator finds context, files, and definitions to "feed" information to the 
 
 ## Voice Greeting
 ```bash
-sh psi/matrix/voice.sh "Operator here. What do you need?" "Tank"
+sh scripts/voice/voice.sh "Operator here. What do you need?" "Tank"
 ```
 
 ## Auto-Load Skills

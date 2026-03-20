@@ -23,7 +23,7 @@ Read pattern data:
 ```bash
 bash .claude/hooks/pulse-pattern-scanner.sh
 ```
-Read `psi/pulse/patterns.json` for detected patterns.
+Read `psi/state/pulse/patterns.json` for detected patterns.
 
 Read recent retrospectives from `psi/memory/retrospectives/` (last 5).
 Read recent session memories from `psi/memory/sessions/` (last 5).
@@ -84,7 +84,7 @@ Create `psi/memory/evolution/proposals/WEP-NNN-<slug>.md`:
 ### 4. Announce
 
 ```bash
-sh psi/matrix/voice.sh "Evolution proposal drafted. Review when ready." "Oracle"
+sh scripts/voice/voice.sh "Evolution proposal drafted. Review when ready." "Oracle"
 ```
 
 ### 5. Handle Existing WEPs

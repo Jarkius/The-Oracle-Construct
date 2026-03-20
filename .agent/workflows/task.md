@@ -65,7 +65,7 @@ Output format:
    ```
 4. Update `lastUpdated` timestamp
 5. Write back to file
-6. Announce: `sh psi/matrix/voice.sh "Task registered. [description]" "Oracle"`
+6. Announce: `sh scripts/voice/voice.sh "Task registered. [description]" "Oracle"`
 
 ### Complete Task (`/task done`)
 
@@ -79,7 +79,7 @@ Output format:
 1. Find task by ID
 2. Set `status` to `blocked`, add `blockedReason` field
 3. Update timestamp, write back
-4. Announce: `sh psi/matrix/voice.sh "Task blocked. Needs attention." "Oracle"`
+4. Announce: `sh scripts/voice/voice.sh "Task blocked. Needs attention." "Oracle"`
 
 ### Assign Task (`/task assign`)
 

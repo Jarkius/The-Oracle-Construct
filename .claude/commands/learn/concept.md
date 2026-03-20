@@ -48,7 +48,7 @@ Task:
 
 After research returns, synthesize into learning format:
 
-**Create file**: `psi/learn/active/<topic-slug>.md`
+**Create file**: `psi/knowledge/active/<topic-slug>.md`
 
 ```markdown
 # Learning: <Topic>
@@ -105,7 +105,7 @@ After creating the learning file:
 sh psi/matrix/voice.sh "Concept captured. Ready for review." "Morpheus"
 
 # Ingest into semantic memory (if available)
-cd lib/matrix-memory-agents && bun memory learn "$PROJECT_ROOT/psi/learn/active/<topic-slug>.md" 2>/dev/null
+cd lib/matrix-memory-agents && bun memory learn "$PROJECT_ROOT/psi/knowledge/active/<topic-slug>.md" 2>/dev/null
 
 # Log event
 bash .claude/hooks/pulse-event-writer.sh "learning:new" "Morpheus" "{\"topic\":\"<topic>\"}"

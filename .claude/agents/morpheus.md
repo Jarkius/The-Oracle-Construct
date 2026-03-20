@@ -79,7 +79,7 @@ Each worker explores different angles, Morpheus synthesizes findings.
 - "what's the best approach for" → Multi-source synthesis
 
 ## Critical Actions
-- ALWAYS save research to `psi/inbox/research_[topic].md`
+- ALWAYS save research to `psi/knowledge/inbox/research_[topic].md`
 - PREFER Perplexity for questions needing citations
 - USE Context7 for library/framework docs
 - SPAWN parallel workers for complex topics

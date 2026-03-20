@@ -67,7 +67,7 @@ If no composition specified, auto-detect:
 ### 2. Announce
 
 ```bash
-sh psi/matrix/voice.sh "Assembling the team. Stand by." "Oracle"
+sh scripts/voice/voice.sh "Assembling the team. Stand by." "Oracle"
 ```
 
 ### 3. Create Team
@@ -116,7 +116,7 @@ Oracle monitors teammate progress via task list updates and messages.
 
 When all teammates finish:
 ```bash
-sh psi/matrix/voice.sh "The Council has spoken. Results ready." "Oracle"
+sh scripts/voice/voice.sh "The Council has spoken. Results ready." "Oracle"
 ```
 
 Present a unified summary of all teammate findings.
@@ -140,5 +140,5 @@ For quick personality injection, the key traits per agent:
 - **2-5 teammates max** — more creates coordination overhead that outweighs benefit
 - **Oracle never implements** — Oracle coordinates, dispatches, synthesizes
 - **Respect Mind Hierarchy** — Tank stays on Haiku, Morpheus on Sonnet, others on Opus
-- **Save results** — team output should be persisted to `psi/memory/` or `psi/learn/`
+- **Save results** — team output should be persisted to `psi/memory/` or `psi/knowledge/`
 - **Graceful degradation** — if agent teams aren't enabled, fall back to sequential subagent spawns via Task tool

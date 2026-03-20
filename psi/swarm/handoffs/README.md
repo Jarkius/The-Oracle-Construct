@@ -1,47 +1,40 @@
-# Cross-Agent Handoffs (Phase 7.5)
+# Session Handoff
 
-> *"I can only show you the door." — Morpheus*
+> *"I need to transfer context to the next session."*
 
-This directory stores structured handoff artifacts when one agent passes work to another.
+## Purpose
+
+This directory contains handoff documents for transferring context between sessions or AI instances.
 
 ## Format
 
-Each handoff is a markdown file: `YYYY-MM-DD_from-to_topic.md`
-
-## Structure
-
 ```markdown
-# Handoff: [From Agent] → [To Agent]
-**Date**: YYYY-MM-DD HH:MM
-**Task**: One-sentence description
+# Handoff: [Date] [Time]
 
 ## Context
-Why this task exists and what led to it.
+[What was happening]
 
-## Key Decisions Made
-- Decision 1 (and why)
-- Decision 2 (and why)
+## State
+[Current state of work]
 
-## Files Changed / Relevant
-- path/to/file.ts — what was done
-- path/to/other.md — reference material
+## Critical Files
+- [file1.md]
+- [file2.sh]
 
-## Watch For
-- Known risks or edge cases
-- Constraints the receiving agent must respect
+## Next Actions
+1. [action1]
+2. [action2]
 
-## Tests / Verification
-- How to verify the work is correct
-- What tests to run
-
-## Next Steps
-1. Specific action item
-2. Specific action item
+## Warnings
+- [any gotchas or blockers]
 ```
 
 ## Usage
 
-Handoffs are created by:
-- The `/handoff` command (Trinity → Neo design handoffs)
-- The `/unplug` command (session-end handoffs)
-- Any agent recognizing they need a different agent's skills
+1. Before `/unplug`, create a handoff if there's incomplete work
+2. Name: `YYYY-MM-DD_HH-MM_topic.md`
+3. Next session reads handoffs on startup
+
+---
+
+*Part of oracle-framework pattern adoption*

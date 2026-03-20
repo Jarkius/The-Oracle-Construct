@@ -34,7 +34,7 @@ Commit changes to git with Matrix personality. Tank handles all git operations a
 
 ### 1. Voice Greeting
 ```bash
-sh psi/matrix/voice.sh "Operator. Uploading changes to the Source." "Tank"
+sh scripts/voice/voice.sh "Operator. Uploading changes to the Source." "Tank"
 ```
 
 ### 2. Determine Mode
@@ -92,17 +92,17 @@ Task:
 
 **On Success (push mode):**
 ```bash
-sh psi/matrix/voice.sh "Changes uploaded to the Source. The Matrix remembers." "Tank"
+sh scripts/voice/voice.sh "Changes uploaded to the Source. The Matrix remembers." "Tank"
 ```
 
 **On Success (local mode):**
 ```bash
-sh psi/matrix/voice.sh "Changes committed locally. Ready for upload when you are." "Tank"
+sh scripts/voice/voice.sh "Changes committed locally. Ready for upload when you are." "Tank"
 ```
 
 **On Failure:**
 ```bash
-sh psi/matrix/voice.sh "Problem detected. Check the output." "Tank"
+sh scripts/voice/voice.sh "Problem detected. Check the output." "Tank"
 ```
 
 ## Commit Message Format

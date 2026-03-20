@@ -28,7 +28,7 @@ COUNT=${ARGUMENTS:-4}  # Default to 4 if no argument
 
 ### 1. Voice Greeting (Oracle)
 ```bash
-sh psi/matrix/voice.sh "Let me recall where we left off..." "Oracle"
+sh scripts/voice/voice.sh "Let me recall where we left off..." "Oracle"
 ```
 
 ### 2. Spawn Tank (Haiku) to Gather Context
@@ -149,7 +149,7 @@ ELSE:
 
 ### 5. Voice Summary (Oracle)
 ```bash
-sh psi/matrix/voice.sh "[Last session]. [Current focus]. [Path forward]." "Oracle"
+sh scripts/voice/voice.sh "[Last session]. [Current focus]. [Path forward]." "Oracle"
 ```
 
 ## Token Efficiency

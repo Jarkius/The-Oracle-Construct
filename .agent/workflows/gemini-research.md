@@ -30,7 +30,7 @@ Verify with `/mcp` command.
 
 ### 1. Voice Greeting
 ```bash
-sh psi/matrix/voice.sh "Morpheus online. Opening the gates to Gemini." "Oracle"
+sh scripts/voice/voice.sh "Morpheus online. Opening the gates to Gemini." "Oracle"
 ```
 
 ### 2. Parse Arguments
@@ -73,12 +73,12 @@ MODE = --youtube | --deep | --parallel | default
 Save results to Matrix learning system:
 ```bash
 # Save to inbox
-echo "$RESULT" > psi/learn/inbox/gemini_$(date +%Y%m%d_%H%M).md
+echo "$RESULT" > psi/knowledge/inbox/gemini_$(date +%Y%m%d_%H%M).md
 ```
 
 ### 5. Voice Summary
 ```bash
-sh psi/matrix/voice.sh "Research complete. [summary]" "Oracle"
+sh scripts/voice/voice.sh "Research complete. [summary]" "Oracle"
 ```
 
 ## Fallback: API Mode
@@ -116,7 +116,7 @@ Focus on:
 
 Results flow into the knowledge system:
 ```
-Gemini Browser → psi/learn/inbox/ → /distill → psi/memory/
+Gemini Browser → psi/knowledge/inbox/ → /distill → psi/memory/
 ```
 
 ## Notes
