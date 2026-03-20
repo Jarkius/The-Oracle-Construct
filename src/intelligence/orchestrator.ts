@@ -1,5 +1,5 @@
 import { $ } from "bun";
-import { getAllAgents, getRecentMessages, clearSession } from "./db";
+import { getAllAgents, getRecentMessages, clearSession } from '../core/db';
 
 const COLORS = {
   reset: "\x1b[0m",

@@ -168,12 +168,11 @@ function execFileRead(filePath: string, maxLines: number | undefined, projectRoo
 }
 
 function execMemoryRecall(query: string, projectRoot: string): string {
-  const mmaDir = join(projectRoot, 'lib', 'matrix-memory-agents');
   try {
     const output = execSync(`bun memory recall "${query.replace(/"/g, '\\"')}"`, {
       encoding: 'utf8',
       timeout: 10000,
-      cwd: mmaDir,
+      cwd: projectRoot,
     });
     return output.slice(0, 4000);
   } catch {
@@ -229,7 +228,7 @@ function execGitStatus(detail: string, projectRoot: string): string {
 }
 
 function execPulseEvents(count: number | undefined, typeFilter: string | undefined, projectRoot: string): string {
-  const eventsPath = join(projectRoot, 'psi', 'pulse', 'events.jsonl');
+  const eventsPath = join(projectRoot, 'psi', 'state', 'pulse', 'events.jsonl');
   if (!existsSync(eventsPath)) return 'No events file found.';
 
   const content = readFileSync(eventsPath, 'utf8');
@@ -249,7 +248,7 @@ function execPulseEvents(count: number | undefined, typeFilter: string | undefin
 }
 
 function execDispatch(mode: string, projectRoot: string): string {
-  const dispatcherPath = join(projectRoot, '.claude', 'hooks', 'pulse-event-dispatcher.sh');
+  const dispatcherPath = join(projectRoot, '.claude', 'hooks', 'pulse', 'pulse-event-dispatcher.sh');
   if (!existsSync(dispatcherPath)) return 'Event dispatcher not found.';
 
   const flag = mode === 'check' ? '--check-only' : mode === 'status' ? '--status' : '';

@@ -1,5 +1,5 @@
 #!/usr/bin/env bun
-import { registerAgent, updateAgentStatus, sendMessage, getAgentMessages } from "./db";
+import { registerAgent, updateAgentStatus, sendMessage, getAgentMessages } from '../core/db';
 
 const args = process.argv.slice(2);
 const command = args[0];

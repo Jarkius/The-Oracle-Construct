@@ -50,7 +50,7 @@ fi
 # Define soul files to checksum (must match soul-integrity.sh)
 SOUL_FILES=(
     # The Bible
-    "psi/The_Source/BIBLE.md"
+    "psi/source/BIBLE.md"
     # Agent Identities
     ".claude/agents/oracle-keeper.md"
     ".claude/agents/neo.md"
@@ -69,13 +69,13 @@ SOUL_FILES=(
     ".claude/config/voices.json"
     # Philosophy
     "CLAUDE.md"
-    "psi/The_Source/01_self_knowledge.md"
-    "psi/The_Source/02_bilateral_collaboration.md"
-    "psi/The_Source/04_multi_agent.md"
+    "psi/source/01_self_knowledge.md"
+    "psi/source/02_bilateral_collaboration.md"
+    "psi/source/04_multi_agent.md"
 )
 
 # Create checksum manifest
-MANIFEST_PATH="psi/The_Source/SOUL_MANIFEST.sha256"
+MANIFEST_PATH="psi/source/SOUL_MANIFEST.sha256"
 echo "# Soul Manifest - $TAG_NAME" > "$MANIFEST_PATH"
 echo "# Generated: $(date -u +"%Y-%m-%d %H:%M:%S UTC")" >> "$MANIFEST_PATH"
 echo "# Description: $DESCRIPTION" >> "$MANIFEST_PATH"

@@ -5,7 +5,7 @@
 
 import { z } from 'zod';
 import type { ToolDefinition, ToolHandler, MCPResponse } from '../../types';
-import { jsonResponse, errorResponse } from '../../core/utils/response';
+import { jsonResponse, errorResponse } from '../../utils/response';
 import { AgentSpawner, getAgentSpawner } from '../../../intelligence/pty/spawner';
 import { MissionQueue, getMissionQueue } from '../../../intelligence/pty/mission-queue';
 import { getPTYManager } from '../../../intelligence/pty/manager';
@@ -411,7 +411,7 @@ async function handleMission(args: unknown): Promise<MCPResponse> {
           return errorResponse(`Mission not found: ${parsed.mission_id}`);
         }
 
-        const { isRecoverable } = await import('../../../interfaces/mission');
+        const { isRecoverable } = await import('../../../core/types/mission');
         const recoverable = parsed.recoverable ?? isRecoverable(parsed.error_code);
 
         queue.fail(parsed.mission_id, {

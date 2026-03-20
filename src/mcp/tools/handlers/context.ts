@@ -7,12 +7,12 @@
 
 import { mkdir, writeFile, readFile } from "fs/promises";
 import { existsSync } from "fs";
-import { CONFIG } from '../../core/config';
-import { successResponse, jsonResponse } from '../../core/utils/response';
+import { CONFIG } from '../../config';
+import { successResponse, jsonResponse } from '../../utils/response';
 import {
   UpdateSharedContextSchema,
   type UpdateSharedContextInput,
-} from '../../core/utils/validation';
+} from '../../utils/validation';
 import type { ToolDefinition, ToolHandler } from '../../types';
 import { embedContext, isInitialized } from '../../../memory/vector-db';
 import { db } from '../../../core/db';
@@ -180,7 +180,7 @@ async function matrixSend(args: unknown) {
     if (!statusRes.ok) {
       return jsonResponse({
         success: false,
-        error: "Matrix daemon not running. Start with: bun run src/matrix-daemon.ts start",
+        error: "Matrix daemon not running. Start with: bun run src/daemons/matrix-daemon.ts start",
       });
     }
 

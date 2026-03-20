@@ -50,7 +50,7 @@ echo ""
 # ============================================
 echo -e "${BLUE}## Tier 0: The Bible (Anchor of Truth)${NC}"
 
-BIBLE_PATH="psi/The_Source/BIBLE.md"
+BIBLE_PATH="psi/source/BIBLE.md"
 if [ -f "$BIBLE_PATH" ]; then
     BIBLE_MODIFIED=$(stat -f "%Sm" -t "%Y-%m-%d %H:%M" "$BIBLE_PATH" 2>/dev/null || stat -c "%y" "$BIBLE_PATH" 2>/dev/null | cut -d'.' -f1)
     BIBLE_HASH=$(shasum -a 256 "$BIBLE_PATH" | cut -d' ' -f1 | head -c 12)
@@ -68,7 +68,7 @@ echo ""
 # ============================================
 echo -e "${BLUE}## Tier 1: Matrix Core (Dynamic Discovery)${NC}"
 
-MATRIX_CORE_PATH="psi/The_Source/MATRIX_CORE.md"
+MATRIX_CORE_PATH="psi/source/MATRIX_CORE.md"
 if [ ! -f "$MATRIX_CORE_PATH" ]; then
     echo -e "${RED}   ✗ MATRIX_CORE.md - MISSING (CRITICAL)${NC}"
     echo -e "${RED}   Cannot discover what to check!${NC}"
@@ -193,7 +193,7 @@ echo ""
 # ============================================
 # CHECKSUM VERIFICATION (If manifest exists)
 # ============================================
-MANIFEST_PATH="psi/The_Source/SOUL_MANIFEST.sha256"
+MANIFEST_PATH="psi/source/SOUL_MANIFEST.sha256"
 if [ -f "$MANIFEST_PATH" ]; then
     echo -e "${BLUE}## Checksum Verification (Drift Detection)${NC}"
 

@@ -3,7 +3,7 @@
  * MCP tools for managing learnings with SQLite + ChromaDB sync
  */
 
-import { jsonResponse, errorResponse } from '../../core/utils/response';
+import { jsonResponse, errorResponse } from '../../utils/response';
 import {
   createLearning,
   getLearningById,
@@ -442,7 +442,7 @@ async function handleClosedLoop(args: unknown) {
   const input = ClosedLoopSchema.parse(args);
 
   try {
-    const { getLearningLoop } = await import('../../../learning');
+    const { getLearningLoop } = await import('../../../memory/learning');
     const loop = getLearningLoop();
 
     switch (input.action) {
@@ -482,7 +482,7 @@ async function handleClosedLoop(args: unknown) {
         const validateResult = await loop.autoValidateFromUsage();
 
         // Get current stats
-        const { listLearningsFromDb, listSessionsFromDb } = await import('../../../db');
+        const { listLearningsFromDb, listSessionsFromDb } = await import('../../../core/db');
         const totalLearnings = listLearningsFromDb(10000).length;
         const totalSessions = listSessionsFromDb({ limit: 10000 }).length;
 
@@ -533,7 +533,7 @@ async function handleConsolidateLearnings(args: unknown) {
   const input = ConsolidateSchema.parse(args);
 
   try {
-    const { runConsolidation } = await import('../../../learning/consolidation');
+    const { runConsolidation } = await import('../../../memory/learning/consolidation');
 
     const stats = await runConsolidation({
       dryRun: input.dry_run,

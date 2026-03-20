@@ -72,7 +72,7 @@ export function isMatrixAvailable(matrixPath?: string): boolean {
   const path = matrixPath || process.env.MATRIX_PATH;
   if (!path) return false;
 
-  const soulPath = join(path, 'psi/The_Source/SOUL_SEED.md');
+  const soulPath = join(path, 'psi/source/SOUL_SEED.md');
   return existsSync(soulPath);
 }
 

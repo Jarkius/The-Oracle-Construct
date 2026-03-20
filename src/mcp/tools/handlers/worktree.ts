@@ -5,7 +5,7 @@
 
 import { z } from 'zod';
 import type { ToolDefinition, ToolHandler, MCPResponse } from '../../types';
-import { jsonResponse, errorResponse } from '../../core/utils/response';
+import { jsonResponse, errorResponse } from '../../utils/response';
 import { getWorktreeManager } from '../../../intelligence/pty/worktree-manager';
 
 // ============ Schema ============

@@ -27,7 +27,7 @@ const MAX_CONTEXT_MESSAGES = 10; // Load last N messages for context
 const CONVERSATIONS_DIR_NAME = 'gateway-conversations';
 
 function getConversationsDir(projectRoot: string): string {
-  const dir = join(projectRoot, 'psi', 'pulse', CONVERSATIONS_DIR_NAME);
+  const dir = join(projectRoot, 'psi', 'state', 'pulse', CONVERSATIONS_DIR_NAME);
   mkdirSync(dir, { recursive: true });
   return dir;
 }

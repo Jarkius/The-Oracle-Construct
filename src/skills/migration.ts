@@ -35,10 +35,10 @@ interface LegacySkillRegistry {
 
 /**
  * Default path to the legacy skill registry JSON.
- * Resolves relative to the matrix root (4 levels up from src/skills/).
+ * Resolves relative to the matrix root (2 levels up from src/skills/).
  */
 const DEFAULT_LEGACY_PATH = resolve(
-  __dirname, '..', '..', '..', '..', 'psi', 'state', 'pulse', 'skill-registry.json',
+  __dirname, '..', '..', 'psi', 'state', 'pulse', 'skill-registry.json',
 );
 
 /**

@@ -7,8 +7,7 @@
  * Pattern 8 from Oracle Nerve handoff.
  */
 
-import { readFile, writeFile } from 'node:fs/promises';
-import { appendFile } from 'node:fs/promises';
+import { readFile, writeFile, appendFile } from 'node:fs/promises';
 import type { KnownFix, KnownFixRegistry, MatchPattern, PulseEvent } from './types';
 
 export class KnownFixEngine {

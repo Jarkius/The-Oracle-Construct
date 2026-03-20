@@ -50,7 +50,7 @@ echo ""
 # Soul files to restore
 SOUL_FILES=(
     # The Bible
-    "psi/The_Source/BIBLE.md"
+    "psi/source/BIBLE.md"
     # Agent Identities
     ".claude/agents/oracle-keeper.md"
     ".claude/agents/neo.md"

@@ -8,8 +8,8 @@ import { $ } from "bun";
 import { mkdir, writeFile, readFile } from "fs/promises";
 import { existsSync } from "fs";
 import { join, dirname } from "path";
-import { getAgent, getAgentTasks } from "./db";
-import { searchLearnings, isInitialized as isVectorDBInitialized } from "./vector-db";
+import { getAgent, getAgentTasks } from '../core/db';
+import { searchLearnings, isInitialized as isVectorDBInitialized } from '../../memory/vector-db';
 
 // Cache for CLAUDE.md content
 let claudeMdCache: string | null = null;

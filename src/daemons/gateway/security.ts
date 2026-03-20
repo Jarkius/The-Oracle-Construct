@@ -104,7 +104,7 @@ export function getSession(userId: string, projectRoot: string): UserSession {
   }
 
   // Check persisted sessions
-  const sessionsFile = join(projectRoot, 'psi', 'pulse', 'gateway-sessions.json');
+  const sessionsFile = join(projectRoot, 'psi', 'state', 'pulse', 'gateway-sessions.json');
   if (existsSync(sessionsFile)) {
     try {
       const data = JSON.parse(readFileSync(sessionsFile, 'utf8'));
@@ -133,7 +133,7 @@ export function saveSession(userId: string, projectRoot: string): void {
   const session = sessions.get(userId);
   if (!session) return;
 
-  const sessionsFile = join(projectRoot, 'psi', 'pulse', 'gateway-sessions.json');
+  const sessionsFile = join(projectRoot, 'psi', 'state', 'pulse', 'gateway-sessions.json');
   let data: Record<string, unknown> = { sessions: {} };
 
   if (existsSync(sessionsFile)) {

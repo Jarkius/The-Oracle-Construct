@@ -5,14 +5,14 @@
 
 import { readFile, readdir } from "fs/promises";
 import { existsSync } from "fs";
-import { CONFIG } from '../../core/config';
-import { successResponse, jsonResponse, notFoundResponse } from '../../core/utils/response';
+import { CONFIG } from '../../config';
+import { successResponse, jsonResponse, notFoundResponse } from '../../utils/response';
 import {
   GetTaskResultSchema,
   GetAllResultsSchema,
   type GetTaskResultInput,
   type GetAllResultsInput,
-} from '../../core/utils/validation';
+} from '../../utils/validation';
 import type { ToolDefinition, ToolHandler } from '../../types';
 
 // ============ Tool Definitions ============

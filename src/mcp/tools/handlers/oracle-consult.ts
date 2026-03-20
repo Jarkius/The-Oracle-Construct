@@ -10,7 +10,7 @@
  */
 
 import { z } from 'zod';
-import { successResponse, errorResponse } from '../../core/utils/response';
+import { successResponse, errorResponse } from '../../utils/response';
 import {
   getHighConfidenceLearnings,
   searchLearningsFTS,

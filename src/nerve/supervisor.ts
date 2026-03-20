@@ -149,11 +149,11 @@ export class Supervisor {
       }
     } catch {
       const newState: ServiceState = 'unhealthy';
-      await this.stateDetector.check(name, newState);
+      const transition = await this.stateDetector.check(name, newState);
       daemon.previousState = daemon.state;
       daemon.state = newState;
 
-      // Only escalate if not already in escalation
+      // Escalate on first failure or state transition
       if (daemon.level === 0 || transition) {
         await this.handleUnhealthy(daemon);
       }

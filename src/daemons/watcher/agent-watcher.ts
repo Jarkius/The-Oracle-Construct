@@ -8,7 +8,7 @@
 import { mkdir, readFile, readdir, unlink, writeFile } from "fs/promises";
 import { existsSync } from "fs";
 import { join } from "path";
-import { runClaudeTask, writeToScratchpad } from "./claude-agent";
+import { runClaudeTask, writeToScratchpad } from '../../intelligence/claude-agent';
 import {
   registerAgent,
   updateAgentStatus,
@@ -21,7 +21,7 @@ import {
   incrementAgentStats,
   type SessionRecord,
   type Visibility,
-} from "./db";
+} from '../../core/db';
 import {
   initVectorDB,
   embedTask,
@@ -29,7 +29,7 @@ import {
   isInitialized,
   saveSession as saveSessionToChroma,
   findSimilarSessions,
-} from "./vector-db";
+} from '../../memory/vector-db';
 
 const AGENT_ID = parseInt(process.argv[2] || "1");
 
