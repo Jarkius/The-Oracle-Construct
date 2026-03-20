@@ -2,8 +2,8 @@
 #
 # Matrix Memory System - Setup Script
 #
-# Wrapper around matrix-memory-agents that:
-# 1. Installs dependencies in lib/matrix-memory-agents/
+# Matrix Memory System setup:
+# 1. Installs dependencies
 # 2. Initializes SQLite database
 # 3. Starts ChromaDB (Docker) if available
 # 4. Bootstraps from existing psi/ markdown archive
@@ -16,7 +16,7 @@ set -e
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 PROJECT_DIR="$(dirname "$SCRIPT_DIR")"
-MMA_DIR="$PROJECT_DIR"
+MATRIX_ROOT="$PROJECT_DIR"
 
 # Colors
 RED='\033[0;31m'
@@ -72,7 +72,7 @@ echo ""
 # ─── Install Dependencies ───────────────────────────────────────
 
 echo -e "${YELLOW}Installing dependencies...${NC}"
-cd "$MMA_DIR"
+cd "$MATRIX_ROOT"
 bun install 2>&1 | tail -3
 echo -e "${GREEN}✓${NC} Dependencies installed"
 echo ""
@@ -116,7 +116,7 @@ fi
 # ─── SQLite Database ────────────────────────────────────────────
 
 echo -e "${YELLOW}Initializing SQLite database...${NC}"
-cd "$MMA_DIR"
+cd "$MATRIX_ROOT"
 bun memory init 2>&1 | tail -3 || bun memory stats > /dev/null 2>&1 || true
 echo -e "${GREEN}✓${NC} SQLite initialized"
 echo ""
@@ -125,7 +125,7 @@ echo ""
 
 if [ $SKIP_BOOTSTRAP -eq 0 ]; then
     echo -e "${YELLOW}Bootstrapping from existing psi/ archive...${NC}"
-    cd "$MMA_DIR"
+    cd "$MATRIX_ROOT"
     bash "$PROJECT_DIR/scripts/bootstrap-memory.sh"
     echo ""
 else
@@ -136,7 +136,7 @@ fi
 # ─── Verification ───────────────────────────────────────────────
 
 echo -e "${YELLOW}Verifying...${NC}"
-cd "$MMA_DIR"
+cd "$MATRIX_ROOT"
 bun memory status 2>&1 | head -20 || echo -e "${YELLOW}⚠${NC} Status check had issues"
 echo ""
 

@@ -13,7 +13,7 @@ set -euo pipefail
 
 REPO_ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
 ACTIVE_JSON="$REPO_ROOT/psi/memory/tasks/active.json"
-MMA_DIR="$REPO_ROOT"
+MATRIX_ROOT="$REPO_ROOT"
 
 DIRECTION="${1:-both}"
 
@@ -23,7 +23,7 @@ if [ ! -f "$ACTIVE_JSON" ]; then
 fi
 
 # Check if bun + src/ are available
-if ! command -v bun &>/dev/null || [ ! -d "$MMA_DIR" ]; then
+if ! command -v bun &>/dev/null || [ ! -d "$MATRIX_ROOT" ]; then
   echo "[task-sync] bun or src/ not available, skipping" >&2
   exit 0
 fi
@@ -81,7 +81,7 @@ for t in data.get('tasks', []):
     sqlite_status=$(map_status_to_sqlite "$status")
 
     # Create task in SQLite (domain=project since these are Matrix-level tasks)
-    cd "$MMA_DIR" && bun memory task:create "$task" --project --priority normal 2>/dev/null || true
+    cd "$MATRIX_ROOT" && bun memory task:create "$task" --project --priority normal 2>/dev/null || true
     count=$((count + 1))
   done <<< "$tasks"
 
@@ -93,7 +93,7 @@ sync_sqlite_to_json() {
 
   # Get project tasks from SQLite that aren't in active.json
   local sqlite_tasks
-  sqlite_tasks=$(cd "$MMA_DIR" && bun memory task:list --project 2>/dev/null || echo "")
+  sqlite_tasks=$(cd "$MATRIX_ROOT" && bun memory task:list --project 2>/dev/null || echo "")
 
   # For now, SQLite is secondary — active.json remains source of truth
   # Only report what's in SQLite but not in active.json

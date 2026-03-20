@@ -28,7 +28,7 @@ TASK_DESC="${2:-General task}"
 TEAM_ID="${3:-}"
 AGENT_LOWER=$(echo "$AGENT_NAME" | tr '[:upper:]' '[:lower:]')
 
-MMA_DIR="$PROJECT_ROOT"
+MATRIX_ROOT="$PROJECT_ROOT"
 
 # ─── 1. Agent Personality ────────────────────────────────────
 PERSONALITY=""
@@ -41,8 +41,8 @@ done
 
 # ─── 2. Relevant Memory (semantic search) ────────────────────
 MEMORY_CONTEXT=""
-if [ -d "$MMA_DIR" ] && command -v bun &> /dev/null; then
-    MEMORY_CONTEXT=$(cd "$MMA_DIR" && bun memory recall "$TASK_DESC" 2>/dev/null | head -30 || echo "")
+if [ -d "$MATRIX_ROOT" ] && command -v bun &> /dev/null; then
+    MEMORY_CONTEXT=$(cd "$MATRIX_ROOT" && bun memory recall "$TASK_DESC" 2>/dev/null | head -30 || echo "")
 fi
 
 # ─── 3. Recent Related Events ────────────────────────────────

@@ -15,7 +15,7 @@ export LC_ALL=C
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
-MMA_DIR="$PROJECT_ROOT"
+MATRIX_ROOT="$PROJECT_ROOT"
 
 EVENT_WRITER="$PROJECT_ROOT/.claude/hooks/pulse/pulse-event-writer.sh"
 
@@ -59,8 +59,8 @@ if [ "$TOOL_NAME" = "Bash" ] || [ "${CLAUDE_TOOL_NAME:-}" = "Bash" ]; then
             bash "$EVENT_WRITER" "ci:fail" "Smith" "{\"tool\":\"Bash\",\"exit_code\":$EXIT_CODE,\"runner\":\"detected\"}"
 
             # ADR-010: Auto-learn from failures
-            if [ -d "$MMA_DIR" ] && command -v bun &> /dev/null; then
-                cd "$MMA_DIR"
+            if [ -d "$MATRIX_ROOT" ] && command -v bun &> /dev/null; then
+                cd "$MATRIX_ROOT"
                 echo "$INPUT" | bun memory save "CI failure detected (exit code $EXIT_CODE)" 2>/dev/null || true
             fi
         else
@@ -72,8 +72,8 @@ if [ "$TOOL_NAME" = "Bash" ] || [ "${CLAUDE_TOOL_NAME:-}" = "Bash" ]; then
         if echo "$INPUT" | grep -qiE "fail|FAILED|error|panic|exception|segfault" 2>/dev/null; then
             bash "$EVENT_WRITER" "ci:fail" "System" "{\"tool\":\"Bash\",\"exit_code\":$EXIT_CODE}"
 
-            if [ -d "$MMA_DIR" ] && command -v bun &> /dev/null; then
-                cd "$MMA_DIR"
+            if [ -d "$MATRIX_ROOT" ] && command -v bun &> /dev/null; then
+                cd "$MATRIX_ROOT"
                 echo "$INPUT" | bun memory save "Command failure detected (exit code $EXIT_CODE)" 2>/dev/null || true
             fi
         fi

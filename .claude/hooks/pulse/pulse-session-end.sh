@@ -13,7 +13,7 @@ export LC_ALL=C
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
-MMA_DIR="$PROJECT_ROOT"
+MATRIX_ROOT="$PROJECT_ROOT"
 
 EVENT_WRITER="$PROJECT_ROOT/.claude/hooks/pulse/pulse-event-writer.sh"
 MEMORY_SAVE="$PROJECT_ROOT/.claude/hooks/session-memory-save.sh"
@@ -82,10 +82,10 @@ if [ -f "$MEMORY_SAVE" ]; then
 fi
 
 # ─── ADR-010: Dual-layer persistence ────────────────────────────
-# Save to SQLite (ChromaDB optional) if matrix-memory-agents is available
+# Save to SQLite (ChromaDB optional) if bun memory is available
 MEMORY_LOG="$PROJECT_ROOT/psi/state/pulse/memory-errors.log"
-if [ -d "$MMA_DIR" ] && command -v bun &> /dev/null; then
-    cd "$MMA_DIR"
+if [ -d "$MATRIX_ROOT" ] && command -v bun &> /dev/null; then
+    cd "$MATRIX_ROOT"
 
     # Save session to SQLite — log errors instead of hiding them
     if ! bun memory save "Auto-saved session via pulse hook" 2>>"$MEMORY_LOG"; then

@@ -34,7 +34,7 @@ REJECTED_DIR="$PROJECT_ROOT/psi/memory/evolution/rejected"
 HEARTBEAT_CONFIG="$PROJECT_ROOT/psi/state/pulse/heartbeat.json"
 EVENT_WRITER="$SCRIPT_DIR/pulse-event-writer.sh"
 EVOLUTION_LOG="$PROJECT_ROOT/psi/memory/evolution/evolution-log.jsonl"
-MMA_DIR="$PROJECT_ROOT"
+MATRIX_ROOT="$PROJECT_ROOT"
 
 # ─── Sacred Files (NEVER auto-evolved) ────────────────────────
 SACRED_FILES=(
@@ -301,8 +301,8 @@ run_all_test_gates() {
     if [ "$failed" = true ]; then return 1; fi
 
     # Gate 3: Memory health
-    if [ -d "$MMA_DIR" ] && command -v bun >/dev/null 2>&1; then
-        run_test_gate "memory" "cd '$MMA_DIR' && bun memory status >/dev/null 2>&1" "$wep_num" || failed=true
+    if [ -d "$MATRIX_ROOT" ] && command -v bun >/dev/null 2>&1; then
+        run_test_gate "memory" "cd '$MATRIX_ROOT' && bun memory status >/dev/null 2>&1" "$wep_num" || failed=true
     else
         echo "[auto-evolve]   Gate: memory (skip — bun/MMA not available)"
         log_evolution "$wep_num" 1 "test" "\"gate\":\"memory\",\"result\":\"skip\""
