@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# File: .claude/hooks/voice/play-tts-enhanced.sh
+# File: .claude/hooks/play-tts-enhanced.sh
 #
 # AgentVibes - Enhanced TTS with Background Music and Effects
 # Generates TTS, applies effects, mixes background, plays ONCE (no echo)

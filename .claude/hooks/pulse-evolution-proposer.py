@@ -59,7 +59,7 @@ EVOLUTION_RULES = [
             'recommend longer sessions over many short ones. Add a density warning '
             'to the predictive context loader.'
         ),
-        'affected': ['.claude/hooks/util/morning-brief.py', '.claude/hooks/util/predictive-context-loader.py'],
+        'affected': ['.claude/hooks/morning-brief.py', '.claude/hooks/predictive-context-loader.py'],
         'risk': 'low',
     },
     {

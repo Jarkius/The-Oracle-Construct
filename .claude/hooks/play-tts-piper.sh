@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# File: .claude/hooks/voice/play-tts-piper.sh
+# File: .claude/hooks/play-tts-piper.sh
 #
 # AgentVibes - Finally, your AI Agents can Talk Back! Text-to-Speech WITH personality for AI Assistants!
 # Website: https://agentvibes.org

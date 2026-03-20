@@ -35,7 +35,7 @@ RULES_FILE="$PROJECT_ROOT/psi/state/pulse/dispatch-rules.json"
 RECOMMENDATIONS_FILE="$PROJECT_ROOT/psi/state/pulse/recommendations.json"
 EVENTS_FILE="$PROJECT_ROOT/psi/state/pulse/events.jsonl"
 DISPATCH_LOG="$PROJECT_ROOT/psi/state/pulse/dispatch-log.jsonl"
-EVENT_WRITER="$PROJECT_ROOT/.claude/hooks/pulse/pulse-event-writer.sh"
+EVENT_WRITER="$PROJECT_ROOT/.claude/hooks/pulse-event-writer.sh"
 
 # Flags
 DRY_RUN=false

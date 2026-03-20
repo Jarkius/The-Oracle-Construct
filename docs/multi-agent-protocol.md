@@ -181,9 +181,9 @@ Layer 4: EXTENSIONS  (mcp/, .claude/agents/, skills)
 | Permission Resolver | `lib/matrix-memory-agents/src/security/permission-resolver.ts` |
 | Enforcement Engine | `lib/matrix-memory-agents/src/security/enforcement-engine.ts` |
 | Elevation Manager | `lib/matrix-memory-agents/src/security/elevation.ts` |
-| Lock Check Hook | `.claude/hooks/core/matrix-lock-check.sh` |
-| Permission Gate Hook | `.claude/hooks/core/matrix-permission-gate.sh` |
-| Source Guard Hook | `.claude/hooks/core/matrix-source-guard.sh` |
+| Lock Check Hook | `.claude/hooks/matrix-lock-check.sh` |
+| Permission Gate Hook | `.claude/hooks/matrix-permission-gate.sh` |
+| Source Guard Hook | `.claude/hooks/matrix-source-guard.sh` |
 
 ### CLI Tools
 

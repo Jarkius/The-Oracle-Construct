@@ -98,9 +98,9 @@ A lightweight daemon that periodically checks system health between sessions.
 
 ### Management
 ```bash
-bash .claude/hooks/core/matrix-services.sh start heartbeat   # Start
-bash .claude/hooks/core/matrix-services.sh stop heartbeat    # Stop
-bash .claude/hooks/core/matrix-services.sh status            # Check all services
+bash .claude/hooks/matrix-services.sh start heartbeat   # Start
+bash .claude/hooks/matrix-services.sh stop heartbeat    # Stop
+bash .claude/hooks/matrix-services.sh status            # Check all services
 ```
 
 ### Configuration
@@ -162,8 +162,8 @@ Low-risk WEPs (config changes, doc updates) can be auto-applied without Oracle r
 
 ### Usage
 ```bash
-bash .claude/hooks/pulse/pulse-auto-evolve.sh              # Apply low-risk WEPs
-bash .claude/hooks/pulse/pulse-auto-evolve.sh --dry-run     # Preview changes
+bash .claude/hooks/pulse-auto-evolve.sh              # Apply low-risk WEPs
+bash .claude/hooks/pulse-auto-evolve.sh --dry-run     # Preview changes
 ```
 
 ### Guard Rails
@@ -204,10 +204,10 @@ Configurable in `psi/state/pulse/dispatch-rules.json`:
 
 ### Usage
 ```bash
-bash .claude/hooks/pulse/pulse-event-dispatcher.sh              # Full dispatch cycle
-bash .claude/hooks/pulse/pulse-event-dispatcher.sh --dry-run     # Preview dispatches
-bash .claude/hooks/pulse/pulse-event-dispatcher.sh --check-only  # Count matches only
-bash .claude/hooks/pulse/pulse-event-dispatcher.sh --status       # Show dispatch log
+bash .claude/hooks/pulse-event-dispatcher.sh              # Full dispatch cycle
+bash .claude/hooks/pulse-event-dispatcher.sh --dry-run     # Preview dispatches
+bash .claude/hooks/pulse-event-dispatcher.sh --check-only  # Count matches only
+bash .claude/hooks/pulse-event-dispatcher.sh --status       # Show dispatch log
 ```
 
 ### Boot Integration
@@ -248,20 +248,20 @@ Dispatched agents can now coordinate via a file-based message bus. Teams are cre
 
 ### Team Orchestrator
 ```bash
-bash .claude/hooks/pulse/pulse-team-orchestrator.sh create "Review Squad" "Smith,Trinity,Architect" "Review auth module"
-bash .claude/hooks/pulse/pulse-team-orchestrator.sh spawn-prompt <team_id> Smith
-bash .claude/hooks/pulse/pulse-team-orchestrator.sh status <team_id>
-bash .claude/hooks/pulse/pulse-team-orchestrator.sh collect <team_id>
-bash .claude/hooks/pulse/pulse-team-orchestrator.sh dissolve <team_id>
+bash .claude/hooks/pulse-team-orchestrator.sh create "Review Squad" "Smith,Trinity,Architect" "Review auth module"
+bash .claude/hooks/pulse-team-orchestrator.sh spawn-prompt <team_id> Smith
+bash .claude/hooks/pulse-team-orchestrator.sh status <team_id>
+bash .claude/hooks/pulse-team-orchestrator.sh collect <team_id>
+bash .claude/hooks/pulse-team-orchestrator.sh dissolve <team_id>
 ```
 
 ### Agent Messenger (used by spawned agents)
 ```bash
-bash .claude/hooks/pulse/pulse-agent-messenger.sh send <team_id> <from> <to|all> "message"
-bash .claude/hooks/pulse/pulse-agent-messenger.sh read <team_id> <agent> --unread
-bash .claude/hooks/pulse/pulse-agent-messenger.sh report <team_id> <agent> "working" "summary"
-bash .claude/hooks/pulse/pulse-agent-messenger.sh block <team_id> <agent> "what's blocking"
-bash .claude/hooks/pulse/pulse-agent-messenger.sh complete <team_id> <agent> "result summary"
+bash .claude/hooks/pulse-agent-messenger.sh send <team_id> <from> <to|all> "message"
+bash .claude/hooks/pulse-agent-messenger.sh read <team_id> <agent> --unread
+bash .claude/hooks/pulse-agent-messenger.sh report <team_id> <agent> "working" "summary"
+bash .claude/hooks/pulse-agent-messenger.sh block <team_id> <agent> "what's blocking"
+bash .claude/hooks/pulse-agent-messenger.sh complete <team_id> <agent> "result summary"
 ```
 
 ### Team Lifecycle
@@ -313,9 +313,9 @@ At least one provider must be configured. Claude API key is **not required**.
 
 ### Management
 ```bash
-bash .claude/hooks/core/matrix-services.sh start gateway   # Start
-bash .claude/hooks/core/matrix-services.sh stop gateway    # Stop
-bash .claude/hooks/core/matrix-services.sh status          # Check all services
+bash .claude/hooks/matrix-services.sh start gateway   # Start
+bash .claude/hooks/matrix-services.sh stop gateway    # Stop
+bash .claude/hooks/matrix-services.sh status          # Check all services
 ```
 
 ### Setup
@@ -323,7 +323,7 @@ bash .claude/hooks/core/matrix-services.sh status          # Check all services
 2. `export TELEGRAM_BOT_TOKEN="your-token"`
 3. `export GOOGLE_API_KEY="your-key"` (or OPENAI_API_KEY)
 4. Configure `.matrix.json` with your Telegram user ID in `gateway.channels.telegram.allowed_users`
-5. `bash .claude/hooks/core/matrix-services.sh start gateway`
+5. `bash .claude/hooks/matrix-services.sh start gateway`
 
 ### Telegram Commands
 | Command | Action |
@@ -359,16 +359,16 @@ Heartbeat daemon sends alerts to gateway via HTTP POST to `http://127.0.0.1:8082
 
 ### Recording Outcomes
 ```bash
-bash .claude/hooks/pulse/pulse-dispatch-learner.sh outcome <rule_id> success "Tests fixed"
-bash .claude/hooks/pulse/pulse-dispatch-learner.sh outcome <rule_id> failure "Agent couldn't find the issue"
-bash .claude/hooks/pulse/pulse-dispatch-learner.sh outcome <rule_id> timeout "Took too long"
+bash .claude/hooks/pulse-dispatch-learner.sh outcome <rule_id> success "Tests fixed"
+bash .claude/hooks/pulse-dispatch-learner.sh outcome <rule_id> failure "Agent couldn't find the issue"
+bash .claude/hooks/pulse-dispatch-learner.sh outcome <rule_id> timeout "Took too long"
 ```
 
 ### Analysis
 ```bash
-bash .claude/hooks/pulse/pulse-dispatch-learner.sh analyze   # Rule effectiveness report
-bash .claude/hooks/pulse/pulse-dispatch-learner.sh tune       # Auto-adjust rule confidence
-bash .claude/hooks/pulse/pulse-dispatch-learner.sh report     # Full learning report
+bash .claude/hooks/pulse-dispatch-learner.sh analyze   # Rule effectiveness report
+bash .claude/hooks/pulse-dispatch-learner.sh tune       # Auto-adjust rule confidence
+bash .claude/hooks/pulse-dispatch-learner.sh report     # Full learning report
 ```
 
 ### Self-Tuning Logic
@@ -391,11 +391,11 @@ Automated intelligence analysis — anomaly detection, trend analysis, and task 
 
 ### Usage
 ```bash
-bash .claude/hooks/pulse/pulse-proactive-intel.sh analyze     # Full analysis
-bash .claude/hooks/pulse/pulse-proactive-intel.sh anomalies   # Detect anomalies only
-bash .claude/hooks/pulse/pulse-proactive-intel.sh trends      # Trend analysis
-bash .claude/hooks/pulse/pulse-proactive-intel.sh suggest      # Task suggestions
-bash .claude/hooks/pulse/pulse-proactive-intel.sh brief        # One-line briefing
+bash .claude/hooks/pulse-proactive-intel.sh analyze     # Full analysis
+bash .claude/hooks/pulse-proactive-intel.sh anomalies   # Detect anomalies only
+bash .claude/hooks/pulse-proactive-intel.sh trends      # Trend analysis
+bash .claude/hooks/pulse-proactive-intel.sh suggest      # Task suggestions
+bash .claude/hooks/pulse-proactive-intel.sh brief        # One-line briefing
 ```
 
 ### Anomaly Detection
@@ -420,12 +420,12 @@ Detects and repairs common infrastructure issues automatically.
 
 ### Usage
 ```bash
-bash .claude/hooks/pulse/pulse-self-heal.sh scan     # Read-only diagnostic
-bash .claude/hooks/pulse/pulse-self-heal.sh heal     # Fix detected issues
-bash .claude/hooks/pulse/pulse-self-heal.sh hooks    # Check hook permissions + syntax
-bash .claude/hooks/pulse/pulse-self-heal.sh state    # Validate JSON/JSONL state files
-bash .claude/hooks/pulse/pulse-self-heal.sh pids     # Clean stale PID files
-bash .claude/hooks/pulse/pulse-self-heal.sh services # Verify directory structure
+bash .claude/hooks/pulse-self-heal.sh scan     # Read-only diagnostic
+bash .claude/hooks/pulse-self-heal.sh heal     # Fix detected issues
+bash .claude/hooks/pulse-self-heal.sh hooks    # Check hook permissions + syntax
+bash .claude/hooks/pulse-self-heal.sh state    # Validate JSON/JSONL state files
+bash .claude/hooks/pulse-self-heal.sh pids     # Clean stale PID files
+bash .claude/hooks/pulse-self-heal.sh services # Verify directory structure
 ```
 
 ### What It Fixes
@@ -451,11 +451,11 @@ Background daemon that monitors Matrix services and auto-restarts crashed ones.
 
 ### Usage
 ```bash
-bash .claude/hooks/pulse/pulse-watchdog.sh start     # Start daemon (background)
-bash .claude/hooks/pulse/pulse-watchdog.sh stop      # Stop daemon
-bash .claude/hooks/pulse/pulse-watchdog.sh status    # Show service health
-bash .claude/hooks/pulse/pulse-watchdog.sh check     # Run one check cycle
-bash .claude/hooks/pulse/pulse-watchdog.sh report    # Full uptime report
+bash .claude/hooks/pulse-watchdog.sh start     # Start daemon (background)
+bash .claude/hooks/pulse-watchdog.sh stop      # Stop daemon
+bash .claude/hooks/pulse-watchdog.sh status    # Show service health
+bash .claude/hooks/pulse-watchdog.sh check     # Run one check cycle
+bash .claude/hooks/pulse-watchdog.sh report    # Full uptime report
 ```
 
 ### Monitored Services
@@ -474,8 +474,8 @@ bash .claude/hooks/pulse/pulse-watchdog.sh report    # Full uptime report
 
 ### Management via matrix-services.sh
 ```bash
-bash .claude/hooks/core/matrix-services.sh start watchdog
-bash .claude/hooks/core/matrix-services.sh stop watchdog
+bash .claude/hooks/matrix-services.sh start watchdog
+bash .claude/hooks/matrix-services.sh stop watchdog
 ```
 
 ---
@@ -488,9 +488,9 @@ Groups related dispatches into team operations for parallel execution.
 
 ### Usage
 ```bash
-bash .claude/hooks/pulse/pulse-dispatch-bundler.sh bundle    # Group pending dispatches
-bash .claude/hooks/pulse/pulse-dispatch-bundler.sh preview    # Preview without acting
-bash .claude/hooks/pulse/pulse-dispatch-bundler.sh history    # Recent bundle history
+bash .claude/hooks/pulse-dispatch-bundler.sh bundle    # Group pending dispatches
+bash .claude/hooks/pulse-dispatch-bundler.sh preview    # Preview without acting
+bash .claude/hooks/pulse-dispatch-bundler.sh history    # Recent bundle history
 ```
 
 ### Bundling Logic
@@ -538,11 +538,11 @@ Automated git health checks and PR preparation.
 
 ### Usage
 ```bash
-bash .claude/hooks/pulse/pulse-auto-git.sh check        # Full git health check
-bash .claude/hooks/pulse/pulse-auto-git.sh pr-ready      # Validate PR readiness
-bash .claude/hooks/pulse/pulse-auto-git.sh suggest-pr    # Generate PR title + body
-bash .claude/hooks/pulse/pulse-auto-git.sh stale [days]  # Find stale branches (default 14)
-bash .claude/hooks/pulse/pulse-auto-git.sh uncommitted   # Check for uncommitted changes
+bash .claude/hooks/pulse-auto-git.sh check        # Full git health check
+bash .claude/hooks/pulse-auto-git.sh pr-ready      # Validate PR readiness
+bash .claude/hooks/pulse-auto-git.sh suggest-pr    # Generate PR title + body
+bash .claude/hooks/pulse-auto-git.sh stale [days]  # Find stale branches (default 14)
+bash .claude/hooks/pulse-auto-git.sh uncommitted   # Check for uncommitted changes
 ```
 
 ### PR Readiness Checks
@@ -566,9 +566,9 @@ Matrix-themed HTML dashboard showing system health at a glance.
 
 ### Usage
 ```bash
-bash .claude/hooks/pulse/pulse-dashboard.sh generate    # Generate HTML + JSON
-bash .claude/hooks/pulse/pulse-dashboard.sh serve        # Generate and open
-bash .claude/hooks/pulse/pulse-dashboard.sh json          # JSON data only
+bash .claude/hooks/pulse-dashboard.sh generate    # Generate HTML + JSON
+bash .claude/hooks/pulse-dashboard.sh serve        # Generate and open
+bash .claude/hooks/pulse-dashboard.sh json          # JSON data only
 ```
 
 ### Dashboard Sections
@@ -595,10 +595,10 @@ Automatically scans and validates all skills in the system.
 
 ### Usage
 ```bash
-bash .claude/hooks/pulse/pulse-skill-discovery.sh scan       # Discover all skills
-bash .claude/hooks/pulse/pulse-skill-discovery.sh validate    # Check skill quality
-bash .claude/hooks/pulse/pulse-skill-discovery.sh registry    # Show skill registry
-bash .claude/hooks/pulse/pulse-skill-discovery.sh stats       # Summary statistics
+bash .claude/hooks/pulse-skill-discovery.sh scan       # Discover all skills
+bash .claude/hooks/pulse-skill-discovery.sh validate    # Check skill quality
+bash .claude/hooks/pulse-skill-discovery.sh registry    # Show skill registry
+bash .claude/hooks/pulse-skill-discovery.sh stats       # Summary statistics
 ```
 
 ### What It Scans
@@ -628,11 +628,11 @@ Intelligent context management before compaction — preserves critical decision
 
 ### Usage
 ```bash
-bash .claude/hooks/pulse/pulse-context-compressor.sh compress     # Full compression cycle
-bash .claude/hooks/pulse/pulse-context-compressor.sh extract      # Extract critical events
-bash .claude/hooks/pulse/pulse-context-compressor.sh summarize    # Compressed session summary
-bash .claude/hooks/pulse/pulse-context-compressor.sh priorities   # Ranked priority list
-bash .claude/hooks/pulse/pulse-context-compressor.sh snapshot     # Quick state snapshot
+bash .claude/hooks/pulse-context-compressor.sh compress     # Full compression cycle
+bash .claude/hooks/pulse-context-compressor.sh extract      # Extract critical events
+bash .claude/hooks/pulse-context-compressor.sh summarize    # Compressed session summary
+bash .claude/hooks/pulse-context-compressor.sh priorities   # Ranked priority list
+bash .claude/hooks/pulse-context-compressor.sh snapshot     # Quick state snapshot
 ```
 
 ### Output Files
@@ -652,11 +652,11 @@ Generates structured handoff documents ensuring seamless session transitions.
 
 ### Usage
 ```bash
-bash .claude/hooks/pulse/pulse-session-continuity.sh generate   # Full continuity document
-bash .claude/hooks/pulse/pulse-session-continuity.sh quick       # One-paragraph summary
-bash .claude/hooks/pulse/pulse-session-continuity.sh diff        # Changes since last handoff
-bash .claude/hooks/pulse/pulse-session-continuity.sh chain       # Last 5 handoffs
-bash .claude/hooks/pulse/pulse-session-continuity.sh inject      # Output for session injection
+bash .claude/hooks/pulse-session-continuity.sh generate   # Full continuity document
+bash .claude/hooks/pulse-session-continuity.sh quick       # One-paragraph summary
+bash .claude/hooks/pulse-session-continuity.sh diff        # Changes since last handoff
+bash .claude/hooks/pulse-session-continuity.sh chain       # Last 5 handoffs
+bash .claude/hooks/pulse-session-continuity.sh inject      # Output for session injection
 ```
 
 ### Continuity Document Sections
@@ -681,11 +681,11 @@ Tracks system metrics over time for trend analysis and performance monitoring.
 
 ### Usage
 ```bash
-bash .claude/hooks/pulse/pulse-metrics.sh collect    # Snapshot current metrics
-bash .claude/hooks/pulse/pulse-metrics.sh summary    # Statistical summary
-bash .claude/hooks/pulse/pulse-metrics.sh trends     # Trend analysis (↑↓→)
-bash .claude/hooks/pulse/pulse-metrics.sh report     # Human-readable report
-bash .claude/hooks/pulse/pulse-metrics.sh daily      # Collect + report (for cron)
+bash .claude/hooks/pulse-metrics.sh collect    # Snapshot current metrics
+bash .claude/hooks/pulse-metrics.sh summary    # Statistical summary
+bash .claude/hooks/pulse-metrics.sh trends     # Trend analysis (↑↓→)
+bash .claude/hooks/pulse-metrics.sh report     # Human-readable report
+bash .claude/hooks/pulse-metrics.sh daily      # Collect + report (for cron)
 ```
 
 ### Tracked Metrics
@@ -711,11 +711,11 @@ Routes tasks to agents based on their historical success rates.
 
 ### Usage
 ```bash
-bash .claude/hooks/pulse/pulse-smart-router.sh route "fix the failing tests"   # Auto-route task
-bash .claude/hooks/pulse/pulse-smart-router.sh recommend debug                  # Best agent for type
-bash .claude/hooks/pulse/pulse-smart-router.sh profile                          # Agent performance stats
-bash .claude/hooks/pulse/pulse-smart-router.sh learn                            # Update from outcomes
-bash .claude/hooks/pulse/pulse-smart-router.sh leaderboard                      # Agent rankings
+bash .claude/hooks/pulse-smart-router.sh route "fix the failing tests"   # Auto-route task
+bash .claude/hooks/pulse-smart-router.sh recommend debug                  # Best agent for type
+bash .claude/hooks/pulse-smart-router.sh profile                          # Agent performance stats
+bash .claude/hooks/pulse-smart-router.sh learn                            # Update from outcomes
+bash .claude/hooks/pulse-smart-router.sh leaderboard                      # Agent rankings
 ```
 
 ### Task Type Detection
@@ -745,11 +745,11 @@ Learns which notifications matter to the operator and filters noise accordingly.
 
 ### Usage
 ```bash
-bash .claude/hooks/pulse/pulse-notification-intel.sh digest                  # Smart event digest
-bash .claude/hooks/pulse/pulse-notification-intel.sh preferences             # Show current weights
-bash .claude/hooks/pulse/pulse-notification-intel.sh learn-ack ci:fail       # Mark type as important
-bash .claude/hooks/pulse/pulse-notification-intel.sh learn-skip session:start # Mark type as noise
-bash .claude/hooks/pulse/pulse-notification-intel.sh reset                   # Restore defaults
+bash .claude/hooks/pulse-notification-intel.sh digest                  # Smart event digest
+bash .claude/hooks/pulse-notification-intel.sh preferences             # Show current weights
+bash .claude/hooks/pulse-notification-intel.sh learn-ack ci:fail       # Mark type as important
+bash .claude/hooks/pulse-notification-intel.sh learn-skip session:start # Mark type as noise
+bash .claude/hooks/pulse-notification-intel.sh reset                   # Restore defaults
 ```
 
 ### Default Weights

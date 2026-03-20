@@ -25,9 +25,9 @@ WATCHDOG_DIR="$HOME/.matrix-watchdog"
 PID_FILE="$WATCHDOG_DIR/watchdog.pid"
 LOG_FILE="$PROJECT_ROOT/psi/state/pulse/daemon-logs/watchdog.log"
 STATUS_FILE="$PROJECT_ROOT/psi/state/pulse/watchdog-status.json"
-EVENT_WRITER="$PROJECT_ROOT/.claude/hooks/pulse/pulse-event-writer.sh"
-SERVICES_SCRIPT="$PROJECT_ROOT/.claude/hooks/core/matrix-services.sh"
-SELF_HEAL="$PROJECT_ROOT/.claude/hooks/pulse/pulse-self-heal.sh"
+EVENT_WRITER="$PROJECT_ROOT/.claude/hooks/pulse-event-writer.sh"
+SERVICES_SCRIPT="$PROJECT_ROOT/.claude/hooks/matrix-services.sh"
+SELF_HEAL="$PROJECT_ROOT/.claude/hooks/pulse-self-heal.sh"
 
 CHECK_INTERVAL="${WATCHDOG_INTERVAL:-120}"  # seconds between checks
 MAX_RESTARTS=3  # max restarts per service per hour

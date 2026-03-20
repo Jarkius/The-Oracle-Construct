@@ -21,8 +21,8 @@ PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 
 DISPATCH_LOG="$PROJECT_ROOT/psi/state/pulse/dispatch-log.jsonl"
 BUNDLE_LOG="$PROJECT_ROOT/psi/state/pulse/bundle-log.jsonl"
-ORCHESTRATOR="$PROJECT_ROOT/.claude/hooks/pulse/pulse-team-orchestrator.sh"
-EVENT_WRITER="$PROJECT_ROOT/.claude/hooks/pulse/pulse-event-writer.sh"
+ORCHESTRATOR="$PROJECT_ROOT/.claude/hooks/pulse-team-orchestrator.sh"
+EVENT_WRITER="$PROJECT_ROOT/.claude/hooks/pulse-event-writer.sh"
 
 mkdir -p "$(dirname "$BUNDLE_LOG")"
 

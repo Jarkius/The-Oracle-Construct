@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 #
-# File: .claude/hooks/core/matrix-services.sh
+# File: .claude/hooks/matrix-services.sh
 #
 # Phase 9 (ADR-011): Unified Daemon Service Manager
 # Single entry point for all Matrix daemon lifecycle operations.

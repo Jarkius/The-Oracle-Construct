@@ -23,7 +23,7 @@ export LC_ALL=C
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 
-EVENT_WRITER="$PROJECT_ROOT/.claude/hooks/pulse/pulse-event-writer.sh"
+EVENT_WRITER="$PROJECT_ROOT/.claude/hooks/pulse-event-writer.sh"
 
 EVENTS_FILE="$PROJECT_ROOT/psi/state/pulse/events.jsonl"
 SNAPSHOT_FILE="$PROJECT_ROOT/psi/state/pulse/context-snapshot.json"

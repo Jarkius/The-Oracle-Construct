@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# File: .claude/hooks/voice/play-tts.sh
+# File: .claude/hooks/play-tts.sh
 #
 # AgentVibes - Finally, your AI Agents can Talk Back! Text-to-Speech WITH personality for AI Assistants!
 # Website: https://agentvibes.org

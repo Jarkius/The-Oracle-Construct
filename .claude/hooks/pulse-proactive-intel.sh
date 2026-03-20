@@ -27,7 +27,7 @@ TASKS_FILE="$PROJECT_ROOT/psi/memory/tasks/active.json"
 DISPATCH_LOG="$PROJECT_ROOT/psi/state/pulse/dispatch-log.jsonl"
 OUTCOMES_LOG="$PROJECT_ROOT/psi/state/pulse/dispatch-outcomes.jsonl"
 INTEL_FILE="$PROJECT_ROOT/psi/state/pulse/proactive-intel.json"
-EVENT_WRITER="$PROJECT_ROOT/.claude/hooks/pulse/pulse-event-writer.sh"
+EVENT_WRITER="$PROJECT_ROOT/.claude/hooks/pulse-event-writer.sh"
 
 ACTION="${1:-analyze}"
 shift || true

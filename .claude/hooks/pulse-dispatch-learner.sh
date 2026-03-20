@@ -24,7 +24,7 @@ DISPATCH_LOG="$PROJECT_ROOT/psi/state/pulse/dispatch-log.jsonl"
 OUTCOME_LOG="$PROJECT_ROOT/psi/state/pulse/dispatch-outcomes.jsonl"
 RULES_FILE="$PROJECT_ROOT/psi/state/pulse/dispatch-rules.json"
 LEARNINGS_FILE="$PROJECT_ROOT/psi/state/pulse/dispatch-learnings.json"
-EVENT_WRITER="$PROJECT_ROOT/.claude/hooks/pulse/pulse-event-writer.sh"
+EVENT_WRITER="$PROJECT_ROOT/.claude/hooks/pulse-event-writer.sh"
 
 mkdir -p "$(dirname "$OUTCOME_LOG")"
 touch "$OUTCOME_LOG"

@@ -22,7 +22,7 @@ export LC_ALL=C
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 
-EVENT_WRITER="$PROJECT_ROOT/.claude/hooks/pulse/pulse-event-writer.sh"
+EVENT_WRITER="$PROJECT_ROOT/.claude/hooks/pulse-event-writer.sh"
 HEAL_LOG="$PROJECT_ROOT/psi/state/pulse/heal-log.jsonl"
 
 mkdir -p "$(dirname "$HEAL_LOG")"
@@ -297,7 +297,7 @@ state)
 # ─── SERVICES: Check service health ─────────────────────────
 services)
     echo "[heal] Checking services..."
-    SERVICES_SCRIPT="$PROJECT_ROOT/.claude/hooks/core/matrix-services.sh"
+    SERVICES_SCRIPT="$PROJECT_ROOT/.claude/hooks/matrix-services.sh"
     if [ -f "$SERVICES_SCRIPT" ]; then
         bash "$SERVICES_SCRIPT" status 2>/dev/null || echo "  Service check failed"
     else

@@ -21,7 +21,7 @@ export LC_ALL=C
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 
-EVENT_WRITER="$PROJECT_ROOT/.claude/hooks/pulse/pulse-event-writer.sh"
+EVENT_WRITER="$PROJECT_ROOT/.claude/hooks/pulse-event-writer.sh"
 ROUTER_DATA="$PROJECT_ROOT/psi/state/pulse/agent-performance.json"
 DISPATCH_OUTCOMES="$PROJECT_ROOT/psi/state/pulse/dispatch-outcomes.jsonl"
 

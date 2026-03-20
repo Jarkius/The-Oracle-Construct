@@ -25,10 +25,10 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 export PROJECT_ROOT
 
-DISPATCHER="$PROJECT_ROOT/.claude/hooks/pulse/pulse-event-dispatcher.sh"
-CONTEXT_LOADER="$PROJECT_ROOT/.claude/hooks/pulse/pulse-context-loader.sh"
+DISPATCHER="$PROJECT_ROOT/.claude/hooks/pulse-event-dispatcher.sh"
+CONTEXT_LOADER="$PROJECT_ROOT/.claude/hooks/pulse-context-loader.sh"
 DISPATCH_LOG="$PROJECT_ROOT/psi/state/pulse/dispatch-log.jsonl"
-EVENT_WRITER="$PROJECT_ROOT/.claude/hooks/pulse/pulse-event-writer.sh"
+EVENT_WRITER="$PROJECT_ROOT/.claude/hooks/pulse-event-writer.sh"
 
 PREVIEW_ONLY=false
 [ "${1:-}" = "--preview" ] && PREVIEW_ONLY=true

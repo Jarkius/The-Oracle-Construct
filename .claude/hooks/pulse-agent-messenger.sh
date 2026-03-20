@@ -25,7 +25,7 @@ PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 
 MESSAGES_DIR="$PROJECT_ROOT/psi/swarm/messages"
 TEAMS_DIR="$PROJECT_ROOT/psi/swarm/teams"
-EVENT_WRITER="$PROJECT_ROOT/.claude/hooks/pulse/pulse-event-writer.sh"
+EVENT_WRITER="$PROJECT_ROOT/.claude/hooks/pulse-event-writer.sh"
 
 mkdir -p "$MESSAGES_DIR" "$TEAMS_DIR"
 

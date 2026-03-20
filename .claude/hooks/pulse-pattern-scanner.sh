@@ -12,4 +12,6 @@ set -euo pipefail
 REPO_ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
 export REPO_ROOT
 
-python3 "$REPO_ROOT/.claude/hooks/pulse/pulse-pattern-scanner.py"
+python3 --version &>/dev/null || exit 0
+
+python3 "$REPO_ROOT/.claude/hooks/pulse-pattern-scanner.py"

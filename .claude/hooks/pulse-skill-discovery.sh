@@ -25,7 +25,7 @@ SKILL_DIRS=(
     "$PROJECT_ROOT/.agent/workflows"
 )
 REGISTRY_FILE="$PROJECT_ROOT/psi/state/pulse/skill-registry.json"
-EVENT_WRITER="$PROJECT_ROOT/.claude/hooks/pulse/pulse-event-writer.sh"
+EVENT_WRITER="$PROJECT_ROOT/.claude/hooks/pulse-event-writer.sh"
 
 mkdir -p "$(dirname "$REGISTRY_FILE")"
 

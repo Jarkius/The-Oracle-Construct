@@ -124,7 +124,7 @@ CONTEXT_EOF
 
 # ─── 7. Team Context (Phase B) ────────────────────────────────
 if [ -n "$TEAM_ID" ]; then
-    ORCHESTRATOR="$PROJECT_ROOT/.claude/hooks/pulse/pulse-team-orchestrator.sh"
+    ORCHESTRATOR="$PROJECT_ROOT/.claude/hooks/pulse-team-orchestrator.sh"
     if [ -f "$ORCHESTRATOR" ] && [ -x "$ORCHESTRATOR" ]; then
         echo ""
         echo "---"

@@ -114,5 +114,5 @@ export const DEFAULT_NERVE_CONFIG: NerveConfig = {
   eventsPath: 'psi/state/pulse/events.jsonl',
   heartbeatPath: 'psi/state/pulse/heartbeat.json',
   daemonLogsDir: 'psi/state/pulse/daemon-logs',
-  servicesScript: '.claude/hooks/core/matrix-services.sh',
+  servicesScript: '.claude/hooks/matrix-services.sh',
 };

@@ -23,9 +23,9 @@ PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 
 TEAMS_DIR="$PROJECT_ROOT/psi/swarm/teams"
 MESSAGES_DIR="$PROJECT_ROOT/psi/swarm/messages"
-CONTEXT_LOADER="$PROJECT_ROOT/.claude/hooks/pulse/pulse-context-loader.sh"
-MESSENGER="$PROJECT_ROOT/.claude/hooks/pulse/pulse-agent-messenger.sh"
-EVENT_WRITER="$PROJECT_ROOT/.claude/hooks/pulse/pulse-event-writer.sh"
+CONTEXT_LOADER="$PROJECT_ROOT/.claude/hooks/pulse-context-loader.sh"
+MESSENGER="$PROJECT_ROOT/.claude/hooks/pulse-agent-messenger.sh"
+EVENT_WRITER="$PROJECT_ROOT/.claude/hooks/pulse-event-writer.sh"
 
 mkdir -p "$TEAMS_DIR" "$MESSAGES_DIR"
 

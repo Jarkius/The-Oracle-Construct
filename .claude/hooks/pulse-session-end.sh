@@ -15,7 +15,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 MATRIX_ROOT="$PROJECT_ROOT"
 
-EVENT_WRITER="$PROJECT_ROOT/.claude/hooks/pulse/pulse-event-writer.sh"
+EVENT_WRITER="$PROJECT_ROOT/.claude/hooks/pulse-event-writer.sh"
 MEMORY_SAVE="$PROJECT_ROOT/.claude/hooks/session-memory-save.sh"
 
 # ─── WEP-004: Extract session ID from Stop hook stdin JSON ────

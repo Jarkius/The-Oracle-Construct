@@ -24,7 +24,7 @@ const HEARTBEAT_PATH = join(CWD, "psi/state/pulse/heartbeat.json");
 const KNOWN_FIXES_PATH = join(CWD, "psi/state/pulse/known-fixes.json");
 const DAEMON_LOGS_DIR = join(CWD, "psi/state/pulse/daemon-logs");
 const TASKS_PATH = join(CWD, "psi/memory/tasks/active.json");
-const SERVICES_SCRIPT = join(CWD, ".claude/hooks/core/matrix-services.sh");
+const SERVICES_SCRIPT = join(CWD, ".claude/hooks/matrix-services.sh");
 
 // Matrix daemons (port-based health check)
 const DAEMONS = [

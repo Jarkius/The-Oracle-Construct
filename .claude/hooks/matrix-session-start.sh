@@ -14,6 +14,11 @@ export LC_ALL=C
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 
+# ─── Platform detection ─────────────────────────────────────
+HAS_PYTHON=0
+python3 --version &>/dev/null && HAS_PYTHON=1 || true
+PLATFORM="$(uname -s 2>/dev/null || echo "Unknown")"
+
 # ============================================
 # WEP-001: Hook Permission Guard
 # Auto-fix non-executable hooks to prevent silent failures
@@ -32,11 +37,13 @@ fi
 # ============================================
 # Start Voice Server (if not running)
 # ============================================
-VOICE_SERVER_PID=$(lsof -ti :6969 2>/dev/null || true)
-if [ -z "$VOICE_SERVER_PID" ]; then
-    cd "$PROJECT_ROOT"
-    python3 -u psi/active/voice_server.py > /tmp/voice_server.log 2>&1 &
-    sleep 1  # Give server time to start
+if [ "$HAS_PYTHON" -eq 1 ]; then
+    VOICE_SERVER_PID=$(lsof -ti :6969 2>/dev/null || true)
+    if [ -z "$VOICE_SERVER_PID" ]; then
+        cd "$PROJECT_ROOT"
+        python3 -u psi/active/voice_server.py > /tmp/voice_server.log 2>&1 &
+        sleep 1  # Give server time to start
+    fi
 fi
 
 # Get verbosity level
@@ -196,7 +203,7 @@ fi
 # ============================================
 REMINDERS_FILE="$PROJECT_ROOT/psi/state/pulse/reminders.json"
 if [ -f "$REMINDERS_FILE" ]; then
-    PENDING_REMINDERS=$(grep -c '"pending"' "$REMINDERS_FILE" 2>/dev/null || echo "0")
+    PENDING_REMINDERS=$(grep -c '"pending"' "$REMINDERS_FILE" 2>/dev/null | head -1 || echo "0")
     if [ "$PENDING_REMINDERS" -gt 0 ]; then
         echo ""
         echo "# Pending Reminders ($PENDING_REMINDERS)"
@@ -224,14 +231,14 @@ RECS_FILE="$PROJECT_ROOT/psi/state/pulse/recommendations.json"
 if [ -f "$SCANNER" ]; then
     bash "$SCANNER" 2>/dev/null || true
 fi
-if [ -f "$RECOMMENDER" ]; then
+if [ "$HAS_PYTHON" -eq 1 ] && [ -f "$RECOMMENDER" ]; then
     REPO_ROOT="$PROJECT_ROOT" python3 "$RECOMMENDER" 2>/dev/null || true
 fi
 # ============================================
 # Phase 8.2: Predictive Context Loader
 # ============================================
-PRED_LOADER="$PROJECT_ROOT/.claude/hooks/util/predictive-context-loader.py"
-if [ -f "$PRED_LOADER" ]; then
+PRED_LOADER="$PROJECT_ROOT/.claude/hooks/predictive-context-loader.py"
+if [ "$HAS_PYTHON" -eq 1 ] && [ -f "$PRED_LOADER" ]; then
     REPO_ROOT="$PROJECT_ROOT" python3 "$PRED_LOADER" 2>/dev/null || true
 fi
 
@@ -239,7 +246,7 @@ fi
 # Phase 8.3: Evolution Proposer (auto-draft WEPs from patterns)
 # ============================================
 EVOLUTION="$PROJECT_ROOT/.claude/hooks/pulse-evolution-proposer.py"
-if [ -f "$EVOLUTION" ]; then
+if [ "$HAS_PYTHON" -eq 1 ] && [ -f "$EVOLUTION" ]; then
     REPO_ROOT="$PROJECT_ROOT" python3 "$EVOLUTION" 2>/dev/null || true
 fi
 
@@ -247,10 +254,10 @@ fi
 # Phase 8.5: Morning Brief (unified intelligence synthesis)
 # Replaces individual recommendations injection
 # ============================================
-MORNING_BRIEF="$PROJECT_ROOT/.claude/hooks/util/morning-brief.py"
-if [ -f "$MORNING_BRIEF" ]; then
+MORNING_BRIEF="$PROJECT_ROOT/.claude/hooks/morning-brief.py"
+if [ "$HAS_PYTHON" -eq 1 ] && [ -f "$MORNING_BRIEF" ]; then
     echo ""
-    REPO_ROOT="$PROJECT_ROOT" python3 "$MORNING_BRIEF" 2>/dev/null
+    REPO_ROOT="$PROJECT_ROOT" python3 "$MORNING_BRIEF" 2>/dev/null || true
     echo ""
 fi
 
@@ -302,7 +309,7 @@ fi
 # Start configured services in background
 # ============================================
 AUTOSTART_FILE="$PROJECT_ROOT/.claude/config/daemon-autostart.json"
-SERVICES_SCRIPT="$PROJECT_ROOT/.claude/hooks/core/matrix-services.sh"
+SERVICES_SCRIPT="$PROJECT_ROOT/.claude/hooks/matrix-services.sh"
 if [ -f "$AUTOSTART_FILE" ] && [ -f "$SERVICES_SCRIPT" ]; then
     # Check each service and start if configured
     for svc in indexer hub; do
@@ -313,7 +320,9 @@ if [ -f "$AUTOSTART_FILE" ] && [ -f "$SERVICES_SCRIPT" ]; then
 fi
 
 # System Acknowledgement (Queue Priority 1)
-bash "$PROJECT_ROOT/scripts/voice/voice.sh" "System online. Link established." "System"
+if [ "$HAS_PYTHON" -eq 1 ]; then
+    bash "$PROJECT_ROOT/scripts/voice/voice.sh" "System online. Link established." "System" || true
+fi
 
 # Randomized Oracle Greetings (Queue Priority 2)
 ORACLE_GREETINGS=(
@@ -332,4 +341,6 @@ RAND_INDEX=$((RANDOM % ${#ORACLE_GREETINGS[@]}))
 SELECTED_GREETING="${ORACLE_GREETINGS[$RAND_INDEX]}"
 
 # Speak Oracle Greeting
-bash "$PROJECT_ROOT/scripts/voice/voice.sh" "$SELECTED_GREETING" "Oracle"
+if [ "$HAS_PYTHON" -eq 1 ]; then
+    bash "$PROJECT_ROOT/scripts/voice/voice.sh" "$SELECTED_GREETING" "Oracle" || true
+fi
