@@ -7,7 +7,7 @@
 import { existsSync, mkdirSync } from 'fs';
 import { join } from 'path';
 import { homedir } from 'os';
-import { getCoordinator } from '../../lib/matrix-memory-agents/src/coordination/index';
+import { getCoordinator } from '../../src/coordination/index';
 
 // Parse args
 const args = process.argv.slice(2);

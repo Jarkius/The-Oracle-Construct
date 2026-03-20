@@ -218,11 +218,11 @@ sh scripts/voice/voice.sh "This touches The Source. Oracle must bless this chang
 6. **ADR-010: Dual-Layer Persistence**:
 - Ingest the archived file into SQLite + ChromaDB:
 ```bash
-cd lib/matrix-memory-agents && bun memory learn "$PROJECT_ROOT/psi/knowledge/archive/YYYY-MM/<topic>.md"
+bun memory learn "$PROJECT_ROOT/psi/knowledge/archive/YYYY-MM/<topic>.md"
 ```
 - If distilled to learnings, also ingest that:
 ```bash
-cd lib/matrix-memory-agents && bun memory learn "$PROJECT_ROOT/psi/memory/learnings/<category>/<topic>.md"
+bun memory learn "$PROJECT_ROOT/psi/memory/learnings/<category>/<topic>.md"
 ```
 
 7. **Announce**:

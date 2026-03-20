@@ -23,7 +23,7 @@ const SACRED_FILES = [
   'psi/source/',
   '.claude/agents/',
   'psi/state/pulse/heartbeat.json',
-  'lib/matrix-memory-agents/src/heartbeat/',
+  'src/daemons/heartbeat/',
   '.claude/hooks/',
 ];
 

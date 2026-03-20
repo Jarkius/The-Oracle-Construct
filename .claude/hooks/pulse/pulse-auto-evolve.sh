@@ -46,7 +46,7 @@ SACRED_FILES=(
     "psi/source/"
     ".claude/agents/"
     "psi/state/pulse/heartbeat.json"
-    "lib/matrix-memory-agents/src/heartbeat/"
+    "src/daemons/heartbeat/"
     ".claude/hooks/"
 )
 
@@ -155,7 +155,7 @@ get_risk_level() {
     risk="${risk:-unknown}"
 
     # Risk escalation rules (ADR-019 Phase 10):
-    # - WEPs targeting lib/matrix-memory-agents/src/ → minimum "medium"
+    # - WEPs targeting src/ → minimum "medium"
     # - WEPs targeting .claude/hooks/ → always "high"
     local in_affected=false
     while IFS= read -r line; do
@@ -170,7 +170,7 @@ get_risk_level() {
                     risk="high"
                     break
                 fi
-                if [[ "$fpath" == *"lib/matrix-memory-agents/src/"* ]] && [ "$risk" = "low" ]; then
+                if [[ "$fpath" == *"src/"* ]] && [ "$risk" = "low" ]; then
                     risk="medium"
                 fi
             elif [[ ! "$line" =~ ^[[:space:]] ]]; then

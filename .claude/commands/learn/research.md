@@ -109,7 +109,7 @@ Create research document at `psi/knowledge/active/<topic>-research.md`:
 sh psi/matrix/voice.sh "Research complete. Multiple perspectives synthesized." "Morpheus"
 
 # Ingest into semantic memory
-cd lib/matrix-memory-agents && bun memory learn "$PROJECT_ROOT/psi/knowledge/active/<topic>-research.md" 2>/dev/null
+bun memory learn "$PROJECT_ROOT/psi/knowledge/active/<topic>-research.md" 2>/dev/null
 
 # Log event
 bash .claude/hooks/pulse-event-writer.sh "learning:new" "Morpheus" "{\"topic\":\"<topic>-research\",\"sources\":N}"

@@ -16,7 +16,7 @@ set -e
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 PROJECT_DIR="$(dirname "$SCRIPT_DIR")"
-MMA_DIR="$PROJECT_DIR/lib/matrix-memory-agents"
+MMA_DIR="$PROJECT_DIR"
 
 # Colors
 RED='\033[0;31m'
@@ -71,7 +71,7 @@ echo ""
 
 # ─── Install Dependencies ───────────────────────────────────────
 
-echo -e "${YELLOW}Installing dependencies in lib/matrix-memory-agents/...${NC}"
+echo -e "${YELLOW}Installing dependencies...${NC}"
 cd "$MMA_DIR"
 bun install 2>&1 | tail -3
 echo -e "${GREEN}✓${NC} Dependencies installed"
@@ -148,7 +148,6 @@ echo -e "${GREEN}╚════════════════════
 echo ""
 echo -e "${YELLOW}Usage from project root:${NC}"
 echo ""
-echo "  cd lib/matrix-memory-agents"
 echo "  bun memory recall \"query\"     # Semantic search"
 echo "  bun memory save \"summary\"     # Save session"
 echo "  bun memory learn ./file.md    # Ingest knowledge"

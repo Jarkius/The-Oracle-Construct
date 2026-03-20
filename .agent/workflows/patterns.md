@@ -58,7 +58,7 @@ Read `psi/state/pulse/patterns.json` and display patterns grouped by type:
 
 If `bun memory analyze --sessions` is available, run it for deeper analysis:
 ```bash
-cd lib/matrix-memory-agents && bun memory analyze --sessions 2>/dev/null
+bun memory analyze --sessions 2>/dev/null
 ```
 
 ### 5. Announce Significant Findings

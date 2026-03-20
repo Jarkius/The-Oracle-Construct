@@ -7,8 +7,8 @@
 import { existsSync, readdirSync, readFileSync } from 'fs';
 import { join } from 'path';
 import { homedir } from 'os';
-import { getCoordinator, getStatusWriter, getMergeQueue } from '../../lib/matrix-memory-agents/src/coordination/index';
-import type { AgentStatusRecord, FileLock, CoordinationMessage } from '../../lib/matrix-memory-agents/src/coordination/index';
+import { getCoordinator, getStatusWriter, getMergeQueue } from '../../src/coordination/index';
+import type { AgentStatusRecord, FileLock, CoordinationMessage } from '../../src/coordination/index';
 
 const baseDir = join(homedir(), '.matrix', 'coordination');
 const RESET = '\x1b[0m';

@@ -122,12 +122,12 @@ const EMBEDDED_SOUL_SEED = `# Soul Seed v1.0 - Embedded
  */
 const SOUL_SEED_PATHS = [
   // Matrix paths (when connected)
-  process.env.MATRIX_PATH ? `${process.env.MATRIX_PATH}/psi/The_Source/SOUL_SEED.md` : null,
-  '/Users/jarkius/workspace/The-matrix/psi/The_Source/SOUL_SEED.md',
-  `${process.env.HOME}/workspace/The-matrix/psi/The_Source/SOUL_SEED.md`,
+  process.env.MATRIX_PATH ? `${process.env.MATRIX_PATH}/psi/source/SOUL_SEED.md` : null,
+  '/Users/jarkius/workspace/The-matrix/psi/source/SOUL_SEED.md',
+  `${process.env.HOME}/workspace/The-matrix/psi/source/SOUL_SEED.md`,
   // Local paths (standalone operation)
-  join(__dirname, '../../psi/The_Source/SOUL_SEED.md'),
-  './psi/The_Source/SOUL_SEED.md',
+  join(__dirname, '../../psi/source/SOUL_SEED.md'),
+  './psi/source/SOUL_SEED.md',
 ].filter(Boolean) as string[];
 
 /**

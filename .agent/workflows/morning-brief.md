@@ -43,7 +43,7 @@ Read these files (silently, don't dump them):
 
 Try semantic recall first:
 ```bash
-cd lib/matrix-memory-agents && bun memory recall --last 2>/dev/null
+bun memory recall --last 2>/dev/null
 ```
 
 Fallback: read latest file in `psi/memory/sessions/`.

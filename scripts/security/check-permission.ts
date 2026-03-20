@@ -21,7 +21,7 @@
  *   CLAUDE_PROJECT_DIR — Project directory (for finding agent definitions)
  */
 
-import { getEnforcementEngine } from '../../lib/matrix-memory-agents/src/security/enforcement-engine';
+import { getEnforcementEngine } from '../../src/security/enforcement-engine';
 import { appendFileSync, mkdirSync } from 'fs';
 import { join } from 'path';
 

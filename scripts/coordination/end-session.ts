@@ -7,7 +7,7 @@
 import { existsSync, mkdirSync, readdirSync, unlinkSync } from 'fs';
 import { join } from 'path';
 import { homedir } from 'os';
-import { getCoordinator, getMergeQueue, getLockManager } from '../../lib/matrix-memory-agents/src/coordination/index';
+import { getCoordinator, getMergeQueue, getLockManager } from '../../src/coordination/index';
 
 const force = process.argv.includes('--force');
 const baseDir = join(homedir(), '.matrix', 'coordination');

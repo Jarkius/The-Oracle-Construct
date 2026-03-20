@@ -25,7 +25,7 @@ export LC_ALL=C
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
-MMA_DIR="$PROJECT_ROOT/lib/matrix-memory-agents"
+SRC_DIR="$PROJECT_ROOT/src"
 LOG_DIR="$PROJECT_ROOT/psi/state/pulse/daemon-logs"
 
 mkdir -p "$LOG_DIR"
@@ -33,23 +33,23 @@ mkdir -p "$LOG_DIR"
 # ─── Service Definitions ──────────────────────────────────────
 
 # Indexer Daemon
-INDEXER_SCRIPT="$MMA_DIR/src/indexer/indexer-daemon.ts"
+INDEXER_SCRIPT="$SRC_DIR/daemons/indexer/indexer-daemon.ts"
 INDEXER_PID_DIR="${HOME}/.indexer-daemon"
 INDEXER_DEFAULT_PORT=37890
 
 # Matrix Hub
-HUB_SCRIPT="$MMA_DIR/src/matrix-hub.ts"
+HUB_SCRIPT="$SRC_DIR/daemons/hub/matrix-hub.ts"
 HUB_PID_FILE="${HOME}/.matrix-hub/hub.pid"
 HUB_DEFAULT_PORT=8081
 
 # Heartbeat Daemon (Phase 10 / ADR-012)
-HEARTBEAT_SCRIPT="$MMA_DIR/src/heartbeat/heartbeat-daemon.ts"
+HEARTBEAT_SCRIPT="$SRC_DIR/daemons/heartbeat/heartbeat-daemon.ts"
 HEARTBEAT_PID_DIR="${HOME}/.matrix-heartbeat"
 HEARTBEAT_PID_FILE="${HEARTBEAT_PID_DIR}/heartbeat.pid"
 HEARTBEAT_DEFAULT_PORT=37892
 
 # Gateway (Phase C / ADR-018)
-GATEWAY_SCRIPT="$MMA_DIR/src/gateway/matrix-gateway.ts"
+GATEWAY_SCRIPT="$SRC_DIR/daemons/gateway/matrix-gateway.ts"
 GATEWAY_PID_DIR="${HOME}/.matrix-gateway"
 GATEWAY_PID_FILE="${GATEWAY_PID_DIR}/gateway.pid"
 GATEWAY_DEFAULT_PORT=8082
@@ -68,9 +68,9 @@ check_bun() {
     fi
 }
 
-check_mma() {
-    if [ ! -d "$MMA_DIR" ]; then
-        echo "[matrix-services] ERROR: matrix-memory-agents not found at $MMA_DIR"
+check_src() {
+    if [ ! -d "$SRC_DIR" ]; then
+        echo "[matrix-services] ERROR: src/ not found at $SRC_DIR"
         return 1
     fi
 }
@@ -148,12 +148,12 @@ indexer_start() {
     fi
 
     check_bun || return 1
-    check_mma || return 1
+    check_src || return 1
 
     echo "[indexer] Starting..."
     mkdir -p "$INDEXER_PID_DIR"
 
-    cd "$MMA_DIR"
+    cd "$PROJECT_ROOT"
     nohup bun run src/indexer/indexer-daemon.ts start --initial \
         > "$LOG_DIR/indexer.log" 2>&1 &
 
@@ -240,11 +240,11 @@ hub_start() {
     fi
 
     check_bun || return 1
-    check_mma || return 1
+    check_src || return 1
 
     echo "[hub] Starting..."
 
-    cd "$MMA_DIR"
+    cd "$PROJECT_ROOT"
     nohup bun run src/matrix-hub.ts \
         > "$LOG_DIR/hub.log" 2>&1 &
 
@@ -323,12 +323,12 @@ heartbeat_start() {
     fi
 
     check_bun || return 1
-    check_mma || return 1
+    check_src || return 1
 
     echo "[heartbeat] Starting..."
     mkdir -p "$HEARTBEAT_PID_DIR"
 
-    cd "$MMA_DIR"
+    cd "$PROJECT_ROOT"
     PROJECT_ROOT="$PROJECT_ROOT" nohup bun run src/heartbeat/heartbeat-daemon.ts start \
         > "$LOG_DIR/heartbeat.log" 2>&1 &
 
@@ -404,7 +404,7 @@ gateway_start() {
     fi
 
     check_bun || return 1
-    check_mma || return 1
+    check_src || return 1
 
     # Check for required env vars
     if [ -z "${TELEGRAM_BOT_TOKEN:-}" ]; then
@@ -423,7 +423,7 @@ gateway_start() {
     echo "[gateway] Starting..."
     mkdir -p "$GATEWAY_PID_DIR"
 
-    cd "$MMA_DIR"
+    cd "$PROJECT_ROOT"
     PROJECT_ROOT="$PROJECT_ROOT" nohup bun run src/gateway/matrix-gateway.ts start \
         > "$LOG_DIR/gateway.log" 2>&1 &
 
