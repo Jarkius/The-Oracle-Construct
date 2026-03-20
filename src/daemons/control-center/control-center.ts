@@ -1,157 +1,119 @@
 #!/usr/bin/env bun
 /**
- * Matrix Control Center — System Dashboard
+ * Matrix Control Center v2 — System Dashboard
  *
- * Hono HTTP dashboard for monitoring Matrix daemons, PULSE events,
- * Nerve escalation state, and known fixes.
+ * Hono HTTP dashboard with modular routes, HTMX partials, and SSE streaming.
+ * Monitors Matrix daemons, PULSE events, memory systems, and Nerve escalation.
  *
- * Migrated from Oracle Nerve (trackattendance) and adapted for The Matrix.
- *
- * http://localhost:8100 (configurable via CONTROL_PORT)
+ * http://localhost:8180 (configurable via CONTROL_PORT)
  */
 
 import { Hono } from "hono";
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import type { Supervisor } from "../../nerve/supervisor";
+import { PROJECT_ROOT } from "../../core/paths";
 
-const PORT = Number(process.env.CONTROL_PORT) || 8100;
-const CWD = process.env.MATRIX_ROOT || join(import.meta.dir, "../../../..");
+// Route modules
+import daemonRoutes, { DAEMONS, checkDaemonStatus } from "./routes/daemons";
+import memoryRoutes from "./routes/memory";
+import logRoutes from "./routes/logs";
+import streamRoutes from "./routes/stream";
+import configRoutes from "./routes/config";
 
-// Paths
+// Views
+import { dashboardPage } from "./views/dashboard";
+import { memoryPage } from "./views/memory";
+import { servicesPage } from "./views/services";
+import { logsPage } from "./views/logs";
+
+// Partials
+import { renderDaemonCards, renderSingleStat, renderMemoryOverview } from "./partials/daemon-card";
+import { renderSqliteStats, renderChromaStats, renderEmbeddingInfo, renderPlatformInfo } from "./partials/memory-stats";
+import { renderLogLines } from "./partials/log-viewer";
+
+// DB access for partials
+import { db, DB_PATH } from "../../core/db/core";
+import { getDashboardData } from "../../core/db/analytics";
+import { getEmbeddingConfig } from "../../memory/embeddings";
+
+const PORT = Number(process.env.CONTROL_PORT) || 8180;
+const CWD = PROJECT_ROOT;
 const EVENTS_PATH = join(CWD, "psi/state/pulse/events.jsonl");
-const HEARTBEAT_PATH = join(CWD, "psi/state/pulse/heartbeat.json");
-const KNOWN_FIXES_PATH = join(CWD, "psi/state/pulse/known-fixes.json");
-const DAEMON_LOGS_DIR = join(CWD, "psi/state/pulse/daemon-logs");
 const TASKS_PATH = join(CWD, "psi/memory/tasks/active.json");
-const SERVICES_SCRIPT = join(CWD, ".claude/hooks/matrix-services.sh");
-
-// Matrix daemons (port-based health check)
-const DAEMONS = [
-  { name: "heartbeat", port: 37892 },
-  { name: "gateway", port: 8082 },
-  { name: "hub", port: 8081 },
-  { name: "indexer", port: 37890 },
-];
+const ERRORS_PATH = join(CWD, "psi/state/pulse/memory-errors.log");
+const DAEMON_LOGS_DIR = join(CWD, "psi/state/pulse/daemon-logs");
+const CHROMADB_PORT = Number(process.env.CHROMADB_PORT) || 8100;
 
 const app = new Hono();
 
-// Optional Nerve supervisor integration (set via wireNerve)
+// Optional Nerve supervisor integration
 let nerveSupervisor: Supervisor | null = null;
 
-/**
- * Wire a Nerve supervisor for live escalation data.
- * Call this after creating the supervisor to enable /api/nerve/live.
- */
 export function wireNerve(supervisor: Supervisor): void {
   nerveSupervisor = supervisor;
 }
 
-// Security: validate daemon names to prevent injection
-const VALID_DAEMON_NAMES = new Set(DAEMONS.map(d => d.name));
-function isValidDaemon(name: string): boolean {
-  return VALID_DAEMON_NAMES.has(name);
-}
-
 // ─── Helper ─────────────────────────────────────────────────────────────────
-
-async function readFileOr<T>(path: string, fallback: T): Promise<T | string> {
-  try { return await readFile(path, "utf-8"); } catch { return fallback; }
-}
 
 async function readJsonOr<T>(path: string, fallback: T): Promise<T> {
   try { return JSON.parse(await readFile(path, "utf-8")); } catch { return fallback; }
 }
 
-// ─── API Routes ─────────────────────────────────────────────────────────────
+function formatBytes(bytes: number): string {
+  if (bytes < 1024) return `${bytes} B`;
+  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
+  return `${(bytes / (1024 * 1024)).toFixed(2)} MB`;
+}
 
-app.get("/api/status", async (c) => {
-  // Check each daemon via HTTP port
-  const statuses: Record<string, any> = {};
-  for (const d of DAEMONS) {
-    try {
-      const res = await fetch(`http://localhost:${d.port}/status`, {
-        signal: AbortSignal.timeout(3000),
-      });
-      statuses[d.name] = { running: res.ok, port: d.port };
-    } catch {
-      statuses[d.name] = { running: false, port: d.port };
-    }
+// ─── Static files ───────────────────────────────────────────────────────────
+
+app.get("/static/:file", async (c) => {
+  const file = c.req.param("file");
+  if (!/^[a-z0-9._-]+\.(js|css)$/i.test(file)) {
+    return c.text("Not found", 404);
   }
+  const filePath = join(import.meta.dir, "static", file);
+  try {
+    const content = await readFile(filePath, "utf-8");
+    const ct = file.endsWith(".js") ? "application/javascript" : "text/css";
+    return c.text(content, 200, { "Content-Type": ct, "Cache-Control": "public, max-age=86400" });
+  } catch {
+    return c.text("Not found", 404);
+  }
+});
 
-  // Heartbeat data
-  const heartbeat = await readJsonOr(HEARTBEAT_PATH, null);
+// ─── API Routes (modular) ───────────────────────────────────────────────────
 
-  // Events count
+app.route("/api/daemons", daemonRoutes);
+app.route("/api/memory", memoryRoutes);
+app.route("/api/logs", logRoutes);
+app.route("/api/stream", streamRoutes);
+app.route("/api/config", configRoutes);
+
+// Legacy API compatibility (old dashboard clients)
+app.get("/api/status", async (c) => {
+  const results = await Promise.all(DAEMONS.map(checkDaemonStatus));
+  const statuses: Record<string, any> = {};
+  for (const r of results) {
+    statuses[r.name] = { running: r.running, port: r.port };
+  }
+  const tasks = await readJsonOr<any>(TASKS_PATH, { tasks: [] });
   let eventCount = 0;
   try {
     const text = await readFile(EVENTS_PATH, "utf-8");
     eventCount = text.trim().split("\n").filter(Boolean).length;
   } catch {}
-
-  // Tasks
-  const tasks = await readJsonOr<any>(TASKS_PATH, { tasks: [] });
-  const pendingTasks = tasks.tasks?.filter((t: any) => t.status === "pending").length ?? 0;
-
-  // tmux sessions
-  let tmuxSessions: string[] = [];
-  try {
-    const proc = Bun.spawn(["tmux", "list-sessions", "-F", "#{session_name}: #{session_windows} windows"], { stdout: "pipe" });
-    const out = await new Response(proc.stdout).text();
-    await proc.exited;
-    tmuxSessions = out.trim().split("\n").filter(Boolean);
-  } catch {}
-
   return c.json({
     timestamp: new Date().toISOString(),
     matrix: "The Oracle Construct",
     daemons: statuses,
-    heartbeat,
     events: eventCount,
-    tasks: { pending: pendingTasks, total: tasks.tasks?.length ?? 0 },
-    tmux: tmuxSessions,
+    tasks: { pending: tasks.tasks?.filter((t: any) => t.status === "pending").length ?? 0, total: tasks.tasks?.length ?? 0 },
   });
 });
 
-app.get("/api/logs/:daemon", async (c) => {
-  const daemon = c.req.param("daemon");
-  const logFile = join(DAEMON_LOGS_DIR, `${daemon}.log`);
-  try {
-    const text = await readFile(logFile, "utf-8");
-    const lines = text.trim().split("\n").slice(-50);
-    return c.json({ daemon, lines });
-  } catch {
-    return c.json({ daemon, lines: ["(no log file)"] });
-  }
-});
-
-app.get("/api/events", async (c) => {
-  try {
-    const text = await readFile(EVENTS_PATH, "utf-8");
-    const lines = text.trim().split("\n").filter(Boolean).slice(-30);
-    const events = lines.map(l => { try { return JSON.parse(l); } catch { return null; } }).filter(Boolean);
-    return c.json(events);
-  } catch {
-    return c.json([]);
-  }
-});
-
-app.get("/api/nerve", async (c) => {
-  // Nerve status — read from supervisor if running
-  // For now, return static data from events
-  try {
-    const text = await readFile(EVENTS_PATH, "utf-8");
-    const lines = text.trim().split("\n").filter(Boolean);
-    const nerveEvents = lines
-      .map(l => { try { return JSON.parse(l); } catch { return null; } })
-      .filter((e: any) => e?.type?.startsWith("nerve:"))
-      .slice(-20);
-    return c.json({ events: nerveEvents });
-  } catch {
-    return c.json({ events: [] });
-  }
-});
-
+// Nerve live endpoint
 app.get("/api/nerve/live", async (c) => {
   if (!nerveSupervisor) {
     return c.json({ status: "not-wired", message: "Nerve supervisor not connected" });
@@ -163,199 +125,232 @@ app.get("/api/nerve/live", async (c) => {
   });
 });
 
-app.get("/api/known-fixes", async (c) => {
-  const registry = await readJsonOr(KNOWN_FIXES_PATH, { fixes: [] });
-  return c.json(registry);
+// ─── HTMX Partials ─────────────────────────────────────────────────────────
+
+// Daemon cards — shared by dashboard and services page
+app.get("/partials/daemon-cards", async (c) => {
+  const daemonInfo = await Promise.all(DAEMONS.map(checkDaemonStatus));
+  return c.html(renderDaemonCards(daemonInfo));
 });
 
-app.post("/api/restart/:daemon", async (c) => {
-  const daemon = c.req.param("daemon");
-  if (!isValidDaemon(daemon)) {
-    return c.json({ error: "Invalid daemon name" }, 400);
-  }
+// Alias for services page
+app.get("/partials/service-cards", async (c) => {
+  const daemonInfo = await Promise.all(DAEMONS.map(checkDaemonStatus));
+  return c.html(renderDaemonCards(daemonInfo));
+});
+
+// Quick stats per metric
+app.get("/partials/quick-stats", async (c) => {
+  const metric = c.req.query("metric") || "events";
   try {
-    const proc = Bun.spawn(["bash", SERVICES_SCRIPT, "restart", daemon], { stdout: "pipe", stderr: "pipe" });
-    await proc.exited;
-    return c.json({ restarted: daemon });
-  } catch (e) {
-    return c.json({ error: String(e) }, 500);
-  }
-});
-
-app.post("/api/kill-orphans", async (c) => {
-  const killed: string[] = [];
-  try {
-    const proc = Bun.spawn(["bash", "-c", "pgrep -f 'claude.*-p' | head -20"], { stdout: "pipe" });
-    const pids = (await new Response(proc.stdout).text()).trim().split("\n").filter(Boolean);
-    for (const pid of pids) {
-      try { process.kill(Number(pid), 9); killed.push(`claude-p:${pid}`); } catch {}
-    }
-  } catch {}
-  return c.json({ killed });
-});
-
-// ─── Dashboard HTML ─────────────────────────────────────────────────────────
-
-app.get("/", (c) => {
-  return c.html(`<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Matrix Control Center</title>
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'SF Mono', 'Menlo', monospace; background: #0a0a0a; color: #e0e0e0; padding: 20px; }
-    h1 { font-size: 18px; color: #00ff88; margin-bottom: 20px; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
-    .card { background: #1a1a1a; border: 1px solid #333; border-radius: 8px; padding: 16px; }
-    .card h2 { font-size: 13px; color: #888; text-transform: uppercase; margin-bottom: 12px; }
-    .service { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px solid #222; }
-    .service:last-child { border-bottom: none; }
-    .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 8px; }
-    .dot.on { background: #00ff88; }
-    .dot.off { background: #ff4444; }
-    .name { font-size: 13px; }
-    .stat { font-size: 24px; font-weight: bold; color: #00ff88; }
-    .stat.warn { color: #ffaa00; }
-    .stat.bad { color: #ff4444; }
-    .label { font-size: 11px; color: #666; margin-top: 4px; }
-    .health { display: flex; gap: 8px; flex-wrap: wrap; }
-    .check { font-size: 12px; padding: 4px 8px; border-radius: 4px; background: #1e3a1e; color: #00ff88; }
-    .check.fail { background: #3a1e1e; color: #ff4444; }
-    .tmux { font-size: 12px; color: #aaa; padding: 4px 0; }
-    .events { font-size: 11px; color: #aaa; max-height: 200px; overflow-y: auto; }
-    .events div { padding: 2px 0; border-bottom: 1px solid #1a1a1a; }
-    .nerve-event { font-size: 11px; padding: 4px; margin: 2px 0; border-radius: 4px; }
-    .nerve-event.l1 { background: #1e2e1e; }
-    .nerve-event.l2 { background: #2e2e1e; }
-    .nerve-event.l3 { background: #3e2e1e; color: #ffaa00; }
-    .nerve-event.l4 { background: #3e1e1e; color: #ff6644; }
-    .nerve-event.l5 { background: #4e1e1e; color: #ff4444; }
-    .btn { background: #333; color: #ddd; border: 1px solid #555; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 12px; font-family: inherit; }
-    .btn:hover { background: #444; }
-    .time { font-size: 11px; color: #555; }
-    #updated { font-size: 11px; color: #444; margin-top: 16px; }
-  </style>
-</head>
-<body>
-  <h1>Matrix Control Center</h1>
-  <div class="grid">
-    <div class="card" style="grid-column: span 2;">
-      <h2>Daemons <button class="btn" onclick="killOrphans()" style="float:right;background:#3a1a1a;border-color:#633;font-size:11px;">Kill Orphans</button></h2>
-      <div id="services">Loading...</div>
-    </div>
-    <div class="card">
-      <h2>Health</h2>
-      <div id="health" class="health">Loading...</div>
-    </div>
-    <div class="card">
-      <h2>Stats</h2>
-      <div style="display:flex;gap:24px;">
-        <div><div id="events" class="stat">-</div><div class="label">Events</div></div>
-        <div><div id="tasks" class="stat">-</div><div class="label">Tasks</div></div>
-      </div>
-    </div>
-    <div class="card">
-      <h2>Nerve Escalation</h2>
-      <div id="nerve">No nerve events</div>
-    </div>
-    <div class="card">
-      <h2>Known Fixes</h2>
-      <div id="fixes">Loading...</div>
-    </div>
-    <div class="card">
-      <h2>tmux</h2>
-      <div id="tmux">Loading...</div>
-    </div>
-    <div class="card" style="grid-column: span 2;">
-      <h2>Recent Events <button class="btn" onclick="refresh()" style="float:right;">Refresh</button></h2>
-      <div id="eventlog" class="events">Loading...</div>
-    </div>
-  </div>
-  <div id="updated"></div>
-
-  <script>
-    function esc(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
-    async function refresh() {
+    if (metric === "events") {
+      let count = 0;
       try {
-        const [status, events, nerve, fixes] = await Promise.all([
-          fetch('/api/status').then(r => r.json()),
-          fetch('/api/events').then(r => r.json()),
-          fetch('/api/nerve').then(r => r.json()),
-          fetch('/api/known-fixes').then(r => r.json()),
-        ]);
-
-        // Services
-        document.getElementById('services').innerHTML = Object.entries(status.daemons).map(([name, d]) =>
-          '<div class="service"><span><span class="dot ' + (d.running ? 'on' : 'off') + '"></span><span class="name">' + esc(name) + '</span> <span class="time">:' + d.port + '</span></span><span><button class="btn" onclick="restartDaemon(\\'' + esc(name) + '\\')" style="font-size:10px;padding:2px 8px;">Restart</button></span></div>'
-        ).join('');
-
-        // Health
-        if (status.heartbeat?.checks) {
-          document.getElementById('health').innerHTML = status.heartbeat.checks.map(c =>
-            '<span class="check ' + (c.ok ? '' : 'fail') + '">' + (c.ok ? 'OK' : 'FAIL') + ' ' + c.name + '</span>'
-          ).join('');
-        }
-
-        // Stats
-        document.getElementById('events').textContent = status.events;
-        document.getElementById('tasks').textContent = status.tasks.pending + '/' + status.tasks.total;
-
-        // Nerve
-        if (nerve.events?.length > 0) {
-          document.getElementById('nerve').innerHTML = nerve.events.slice(-5).reverse().map(e => {
-            const level = e.data?.level || 0;
-            return '<div class="nerve-event l' + level + '">' + esc(e.type) + ' — ' + esc(e.data?.daemon || '') + ' L' + level + '</div>';
-          }).join('');
-        }
-
-        // Known Fixes
-        if (fixes.fixes?.length > 0) {
-          document.getElementById('fixes').innerHTML = fixes.fixes.map(f =>
-            '<div style="font-size:11px;padding:2px 0;"><span style="color:' + (f.auto ? '#00ff88' : '#ffaa00') + ';">' + (f.auto ? 'AUTO' : 'MANUAL') + '</span> ' + f.description + ' <span class="time">(' + f.successCount + '/' + (f.successCount + f.failCount) + ')</span></div>'
-          ).join('');
-        }
-
-        // tmux
-        document.getElementById('tmux').innerHTML = status.tmux.map(s => '<div class="tmux">' + s + '</div>').join('') || 'No sessions';
-
-        // Events
-        document.getElementById('eventlog').innerHTML = events.reverse().map(e => {
-          const t = e.ts?.slice(11,19) || '';
-          return '<div><span class="time">' + t + '</span> ' + esc(e.type) + ' <span class="time">' + esc(e.agent || '') + '</span></div>';
-        }).join('');
-
-        document.getElementById('updated').textContent = 'Updated: ' + new Date().toLocaleTimeString();
-      } catch(e) {
-        document.getElementById('services').textContent = 'Error: ' + e.message;
+        const text = await readFile(EVENTS_PATH, "utf-8");
+        count = text.trim().split("\n").filter(Boolean).length;
+      } catch {}
+      return c.html(renderSingleStat(count));
+    }
+    if (metric === "pendingTasks") {
+      const tasks = await readJsonOr<any>(TASKS_PATH, { tasks: [] });
+      const pending = tasks.tasks?.filter((t: any) => t.status === "pending").length ?? 0;
+      return c.html(renderSingleStat(pending, pending > 5));
+    }
+    if (metric === "sessions" || metric === "learnings") {
+      try {
+        const data = getDashboardData();
+        if (metric === "sessions") return c.html(renderSingleStat(data.sessions?.total ?? 0));
+        return c.html(renderSingleStat(data.learnings?.total ?? 0));
+      } catch {
+        return c.html(renderSingleStat(0));
       }
     }
-
-    async function killOrphans() {
-      const r = await fetch('/api/kill-orphans', {method:'POST'});
-      const d = await r.json();
-      alert('Killed: ' + (d.killed.length > 0 ? d.killed.join(', ') : 'none found'));
-      refresh();
-    }
-    async function restartDaemon(name) {
-      if (!confirm('Restart ' + name + '?')) return;
-      await fetch('/api/restart/' + name, {method:'POST'});
-      setTimeout(refresh, 3000);
-    }
-
-    refresh();
-    setInterval(refresh, 5000);
-  </script>
-</body>
-</html>`);
+    return c.html(renderSingleStat("-"));
+  } catch {
+    return c.html(renderSingleStat("?"));
+  }
 });
+
+// Memory overview for dashboard
+app.get("/partials/memory-overview", async (c) => {
+  let sqliteSize = "unknown";
+  try {
+    sqliteSize = formatBytes(Bun.file(DB_PATH).size);
+  } catch {}
+
+  let chromaStatus = "disconnected";
+  if (process.env.SKIP_VECTORDB) {
+    chromaStatus = "skipped";
+  } else {
+    try {
+      const res = await fetch(`http://localhost:${CHROMADB_PORT}/api/v2/heartbeat`, { signal: AbortSignal.timeout(3000) });
+      if (res.ok) chromaStatus = "connected";
+    } catch {}
+  }
+
+  let embeddingModel = "unknown";
+  try {
+    const cfg = getEmbeddingConfig();
+    embeddingModel = cfg.model || cfg.modelId || "bge-m3";
+  } catch {}
+
+  return c.html(renderMemoryOverview({ sqliteSize, chromaStatus, embeddingModel }));
+});
+
+// SQLite stats for memory page
+app.get("/partials/sqlite-stats", async (c) => {
+  try {
+    const tables = db.query<{ name: string }, []>("SELECT name FROM sqlite_master WHERE type='table'").all();
+    const tableData = tables.map(({ name }) => {
+      const row = db.query<{ count: number }, []>(`SELECT COUNT(*) as count FROM "${name}"`).get();
+      return { name, count: row?.count ?? 0 };
+    }).sort((a, b) => b.count - a.count);
+    let fileSize = 0;
+    try { fileSize = Bun.file(DB_PATH).size; } catch {}
+    return c.html(renderSqliteStats(tableData, fileSize));
+  } catch (e) {
+    return c.html(`<div style="color: #ff4444;">Error: ${String(e)}</div>`);
+  }
+});
+
+// ChromaDB stats for memory page
+app.get("/partials/chromadb-stats", async (c) => {
+  if (process.env.SKIP_VECTORDB) {
+    return c.html(renderChromaStats("skipped"));
+  }
+  try {
+    const res = await fetch(`http://localhost:${CHROMADB_PORT}/api/v2/heartbeat`, { signal: AbortSignal.timeout(3000) });
+    if (!res.ok) return c.html(renderChromaStats("disconnected"));
+    return c.html(renderChromaStats("connected"));
+  } catch {
+    return c.html(renderChromaStats("disconnected"));
+  }
+});
+
+// Embedding info for memory page
+app.get("/partials/embedding-info", async (c) => {
+  try {
+    const cfg = getEmbeddingConfig();
+    return c.html(renderEmbeddingInfo({
+      model: cfg.model || cfg.modelId || "bge-m3",
+      dimensions: cfg.dimensions ?? 1024,
+      batchSize: cfg.batchSize ?? 32,
+    }));
+  } catch (e) {
+    return c.html(`<div style="color: #888;">Embedding config unavailable: ${String(e)}</div>`);
+  }
+});
+
+// Platform info for memory page
+app.get("/partials/platform-info", async (c) => {
+  let python3 = "not found";
+  try {
+    const proc = Bun.spawn(["python3", "--version"], { stdout: "pipe", stderr: "pipe" });
+    const out = await new Response(proc.stdout).text();
+    const code = await proc.exited;
+    if (code === 0) python3 = out.trim();
+  } catch {}
+
+  let sharp = "not found";
+  try {
+    await import("sharp");
+    sharp = "installed";
+  } catch {}
+
+  return c.html(renderPlatformInfo({
+    os: process.platform,
+    arch: process.arch,
+    bun: Bun.version,
+    python3,
+    sharp,
+    chromaSkip: !!process.env.SKIP_VECTORDB,
+  }));
+});
+
+// Nerve summary for services page
+app.get("/partials/nerve-summary", async (c) => {
+  if (!nerveSupervisor) {
+    return c.html('<div style="color: #555;">Nerve supervisor not wired. Start via matrix-services.</div>');
+  }
+  try {
+    const status = nerveSupervisor.getStatus();
+    const l4 = nerveSupervisor.getL4Usage();
+    const fixes = nerveSupervisor.getFixStats();
+    const html = `
+      <div style="display: flex; flex-direction: column; gap: 8px;">
+        <div style="display: flex; justify-content: space-between;">
+          <span style="color: #888;">L4 Usage Today</span>
+          <span>${l4?.used ?? 0} / ${l4?.limit ?? 0}</span>
+        </div>
+        <div style="display: flex; justify-content: space-between;">
+          <span style="color: #888;">Known Fixes Applied</span>
+          <span>${fixes?.totalApplied ?? 0}</span>
+        </div>
+        <div style="display: flex; justify-content: space-between;">
+          <span style="color: #888;">Active Daemons Monitored</span>
+          <span>${Object.keys(status || {}).length}</span>
+        </div>
+      </div>`;
+    return c.html(html);
+  } catch (e) {
+    return c.html(`<div style="color: #ff4444;">Nerve error: ${String(e)}</div>`);
+  }
+});
+
+// Log viewer partial for logs page
+app.get("/partials/logs", async (c) => {
+  const source = c.req.query("source") || "events";
+  const lines = Math.min(Number(c.req.query("lines")) || 100, 1000);
+
+  try {
+    if (source === "events") {
+      const text = await readFile(EVENTS_PATH, "utf-8").catch(() => "");
+      const rawLines = text.trim().split("\n").filter(Boolean).slice(-lines);
+      const formatted = rawLines.map((line) => {
+        try {
+          const e = JSON.parse(line);
+          const ts = e.ts?.slice(0, 19) || "";
+          return `${ts} [${e.type}] ${e.agent || ""} ${JSON.stringify(e.data || {})}`;
+        } catch {
+          return line;
+        }
+      });
+      return c.html(renderLogLines(formatted.reverse()));
+    }
+
+    if (source === "memory-errors") {
+      const text = await readFile(ERRORS_PATH, "utf-8").catch(() => "");
+      const logLines = text.trim().split("\n").filter(Boolean).slice(-lines);
+      return c.html(renderLogLines(logLines.reverse()));
+    }
+
+    // Daemon-specific logs
+    if (/^[a-z0-9_-]+$/i.test(source)) {
+      const logFile = join(DAEMON_LOGS_DIR, `${source}.log`);
+      const text = await readFile(logFile, "utf-8").catch(() => "");
+      const logLines = text.trim().split("\n").filter(Boolean).slice(-lines);
+      return c.html(renderLogLines(logLines.reverse()));
+    }
+
+    return c.html('<div style="color: #ff4444;">Invalid source</div>');
+  } catch (e) {
+    return c.html(`<div style="color: #ff4444;">Error: ${String(e)}</div>`);
+  }
+});
+
+// ─── Page Routes (HTML views) ───────────────────────────────────────────────
+
+app.get("/", (c) => c.html(dashboardPage()));
+app.get("/memory", (c) => c.html(memoryPage()));
+app.get("/services", (c) => c.html(servicesPage()));
+app.get("/logs", (c) => c.html(logsPage()));
 
 // ─── Start ──────────────────────────────────────────────────────────────────
 
 export default {
   port: PORT,
+  hostname: "127.0.0.1", // Localhost only — no network exposure
   fetch: app.fetch,
 };
 
-console.log(`Matrix Control Center running at http://localhost:${PORT}`);
+console.log(`Matrix Control Center v2 running at http://localhost:${PORT}`);

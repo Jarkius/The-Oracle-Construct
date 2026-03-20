@@ -102,7 +102,7 @@ export function logsPage(): string {
       function startTail() {
         var source = document.getElementById('log-source').value;
         var btn = document.getElementById('tail-btn');
-        tailEventSource = new EventSource('/api/stream/logs?source=' + encodeURIComponent(source));
+        tailEventSource = new EventSource('/api/stream/logs/' + encodeURIComponent(source));
         tailEventSource.addEventListener('log-line', function(e) {
           var output = document.getElementById('log-output');
           var div = document.createElement('div');
