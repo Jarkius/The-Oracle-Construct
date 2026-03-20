@@ -34,3 +34,4 @@ psi/active/.gemini-cookies.json
 # Debug screenshots
 psi/learn/inbox/debug_response_*.png
 .claude/.session-end-dedup/
+.claude/.claude/
