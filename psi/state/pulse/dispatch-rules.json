@@ -130,6 +130,20 @@
       },
       "cooldown_minutes": 1440,
       "description": "Focus churn → Oracle stabilizes (daily)"
+    },
+    {
+      "id": "voice-failure-alert",
+      "trigger": { "type": "event", "event_type": "voice:failed" },
+      "action": { "agent": "Tank", "task": "Voice system failure detected. Check provider-manager, voice_server.py status, and TTS provider availability.", "priority": 2, "auto_dispatch": false },
+      "cooldown_minutes": 120,
+      "description": "Voice failure → Tank investigates"
+    },
+    {
+      "id": "chromadb-failure-alert",
+      "trigger": { "type": "event", "event_type": "chromadb:fail" },
+      "action": { "agent": "Smith", "task": "ChromaDB connection failure. Check Docker status, network connectivity, and disk space.", "priority": 1, "auto_dispatch": true },
+      "cooldown_minutes": 60,
+      "description": "ChromaDB down → Smith investigates"
     }
   ],
   "urgency_map": {

@@ -49,7 +49,7 @@ check_service() {
     local pid_file="$3"
 
     # Check PID
-    if [ -f "$pid_file" ]; then
+    if [ -n "$pid_file" ] && [ -f "$pid_file" ]; then
         local pid
         pid=$(cat "$pid_file" 2>/dev/null | tr -d '[:space:]')
         if [ -n "$pid" ] && kill -0 "$pid" 2>/dev/null; then
@@ -66,6 +66,14 @@ check_service() {
             echo "running"
             return 0
         fi
+    elif [ -z "$pid_file" ] && [ "$port" -gt 0 ] 2>/dev/null; then
+        # Port-only check (no PID file) — service managed externally
+        if curl -sf "http://127.0.0.1:$port/status" --max-time 3 >/dev/null 2>&1; then
+            echo "running"
+            return 0
+        fi
+        echo "stopped"
+        return 1
     fi
     echo "stopped"
     return 1
@@ -121,6 +129,7 @@ for s, info in data.get('services', {}).items():
     services[gateway]="8082:$HOME/.matrix-gateway/gateway.pid"
     services[indexer]="37890:$HOME/.indexer-daemon/indexer.pid"
     services[hub]="8081:$HOME/.matrix-hub/hub.pid"
+    services[voice]="6969:"
 
     local status_json='{"checked_at":"'"$now"'","services":{'
     local first=true

@@ -15,6 +15,7 @@
 
 import { ChromaClient, type Collection, type EmbeddingFunction, type Where } from 'chromadb';
 import { createEmbeddingFunction, getEmbeddingConfig } from './embeddings';
+import { emitPulseEvent } from '../core/utils/pulse-events';
 import PQueue from 'p-queue';
 import { basename } from 'path';
 
@@ -557,6 +558,10 @@ export async function initVectorDB(): Promise<void> {
     console.error(`[VectorDB] Initialized with 11 collections (prefix: ${prefix})`);
   } catch (error) {
     console.error("[VectorDB] Failed to initialize:", error);
+    emitPulseEvent('chromadb:fail', 'System', {
+      error: error instanceof Error ? error.message : String(error),
+      phase: 'init'
+    }).catch(() => {});
     throw error;
   } finally {
     console.warn = originalWarn;
@@ -1553,6 +1558,10 @@ export async function ensureChromaRunning(): Promise<{ started: boolean; contain
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
     console.error(`[VectorDB] Failed to start ChromaDB: ${message}`);
+    emitPulseEvent('chromadb:fail', 'System', {
+      error: message,
+      phase: 'docker-start'
+    }).catch(() => {});
     throw error;
   }
 }
