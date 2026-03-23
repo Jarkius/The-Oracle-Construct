@@ -11,8 +11,28 @@
 # ============================================================
 # PORTABLE PATHS - Use environment variables or sensible defaults
 # ============================================================
-PIPER_BIN="${PIPER_BIN:-$HOME/.local/bin/piper}"
 VOICE_DIR="${VOICE_DIR:-$HOME/.claude/piper-voices}"
+
+# Auto-detect Piper binary: env override > venv > system
+if [ -n "${PIPER_BIN:-}" ]; then
+    : # User override
+elif [ -f "$(dirname "${BASH_SOURCE[0]}")/../../.venv/Scripts/piper.exe" ]; then
+    PIPER_BIN="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)/.venv/Scripts/piper.exe"
+elif [ -f "$HOME/.local/bin/piper" ]; then
+    PIPER_BIN="$HOME/.local/bin/piper"
+elif command -v piper &>/dev/null; then
+    PIPER_BIN="piper"
+else
+    PIPER_BIN=""
+fi
+
+# Platform detection
+MATRIX_OS="unknown"
+case "$(uname -s)" in
+    Darwin) MATRIX_OS="macos" ;;
+    MINGW*|MSYS*|CYGWIN*) MATRIX_OS="windows" ;;
+    Linux) MATRIX_OS="linux" ;;
+esac
 
 # ============================================================
 #
@@ -126,9 +146,10 @@ fi
 # It generates audio using Piper and plays it
 
 # Create unique temp files using mktemp (safer than $$)
-TEMP_WAV=$(mktemp /tmp/matrix_voice_XXXXXX.wav)
-TEMP_WAV_MIXED=$(mktemp /tmp/matrix_voice_mixed_XXXXXX.wav)
-TEMP_WAV_FX=$(mktemp /tmp/matrix_voice_fx_XXXXXX.wav)
+MATRIX_TMPDIR="${TMPDIR:-${TEMP:-/tmp}}"
+TEMP_WAV=$(mktemp "$MATRIX_TMPDIR/matrix_voice_XXXXXX.wav")
+TEMP_WAV_MIXED=$(mktemp "$MATRIX_TMPDIR/matrix_voice_mixed_XXXXXX.wav")
+TEMP_WAV_FX=$(mktemp "$MATRIX_TMPDIR/matrix_voice_fx_XXXXXX.wav")
 
 # Cleanup trap - removes temp files on exit (success or failure)
 cleanup_temp() {
@@ -136,18 +157,36 @@ cleanup_temp() {
 }
 trap cleanup_temp EXIT
 
-# Wrapper for audio playback
+# Cross-platform audio playback
 safe_play() {
-    "$@"
+    local wav_file="$1"
+    if [[ "$MATRIX_OS" == "macos" ]]; then
+        afplay "$wav_file"
+    elif [[ "$MATRIX_OS" == "windows" ]]; then
+        local win_path
+        win_path=$(cygpath -w "$wav_file" 2>/dev/null || echo "$wav_file")
+        powershell.exe -Command "(New-Object Media.SoundPlayer '$win_path').PlaySync()" 2>/dev/null
+    elif command -v aplay &>/dev/null; then
+        aplay "$wav_file" 2>/dev/null
+    elif command -v paplay &>/dev/null; then
+        paplay "$wav_file" 2>/dev/null
+    else
+        echo "⚠️  No audio player found" >&2
+    fi
 }
 
-# Fallback to macOS say when piper fails
+# Fallback TTS when piper fails
 say_fallback() {
     local msg="$1"
     local voice="${2:-Samantha}"
-    echo "⚠️  FALLBACK MODE: Piper TTS failed, using macOS say ($voice)"
-    echo "   Run: .claude/hooks/bootstrap-voice.sh --force"
-    say -v "$voice" "$msg" 2>/dev/null
+    echo "⚠️  FALLBACK MODE: Piper TTS failed" >&2
+    if [[ "$MATRIX_OS" == "macos" ]]; then
+        say -v "$voice" "$msg" 2>/dev/null
+    elif [[ "$MATRIX_OS" == "windows" ]]; then
+        powershell.exe -Command "Add-Type -AssemblyName System.Speech; (New-Object System.Speech.Synthesis.SpeechSynthesizer).Speak('$msg')" 2>/dev/null
+    else
+        echo "   Run: .claude/hooks/bootstrap-voice.sh --force" >&2
+    fi
 }
 
 if [ -z "$MESSAGE" ]; then
@@ -159,7 +198,8 @@ fi
 # Map Speaker to Personality (for fallback)
 CONFIG_FILE=".claude/config/voices.json"
 if [ -f "$CONFIG_FILE" ]; then
-    PARSED_DATA=$(python3 -c "import sys, json;
+    PYTHON_CMD="$(python3 --version &>/dev/null && echo python3 || echo python)"
+    PARSED_DATA=$($PYTHON_CMD -c "import sys, json;
 try:
     data = json.load(open('$CONFIG_FILE'))
     agent = data.get('$SPEAKER', data.get('System'))
@@ -188,7 +228,7 @@ if [ "$SPEAKER" = "Neo" ]; then
     # ryan-high
     echo "$MESSAGE" | "$PIPER_BIN" --model "$VOICE_DIR/en_US-ryan-high.onnx" --output_file "$TEMP_WAV" 2>/dev/null
     if [ -f "$TEMP_WAV" ] && [ -s "$TEMP_WAV" ]; then
-        safe_play afplay "$TEMP_WAV"
+        safe_play "$TEMP_WAV"
     else
         say_fallback "$MESSAGE" "Alex"
     fi
@@ -200,7 +240,7 @@ if [ "$SPEAKER" = "Trinity" ]; then
     # jenny
     echo "$MESSAGE" | "$PIPER_BIN" --model "$VOICE_DIR/jenny.onnx" --output_file "$TEMP_WAV" 2>/dev/null
     if [ -f "$TEMP_WAV" ] && [ -s "$TEMP_WAV" ]; then
-        safe_play afplay "$TEMP_WAV"
+        safe_play "$TEMP_WAV"
     else
         say_fallback "$MESSAGE" "Allison"
     fi
@@ -212,7 +252,7 @@ if [ "$SPEAKER" = "Morpheus" ]; then
     # carlin-high (Original Approved Voice)
     echo "$MESSAGE" | "$PIPER_BIN" --model "$VOICE_DIR/en_US-carlin-high.onnx" --output_file "$TEMP_WAV" 2>/dev/null
     if [ -f "$TEMP_WAV" ] && [ -s "$TEMP_WAV" ]; then
-        safe_play afplay "$TEMP_WAV"
+        safe_play "$TEMP_WAV"
     else
         say_fallback "$MESSAGE" "Daniel"
     fi
@@ -224,7 +264,7 @@ if [ "$SPEAKER" = "Oracle" ]; then
     # kristin (Official Voice)
     echo "$MESSAGE" | "$PIPER_BIN" --model "$VOICE_DIR/en_US-kristin-medium.onnx" --output_file "$TEMP_WAV" 2>/dev/null
     if [ -f "$TEMP_WAV" ] && [ -s "$TEMP_WAV" ]; then
-        safe_play afplay "$TEMP_WAV"
+        safe_play "$TEMP_WAV"
     else
         say_fallback "$MESSAGE" "Samantha"
     fi
@@ -236,7 +276,7 @@ if [ "$SPEAKER" = "System" ]; then
     # hfc_male
     echo "$MESSAGE" | "$PIPER_BIN" --model "$VOICE_DIR/en_US-hfc_male-medium.onnx" --output_file "$TEMP_WAV" 2>/dev/null
     if [ -f "$TEMP_WAV" ] && [ -s "$TEMP_WAV" ]; then
-        safe_play afplay "$TEMP_WAV"
+        safe_play "$TEMP_WAV"
     else
         say_fallback "$MESSAGE" "Tom"
     fi
@@ -259,12 +299,12 @@ if [ "$SPEAKER" = "Mainframe" ]; then
                 -filter_complex "[1:a]volume=0.50[bg];[0:a]adelay=1500|1500[v];[v][bg]amix=inputs=2:duration=longest[out]" \
                 -map "[out]" -t "$TOTAL_DUR" "$TEMP_WAV_MIXED" 2>/dev/null
             if [ -f "$TEMP_WAV_MIXED" ]; then
-                safe_play afplay "$TEMP_WAV_MIXED"
+                safe_play "$TEMP_WAV_MIXED"
             else
-                safe_play afplay "$TEMP_WAV"
+                safe_play "$TEMP_WAV"
             fi
         else
-            safe_play afplay "$TEMP_WAV"
+            safe_play "$TEMP_WAV"
         fi
     else
         say_fallback "$MESSAGE" "Daniel"
@@ -277,7 +317,7 @@ if [ "$SPEAKER" = "Scribe" ]; then
     # lessac (Official Voice)
     echo "$MESSAGE" | "$PIPER_BIN" --model "$VOICE_DIR/en_US-lessac-medium.onnx" --output_file "$TEMP_WAV" 2>/dev/null
     if [ -f "$TEMP_WAV" ] && [ -s "$TEMP_WAV" ]; then
-        safe_play afplay "$TEMP_WAV"
+        safe_play "$TEMP_WAV"
     else
         say_fallback "$MESSAGE" "Samantha"
     fi
@@ -289,7 +329,7 @@ if [ "$SPEAKER" = "Woman in Red" ]; then
     # jenny (Official Voice)
     echo "$MESSAGE" | "$PIPER_BIN" --model "$VOICE_DIR/jenny.onnx" --output_file "$TEMP_WAV" 2>/dev/null
     if [ -f "$TEMP_WAV" ] && [ -s "$TEMP_WAV" ]; then
-        safe_play afplay "$TEMP_WAV"
+        safe_play "$TEMP_WAV"
     else
         say_fallback "$MESSAGE" "Allison"
     fi
@@ -301,7 +341,7 @@ if [ "$SPEAKER" = "Trump" ]; then
     # trump-high (Official Voice)
     echo "$MESSAGE" | "$PIPER_BIN" --model "$VOICE_DIR/en_US-trump-high.onnx" --output_file "$TEMP_WAV" 2>/dev/null
     if [ -f "$TEMP_WAV" ] && [ -s "$TEMP_WAV" ]; then
-        safe_play afplay "$TEMP_WAV"
+        safe_play "$TEMP_WAV"
     else
         say_fallback "$MESSAGE" "Fred"
     fi
@@ -313,7 +353,7 @@ if [ "$SPEAKER" = "Architect" ]; then
     # alan
     echo "$MESSAGE" | "$PIPER_BIN" --model "$VOICE_DIR/en_GB-alan-medium.onnx" --output_file "$TEMP_WAV" 2>/dev/null
     if [ -f "$TEMP_WAV" ] && [ -s "$TEMP_WAV" ]; then
-        safe_play afplay "$TEMP_WAV"
+        safe_play "$TEMP_WAV"
     else
         say_fallback "$MESSAGE" "Daniel"
     fi
@@ -335,12 +375,12 @@ if [ "$SPEAKER" = "Tank" ]; then
                 -filter_complex "[1:a]volume=0.40[bg];[0:a][bg]amix=inputs=2:duration=first[out]" \
                 -map "[out]" -t "$DURATION" "$TEMP_WAV_MIXED" 2>/dev/null
             if [ -f "$TEMP_WAV_MIXED" ]; then
-                safe_play afplay "$TEMP_WAV_MIXED"
+                safe_play "$TEMP_WAV_MIXED"
             else
-                safe_play afplay "$TEMP_WAV"
+                safe_play "$TEMP_WAV"
             fi
         else
-            safe_play afplay "$TEMP_WAV"
+            safe_play "$TEMP_WAV"
         fi
     else
         say_fallback "$MESSAGE" "Alex"
@@ -369,12 +409,12 @@ if [ "$SPEAKER" = "Smith" ]; then
                 -filter_complex "[1:a]volume=0.40[bg];[0:a]adelay=1500|1500[v];[v][bg]amix=inputs=2:duration=longest[out]" \
                 -map "[out]" -t "$TOTAL_DUR" "$TEMP_WAV_MIXED" 2>/dev/null
             if [ -f "$TEMP_WAV_MIXED" ]; then
-                safe_play afplay "$TEMP_WAV_MIXED"
+                safe_play "$TEMP_WAV_MIXED"
             else
-                safe_play afplay "$TEMP_WAV"
+                safe_play "$TEMP_WAV"
             fi
         else
-            safe_play afplay "$TEMP_WAV"
+            safe_play "$TEMP_WAV"
         fi
     else
         say_fallback "$MESSAGE" "Tom"
