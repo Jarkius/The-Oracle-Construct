@@ -33,7 +33,7 @@ mkdir -p "$LOG_DIR"
 # ─── Service Definitions ──────────────────────────────────────
 
 # Indexer Daemon
-INDEXER_SCRIPT="$SRC_DIR/daemons/indexer/indexer-daemon.ts"
+INDEXER_SCRIPT="$SRC_DIR/memory/indexer/indexer-daemon.ts"
 INDEXER_PID_DIR="${HOME}/.indexer-daemon"
 INDEXER_DEFAULT_PORT=37890
 
@@ -154,7 +154,7 @@ indexer_start() {
     mkdir -p "$INDEXER_PID_DIR"
 
     cd "$PROJECT_ROOT"
-    nohup bun run src/indexer/indexer-daemon.ts start --initial \
+    nohup bun run "$INDEXER_SCRIPT" start --initial \
         > "$LOG_DIR/indexer.log" 2>&1 &
 
     local bg_pid=$!
@@ -245,7 +245,7 @@ hub_start() {
     echo "[hub] Starting..."
 
     cd "$PROJECT_ROOT"
-    nohup bun run src/matrix-hub.ts \
+    nohup bun run "$HUB_SCRIPT" \
         > "$LOG_DIR/hub.log" 2>&1 &
 
     local bg_pid=$!
@@ -329,7 +329,7 @@ heartbeat_start() {
     mkdir -p "$HEARTBEAT_PID_DIR"
 
     cd "$PROJECT_ROOT"
-    PROJECT_ROOT="$PROJECT_ROOT" nohup bun run src/heartbeat/heartbeat-daemon.ts start \
+    PROJECT_ROOT="$PROJECT_ROOT" nohup bun run "$HEARTBEAT_SCRIPT" start \
         > "$LOG_DIR/heartbeat.log" 2>&1 &
 
     local bg_pid=$!
@@ -424,7 +424,7 @@ gateway_start() {
     mkdir -p "$GATEWAY_PID_DIR"
 
     cd "$PROJECT_ROOT"
-    PROJECT_ROOT="$PROJECT_ROOT" nohup bun run src/gateway/matrix-gateway.ts start \
+    PROJECT_ROOT="$PROJECT_ROOT" nohup bun run "$GATEWAY_SCRIPT" start \
         > "$LOG_DIR/gateway.log" 2>&1 &
 
     local bg_pid=$!

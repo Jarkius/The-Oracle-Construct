@@ -22,7 +22,7 @@ import {
   getSiblingTasks,
   updateUnifiedTaskStatus,
   createLearning,
-} from "../../src/db";
+} from "../../src/core/db";
 import { randomString } from "./test-utils";
 
 // Test prefix to identify test data for cleanup

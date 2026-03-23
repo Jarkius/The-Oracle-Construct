@@ -140,7 +140,7 @@ export const config = {
 
   // System paths
   paths: {
-    home: process.env.HOME || '/tmp',
+    home: process.env.HOME || process.env.USERPROFILE || '/tmp',
   },
 } as const;
 

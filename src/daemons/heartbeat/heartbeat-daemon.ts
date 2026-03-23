@@ -24,7 +24,7 @@ import { execSync } from 'child_process';
 // ============ Configuration ============
 
 const DAEMON_PORT = parseInt(process.env.HEARTBEAT_PORT || '37892');
-const PID_DIR = join(process.env.HOME || '/tmp', '.matrix-heartbeat');
+const PID_DIR = join(process.env.HOME || process.env.USERPROFILE || '/tmp', '.matrix-heartbeat');
 const PID_FILE = join(PID_DIR, 'heartbeat.pid');
 
 // Find project root (git root or cwd)
@@ -41,7 +41,7 @@ const CONFIG_PATH = join(PROJECT_ROOT, 'psi', 'state', 'pulse', 'heartbeat.json'
 const EVENTS_PATH = join(PROJECT_ROOT, 'psi', 'state', 'pulse', 'events.jsonl');
 const REMINDERS_PATH = join(PROJECT_ROOT, 'psi', 'state', 'pulse', 'reminders.json');
 const TASKS_PATH = join(PROJECT_ROOT, 'psi', 'memory', 'tasks', 'active.json');
-const EVENT_WRITER = join(PROJECT_ROOT, '.claude', 'hooks', 'pulse', 'pulse-event-writer.sh');
+const EVENT_WRITER = join(PROJECT_ROOT, '.claude', 'hooks', 'pulse-event-writer.sh');
 const LOG_DIR = join(PROJECT_ROOT, 'psi', 'state', 'pulse', 'daemon-logs');
 
 // ============ Types ============
