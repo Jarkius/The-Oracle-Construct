@@ -21,8 +21,9 @@ export function memoryPage(): string {
 
       <div class="card">
         <div class="card-title">ChromaDB Vector Store</div>
-        <div hx-get="/partials/chromadb-stats"
-             hx-trigger="load, every 30s"
+        <div id="chromadb-container"
+             hx-get="/partials/chromadb-stats"
+             hx-trigger="load, every 30s, refresh"
              hx-swap="innerHTML">
           <span style="color: #555;">Loading ChromaDB status...</span>
         </div>

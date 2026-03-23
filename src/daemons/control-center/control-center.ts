@@ -113,6 +113,31 @@ app.get("/api/status", async (c) => {
   });
 });
 
+// ChromaDB toggle — enable/disable vector search at runtime
+app.post("/api/vectordb/toggle", async (c) => {
+  const current = process.env.SKIP_VECTORDB === "true";
+  if (current) {
+    delete process.env.SKIP_VECTORDB;
+    return c.json({ vectordb: "enabled", message: "ChromaDB enabled. Will attempt connection on next request." });
+  } else {
+    process.env.SKIP_VECTORDB = "true";
+    return c.json({ vectordb: "disabled", message: "ChromaDB disabled. Semantic search skipped." });
+  }
+});
+
+app.get("/api/vectordb/status", async (c) => {
+  const skip = process.env.SKIP_VECTORDB === "true";
+  if (skip) {
+    return c.json({ status: "disabled", skip: true });
+  }
+  try {
+    const res = await fetch(`http://localhost:${CHROMADB_PORT}/api/v2/heartbeat`, { signal: AbortSignal.timeout(3000) });
+    return c.json({ status: res.ok ? "connected" : "unreachable", skip: false, port: CHROMADB_PORT });
+  } catch {
+    return c.json({ status: "unreachable", skip: false, port: CHROMADB_PORT });
+  }
+});
+
 // Nerve live endpoint
 app.get("/api/nerve/live", async (c) => {
   if (!nerveSupervisor) {
@@ -164,9 +189,9 @@ app.get("/partials/quick-stats", async (c) => {
     }
     if (metric === "sessions" || metric === "learnings") {
       try {
-        const data = getDashboardData();
-        if (metric === "sessions") return c.html(renderSingleStat(data.sessions?.total ?? 0));
-        return c.html(renderSingleStat(data.learnings?.total ?? 0));
+        const table = metric === "sessions" ? "sessions" : "learnings";
+        const row = db.query<{ count: number }, []>(`SELECT COUNT(*) as count FROM ${table}`).get();
+        return c.html(renderSingleStat(row?.count ?? 0));
       } catch {
         return c.html(renderSingleStat(0));
       }

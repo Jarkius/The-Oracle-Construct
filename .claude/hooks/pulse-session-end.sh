@@ -75,6 +75,12 @@ else
     FINAL_SUMMARY="Session ended without explicit summary. Check retrospectives for details."
 fi
 
+# --- Auto-archive completed tasks before session save ---
+TASK_SYNC="$PROJECT_ROOT/.claude/hooks/pulse-task-sync.sh"
+if [ -f "$TASK_SYNC" ]; then
+    bash "$TASK_SYNC" archive 2>/dev/null || true
+fi
+
 # Auto-save session memory to psi/ markdown (Phase 1)
 SESSION_FILE=""
 if [ -f "$MEMORY_SAVE" ]; then

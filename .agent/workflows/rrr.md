@@ -122,6 +122,18 @@ sh scripts/voice/voice.sh "Recording session memory. What happened today?" "Syst
 
 
 
+## Task Reconciliation (Auto)
+
+Before writing the retrospective, reconcile the task registry:
+
+1. **Run task sync**: `bash .claude/hooks/pulse-task-sync.sh reconcile`
+2. **Review in-progress tasks** — if work was completed this session, mark them done:
+   - `bash .claude/hooks/pulse-task-sync.sh complete <task-id>`
+3. **Archive completed**: `bash .claude/hooks/pulse-task-sync.sh archive`
+4. **Report** what changed in the retrospective's "What Happened" section
+
+This ensures active.json reflects reality before the session record is written.
+
 ## Quality Standards
 
 - **AI Diary**: Minimum 150 words, must be vulnerable

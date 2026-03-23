@@ -25,6 +25,30 @@ PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 EVENT_WRITER="$PROJECT_ROOT/.claude/hooks/pulse-event-writer.sh"
 HEAL_LOG="$PROJECT_ROOT/psi/state/pulse/heal-log.jsonl"
 
+# Platform: find a working python
+PY=""
+for candidate in python3 python; do
+    if $candidate -c "import json" &>/dev/null 2>&1; then
+        PY="$candidate"
+        break
+    fi
+done
+if [ -z "$PY" ]; then
+    for p in \
+        "$HOME/AppData/Local/Programs/Python/Python312/python.exe" \
+        "$HOME/AppData/Local/Programs/Python/Python311/python.exe"; do
+        if [ -x "$p" ]; then PY="$p"; break; fi
+    done
+fi
+
+# Windows path fix: python needs C:/ not /c/ paths
+win_path() {
+    case "$(uname -s 2>/dev/null)" in
+        MINGW*|MSYS*|CYGWIN*) cygpath -w "$1" 2>/dev/null || echo "$1" ;;
+        *) echo "$1" ;;
+    esac
+}
+
 mkdir -p "$(dirname "$HEAL_LOG")"
 
 ISSUES_FOUND=0
@@ -114,19 +138,17 @@ heal)
     for rel_path in "${STATE_FILES[@]}"; do
         full_path="$PROJECT_ROOT/$rel_path"
         if [ -f "$full_path" ]; then
-            if ! python3 -c "import json; json.load(open('$full_path'))" 2>/dev/null; then
+            if [ -n "$PY" ] && ! cat "$full_path" | $PY -c "import json,sys; json.load(sys.stdin)" 2>/dev/null; then
                 if [ "$DRY_RUN" = "false" ]; then
                     # Try to repair by removing trailing garbage
-                    if python3 -c "
-import json
-content = open('$full_path').read().strip()
-# Try progressively removing trailing chars
+                    if cat "$full_path" | $PY -c "
+import json, sys
+content = sys.stdin.read().strip()
 for trim in range(5):
     try:
-        json.loads(content[:len(content)-trim] if trim > 0 else content)
+        s = content[:len(content)-trim] if trim > 0 else content
+        json.loads(s)
         if trim > 0:
-            with open('$full_path', 'w') as f:
-                f.write(content[:len(content)-trim])
             print('repaired')
         else:
             print('ok')
@@ -173,10 +195,10 @@ else:
     for rel_path in "${JSONL_FILES[@]}"; do
         full_path="$PROJECT_ROOT/$rel_path"
         if [ -f "$full_path" ]; then
-            BAD_LINES=$(python3 -c "
-import json
+            BAD_LINES=$(cat "$full_path" | $PY -c "
+import json, sys
 bad = 0
-for line in open('$full_path'):
+for line in sys.stdin:
     line = line.strip()
     if not line: continue
     try:
@@ -188,10 +210,11 @@ print(bad)
             if [ "$BAD_LINES" -gt 0 ]; then
                 if [ "$DRY_RUN" = "false" ]; then
                     # Filter out bad lines
-                    python3 -c "
-import json
+                    TMP_JSONL=$(mktemp)
+                    cat "$full_path" | $PY -c "
+import json, sys
 good = []
-for line in open('$full_path'):
+for line in sys.stdin:
     line = line.strip()
     if not line: continue
     try:
@@ -199,9 +222,8 @@ for line in open('$full_path'):
         good.append(line)
     except:
         pass
-with open('$full_path', 'w') as f:
-    f.write('\n'.join(good) + '\n')
-" 2>/dev/null
+print('\n'.join(good))
+" 2>/dev/null > "$TMP_JSONL" && mv "$TMP_JSONL" "$full_path"
                     log_issue "warning" "events" "Cleaned $BAD_LINES bad lines from $rel_path" "true"
                 else
                     log_issue "warning" "events" "$BAD_LINES malformed lines in $rel_path"
@@ -260,6 +282,39 @@ with open('$full_path', 'w') as f:
             fi
         fi
     done
+
+    # ─── 7. ChromaDB Health (detect repeated failures) ────
+    echo "  Checking ChromaDB status..."
+    EVENTS_FILE="$PROJECT_ROOT/psi/state/pulse/events.jsonl"
+    if [ -f "$EVENTS_FILE" ]; then
+        CHROMA_FAILS=$(tail -100 "$EVENTS_FILE" | grep -c "chromadb:fail" || echo "0")
+        CHROMA_FAILS=$(echo "$CHROMA_FAILS" | tr -d '[:space:]')
+        if [ "${CHROMA_FAILS:-0}" -gt 3 ] 2>/dev/null; then
+            # Check if ChromaDB is actually reachable
+            if curl -s --connect-timeout 2 http://localhost:8100/api/v1/heartbeat >/dev/null 2>&1; then
+                echo "    ChromaDB reachable (past failures may be stale)"
+            else
+                log_issue "warning" "chromadb" "ChromaDB offline — $CHROMA_FAILS failures in recent events. Start: docker start chromadb"
+                if [ "$DRY_RUN" = "false" ]; then
+                    # Attempt to start ChromaDB container if docker available
+                    if command -v docker &>/dev/null; then
+                        if docker start chromadb 2>/dev/null; then
+                            sleep 2
+                            if curl -s --connect-timeout 2 http://localhost:8100/api/v1/heartbeat >/dev/null 2>&1; then
+                                log_issue "info" "chromadb" "ChromaDB restarted successfully" "true"
+                            else
+                                log_issue "warning" "chromadb" "ChromaDB container started but not responding yet"
+                            fi
+                        else
+                            log_issue "info" "chromadb" "No chromadb container found — run: docker run -d --name chromadb -p 8100:8000 -v ~/.chromadb_data:/chroma/chroma chromadb/chroma"
+                        fi
+                    fi
+                fi
+            fi
+        else
+            echo "    No ChromaDB failure pattern detected"
+        fi
+    fi
 
     # ─── Summary ─────────────────────────────────────────
     echo ""

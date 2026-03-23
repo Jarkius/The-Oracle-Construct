@@ -3,77 +3,14 @@
   "description": "Active task registry — survives across sessions",
   "tasks": [
     {
-      "id": "task-0001",
-      "task": "Monitor GitHub Issue #24316 — .claude/agents/ as agent team teammates",
-      "status": "pending",
-      "assignee": "Oracle",
-      "created": "2026-02-15T12:00:00Z",
-      "updated": "2026-02-15T12:00:00Z",
-      "context": "When this lands, our Council agents (Neo, Trinity, Smith, etc.) can be spawned as fully-configured teammates instead of using prompt-based personality injection workaround."
-    },
-    {
       "id": "task-0002",
       "task": "Resume CIS Modernization — React SPA + Laravel API",
       "status": "pending",
       "assignee": "Neo",
       "created": "2026-02-15T12:00:00Z",
       "updated": "2026-02-15T12:00:00Z",
-      "context": "Main project mission. Blocked by Matrix Overhaul (task-0008). Oracle Construct evolution phases are infrastructure for this work."
-    },
-    {
-      "id": "task-0008",
-      "task": "Matrix Overhaul Phase 1: Core Consolidation — cherry-pick GHQ + sync",
-      "status": "completed",
-      "assignee": "Neo",
-      "created": "2026-03-16T11:15:00Z",
-      "updated": "2026-03-23T00:00:00Z",
-      "context": "Cherry-pick mqtt-client.ts + gemini handler from GHQ into LOCAL. Sync LOCAL→GHQ. Archive GHQ. Plan: ~/.claude/plans/silly-prancing-fountain.md. Completed via PR #26."
-    },
-    {
-      "id": "task-0009",
-      "task": "Matrix Overhaul Phase 2: Modular Restructure — src/ reorganization",
-      "status": "completed",
-      "assignee": "Architect",
-      "created": "2026-03-16T11:15:00Z",
-      "updated": "2026-03-23T00:00:00Z",
-      "context": "Move flat src/ into core/ + memory/ + intelligence/ + nerve/ + daemons/ + mcp/. Use worktree for isolation. Update all imports. Completed via PR #26."
-    },
-    {
-      "id": "task-0010",
-      "task": "Matrix Overhaul Phase 3: Matrix Nerve Skeleton — L1-L5 self-healing",
-      "status": "completed",
-      "assignee": "Neo",
-      "created": "2026-03-16T11:15:00Z",
-      "updated": "2026-03-23T00:00:00Z",
-      "context": "Build src/nerve/ with escalation.ts (L1-L5), known-fixes.ts, state-detector.ts, supervisor.ts. From Oracle Nerve patterns, not code. Completed via PR #26."
-    },
-    {
-      "id": "task-0011",
-      "task": "Matrix Overhaul Phase 4: matrix-gemini-agent SDK alignment",
-      "status": "completed",
-      "assignee": "Neo",
-      "created": "2026-03-16T11:15:00Z",
-      "updated": "2026-03-23T00:00:00Z",
-      "context": "Migrate @google/generative-ai to @google/genai. Keep as separate MCP beetle. Push proper git history. Completed via PR #26."
-    },
-    {
-      "id": "task-0012",
-      "task": "Matrix Overhaul Phase 5: Bridge Layer — council-router to gemini MCP",
-      "status": "completed",
-      "assignee": "Neo",
-      "created": "2026-03-16T11:15:00Z",
-      "updated": "2026-03-23T00:00:00Z",
-      "context": "Wire council-router to dispatch /morpheus research to gemini MCP. Gateway triggers gemini_deep_research via Telegram. Completed via PR #26."
-    },
-    {
-      "id": "task-0013",
-      "task": "Matrix Overhaul Phase 6: CDP Proxy + Control Center migration",
-      "status": "completed",
-      "assignee": "Neo",
-      "created": "2026-03-16T11:15:00Z",
-      "updated": "2026-03-23T00:00:00Z",
-      "context": "Migrate CDP proxy from claude-browser-proxy to src/daemons/cdp-proxy/. Migrate Control Center from Oracle Nerve to src/daemons/control-center/. Wire to Nerve for live escalation display. Completed via PR #26."
+      "context": "Main project mission. Infrastructure complete. Oracle Construct evolution phases done."
     }
   ],
-  "lastUpdated": "2026-03-23T00:00:00Z"
+  "lastUpdated": "2026-03-23T08:29:06Z"
 }

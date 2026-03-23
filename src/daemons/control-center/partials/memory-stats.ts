@@ -89,10 +89,22 @@ export function renderChromaStats(
       ? "badge-yellow"
       : "badge-red";
 
+  const isDisabled = status === "skipped";
+  const toggleLabel = isDisabled ? "Enable" : "Disable";
+  const toggleBtnClass = isDisabled ? "btn btn-primary" : "btn btn-danger";
+
   let html = `
     <div style="margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center;">
       <span style="color: #888;">Status</span>
-      <span class="badge ${badgeClass}">${esc(status)}</span>
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <span class="badge ${badgeClass}">${esc(status)}</span>
+        <button class="${toggleBtnClass}" style="font-size: 10px; padding: 2px 8px;"
+                hx-post="/api/vectordb/toggle"
+                hx-swap="none"
+                hx-on::after-request="htmx.trigger('#chromadb-container', 'refresh')">
+          ${toggleLabel}
+        </button>
+      </div>
     </div>
   `;
 
