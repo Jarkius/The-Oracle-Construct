@@ -294,7 +294,7 @@ if [ "$SPEAKER" = "Mainframe" ]; then
         FLAMENCO_MUSIC="$PROJECT_ROOT/.claude/audio/tracks/agentvibes_soft_flamenco_loop.mp3"
         if [ -f "$FLAMENCO_MUSIC" ]; then
             DURATION=$(ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "$TEMP_WAV" 2>/dev/null)
-            TOTAL_DUR=$(echo "$DURATION + 1.5" | bc)
+            TOTAL_DUR=$(awk "BEGIN{printf \"%.1f\", $DURATION + 1.5}")
             ffmpeg -y -i "$TEMP_WAV" -stream_loop -1 -i "$FLAMENCO_MUSIC" \
                 -filter_complex "[1:a]volume=0.50[bg];[0:a]adelay=1500|1500[v];[v][bg]amix=inputs=2:duration=longest[out]" \
                 -map "[out]" -t "$TOTAL_DUR" "$TEMP_WAV_MIXED" 2>/dev/null
@@ -393,10 +393,13 @@ if [ "$SPEAKER" = "Smith" ]; then
     # danny low slow - the calculating villain
     echo "$MESSAGE" | "$PIPER_BIN" --model "$VOICE_DIR/en_US-danny-low.onnx" --length-scale 1.8 --output_file "$TEMP_WAV" 2>/dev/null
     if [ -f "$TEMP_WAV" ] && [ -s "$TEMP_WAV" ]; then
-        # Apply bass boost if sox exists
+        # Apply bass boost (sox preferred, ffmpeg fallback)
         if command -v sox >/dev/null 2>&1; then
              sox "$TEMP_WAV" "$TEMP_WAV_FX" bass +20 2>/dev/null
-             mv "$TEMP_WAV_FX" "$TEMP_WAV"
+             [ -f "$TEMP_WAV_FX" ] && [ -s "$TEMP_WAV_FX" ] && mv "$TEMP_WAV_FX" "$TEMP_WAV"
+        elif command -v ffmpeg >/dev/null 2>&1; then
+             ffmpeg -y -i "$TEMP_WAV" -af "bass=g=20:f=100" "$TEMP_WAV_FX" 2>/dev/null
+             [ -f "$TEMP_WAV_FX" ] && [ -s "$TEMP_WAV_FX" ] && mv "$TEMP_WAV_FX" "$TEMP_WAV"
         fi
         # Mix with Tron synth loop at 40% volume (1.5s music intro before voice)
         SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -404,7 +407,7 @@ if [ "$SPEAKER" = "Smith" ]; then
         TRON_MUSIC="$PROJECT_ROOT/.claude/audio/tracks/tron_synth_loop.mp3"
         if [ -f "$TRON_MUSIC" ]; then
             DURATION=$(ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "$TEMP_WAV" 2>/dev/null)
-            TOTAL_DUR=$(echo "$DURATION + 1.5" | bc)
+            TOTAL_DUR=$(awk "BEGIN{printf \"%.1f\", $DURATION + 1.5}")
             ffmpeg -y -i "$TEMP_WAV" -stream_loop -1 -i "$TRON_MUSIC" \
                 -filter_complex "[1:a]volume=0.40[bg];[0:a]adelay=1500|1500[v];[v][bg]amix=inputs=2:duration=longest[out]" \
                 -map "[out]" -t "$TOTAL_DUR" "$TEMP_WAV_MIXED" 2>/dev/null
@@ -424,7 +427,7 @@ fi
 
 # GENERIC FALLBACK (Using play-tts shim)
 if [ -n "$VOICE_OVERRIDE" ]; then
-    safe_play bash "$PLAY_TTS" "$MESSAGE" "$VOICE_OVERRIDE"
+    bash "$PLAY_TTS" "$MESSAGE" "$VOICE_OVERRIDE"
 else
-    safe_play bash "$PLAY_TTS" "$MESSAGE"
+    bash "$PLAY_TTS" "$MESSAGE"
 fi
