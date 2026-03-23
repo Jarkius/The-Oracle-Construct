@@ -322,10 +322,14 @@ if [ -f "$AUTOSTART_FILE" ] && [ -f "$SERVICES_SCRIPT" ]; then
     done
 fi
 
-# System Acknowledgement (Queue Priority 1)
-if [ "$HAS_PYTHON" -eq 1 ]; then
-    bash "$PROJECT_ROOT/scripts/voice/voice.sh" "System online. Link established." "System" 2>/dev/null || echo "[voice] TTS unavailable" >&2
+# System Acknowledgement (Queue Priority 1) — Adaptive voice
+SYSTEM_VOICE_SCRIPT="$PROJECT_ROOT/scripts/voice/system-voice.sh"
+if [ -f "$SYSTEM_VOICE_SCRIPT" ]; then
+    SYSTEM_MSG=$(bash "$SYSTEM_VOICE_SCRIPT" "boot" 2>/dev/null)
+else
+    SYSTEM_MSG="System online. Link established."
 fi
+bash "$PROJECT_ROOT/scripts/voice/voice.sh" "$SYSTEM_MSG" "System" 2>/dev/null || echo "[voice] TTS unavailable" >&2
 
 # Randomized Oracle Greetings (Queue Priority 2)
 ORACLE_GREETINGS=(
