@@ -35,6 +35,9 @@
 # @related play-tts.sh, macos-voice-manager.sh, provider-manager.sh
 #
 
+# Cross-platform temp directory
+MATRIX_TMPDIR="${TMPDIR:-${TEMP:-/tmp}}"
+
 # Platform guard - fail fast on non-macOS systems
 if [[ "$(uname -s)" != "Darwin" ]]; then
   echo "❌ Error: macOS provider only works on macOS"
@@ -230,7 +233,7 @@ fi
 
 # @function play_audio
 # @intent Play generated audio - via PulseAudio tunnel for SSH, afplay for local
-LOCK_FILE="/tmp/agentvibes-audio.lock"
+LOCK_FILE="$MATRIX_TMPDIR/agentvibes-audio.lock"
 
 # Wait for previous audio to finish (max 30 seconds)
 for i in {1..60}; do

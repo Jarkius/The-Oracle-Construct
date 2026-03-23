@@ -39,6 +39,7 @@ detect_platform() {
         echo "linux"
       fi
       ;;
+    MINGW*|MSYS*|CYGWIN*) echo "windows" ;;
     *) echo "unknown" ;;
   esac
 }

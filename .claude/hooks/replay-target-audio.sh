@@ -43,6 +43,9 @@
 # Fix locale warnings
 export LC_ALL=C
 
+# Cross-platform temp directory
+MATRIX_TMPDIR="${TMPDIR:-${TEMP:-/tmp}}"
+
 TARGET_AUDIO_FILE="${CLAUDE_PROJECT_DIR:-.}/.claude/last-target-audio.txt"
 
 # Check if target audio tracking file exists
@@ -66,7 +69,7 @@ fi
 echo "🔁 Replaying target language audio..."
 
 # Use lock file for sequential playback
-LOCK_FILE="/tmp/agentvibes-audio.lock"
+LOCK_FILE="$MATRIX_TMPDIR/agentvibes-audio.lock"
 
 # Wait for any current audio to finish (max 30 seconds)
 for i in {1..60}; do

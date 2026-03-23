@@ -103,7 +103,7 @@ else
     JSON_PAYLOAD="{\"text\": \"$ESCAPED_MSG\", \"speaker\": \"$SPEAKER\", \"panic\": $IS_PANIC}"
 
     # Send to server via TCP socket
-    python3 -c "
+    $(command -v python3 2>/dev/null || command -v python 2>/dev/null || echo python3) -c "
 import socket
 import sys
 try:

@@ -38,6 +38,9 @@
 # Fix locale warnings
 export LC_ALL=C
 
+# Cross-platform temp directory
+MATRIX_TMPDIR="${TMPDIR:-${TEMP:-/tmp}}"
+
 TEXT="$1"
 VOICE_OVERRIDE="$2"  # Optional: voice model name
 
@@ -164,7 +167,7 @@ fi
 # Get voice model path
 # In test mode, use a fake path since we have mock piper that doesn't need real files
 if [[ "${AGENTVIBES_TEST_MODE:-false}" == "true" ]]; then
-  VOICE_PATH="/tmp/mock-voice-${VOICE_MODEL}.onnx"
+  VOICE_PATH="$MATRIX_TMPDIR/mock-voice-${VOICE_MODEL}.onnx"
 else
   VOICE_PATH=$(get_voice_path "$VOICE_MODEL")
   if [[ $? -ne 0 ]]; then
@@ -388,7 +391,7 @@ fi
 # @why Support multiple audio players and prevent overlapping audio in learning mode
 # @param Uses global: $TEMP_FILE, $CURRENT_LANGUAGE
 # @sideeffects Plays audio with lock mechanism for sequential playback
-LOCK_FILE="/tmp/agentvibes-audio.lock"
+LOCK_FILE="$MATRIX_TMPDIR/agentvibes-audio.lock"
 
 # Wait for previous audio to finish (max 2 seconds to prevent blocking)
 for i in {1..4}; do

@@ -27,6 +27,9 @@ set -euo pipefail
 # Fix locale warnings
 export LC_ALL=C
 
+# Cross-platform temp directory
+MATRIX_TMPDIR="${TMPDIR:-${TEMP:-/tmp}}"
+
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 
@@ -308,11 +311,11 @@ main() {
     # Temporary files (using explicit paths to avoid unbound variable issues)
     local temp_effects
     local temp_final
-    temp_effects="/tmp/agentvibes-effects-$$.wav"
-    temp_final="/tmp/agentvibes-final-$$.wav"
+    temp_effects="$MATRIX_TMPDIR/agentvibes-effects-$$.wav"
+    temp_final="$MATRIX_TMPDIR/agentvibes-final-$$.wav"
 
     # Clean up on exit using explicit paths
-    trap 'rm -f /tmp/agentvibes-effects-'"$$"'.wav /tmp/agentvibes-final-'"$$"'.wav' EXIT
+    trap 'rm -f '"$MATRIX_TMPDIR"'/agentvibes-effects-'"$$"'.wav '"$MATRIX_TMPDIR"'/agentvibes-final-'"$$"'.wav' EXIT
 
     # Step 1: Detect sample rate and upsample if needed (Smart Evolution)
     local working_input="$INPUT_FILE"
@@ -331,7 +334,7 @@ main() {
     # If sample rate is low (e.g. 22050Hz), upsample to 48kHz for high-quality effects processing
     if (( $(echo "$sample_rate < 44100" | bc -l 2>/dev/null || awk "BEGIN {print ($sample_rate < 44100)}") )); then
         echo "  → Upsampling: ${sample_rate}Hz -> 48000Hz (High Fidelity)" >&2
-        local temp_upsampled="/tmp/agentvibes-upsampled-$$.wav"
+        local temp_upsampled="$MATRIX_TMPDIR/agentvibes-upsampled-$$.wav"
         
         # Use SoX for high-quality resampling (rate -v -I = very high quality, intermediate phase)
         # This prevents the "AM Radio" aliasing when effects are applied later
@@ -339,7 +342,7 @@ main() {
             sox "$INPUT_FILE" -r 48000 "$temp_upsampled" rate -v -I 2>/dev/null || cp "$INPUT_FILE" "$temp_upsampled"
             working_input="$temp_upsampled"
             # Add to cleanup trap
-            trap 'rm -f /tmp/agentvibes-effects-'"$$"'.wav /tmp/agentvibes-final-'"$$"'.wav /tmp/agentvibes-upsampled-'"$$"'.wav' EXIT
+            trap 'rm -f '"$MATRIX_TMPDIR"'/agentvibes-effects-'"$$"'.wav '"$MATRIX_TMPDIR"'/agentvibes-final-'"$$"'.wav '"$MATRIX_TMPDIR"'/agentvibes-upsampled-'"$$"'.wav' EXIT
         fi
     fi
 

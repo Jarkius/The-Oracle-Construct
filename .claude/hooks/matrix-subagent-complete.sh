@@ -4,7 +4,9 @@
 # Mainframe announces when a subagent returns to source
 
 # Change to project root (hook may run from different context)
-cd "$(dirname "$0")/../.." || exit 1
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+source "$SCRIPT_DIR/lib-platform.sh"
+cd "$SCRIPT_DIR/../.." || exit 1
 
 # --- LOGGING (always, for observability) ---
 LOG_FILE="psi/memory/logs/agents/agent_events.log"
@@ -32,7 +34,7 @@ if command -v bun &>/dev/null && [[ -f "$PROJECT_DIR/scripts/coordination/releas
 fi
 
 # --- VOICE (with cooldown to prevent flood) ---
-LOCK_FILE="/tmp/mainframe_cycle_lock"
+LOCK_FILE="$MATRIX_TMPDIR/mainframe_cycle_lock"
 if [ -f "$LOCK_FILE" ]; then
     LOCK_AGE=$(($(date +%s) - $(stat -f %m "$LOCK_FILE" 2>/dev/null || echo 0)))
     if [ "$LOCK_AGE" -lt 5 ]; then

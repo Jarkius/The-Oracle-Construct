@@ -15,6 +15,9 @@
 set -euo pipefail
 export LC_ALL=C
 
+# Cross-platform temp directory
+MATRIX_TMPDIR="${TMPDIR:-${TEMP:-/tmp}}"
+
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 VOICES_DIR="$HOME/.claude/piper-voices"
 
@@ -94,7 +97,7 @@ fi
 # On macOS, afplay doesn't support stdin, so we use a minimal temp file approach
 # This is still much faster than the full pipeline (no effects, no background music)
 
-TEMP_WAV="/tmp/quick-tts-$$.wav"
+TEMP_WAV="$MATRIX_TMPDIR/quick-tts-$$.wav"
 trap "rm -f $TEMP_WAV" EXIT
 
 echo "$TEXT" | piper --model "$VOICE_MODEL" --output_file "$TEMP_WAV" 2>/dev/null

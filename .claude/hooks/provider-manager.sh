@@ -180,14 +180,15 @@ get_active_provider() {
     # logical check: If we chose Piper, does it actually work?
     if ! command -v piper &>/dev/null; then
        # No binary -> fallback
-       [[ "$(uname -s)" == "Darwin" ]] && echo "macos" || echo "piper" 
+       if [[ "$(uname -s)" == "Darwin" ]]; then
+         echo "macos"
+       elif [[ "$(uname -s)" == MINGW* || "$(uname -s)" == MSYS* || "$(uname -s)" == CYGWIN* ]]; then
+         echo "windows"
+       else
+         echo "espeak"
+       fi
        return 0
     fi
-    
-    # Check if ANY voices exist (basic sanity check)
-    local voice_dir
-    voice_dir=$(get_voice_storage_dir)
-    local has_voices=false
     
     # Check if ANY voices exist (basic sanity check)
     local voice_dir

@@ -14,6 +14,9 @@ export LC_ALL=C
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 
+# ─── Platform utilities ──────────────────────────────────────
+source "$SCRIPT_DIR/lib-platform.sh"
+
 # ─── Platform detection ─────────────────────────────────────
 HAS_PYTHON=0
 python3 --version &>/dev/null && HAS_PYTHON=1 || true
@@ -41,7 +44,7 @@ if [ "$HAS_PYTHON" -eq 1 ]; then
     VOICE_SERVER_PID=$(lsof -ti :6969 2>/dev/null || true)
     if [ -z "$VOICE_SERVER_PID" ]; then
         cd "$PROJECT_ROOT"
-        python3 -u psi/active/voice_server.py > /tmp/voice_server.log 2>&1 &
+        python3 -u psi/active/voice_server.py > "$MATRIX_TMPDIR/voice_server.log" 2>&1 &
         sleep 1  # Give server time to start
     fi
 fi
@@ -321,7 +324,7 @@ fi
 
 # System Acknowledgement (Queue Priority 1)
 if [ "$HAS_PYTHON" -eq 1 ]; then
-    bash "$PROJECT_ROOT/scripts/voice/voice.sh" "System online. Link established." "System" || true
+    bash "$PROJECT_ROOT/scripts/voice/voice.sh" "System online. Link established." "System" 2>/dev/null || echo "[voice] TTS unavailable" >&2
 fi
 
 # Randomized Oracle Greetings (Queue Priority 2)
@@ -342,5 +345,5 @@ SELECTED_GREETING="${ORACLE_GREETINGS[$RAND_INDEX]}"
 
 # Speak Oracle Greeting
 if [ "$HAS_PYTHON" -eq 1 ]; then
-    bash "$PROJECT_ROOT/scripts/voice/voice.sh" "$SELECTED_GREETING" "Oracle" || true
+    bash "$PROJECT_ROOT/scripts/voice/voice.sh" "$SELECTED_GREETING" "Oracle" 2>/dev/null || echo "[voice] TTS unavailable" >&2
 fi

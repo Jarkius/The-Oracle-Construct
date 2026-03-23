@@ -30,6 +30,9 @@ warnings=0
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 
+# Cross-platform utilities
+source "$SCRIPT_DIR/lib-platform.sh"
+
 # ============================================
 # 1. DEPENDENCIES
 # ============================================
@@ -114,7 +117,7 @@ else
 fi
 
 echo -n "  Server Lock File... "
-LOCK_FILE="/tmp/matrix_voice_server.lock"
+LOCK_FILE="$MATRIX_TMPDIR/matrix_voice_server.lock"
 if [[ -f "$LOCK_FILE" ]]; then
     LOCK_PID=$(cat "$LOCK_FILE" 2>/dev/null)
     if kill -0 "$LOCK_PID" 2>/dev/null; then
