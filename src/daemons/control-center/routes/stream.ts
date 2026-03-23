@@ -6,7 +6,7 @@
 
 import { Hono } from "hono";
 import { streamSSE } from "hono/streaming";
-import { readFile, stat } from "node:fs/promises";
+import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { DAEMONS } from "./daemons";
 import { PROJECT_ROOT } from "../../../core/paths";
@@ -38,12 +38,12 @@ async function checkAllDaemons() {
   return statuses;
 }
 
-async function getFileSize(path: string): Promise<number> {
+async function getLineCount(path: string): Promise<string[]> {
   try {
-    const s = await stat(path);
-    return s.size;
+    const text = await readFile(path, "utf-8");
+    return text.trim().split("\n").filter(Boolean);
   } catch {
-    return 0;
+    return [];
   }
 }
 
@@ -73,22 +73,17 @@ app.get("/status", (c) => {
 // GET /events — SSE stream watching events.jsonl for new lines
 app.get("/events", (c) => {
   return streamSSE(c, async (stream) => {
-    let lastSize = await getFileSize(EVENTS_PATH);
+    const initialLines = await getLineCount(EVENTS_PATH);
+    let lastLineCount = initialLines.length;
     let id = 0;
 
     while (true) {
       try {
-        const currentSize = await getFileSize(EVENTS_PATH);
+        const allLines = await getLineCount(EVENTS_PATH);
+        const currentCount = allLines.length;
 
-        if (currentSize > lastSize) {
-          // Read the full file and extract new content
-          const text = await readFile(EVENTS_PATH, "utf-8");
-          const allBytes = Buffer.byteLength(text, "utf-8");
-          // Approximate: read from lastSize offset
-          const newContent = text.substring(
-            text.length - (allBytes - lastSize > 0 ? Math.ceil((allBytes - lastSize) / 1) : 0),
-          );
-          const newLines = newContent.trim().split("\n").filter(Boolean);
+        if (currentCount > lastLineCount) {
+          const newLines = allLines.slice(lastLineCount);
 
           for (const line of newLines) {
             try {
@@ -102,10 +97,10 @@ app.get("/events", (c) => {
               // Skip malformed
             }
           }
-          lastSize = currentSize;
-        } else if (currentSize < lastSize) {
+          lastLineCount = currentCount;
+        } else if (currentCount < lastLineCount) {
           // File was truncated/rotated
-          lastSize = currentSize;
+          lastLineCount = currentCount;
         }
       } catch {
         break;
@@ -127,31 +122,27 @@ app.get("/logs/:name", (c) => {
   const logFile = join(DAEMON_LOGS_DIR, `${name}.log`);
 
   return streamSSE(c, async (stream) => {
-    let lastSize = await getFileSize(logFile);
+    const initialLines = await getLineCount(logFile);
+    let lastLineCount = initialLines.length;
     let id = 0;
 
     while (true) {
       try {
-        const currentSize = await getFileSize(logFile);
+        const allLines = await getLineCount(logFile);
+        const currentCount = allLines.length;
 
-        if (currentSize > lastSize) {
-          const text = await readFile(logFile, "utf-8");
-          const allBytes = Buffer.byteLength(text, "utf-8");
-          const diff = allBytes - lastSize;
-          if (diff > 0) {
-            const newContent = text.substring(text.length - Math.ceil(diff));
-            const newLines = newContent.trim().split("\n").filter(Boolean);
-            for (const line of newLines) {
-              await stream.writeSSE({
-                data: line,
-                event: "log-line",
-                id: String(id++),
-              });
-            }
+        if (currentCount > lastLineCount) {
+          const newLines = allLines.slice(lastLineCount);
+          for (const line of newLines) {
+            await stream.writeSSE({
+              data: line,
+              event: "log-line",
+              id: String(id++),
+            });
           }
-          lastSize = currentSize;
-        } else if (currentSize < lastSize) {
-          lastSize = currentSize;
+          lastLineCount = currentCount;
+        } else if (currentCount < lastLineCount) {
+          lastLineCount = currentCount;
         }
       } catch {
         break;

@@ -80,6 +80,30 @@ export function renderDaemonCards(daemons: DaemonInfo[]): string {
 }
 
 /**
+ * Render a compact horizontal status bar for the dashboard.
+ * Shows each daemon as a colored dot + name + port in a single row.
+ */
+export function renderDaemonSummary(daemons: DaemonInfo[]): string {
+  if (daemons.length === 0) {
+    return '<div style="color: #555;">No daemons configured.</div>';
+  }
+
+  const items = daemons.map((d) => {
+    const statusClass = d.running ? "green" : "red";
+    const portText = d.port > 0 ? `:${d.port}` : "";
+
+    return `
+      <div style="display: flex; align-items: center; gap: 6px;">
+        <span class="status-dot ${statusClass}"></span>
+        <span style="font-size: 12px;">${esc(d.name)}</span>
+        ${portText ? `<span style="font-size: 10px; color: #555;">${esc(portText)}</span>` : ""}
+      </div>`;
+  });
+
+  return `<div style="display: flex; gap: 16px; flex-wrap: wrap;">${items.join("")}</div>`;
+}
+
+/**
  * Render quick stats — a single stat value + label.
  * Called per-metric from the dashboard.
  */

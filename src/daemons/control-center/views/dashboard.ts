@@ -15,8 +15,8 @@ export function dashboardPage(): string {
         Daemon Status
         <span class="htmx-indicator" style="margin-left: 8px; color: #00ff88;">refreshing...</span>
       </div>
-      <div id="daemon-cards"
-           hx-get="/partials/daemon-cards"
+      <div id="daemon-summary"
+           hx-get="/partials/daemon-summary"
            hx-trigger="load, every 5s"
            hx-swap="innerHTML"
            hx-indicator="closest .card">

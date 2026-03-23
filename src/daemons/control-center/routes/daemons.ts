@@ -164,6 +164,7 @@ app.post("/kill-orphans", async (c) => {
         const match = line.match(/"[^"]+","(\d+)"/);
         if (match) {
           const pid = Number(match[1]);
+          if (pid === process.pid) continue; // Never kill own process
           try {
             Bun.spawn(["taskkill", "/PID", String(pid), "/F"], { stdout: "pipe", stderr: "pipe" });
             killed.push(`claude:${pid}`);
@@ -177,6 +178,7 @@ app.post("/kill-orphans", async (c) => {
       const pids = (await new Response(proc.stdout).text()).trim().split("\n").filter(Boolean);
       await proc.exited;
       for (const pid of pids) {
+        if (Number(pid) === process.pid) continue; // Never kill own process
         try {
           process.kill(Number(pid), 9);
           killed.push(`claude-p:${pid}`);

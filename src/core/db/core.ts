@@ -11,9 +11,11 @@
 
 import { Database } from "bun:sqlite";
 import { existsSync, unlinkSync, writeFileSync, readFileSync } from "fs";
+import { join } from "node:path";
+import { PROJECT_ROOT } from "../paths";
 
-export const DB_PATH = "./agents.db";
-const LOCK_PATH = "./agents.db.init.lock";
+export const DB_PATH = join(PROJECT_ROOT, "agents.db");
+const LOCK_PATH = join(PROJECT_ROOT, "agents.db.init.lock");
 const LOCK_TIMEOUT_MS = 30000; // 30 second timeout for stale locks
 
 // Optional vector DB import - may not be initialized

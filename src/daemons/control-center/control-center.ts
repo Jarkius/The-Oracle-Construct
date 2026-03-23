@@ -28,7 +28,7 @@ import { servicesPage } from "./views/services";
 import { logsPage } from "./views/logs";
 
 // Partials
-import { renderDaemonCards, renderSingleStat, renderMemoryOverview } from "./partials/daemon-card";
+import { renderDaemonCards, renderDaemonSummary, renderSingleStat, renderMemoryOverview } from "./partials/daemon-card";
 import { renderSqliteStats, renderChromaStats, renderEmbeddingInfo, renderPlatformInfo } from "./partials/memory-stats";
 import { renderLogLines } from "./partials/log-viewer";
 
@@ -131,6 +131,12 @@ app.get("/api/nerve/live", async (c) => {
 app.get("/partials/daemon-cards", async (c) => {
   const daemonInfo = await Promise.all(DAEMONS.map(checkDaemonStatus));
   return c.html(renderDaemonCards(daemonInfo));
+});
+
+// Compact daemon summary for dashboard
+app.get("/partials/daemon-summary", async (c) => {
+  const daemonInfo = await Promise.all(DAEMONS.map(checkDaemonStatus));
+  return c.html(renderDaemonSummary(daemonInfo));
 });
 
 // Alias for services page
