@@ -76,7 +76,7 @@ export function buildSystemPrompt(agent: AgentRoute, projectRoot: string, userId
   }
 
   // 2. Current focus
-  const focusPath = join(projectRoot, 'psi', 'inbox', 'focus.md');
+  const focusPath = join(projectRoot, 'psi', 'state', 'focus.md');
   if (existsSync(focusPath)) {
     const focus = readFileSync(focusPath, 'utf8');
     // Just the first 20 lines for context

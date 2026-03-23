@@ -13,7 +13,8 @@ PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 AGENT_ID="${1:-unknown}"
 MESSAGE="${2:-[no message]}"
 
-COMMS_DIR="$PROJECT_ROOT/psi/inbox/agent-comms"
+COMMS_DIR="$PROJECT_ROOT/psi/swarm/agent-comms"
+mkdir -p "$COMMS_DIR"
 COMM_FILE="$COMMS_DIR/${AGENT_ID}.md"
 
 if [[ -f "$COMM_FILE" ]]; then

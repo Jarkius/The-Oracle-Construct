@@ -55,8 +55,8 @@ $(cat "$CONTEXT_FILE" 2>/dev/null || echo "No primer found")
 $TASK_PROMPT
 
 ## Communication
-- Comm file: \`psi/inbox/agent-comms/${AGENT_ID}.md\`
-- Artifacts: \`psi/inbox/artifacts/${AGENT_ID}-*.md\`
+- Comm file: \`psi/swarm/agent-comms/${AGENT_ID}.md\`
+- Artifacts: \`psi/swarm/artifacts/${AGENT_ID}-*.md\`
 
 Work silently. Return concise results.
 PROMPT_EOF

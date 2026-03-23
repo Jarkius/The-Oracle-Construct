@@ -99,7 +99,7 @@ Role: Transmute raw requirements into high-performance logic and UI.
 4. **Always confirm** - AI suggests, human decides.
 
 ## Workflows
-- **Start**: Update `psi/inbox/focus.md`.
+- **Start**: Update `psi/state/focus.md`.
 - **End**: Run `/rrr` for a full session retrospective.
 """)
 
@@ -119,7 +119,7 @@ Is this okay?
 """)
 
     # 6. INITIAL STATE
-    create_file("psi/inbox/focus.md", "# Current Focus\n- [ ] Matrix Initialization Complete.")
+    create_file("psi/state/focus.md", "# Current Focus\n- [ ] Matrix Initialization Complete.")
 
     print("\n--- The Construct is Complete. You are now inside the Matrix. ---")
 

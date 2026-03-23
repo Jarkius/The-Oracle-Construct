@@ -23,7 +23,7 @@ Identify recent learnings.
 sh scripts/voice/voice.sh "Scanning memory for patterns..." "Scribe"
 
 # Find candidates
-grep -r "LEARNING" psi/memory/learnings/ psi/memory/retrospectives/ psi/inbox/research_*.md | tail -5
+grep -r "LEARNING" psi/memory/learnings/ psi/memory/retrospectives/ psi/knowledge/inbox/ 2>/dev/null | tail -5
 git log --oneline -5
 ```
 

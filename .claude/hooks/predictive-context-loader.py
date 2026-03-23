@@ -118,7 +118,7 @@ def build_profile(events, patterns, focus, now):
             ])
         elif 'matrix-memory' in focus.lower():
             profile['predicted_focus'] = 'Memory System'
-            profile['preload_files'].append('lib/matrix-memory-agents/')
+            profile['preload_files'].append('src/memory/')
 
     # --- Gap Detection (time since last session) ---
     if session_starts:

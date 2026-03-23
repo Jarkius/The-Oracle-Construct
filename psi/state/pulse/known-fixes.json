@@ -44,7 +44,7 @@
     {
       "id": "events-jsonl-corrupt",
       "match": { "error_contains": "JSON Parse error" },
-      "fix": "python3 -c \"import json,sys;[print(l,end='') for l in open('psi/pulse/events.jsonl') if (lambda l: (json.loads(l) and True) if l.strip() else False)(l)]\" > /tmp/events-clean.jsonl && mv /tmp/events-clean.jsonl psi/pulse/events.jsonl",
+      "fix": "python3 -c \"import json,sys;[print(l,end='') for l in open('psi/state/pulse/events.jsonl') if (lambda l: (json.loads(l) and True) if l.strip() else False)(l)]\" > /tmp/events-clean.jsonl && mv /tmp/events-clean.jsonl psi/state/pulse/events.jsonl",
       "description": "Remove malformed JSON lines from events",
       "auto": true,
       "successCount": 0,

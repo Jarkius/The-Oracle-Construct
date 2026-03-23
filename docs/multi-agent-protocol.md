@@ -162,7 +162,7 @@ Always merge sequentially:
 ```
 Layer 0: IDENTITY    (SOUL.md, BOOT.md, USER.md, psi/source/)
 Layer 1: STATE       (psi/state/, psi/memory/, ~/.matrix/coordination/)
-Layer 2: SERVICES    (lib/matrix-memory-agents/src/)
+Layer 2: SERVICES    (src/)
 Layer 3: AUTOMATION  (.claude/hooks/, .agent/workflows/)
 Layer 4: EXTENSIONS  (mcp/, .claude/agents/, skills)
 ```
@@ -173,14 +173,14 @@ Layer 4: EXTENSIONS  (mcp/, .claude/agents/, skills)
 
 | Component | Source File |
 |-----------|------------|
-| Lock Manager | `lib/matrix-memory-agents/src/coordination/lock-manager.ts` |
-| Coordinator | `lib/matrix-memory-agents/src/coordination/coordinator.ts` |
-| Status Writer | `lib/matrix-memory-agents/src/coordination/status-writer.ts` |
-| Message Bus | `lib/matrix-memory-agents/src/coordination/message-bus.ts` |
-| Merge Queue | `lib/matrix-memory-agents/src/coordination/merge-queue.ts` |
-| Permission Resolver | `lib/matrix-memory-agents/src/security/permission-resolver.ts` |
-| Enforcement Engine | `lib/matrix-memory-agents/src/security/enforcement-engine.ts` |
-| Elevation Manager | `lib/matrix-memory-agents/src/security/elevation.ts` |
+| Lock Manager | `src/coordination/lock-manager.ts` |
+| Coordinator | `src/coordination/coordinator.ts` |
+| Status Writer | `src/coordination/status-writer.ts` |
+| Message Bus | `src/coordination/message-bus.ts` |
+| Merge Queue | `src/coordination/merge-queue.ts` |
+| Permission Resolver | `src/security/permission-resolver.ts` |
+| Enforcement Engine | `src/security/enforcement-engine.ts` |
+| Elevation Manager | `src/security/elevation.ts` |
 | Lock Check Hook | `.claude/hooks/matrix-lock-check.sh` |
 | Permission Gate Hook | `.claude/hooks/matrix-permission-gate.sh` |
 | Source Guard Hook | `.claude/hooks/matrix-source-guard.sh` |

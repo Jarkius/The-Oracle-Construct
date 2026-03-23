@@ -8,9 +8,9 @@
  * Managed by matrix-services.sh.
  *
  * Usage:
- *   bun run src/gateway/matrix-gateway.ts         # Start gateway
- *   bun run src/gateway/matrix-gateway.ts stop     # Stop
- *   bun run src/gateway/matrix-gateway.ts status   # Check status
+ *   bun run src/daemons/gateway/matrix-gateway.ts         # Start gateway
+ *   bun run src/daemons/gateway/matrix-gateway.ts stop     # Stop
+ *   bun run src/daemons/gateway/matrix-gateway.ts status   # Check status
  *
  * Required env vars:
  *   TELEGRAM_BOT_TOKEN — from BotFather

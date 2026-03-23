@@ -11,9 +11,9 @@
  * Managed by matrix-services.sh. HTTP health endpoint on port 37892.
  *
  * Usage:
- *   bun run src/heartbeat/heartbeat-daemon.ts         # Start daemon
- *   bun run src/heartbeat/heartbeat-daemon.ts stop     # Stop daemon
- *   bun run src/heartbeat/heartbeat-daemon.ts status   # Check status
+ *   bun run src/daemons/heartbeat/heartbeat-daemon.ts         # Start daemon
+ *   bun run src/daemons/heartbeat/heartbeat-daemon.ts stop     # Stop daemon
+ *   bun run src/daemons/heartbeat/heartbeat-daemon.ts status   # Check status
  */
 
 import { createServer, type Server } from 'http';

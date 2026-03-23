@@ -158,7 +158,7 @@
     "warning": 1,
     "info": 2
   },
-  "dispatch_log": "psi/pulse/dispatch-log.jsonl",
+  "dispatch_log": "psi/state/pulse/dispatch-log.jsonl",
   "max_concurrent_dispatches": 3,
   "require_approval_above_priority": 2
 }

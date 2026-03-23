@@ -24,7 +24,7 @@ Four evolution tracks inspired by OpenClaw's architecture, adapted to The Oracle
 ### What It Does
 
 A lightweight daemon that runs between sessions, periodically checking:
-- Overdue reminders (`psi/pulse/reminders.json`)
+- Overdue reminders (`psi/state/pulse/reminders.json`)
 - CI/CD status (GitHub Actions via `gh` CLI)
 - PR review requests
 - Stale tasks (no updates in 48h+)
@@ -40,8 +40,8 @@ When something needs attention, it notifies via the messaging gateway (Track B) 
 │    (new service in matrix-services.sh)   │
 ├──────────────────────────────────────────┤
 │  Interval: configurable (default 30min)  │
-│  Config: psi/pulse/heartbeat.json        │
-│  Checklist: psi/pulse/HEARTBEAT.md       │
+│  Config: psi/state/pulse/heartbeat.json        │
+│  Checklist: psi/state/pulse/HEARTBEAT.md       │
 │  Notify: Gateway WS → Telegram/Discord   │
 │  Fallback: macOS notification / log      │
 └──────────────────────────────────────────┘
@@ -49,7 +49,7 @@ When something needs attention, it notifies via the messaging gateway (Track B) 
 
 ### Implementation
 
-#### A1. Heartbeat config (`psi/pulse/heartbeat.json`)
+#### A1. Heartbeat config (`psi/state/pulse/heartbeat.json`)
 ```json
 {
   "enabled": true,
@@ -68,7 +68,7 @@ When something needs attention, it notifies via the messaging gateway (Track B) 
 }
 ```
 
-#### A2. Heartbeat checklist (`psi/pulse/HEARTBEAT.md`)
+#### A2. Heartbeat checklist (`psi/state/pulse/HEARTBEAT.md`)
 Markdown file the daemon reads each cycle — similar to OpenClaw's approach. Human-editable, agent-readable:
 ```markdown
 # Heartbeat Checklist
@@ -79,7 +79,7 @@ Markdown file the daemon reads each cycle — similar to OpenClaw's approach. Hu
 - [ ] Scan events.jsonl for error spikes (3+ failures in 1h)
 ```
 
-#### A3. Heartbeat daemon (`lib/matrix-memory-agents/src/heartbeat/heartbeat-daemon.ts`)
+#### A3. Heartbeat daemon (`src/heartbeat/heartbeat-daemon.ts`)
 - New Bun service managed by `matrix-services.sh`
 - Reads `heartbeat.json` config + `HEARTBEAT.md` checklist
 - Runs checks on interval
@@ -198,28 +198,28 @@ Add gateway section to existing `.matrix.json`:
 }
 ```
 
-#### B3. Agent Router (`lib/matrix-memory-agents/src/gateway/agent-router.ts`)
+#### B3. Agent Router (`src/gateway/agent-router.ts`)
 - Parse incoming message for agent triggers (`Neo,`, `@smith`, `/oracle`, etc.)
 - Default to Oracle if no agent specified
 - Load agent definition from `.claude/agents/*.md`
 - Build system prompt: agent soul + current context (focus, tasks)
 - Route to Claude API with appropriate model tier (ADR-003)
 
-#### B4. Gateway service (`lib/matrix-memory-agents/src/gateway/gateway.ts`)
+#### B4. Gateway service (`src/gateway/gateway.ts`)
 - Main entry point, managed by `matrix-services.sh`
 - Initializes channel adapters (Telegram, Discord)
 - WebSocket server on port 8082 for internal communication (heartbeat alerts)
 - Message queue for rate limiting
 - HTTP health endpoint (`/status`, `/channels`)
 
-#### B5. Telegram adapter (`lib/matrix-memory-agents/src/gateway/channels/telegram.ts`)
+#### B5. Telegram adapter (`src/gateway/channels/telegram.ts`)
 - grammY bot initialization
 - Message handling: text, commands, photos (for screenshot analysis)
 - Response formatting: Markdown → Telegram MarkdownV2
 - User authentication against allowed_users list
 - Typing indicator while processing
 
-#### B6. Claude API bridge (`lib/matrix-memory-agents/src/gateway/claude-bridge.ts`)
+#### B6. Claude API bridge (`src/gateway/claude-bridge.ts`)
 - Anthropic SDK client
 - Tool definitions matching Oracle Construct capabilities:
   - `shell_exec` — run commands (sandboxed)
@@ -241,7 +241,7 @@ Add gateway section to existing `.matrix.json`:
 #### B8. Register in `matrix-services.sh`
 Add gateway as fourth managed service:
 - `matrix-services.sh start gateway`
-- Auto-start configurable in `psi/pulse/heartbeat.json`
+- Auto-start configurable in `psi/state/pulse/heartbeat.json`
 
 #### B9. Heartbeat → Gateway bridge
 When heartbeat detects something, it sends via Gateway WebSocket → Telegram notification.
@@ -427,7 +427,7 @@ Pattern detected → WEP proposed → Create sandbox branch
 
 **Expanded scope** (beyond ADR-014):
 - `.sh` files in `.claude/hooks/`
-- Config files in `psi/pulse/`
+- Config files in `psi/state/pulse/`
 - WEP metadata
 
 **Sacred files** (never auto-evolved):

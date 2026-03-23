@@ -24,5 +24,5 @@
     "force_sandbox": false,
     "sacred_files_enforced": true
   },
-  "log_file": "psi/pulse/daemon-logs/heartbeat.log"
+  "log_file": "psi/state/pulse/daemon-logs/heartbeat.log"
 }

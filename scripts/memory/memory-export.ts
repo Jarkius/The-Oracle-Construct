@@ -8,7 +8,7 @@
  *   bun memory export-md --type resonance   # Identity files only
  *   bun memory export-md --output ./docs    # Custom output directory
  *   bun memory import-md ./path/to/file.md  # Import single file
- *   bun memory import-md ./ψ/memory/        # Import directory
+ *   bun memory import-md ./psi/memory/        # Import directory
  */
 
 import { parseArgs } from 'util';
@@ -52,7 +52,7 @@ Usage:
   bun memory import-md <path> [options]    Import markdown files
 
 Export Options:
-  -o, --output <dir>      Output directory (default: ./ψ/memory)
+  -o, --output <dir>      Output directory (default: ./psi/memory)
   -t, --type <type>       Export type: all, learnings, sessions, decisions, resonance
   -c, --confidence <lvl>  Min confidence: low, medium, high, proven
   -C, --category <cat>    Filter by category
@@ -77,13 +77,13 @@ Examples:
   bun memory export-md -t learnings              # Just learnings
   bun memory export-md -t resonance -c proven    # Proven resonance only
   bun memory export-md -o ./docs/brain           # Custom output
-  bun memory import-md ./ψ/memory/learnings/     # Import directory
+  bun memory import-md ./psi/memory/learnings/     # Import directory
   bun memory import-md ./new-learning.md         # Import single file
 `);
 }
 
 async function runExport() {
-  const outputDir = resolve(values.output || './ψ/memory');
+  const outputDir = resolve(values.output || './psi/memory');
   const exportType = values.type || 'all';
   const confidence = values.confidence as 'low' | 'medium' | 'high' | 'proven' | undefined;
   const category = values.category;

@@ -15,8 +15,9 @@ SILENT="${2:-}"
 
 # Paths
 SFX_DIR="$PROJECT_ROOT/.claude/audio/sfx"
-COMMS_DIR="$PROJECT_ROOT/psi/inbox/agent-comms"
-ARTIFACTS_DIR="$PROJECT_ROOT/psi/inbox/artifacts"
+COMMS_DIR="$PROJECT_ROOT/psi/swarm/agent-comms"
+ARTIFACTS_DIR="$PROJECT_ROOT/psi/swarm/artifacts"
+mkdir -p "$COMMS_DIR" "$ARTIFACTS_DIR"
 
 # Generate session ID for this spawn
 SESSION_ID="$(date +%s)-$$"

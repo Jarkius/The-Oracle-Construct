@@ -13,7 +13,8 @@ PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 AGENT_ID="${1:-unknown}"
 FILENAME="${2:-artifact.md}"
 
-ARTIFACTS_DIR="$PROJECT_ROOT/psi/inbox/artifacts"
+ARTIFACTS_DIR="$PROJECT_ROOT/psi/swarm/artifacts"
+mkdir -p "$ARTIFACTS_DIR"
 
 # Full path for artifact
 ARTIFACT_PATH="$ARTIFACTS_DIR/${AGENT_ID}-${FILENAME}"

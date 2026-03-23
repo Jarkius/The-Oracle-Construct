@@ -23,7 +23,7 @@ import {
 // ============================================================================
 
 export interface ExportConfig {
-  outputDir: string;           // Default: ./ψ/memory
+  outputDir: string;           // Default: ./psi/memory
   includeTypes: ('learnings' | 'sessions' | 'decisions' | 'resonance')[];
   minConfidence?: 'low' | 'medium' | 'high' | 'proven';
   category?: string;
@@ -608,7 +608,7 @@ export async function generateMasterIndex(outputDir: string): Promise<void> {
   parts.push('## Structure');
   parts.push('');
   parts.push('```');
-  parts.push('ψ/memory/');
+  parts.push('psi/memory/');
   parts.push('├── resonance/       # Identity - who we are');
   parts.push('│   ├── philosophy.md');
   parts.push('│   ├── principles.md');

@@ -4,11 +4,11 @@
 
 ## Active Checks
 
-- [x] Check overdue reminders in `psi/pulse/reminders.json`
+- [x] Check overdue reminders in `psi/state/pulse/reminders.json`
 - [x] Check GitHub CI status for active PRs (`gh pr list`)
 - [x] Check for PR review requests assigned to Jarkius
 - [x] Flag tasks with no update in 48+ hours (`psi/memory/tasks/active.json`)
-- [x] Scan `psi/pulse/events.jsonl` for error spikes (3+ failures in 1h)
+- [x] Scan `psi/state/pulse/events.jsonl` for error spikes (3+ failures in 1h)
 
 ## Disabled Checks
 
@@ -22,4 +22,4 @@
 - Items marked `[x]` are active; `[ ]` are disabled
 - Add new checks by adding markdown checkbox lines
 - The daemon reads this file each cycle, so edits take effect immediately
-- Interval configured in `psi/pulse/heartbeat.json` (default: 30 min)
+- Interval configured in `psi/state/pulse/heartbeat.json` (default: 30 min)

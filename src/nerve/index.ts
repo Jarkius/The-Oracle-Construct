@@ -23,10 +23,10 @@ export async function createNerve(cwd: string): Promise<Supervisor> {
   const supervisor = new Supervisor(cwd);
 
   // Register all Matrix daemons
-  supervisor.register('heartbeat', 37892, 'bun run src/heartbeat/heartbeat-daemon.ts start');
-  supervisor.register('gateway', 8082, 'bun run src/gateway/matrix-gateway.ts');
-  supervisor.register('hub', 8081, 'bun run src/matrix-hub.ts');
-  supervisor.register('indexer', 37890, 'bun run src/indexer/indexer-daemon.ts start');
+  supervisor.register('heartbeat', 37892, 'bun run src/daemons/heartbeat/heartbeat-daemon.ts start');
+  supervisor.register('gateway', 8082, 'bun run src/daemons/gateway/matrix-gateway.ts');
+  supervisor.register('hub', 8081, 'bun run src/daemons/hub/matrix-hub.ts');
+  supervisor.register('indexer', 37890, 'bun run src/memory/indexer/indexer-daemon.ts start');
 
   await supervisor.init();
   return supervisor;
