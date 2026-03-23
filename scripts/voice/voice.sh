@@ -280,12 +280,27 @@ if [ "$SPEAKER" = "Oracle" ]; then
     exit 0
 fi
 
-# SYSTEM
+# SYSTEM (The Matrix's own voice — KITT scanning pulse)
 if [ "$SPEAKER" = "System" ]; then
-    # hfc_male
+    # hfc_male + Knight Rider scanning loop at 30% volume
     echo "$MESSAGE" | "$PIPER_BIN" --model "$VOICE_DIR/en_US-hfc_male-medium.onnx" --output_file "$TEMP_WAV" 2>/dev/null
     if [ -f "$TEMP_WAV" ] && [ -s "$TEMP_WAV" ]; then
-        safe_play "$TEMP_WAV"
+        SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+        PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
+        KITT_LOOP="$PROJECT_ROOT/.claude/audio/tracks/kitt_knight_rider_loop.mp3"
+        if [ -f "$KITT_LOOP" ] && command -v ffmpeg >/dev/null 2>&1; then
+            DURATION=$(ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "$TEMP_WAV" 2>/dev/null)
+            ffmpeg -y -i "$TEMP_WAV" -stream_loop -1 -i "$KITT_LOOP" \
+                -filter_complex "[1:a]volume=0.30[bg];[0:a][bg]amix=inputs=2:duration=first[out]" \
+                -map "[out]" -t "$DURATION" "$TEMP_WAV_MIXED" 2>/dev/null
+            if [ -f "$TEMP_WAV_MIXED" ] && [ -s "$TEMP_WAV_MIXED" ]; then
+                safe_play "$TEMP_WAV_MIXED"
+            else
+                safe_play "$TEMP_WAV"
+            fi
+        else
+            safe_play "$TEMP_WAV"
+        fi
     else
         say_fallback "$MESSAGE" "Tom"
     fi
