@@ -30,7 +30,16 @@ fi
 MATRIX_OS="unknown"
 case "$(uname -s)" in
     Darwin) MATRIX_OS="macos" ;;
-    MINGW*|MSYS*|CYGWIN*) MATRIX_OS="windows" ;;
+    MINGW*|MSYS*|CYGWIN*)
+        MATRIX_OS="windows"
+        # Add winget-installed tools to PATH if not already available
+        for pkg_dir in "$HOME/AppData/Local/Microsoft/WinGet/Packages"/*/; do
+            bin_dir=$(find "$pkg_dir" -name "bin" -type d 2>/dev/null | head -1)
+            [ -n "$bin_dir" ] && export PATH="$PATH:$bin_dir"
+        done
+        # SoX default install location
+        [ -d "/c/Program Files (x86)/sox-14-4-2" ] && export PATH="$PATH:/c/Program Files (x86)/sox-14-4-2"
+        ;;
     Linux) MATRIX_OS="linux" ;;
 esac
 
