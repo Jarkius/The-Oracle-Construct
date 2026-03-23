@@ -15,7 +15,7 @@ import { join, basename } from 'path';
 import { createHash } from 'crypto';
 
 const ROOT = process.cwd();
-const DB_PATH = join(ROOT, 'agents.db');
+const DB_PATH = join(ROOT, 'data', 'agents.db');
 const MATRIX_CONFIG = join(ROOT, '.matrix.json');
 const IS_CI = process.env.CI === 'true' || process.env.GITHUB_ACTIONS === 'true';
 

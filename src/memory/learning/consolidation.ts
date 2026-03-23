@@ -211,7 +211,7 @@ export function calculateMergeStrategy(
 export async function consolidateLearnings(
   strategy: MergeStrategy
 ): Promise<ConsolidationResult> {
-  const db = new Database('agents.db');
+  const db = new Database('data/agents.db');
   let linksUpdated = 0;
 
   try {

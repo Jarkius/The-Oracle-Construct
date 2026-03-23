@@ -40,7 +40,7 @@ async function getMetrics() {
 
   // Count knowledge and lessons via SQL
   const { Database } = await import('bun:sqlite');
-  const db = new Database('agents.db');
+  const db = new Database('data/agents.db');
   const knowledgeCount = db.query('SELECT COUNT(*) as count FROM knowledge').get() as { count: number };
   const lessonsCount = db.query('SELECT COUNT(*) as count FROM lessons').get() as { count: number };
   db.close();
@@ -120,7 +120,7 @@ async function runIteration(iteration: number): Promise<IterationStats> {
   try {
     // Find learnings that have been linked multiple times (indicates value)
     const { Database } = await import('bun:sqlite');
-    const db = new Database('agents.db');
+    const db = new Database('data/agents.db');
 
     // Find learnings with multiple links (popular = valuable)
     const popular = db.query(`

@@ -34,7 +34,7 @@ if ! command -v bun &> /dev/null; then
 fi
 
 # Clear previous session data
-rm -f "$SCRIPT_DIR/agents.db"
+rm -f "$SCRIPT_DIR/agents.db" "$SCRIPT_DIR/../../data/agents.db"
 
 # Kill existing session if exists
 tmux kill-session -t "$SESSION" 2>/dev/null

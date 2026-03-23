@@ -75,8 +75,8 @@ const DEFAULT_IGNORE = [
   '**/yarn.lock',
   '**/bun.lockb',
   '**/.env*',
-  '**/agents.db',
-  '**/agents.db-*',
+  '**/data/agents.db',
+  '**/data/agents.db-*',
   '**/.chromadb_data/**',
 ];
 

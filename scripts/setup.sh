@@ -227,7 +227,7 @@ else
   "matrix_id": "$MATRIX_ID",
   "daemon_port": $DAEMON_PORT,
   "daemon_dir": "~/.matrix-daemon-$MATRIX_ID",
-  "database": "./agents.db",
+  "database": "./data/agents.db",
   "hub_url": "ws://localhost:$HUB_PORT",
   "hub_pin": "$HUB_PIN"
 }
@@ -238,7 +238,7 @@ EOF
   "matrix_id": "$MATRIX_ID",
   "daemon_port": $DAEMON_PORT,
   "daemon_dir": "~/.matrix-daemon-$MATRIX_ID",
-  "database": "./agents.db",
+  "database": "./data/agents.db",
   "hub_url": "ws://localhost:$HUB_PORT"
 }
 EOF
@@ -291,16 +291,16 @@ else
 fi
 
 # Check 4: SQLite database exists
-if [ -f "agents.db" ]; then
-    echo -e "  ${GREEN}✓${NC} SQLite: agents.db exists"
+if [ -f "data/agents.db" ]; then
+    echo -e "  ${GREEN}✓${NC} SQLite: data/agents.db exists"
 else
-    echo -e "  ${RED}✗${NC} SQLite: agents.db missing"
+    echo -e "  ${RED}✗${NC} SQLite: data/agents.db missing"
     HEALTH_FAILED=1
 fi
 
 # Check 5: Code index has files
 INDEX_COUNT=$(bun -e "
-const db = require('better-sqlite3')('agents.db');
+const db = require('better-sqlite3')('data/agents.db');
 try { console.log(db.prepare('SELECT COUNT(*) as c FROM code_files').get()?.c || 0); }
 catch { console.log(0); }
 " 2>/dev/null || echo "0")
@@ -368,10 +368,10 @@ echo -e "${GREEN}╚════════════════════
 echo ""
 
 # Get additional info for summary
-SESSION_COUNT=$(sqlite3 agents.db "SELECT COUNT(*) FROM sessions;" 2>/dev/null || echo "0")
-LEARNING_COUNT=$(sqlite3 agents.db "SELECT COUNT(*) FROM learnings;" 2>/dev/null || echo "0")
-AGENT_COUNT=$(sqlite3 agents.db "SELECT COUNT(*) FROM agents WHERE status != 'stopped';" 2>/dev/null || echo "0")
-DB_SIZE=$(du -h agents.db 2>/dev/null | cut -f1 || echo "0K")
+SESSION_COUNT=$(sqlite3 data/agents.db "SELECT COUNT(*) FROM sessions;" 2>/dev/null || echo "0")
+LEARNING_COUNT=$(sqlite3 data/agents.db "SELECT COUNT(*) FROM learnings;" 2>/dev/null || echo "0")
+AGENT_COUNT=$(sqlite3 data/agents.db "SELECT COUNT(*) FROM agents WHERE status != 'stopped';" 2>/dev/null || echo "0")
+DB_SIZE=$(du -h data/agents.db 2>/dev/null | cut -f1 || echo "0K")
 CHROMA_SIZE=$(du -sh "$CHROMA_DATA" 2>/dev/null | cut -f1 || echo "0K")
 
 echo -e "${BLUE}┌──────────────────────────────────────────────────────────┐${NC}"
@@ -387,7 +387,7 @@ echo -e "${BLUE}│${NC}  Matrix Daemon (this project)        :$DAEMON_PORT  ${G
 echo -e "${BLUE}│${NC}  WebSocket Server (agent comm)       :8080    (starts with MCP)"
 echo -e "${BLUE}├──────────────────────────────────────────────────────────┤${NC}"
 echo -e "${BLUE}│${NC}  ${YELLOW}DATA LOCATIONS${NC}"
-echo -e "${BLUE}│${NC}  SQLite Database:   ./agents.db ($DB_SIZE)"
+echo -e "${BLUE}│${NC}  SQLite Database:   ./data/agents.db ($DB_SIZE)"
 echo -e "${BLUE}│${NC}  ChromaDB Data:     $CHROMA_DATA ($CHROMA_SIZE)"
 echo -e "${BLUE}│${NC}  Agent Inbox:       ./data/agent_inbox/"
 echo -e "${BLUE}│${NC}  Agent Outbox:      ./data/agent_outbox/"

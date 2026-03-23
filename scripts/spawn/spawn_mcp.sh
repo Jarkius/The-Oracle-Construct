@@ -22,10 +22,10 @@ if ! command -v bun &> /dev/null; then
 fi
 
 # Clear previous session data
-rm -f "$SCRIPT_DIR/agents.db"
-
 # Use project-relative paths for persistence (data survives reboots, unlike /tmp)
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
+
+rm -f "$SCRIPT_DIR/agents.db" "$PROJECT_ROOT/data/agents.db"
 DATA_DIR="${PROJECT_ROOT}/data"
 rm -rf "$DATA_DIR/agent_inbox"
 rm -rf "$DATA_DIR/agent_outbox"

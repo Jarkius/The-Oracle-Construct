@@ -94,7 +94,7 @@ fi
 echo ""
 
 # Clear previous session data
-rm -f "$SCRIPT_DIR/agents.db"
+rm -f "$SCRIPT_DIR/agents.db" "$PROJECT_ROOT/data/agents.db"
 
 # Use project-relative paths for persistence (data survives reboots, unlike /tmp)
 DATA_DIR="${PROJECT_ROOT}/data"

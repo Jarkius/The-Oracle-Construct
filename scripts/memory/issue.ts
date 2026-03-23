@@ -327,7 +327,7 @@ ${fix ? `## Known Fix/Workaround\n${fix}\n` : ''}
     }
   }
 
-  console.log(`Query issues: sqlite3 agents.db "SELECT id, title, lesson FROM learnings WHERE title LIKE '[%' AND category='debugging' ORDER BY id DESC LIMIT 10;"
+  console.log(`Query issues: sqlite3 data/agents.db "SELECT id, title, lesson FROM learnings WHERE title LIKE '[%' AND category='debugging' ORDER BY id DESC LIMIT 10;"
 Or search:    bun memory recall "[${component}]"
 `);
 }

@@ -17,7 +17,7 @@ import { join } from "path";
 // Temp Database Management
 // ============================================================================
 
-const MAIN_DB_PATH = "./agents.db";
+const MAIN_DB_PATH = "./data/agents.db";
 let tempDbPath: string | null = null;
 let tempDb: Database | null = null;
 

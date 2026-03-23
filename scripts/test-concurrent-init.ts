@@ -8,10 +8,10 @@ import { spawn } from 'bun';
 import { existsSync, unlinkSync, rmSync } from 'fs';
 
 const NUM_PROCESSES = 5;
-const DB_PATH = './agents.db';
-const DB_WAL = './agents.db-wal';
-const DB_SHM = './agents.db-shm';
-const LOCK_PATH = './agents.db.init.lock';
+const DB_PATH = './data/agents.db';
+const DB_WAL = './data/agents.db-wal';
+const DB_SHM = './data/agents.db-shm';
+const LOCK_PATH = './data/agents.db.init.lock';
 
 async function cleanupDb() {
   // Remove existing DB files to test fresh initialization

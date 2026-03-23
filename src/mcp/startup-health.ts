@@ -6,7 +6,7 @@
 import { existsSync } from 'fs';
 import { getSystemStateQuick } from '../core/db';
 
-const DB_PATH = './agents.db';
+const DB_PATH = './data/agents.db';
 
 export interface FreshCloneIndicators {
   dbMissing: boolean;

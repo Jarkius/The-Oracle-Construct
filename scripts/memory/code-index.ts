@@ -349,7 +349,7 @@ async function main() {
         const execAsync = promisify(exec);
 
         const result = await execAsync(
-          `sqlite3 agents.db "SELECT file_path FROM code_files WHERE language = '${langFilter}'"`
+          `sqlite3 data/agents.db "SELECT file_path FROM code_files WHERE language = '${langFilter}'"`
         );
         files = result.stdout.trim().split('\n').filter(Boolean);
       } else {
@@ -359,7 +359,7 @@ async function main() {
         const execAsync = promisify(exec);
 
         const result = await execAsync(
-          `sqlite3 agents.db "SELECT file_path FROM code_files"`
+          `sqlite3 data/agents.db "SELECT file_path FROM code_files"`
         );
         files = result.stdout.trim().split('\n').filter(Boolean);
       }

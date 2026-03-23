@@ -237,7 +237,7 @@ function getGitRootPath(): string | undefined {
  * This indicates a shared database scenario where we should allow cross-project access
  */
 function isSharedDatabase(): boolean {
-  const dbPath = join(process.cwd(), 'agents.db');
+  const dbPath = join(process.cwd(), 'data', 'agents.db');
   try {
     const stat = lstatSync(dbPath);
     if (stat.isSymbolicLink()) {

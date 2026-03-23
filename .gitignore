@@ -24,9 +24,10 @@ psi/memory/logs/agents/*.log
 psi/lab/archive/
 
 # Runtime databases
-agents.db
-agents.db-shm
-agents.db-wal
+data/*.db
+data/*.db-shm
+data/*.db-wal
+data/*.db.init.lock
 
 # Session cookies (sensitive)
 psi/active/.gemini-cookies.json
