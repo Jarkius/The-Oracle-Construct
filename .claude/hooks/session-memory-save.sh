@@ -67,8 +67,12 @@ $SUMMARY
 
 ## Context Snapshot
 
-- **Focus at end**: $(head -20 "$PROJECT_ROOT/psi/state/focus.md" 2>/dev/null | grep -A1 "Task:" | tail -1 || echo "Unknown")
-- **Active tasks**: $(cat "$PROJECT_ROOT/psi/memory/tasks/active.json" 2>/dev/null | grep -c '"status": "pending"' || echo "0") pending
+- **Focus at end**: $(head -20 "$PROJECT_ROOT/psi/state/focus.md" 2>/dev/null | grep -oP '(?<=\*\*Task\*\*: ).*' 2>/dev/null || echo "Unknown")
+- **Active tasks**: $(cat "$PROJECT_ROOT/psi/memory/tasks/active.json" 2>/dev/null | grep -c '"pending"' || echo "0") pending, $(cat "$PROJECT_ROOT/psi/memory/tasks/active.json" 2>/dev/null | grep -c '"blocked"' || echo "0") blocked
+- **Branch**: $(cd "$PROJECT_ROOT" && git branch --show-current 2>/dev/null || echo "unknown")
+- **Ahead**: $(cd "$PROJECT_ROOT" && git rev-list --count @{u}..HEAD 2>/dev/null || echo "?") commits
+- **Recent commits**:
+$(cd "$PROJECT_ROOT" && git log --oneline -3 2>/dev/null || echo "none")
 
 ---
 
