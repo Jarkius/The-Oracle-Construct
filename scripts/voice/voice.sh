@@ -249,8 +249,8 @@ fi
 
 # MORPHEUS
 if [ "$SPEAKER" = "Morpheus" ]; then
-    # carlin-high (Original Approved Voice)
-    echo "$MESSAGE" | "$PIPER_BIN" --model "$VOICE_DIR/en_US-carlin-high.onnx" --output_file "$TEMP_WAV" 2>/dev/null
+    # joe-medium (deep commanding voice — replaces carlin-high which is not in standard Piper)
+    echo "$MESSAGE" | "$PIPER_BIN" --model "$VOICE_DIR/en_US-joe-medium.onnx" --output_file "$TEMP_WAV" 2>/dev/null
     if [ -f "$TEMP_WAV" ] && [ -s "$TEMP_WAV" ]; then
         safe_play "$TEMP_WAV"
     else

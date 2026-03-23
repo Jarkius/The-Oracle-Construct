@@ -64,7 +64,7 @@ from datetime import datetime
 # ============================================================
 HOST = '127.0.0.1'          # Listen on localhost only
 PORT = 6969                  # TCP port for voice requests
-LOCK_FILE = '/tmp/matrix_voice_server.lock'  # PID file
+LOCK_FILE = os.path.join(os.environ.get('TEMP', os.environ.get('TMPDIR', '/tmp')), 'matrix_voice_server.lock')  # PID file
 
 # ============================================================
 # LOGGING SETUP
@@ -84,10 +84,14 @@ def log(message):
     """
     timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     line = f"[{timestamp}] {message}"
-    print(line)
+    try:
+        print(line)
+    except UnicodeEncodeError:
+        # Windows cp874/cp1252 can't handle emoji — strip them
+        print(line.encode('ascii', 'replace').decode())
     sys.stdout.flush()
     try:
-        with open(LOG_FILE, 'a') as f:
+        with open(LOG_FILE, 'a', encoding='utf-8') as f:
             f.write(line + '\n')
     except Exception:
         pass  # Don't crash on log failure
@@ -114,7 +118,8 @@ def get_voice_cmd(text, speaker):
     The --worker flag is essential - without it, voice.sh would
     try to send back to THIS server, causing infinite loop!
     """
-    cmd = ["bash", "./psi/matrix/voice.sh", text, speaker, "--worker"]
+    voice_script = os.path.join(SCRIPT_DIR, "voice.sh")
+    cmd = ["bash", voice_script, text, speaker, "--worker"]
     return cmd
 
 def process_queue():
