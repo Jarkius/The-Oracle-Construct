@@ -4179,3 +4179,507 @@ ChromaConnectionError: Failed to connect to Chroma
       at async learnFromFile (C:\Workspace\Dev\the-matrix\scripts\memory\learn.ts:157:15)
       at async main (C:\Workspace\Dev\the-matrix\scripts\memory\learn.ts:720:15)
 
+$ bun run scripts/memory/index.ts save "Auto-saved session via pulse hook"
+The system cannot find the path specified.
+The system cannot find the path specified.
+The system cannot find the path specified.
+The system cannot find the path specified.
+warning: in the working copy of 'psi/state/pulse/events.jsonl', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'psi/state/pulse/events.jsonl', LF will be replaced by CRLF the next time Git touches it
+[VectorDB] Using Transformers.js with model: multilingual-e5-base
+[VectorDB] Failed to initialize: 4645 |     if (offlineError(err)) {
+4646 |       throw new ChromaConnectionError(
+4647 |         "Failed to connect to chromadb. Make sure your server is running and try again. If you are running from a browser, make sure that your chromadb instance is configured to allow requests from the current origin using the CHROMA_SERVER_CORS_ALLOW_ORIGINS environment variable."
+4648 |       );
+4649 |     }
+4650 |     throw new ChromaConnectionError("Failed to connect to Chroma");
+                 ^
+ChromaConnectionError: Failed to connect to Chroma
+ cause: undefined,
+
+      at <anonymous> (C:\Users\jsanitareephon\.bun\install\cache\chromadb@3.4.0@@@1\dist\chromadb.mjs:4650:11)
+      at async <anonymous> (C:\Users\jsanitareephon\.bun\install\cache\chromadb@3.4.0@@@1\dist\chromadb.mjs:338:32)
+      at async getOrCreateCollection (C:\Users\jsanitareephon\.bun\install\cache\chromadb@3.4.0@@@1\dist\chromadb.mjs:5154:46)
+      at async initVectorDB (C:\Workspace\Dev\the-matrix\src\memory\vector-db.ts:501:33)
+      at async saveCurrentSession (C:\Workspace\Dev\the-matrix\scripts\memory\save-session.ts:723:11)
+
+$ bun run scripts/memory/index.ts learn "C:/Workspace/Dev/the-matrix/psi/memory/sessions/2026-03/2026-03-23_13.08_auto-pulse.md"
+[VectorDB] Using Transformers.js with model: multilingual-e5-base
+[VectorDB] Failed to initialize: 4645 |     if (offlineError(err)) {
+4646 |       throw new ChromaConnectionError(
+4647 |         "Failed to connect to chromadb. Make sure your server is running and try again. If you are running from a browser, make sure that your chromadb instance is configured to allow requests from the current origin using the CHROMA_SERVER_CORS_ALLOW_ORIGINS environment variable."
+4648 |       );
+4649 |     }
+4650 |     throw new ChromaConnectionError("Failed to connect to Chroma");
+                 ^
+ChromaConnectionError: Failed to connect to Chroma
+ cause: undefined,
+
+      at <anonymous> (C:\Users\jsanitareephon\.bun\install\cache\chromadb@3.4.0@@@1\dist\chromadb.mjs:4650:11)
+      at async <anonymous> (C:\Users\jsanitareephon\.bun\install\cache\chromadb@3.4.0@@@1\dist\chromadb.mjs:338:32)
+      at async getOrCreateCollection (C:\Users\jsanitareephon\.bun\install\cache\chromadb@3.4.0@@@1\dist\chromadb.mjs:5154:46)
+      at async initVectorDB (C:\Workspace\Dev\the-matrix\src\memory\vector-db.ts:501:33)
+      at async saveLearning (C:\Workspace\Dev\the-matrix\scripts\memory\learn.ts:578:11)
+      at async learnFromFile (C:\Workspace\Dev\the-matrix\scripts\memory\learn.ts:157:15)
+      at async main (C:\Workspace\Dev\the-matrix\scripts\memory\learn.ts:720:15)
+
+$ bun run scripts/memory/index.ts save "Auto-saved session via pulse hook"
+The system cannot find the path specified.
+The system cannot find the path specified.
+The system cannot find the path specified.
+The system cannot find the path specified.
+warning: in the working copy of 'psi/state/pulse/events.jsonl', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'psi/state/pulse/memory-errors.log', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'psi/state/pulse/events.jsonl', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'psi/state/pulse/memory-errors.log', LF will be replaced by CRLF the next time Git touches it
+[VectorDB] Using Transformers.js with model: multilingual-e5-base
+[VectorDB] Failed to initialize: 4645 |     if (offlineError(err)) {
+4646 |       throw new ChromaConnectionError(
+4647 |         "Failed to connect to chromadb. Make sure your server is running and try again. If you are running from a browser, make sure that your chromadb instance is configured to allow requests from the current origin using the CHROMA_SERVER_CORS_ALLOW_ORIGINS environment variable."
+4648 |       );
+4649 |     }
+4650 |     throw new ChromaConnectionError("Failed to connect to Chroma");
+                 ^
+ChromaConnectionError: Failed to connect to Chroma
+ cause: undefined,
+
+      at <anonymous> (C:\Users\jsanitareephon\.bun\install\cache\chromadb@3.4.0@@@1\dist\chromadb.mjs:4650:11)
+      at async <anonymous> (C:\Users\jsanitareephon\.bun\install\cache\chromadb@3.4.0@@@1\dist\chromadb.mjs:338:32)
+      at async getOrCreateCollection (C:\Users\jsanitareephon\.bun\install\cache\chromadb@3.4.0@@@1\dist\chromadb.mjs:5154:46)
+      at async initVectorDB (C:\Workspace\Dev\the-matrix\src\memory\vector-db.ts:501:33)
+      at async saveCurrentSession (C:\Workspace\Dev\the-matrix\scripts\memory\save-session.ts:723:11)
+
+$ bun run scripts/memory/index.ts learn "C:/Workspace/Dev/the-matrix/psi/memory/sessions/2026-03/2026-03-23_13.26_auto-pulse.md"
+[VectorDB] Using Transformers.js with model: multilingual-e5-base
+[VectorDB] Failed to initialize: 4645 |     if (offlineError(err)) {
+4646 |       throw new ChromaConnectionError(
+4647 |         "Failed to connect to chromadb. Make sure your server is running and try again. If you are running from a browser, make sure that your chromadb instance is configured to allow requests from the current origin using the CHROMA_SERVER_CORS_ALLOW_ORIGINS environment variable."
+4648 |       );
+4649 |     }
+4650 |     throw new ChromaConnectionError("Failed to connect to Chroma");
+                 ^
+ChromaConnectionError: Failed to connect to Chroma
+ cause: undefined,
+
+      at <anonymous> (C:\Users\jsanitareephon\.bun\install\cache\chromadb@3.4.0@@@1\dist\chromadb.mjs:4650:11)
+      at async <anonymous> (C:\Users\jsanitareephon\.bun\install\cache\chromadb@3.4.0@@@1\dist\chromadb.mjs:338:32)
+      at async getOrCreateCollection (C:\Users\jsanitareephon\.bun\install\cache\chromadb@3.4.0@@@1\dist\chromadb.mjs:5154:46)
+      at async initVectorDB (C:\Workspace\Dev\the-matrix\src\memory\vector-db.ts:501:33)
+      at async saveLearning (C:\Workspace\Dev\the-matrix\scripts\memory\learn.ts:578:11)
+      at async learnFromFile (C:\Workspace\Dev\the-matrix\scripts\memory\learn.ts:157:15)
+      at async main (C:\Workspace\Dev\the-matrix\scripts\memory\learn.ts:720:15)
+
+$ bun run scripts/memory/index.ts save "Auto-saved session via pulse hook"
+The system cannot find the path specified.
+The system cannot find the path specified.
+The system cannot find the path specified.
+The system cannot find the path specified.
+warning: in the working copy of 'psi/state/pulse/events.jsonl', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'psi/state/pulse/memory-errors.log', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'psi/state/pulse/events.jsonl', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'psi/state/pulse/memory-errors.log', LF will be replaced by CRLF the next time Git touches it
+[VectorDB] Using Transformers.js with model: multilingual-e5-base
+[VectorDB] Failed to initialize: 4645 |     if (offlineError(err)) {
+4646 |       throw new ChromaConnectionError(
+4647 |         "Failed to connect to chromadb. Make sure your server is running and try again. If you are running from a browser, make sure that your chromadb instance is configured to allow requests from the current origin using the CHROMA_SERVER_CORS_ALLOW_ORIGINS environment variable."
+4648 |       );
+4649 |     }
+4650 |     throw new ChromaConnectionError("Failed to connect to Chroma");
+                 ^
+ChromaConnectionError: Failed to connect to Chroma
+ cause: undefined,
+
+      at <anonymous> (C:\Users\jsanitareephon\.bun\install\cache\chromadb@3.4.0@@@1\dist\chromadb.mjs:4650:11)
+      at async <anonymous> (C:\Users\jsanitareephon\.bun\install\cache\chromadb@3.4.0@@@1\dist\chromadb.mjs:338:32)
+      at async getOrCreateCollection (C:\Users\jsanitareephon\.bun\install\cache\chromadb@3.4.0@@@1\dist\chromadb.mjs:5154:46)
+      at async initVectorDB (C:\Workspace\Dev\the-matrix\src\memory\vector-db.ts:501:33)
+      at async saveCurrentSession (C:\Workspace\Dev\the-matrix\scripts\memory\save-session.ts:723:11)
+
+$ bun run scripts/memory/index.ts learn "C:/Workspace/Dev/the-matrix/psi/memory/sessions/2026-03/2026-03-23_13.35_auto-pulse.md"
+[VectorDB] Using Transformers.js with model: multilingual-e5-base
+[VectorDB] Failed to initialize: 4645 |     if (offlineError(err)) {
+4646 |       throw new ChromaConnectionError(
+4647 |         "Failed to connect to chromadb. Make sure your server is running and try again. If you are running from a browser, make sure that your chromadb instance is configured to allow requests from the current origin using the CHROMA_SERVER_CORS_ALLOW_ORIGINS environment variable."
+4648 |       );
+4649 |     }
+4650 |     throw new ChromaConnectionError("Failed to connect to Chroma");
+                 ^
+ChromaConnectionError: Failed to connect to Chroma
+ cause: undefined,
+
+      at <anonymous> (C:\Users\jsanitareephon\.bun\install\cache\chromadb@3.4.0@@@1\dist\chromadb.mjs:4650:11)
+      at async <anonymous> (C:\Users\jsanitareephon\.bun\install\cache\chromadb@3.4.0@@@1\dist\chromadb.mjs:338:32)
+      at async getOrCreateCollection (C:\Users\jsanitareephon\.bun\install\cache\chromadb@3.4.0@@@1\dist\chromadb.mjs:5154:46)
+      at async initVectorDB (C:\Workspace\Dev\the-matrix\src\memory\vector-db.ts:501:33)
+      at async saveLearning (C:\Workspace\Dev\the-matrix\scripts\memory\learn.ts:578:11)
+      at async learnFromFile (C:\Workspace\Dev\the-matrix\scripts\memory\learn.ts:157:15)
+      at async main (C:\Workspace\Dev\the-matrix\scripts\memory\learn.ts:720:15)
+
+$ bun run scripts/memory/index.ts save "Auto-saved session via pulse hook"
+The system cannot find the path specified.
+The system cannot find the path specified.
+The system cannot find the path specified.
+The system cannot find the path specified.
+warning: in the working copy of 'psi/state/pulse/events.jsonl', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'psi/state/pulse/memory-errors.log', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'psi/state/pulse/events.jsonl', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'psi/state/pulse/memory-errors.log', LF will be replaced by CRLF the next time Git touches it
+[VectorDB] Using Transformers.js with model: multilingual-e5-base
+[VectorDB] Failed to initialize: 4645 |     if (offlineError(err)) {
+4646 |       throw new ChromaConnectionError(
+4647 |         "Failed to connect to chromadb. Make sure your server is running and try again. If you are running from a browser, make sure that your chromadb instance is configured to allow requests from the current origin using the CHROMA_SERVER_CORS_ALLOW_ORIGINS environment variable."
+4648 |       );
+4649 |     }
+4650 |     throw new ChromaConnectionError("Failed to connect to Chroma");
+                 ^
+ChromaConnectionError: Failed to connect to Chroma
+ cause: undefined,
+
+      at <anonymous> (C:\Users\jsanitareephon\.bun\install\cache\chromadb@3.4.0@@@1\dist\chromadb.mjs:4650:11)
+      at async <anonymous> (C:\Users\jsanitareephon\.bun\install\cache\chromadb@3.4.0@@@1\dist\chromadb.mjs:338:32)
+      at async getOrCreateCollection (C:\Users\jsanitareephon\.bun\install\cache\chromadb@3.4.0@@@1\dist\chromadb.mjs:5154:46)
+      at async initVectorDB (C:\Workspace\Dev\the-matrix\src\memory\vector-db.ts:501:33)
+      at async saveCurrentSession (C:\Workspace\Dev\the-matrix\scripts\memory\save-session.ts:723:11)
+
+$ bun run scripts/memory/index.ts learn "C:/Workspace/Dev/the-matrix/psi/memory/sessions/2026-03/2026-03-23_13.35_auto-pulse.md"
+[VectorDB] Using Transformers.js with model: multilingual-e5-base
+[VectorDB] Failed to initialize: 4645 |     if (offlineError(err)) {
+4646 |       throw new ChromaConnectionError(
+4647 |         "Failed to connect to chromadb. Make sure your server is running and try again. If you are running from a browser, make sure that your chromadb instance is configured to allow requests from the current origin using the CHROMA_SERVER_CORS_ALLOW_ORIGINS environment variable."
+4648 |       );
+4649 |     }
+4650 |     throw new ChromaConnectionError("Failed to connect to Chroma");
+                 ^
+ChromaConnectionError: Failed to connect to Chroma
+ cause: undefined,
+
+      at <anonymous> (C:\Users\jsanitareephon\.bun\install\cache\chromadb@3.4.0@@@1\dist\chromadb.mjs:4650:11)
+      at async <anonymous> (C:\Users\jsanitareephon\.bun\install\cache\chromadb@3.4.0@@@1\dist\chromadb.mjs:338:32)
+      at async getOrCreateCollection (C:\Users\jsanitareephon\.bun\install\cache\chromadb@3.4.0@@@1\dist\chromadb.mjs:5154:46)
+      at async initVectorDB (C:\Workspace\Dev\the-matrix\src\memory\vector-db.ts:501:33)
+      at async saveLearning (C:\Workspace\Dev\the-matrix\scripts\memory\learn.ts:578:11)
+      at async learnFromFile (C:\Workspace\Dev\the-matrix\scripts\memory\learn.ts:157:15)
+      at async main (C:\Workspace\Dev\the-matrix\scripts\memory\learn.ts:720:15)
+
+$ bun run scripts/memory/index.ts save "Auto-saved session via pulse hook"
+The system cannot find the path specified.
+The system cannot find the path specified.
+The system cannot find the path specified.
+The system cannot find the path specified.
+warning: in the working copy of 'psi/state/pulse/events.jsonl', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'psi/state/pulse/memory-errors.log', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'psi/state/pulse/events.jsonl', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'psi/state/pulse/memory-errors.log', LF will be replaced by CRLF the next time Git touches it
+[VectorDB] Using Transformers.js with model: multilingual-e5-base
+[VectorDB] Failed to initialize: 4645 |     if (offlineError(err)) {
+4646 |       throw new ChromaConnectionError(
+4647 |         "Failed to connect to chromadb. Make sure your server is running and try again. If you are running from a browser, make sure that your chromadb instance is configured to allow requests from the current origin using the CHROMA_SERVER_CORS_ALLOW_ORIGINS environment variable."
+4648 |       );
+4649 |     }
+4650 |     throw new ChromaConnectionError("Failed to connect to Chroma");
+                 ^
+ChromaConnectionError: Failed to connect to Chroma
+ cause: undefined,
+
+      at <anonymous> (C:\Users\jsanitareephon\.bun\install\cache\chromadb@3.4.0@@@1\dist\chromadb.mjs:4650:11)
+      at async <anonymous> (C:\Users\jsanitareephon\.bun\install\cache\chromadb@3.4.0@@@1\dist\chromadb.mjs:338:32)
+      at async getOrCreateCollection (C:\Users\jsanitareephon\.bun\install\cache\chromadb@3.4.0@@@1\dist\chromadb.mjs:5154:46)
+      at async initVectorDB (C:\Workspace\Dev\the-matrix\src\memory\vector-db.ts:501:33)
+      at async saveCurrentSession (C:\Workspace\Dev\the-matrix\scripts\memory\save-session.ts:723:11)
+
+$ bun run scripts/memory/index.ts learn "C:/Workspace/Dev/the-matrix/psi/memory/sessions/2026-03/2026-03-23_13.41_auto-pulse.md"
+[VectorDB] Using Transformers.js with model: multilingual-e5-base
+[VectorDB] Failed to initialize: 4645 |     if (offlineError(err)) {
+4646 |       throw new ChromaConnectionError(
+4647 |         "Failed to connect to chromadb. Make sure your server is running and try again. If you are running from a browser, make sure that your chromadb instance is configured to allow requests from the current origin using the CHROMA_SERVER_CORS_ALLOW_ORIGINS environment variable."
+4648 |       );
+4649 |     }
+4650 |     throw new ChromaConnectionError("Failed to connect to Chroma");
+                 ^
+ChromaConnectionError: Failed to connect to Chroma
+ cause: undefined,
+
+      at <anonymous> (C:\Users\jsanitareephon\.bun\install\cache\chromadb@3.4.0@@@1\dist\chromadb.mjs:4650:11)
+      at async <anonymous> (C:\Users\jsanitareephon\.bun\install\cache\chromadb@3.4.0@@@1\dist\chromadb.mjs:338:32)
+      at async getOrCreateCollection (C:\Users\jsanitareephon\.bun\install\cache\chromadb@3.4.0@@@1\dist\chromadb.mjs:5154:46)
+      at async initVectorDB (C:\Workspace\Dev\the-matrix\src\memory\vector-db.ts:501:33)
+      at async saveLearning (C:\Workspace\Dev\the-matrix\scripts\memory\learn.ts:578:11)
+      at async learnFromFile (C:\Workspace\Dev\the-matrix\scripts\memory\learn.ts:157:15)
+      at async main (C:\Workspace\Dev\the-matrix\scripts\memory\learn.ts:720:15)
+
+$ bun run scripts/memory/index.ts save "Auto-saved session via pulse hook"
+The system cannot find the path specified.
+The system cannot find the path specified.
+The system cannot find the path specified.
+The system cannot find the path specified.
+warning: in the working copy of 'psi/state/pulse/events.jsonl', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'psi/state/pulse/memory-errors.log', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'psi/state/pulse/events.jsonl', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'psi/state/pulse/memory-errors.log', LF will be replaced by CRLF the next time Git touches it
+[VectorDB] Using Transformers.js with model: multilingual-e5-base
+[VectorDB] Failed to initialize: 4645 |     if (offlineError(err)) {
+4646 |       throw new ChromaConnectionError(
+4647 |         "Failed to connect to chromadb. Make sure your server is running and try again. If you are running from a browser, make sure that your chromadb instance is configured to allow requests from the current origin using the CHROMA_SERVER_CORS_ALLOW_ORIGINS environment variable."
+4648 |       );
+4649 |     }
+4650 |     throw new ChromaConnectionError("Failed to connect to Chroma");
+                 ^
+ChromaConnectionError: Failed to connect to Chroma
+ cause: undefined,
+
+      at <anonymous> (C:\Users\jsanitareephon\.bun\install\cache\chromadb@3.4.0@@@1\dist\chromadb.mjs:4650:11)
+      at async <anonymous> (C:\Users\jsanitareephon\.bun\install\cache\chromadb@3.4.0@@@1\dist\chromadb.mjs:338:32)
+      at async getOrCreateCollection (C:\Users\jsanitareephon\.bun\install\cache\chromadb@3.4.0@@@1\dist\chromadb.mjs:5154:46)
+      at async initVectorDB (C:\Workspace\Dev\the-matrix\src\memory\vector-db.ts:501:33)
+      at async saveCurrentSession (C:\Workspace\Dev\the-matrix\scripts\memory\save-session.ts:723:11)
+
+$ bun run scripts/memory/index.ts learn "C:/Workspace/Dev/the-matrix/psi/memory/sessions/2026-03/2026-03-23_13.45_auto-pulse.md"
+[VectorDB] Using Transformers.js with model: multilingual-e5-base
+[VectorDB] Failed to initialize: 4645 |     if (offlineError(err)) {
+4646 |       throw new ChromaConnectionError(
+4647 |         "Failed to connect to chromadb. Make sure your server is running and try again. If you are running from a browser, make sure that your chromadb instance is configured to allow requests from the current origin using the CHROMA_SERVER_CORS_ALLOW_ORIGINS environment variable."
+4648 |       );
+4649 |     }
+4650 |     throw new ChromaConnectionError("Failed to connect to Chroma");
+                 ^
+ChromaConnectionError: Failed to connect to Chroma
+ cause: undefined,
+
+      at <anonymous> (C:\Users\jsanitareephon\.bun\install\cache\chromadb@3.4.0@@@1\dist\chromadb.mjs:4650:11)
+      at async <anonymous> (C:\Users\jsanitareephon\.bun\install\cache\chromadb@3.4.0@@@1\dist\chromadb.mjs:338:32)
+      at async getOrCreateCollection (C:\Users\jsanitareephon\.bun\install\cache\chromadb@3.4.0@@@1\dist\chromadb.mjs:5154:46)
+      at async initVectorDB (C:\Workspace\Dev\the-matrix\src\memory\vector-db.ts:501:33)
+      at async saveLearning (C:\Workspace\Dev\the-matrix\scripts\memory\learn.ts:578:11)
+      at async learnFromFile (C:\Workspace\Dev\the-matrix\scripts\memory\learn.ts:157:15)
+      at async main (C:\Workspace\Dev\the-matrix\scripts\memory\learn.ts:720:15)
+
+$ bun run scripts/memory/index.ts save "Auto-saved session via pulse hook"
+The system cannot find the path specified.
+The system cannot find the path specified.
+The system cannot find the path specified.
+The system cannot find the path specified.
+warning: in the working copy of 'psi/state/pulse/events.jsonl', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'psi/state/pulse/memory-errors.log', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'psi/state/pulse/events.jsonl', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'psi/state/pulse/memory-errors.log', LF will be replaced by CRLF the next time Git touches it
+[VectorDB] Using Transformers.js with model: multilingual-e5-base
+[VectorDB] Failed to initialize: 4645 |     if (offlineError(err)) {
+4646 |       throw new ChromaConnectionError(
+4647 |         "Failed to connect to chromadb. Make sure your server is running and try again. If you are running from a browser, make sure that your chromadb instance is configured to allow requests from the current origin using the CHROMA_SERVER_CORS_ALLOW_ORIGINS environment variable."
+4648 |       );
+4649 |     }
+4650 |     throw new ChromaConnectionError("Failed to connect to Chroma");
+                 ^
+ChromaConnectionError: Failed to connect to Chroma
+ cause: undefined,
+
+      at <anonymous> (C:\Users\jsanitareephon\.bun\install\cache\chromadb@3.4.0@@@1\dist\chromadb.mjs:4650:11)
+      at async <anonymous> (C:\Users\jsanitareephon\.bun\install\cache\chromadb@3.4.0@@@1\dist\chromadb.mjs:338:32)
+      at async getOrCreateCollection (C:\Users\jsanitareephon\.bun\install\cache\chromadb@3.4.0@@@1\dist\chromadb.mjs:5154:46)
+      at async initVectorDB (C:\Workspace\Dev\the-matrix\src\memory\vector-db.ts:501:33)
+      at async saveCurrentSession (C:\Workspace\Dev\the-matrix\scripts\memory\save-session.ts:723:11)
+
+$ bun run scripts/memory/index.ts learn "C:/Workspace/Dev/the-matrix/psi/memory/sessions/2026-03/2026-03-23_13.48_auto-pulse.md"
+[VectorDB] Using Transformers.js with model: multilingual-e5-base
+[VectorDB] Failed to initialize: 4645 |     if (offlineError(err)) {
+4646 |       throw new ChromaConnectionError(
+4647 |         "Failed to connect to chromadb. Make sure your server is running and try again. If you are running from a browser, make sure that your chromadb instance is configured to allow requests from the current origin using the CHROMA_SERVER_CORS_ALLOW_ORIGINS environment variable."
+4648 |       );
+4649 |     }
+4650 |     throw new ChromaConnectionError("Failed to connect to Chroma");
+                 ^
+ChromaConnectionError: Failed to connect to Chroma
+ cause: undefined,
+
+      at <anonymous> (C:\Users\jsanitareephon\.bun\install\cache\chromadb@3.4.0@@@1\dist\chromadb.mjs:4650:11)
+      at async <anonymous> (C:\Users\jsanitareephon\.bun\install\cache\chromadb@3.4.0@@@1\dist\chromadb.mjs:338:32)
+      at async getOrCreateCollection (C:\Users\jsanitareephon\.bun\install\cache\chromadb@3.4.0@@@1\dist\chromadb.mjs:5154:46)
+      at async initVectorDB (C:\Workspace\Dev\the-matrix\src\memory\vector-db.ts:501:33)
+      at async saveLearning (C:\Workspace\Dev\the-matrix\scripts\memory\learn.ts:578:11)
+      at async learnFromFile (C:\Workspace\Dev\the-matrix\scripts\memory\learn.ts:157:15)
+      at async main (C:\Workspace\Dev\the-matrix\scripts\memory\learn.ts:720:15)
+
+$ bun run scripts/memory/index.ts save "Auto-saved session via pulse hook"
+The system cannot find the path specified.
+The system cannot find the path specified.
+The system cannot find the path specified.
+The system cannot find the path specified.
+warning: in the working copy of 'psi/state/pulse/events.jsonl', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'psi/state/pulse/memory-errors.log', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'psi/state/pulse/events.jsonl', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'psi/state/pulse/memory-errors.log', LF will be replaced by CRLF the next time Git touches it
+[VectorDB] Using Transformers.js with model: multilingual-e5-base
+[VectorDB] Failed to initialize: 4645 |     if (offlineError(err)) {
+4646 |       throw new ChromaConnectionError(
+4647 |         "Failed to connect to chromadb. Make sure your server is running and try again. If you are running from a browser, make sure that your chromadb instance is configured to allow requests from the current origin using the CHROMA_SERVER_CORS_ALLOW_ORIGINS environment variable."
+4648 |       );
+4649 |     }
+4650 |     throw new ChromaConnectionError("Failed to connect to Chroma");
+                 ^
+ChromaConnectionError: Failed to connect to Chroma
+ cause: undefined,
+
+      at <anonymous> (C:\Users\jsanitareephon\.bun\install\cache\chromadb@3.4.0@@@1\dist\chromadb.mjs:4650:11)
+      at async <anonymous> (C:\Users\jsanitareephon\.bun\install\cache\chromadb@3.4.0@@@1\dist\chromadb.mjs:338:32)
+      at async getOrCreateCollection (C:\Users\jsanitareephon\.bun\install\cache\chromadb@3.4.0@@@1\dist\chromadb.mjs:5154:46)
+      at async initVectorDB (C:\Workspace\Dev\the-matrix\src\memory\vector-db.ts:501:33)
+      at async saveCurrentSession (C:\Workspace\Dev\the-matrix\scripts\memory\save-session.ts:723:11)
+
+$ bun run scripts/memory/index.ts learn "C:/Workspace/Dev/the-matrix/psi/memory/sessions/2026-03/2026-03-23_13.49_auto-pulse.md"
+[VectorDB] Using Transformers.js with model: multilingual-e5-base
+[VectorDB] Failed to initialize: 4645 |     if (offlineError(err)) {
+4646 |       throw new ChromaConnectionError(
+4647 |         "Failed to connect to chromadb. Make sure your server is running and try again. If you are running from a browser, make sure that your chromadb instance is configured to allow requests from the current origin using the CHROMA_SERVER_CORS_ALLOW_ORIGINS environment variable."
+4648 |       );
+4649 |     }
+4650 |     throw new ChromaConnectionError("Failed to connect to Chroma");
+                 ^
+ChromaConnectionError: Failed to connect to Chroma
+ cause: undefined,
+
+      at <anonymous> (C:\Users\jsanitareephon\.bun\install\cache\chromadb@3.4.0@@@1\dist\chromadb.mjs:4650:11)
+      at async <anonymous> (C:\Users\jsanitareephon\.bun\install\cache\chromadb@3.4.0@@@1\dist\chromadb.mjs:338:32)
+      at async getOrCreateCollection (C:\Users\jsanitareephon\.bun\install\cache\chromadb@3.4.0@@@1\dist\chromadb.mjs:5154:46)
+      at async initVectorDB (C:\Workspace\Dev\the-matrix\src\memory\vector-db.ts:501:33)
+      at async saveLearning (C:\Workspace\Dev\the-matrix\scripts\memory\learn.ts:578:11)
+      at async learnFromFile (C:\Workspace\Dev\the-matrix\scripts\memory\learn.ts:157:15)
+      at async main (C:\Workspace\Dev\the-matrix\scripts\memory\learn.ts:720:15)
+
+$ bun run scripts/memory/index.ts save "Auto-saved session via pulse hook"
+The system cannot find the path specified.
+The system cannot find the path specified.
+The system cannot find the path specified.
+The system cannot find the path specified.
+warning: in the working copy of 'psi/state/pulse/events.jsonl', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'psi/state/pulse/memory-errors.log', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'psi/state/pulse/events.jsonl', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'psi/state/pulse/memory-errors.log', LF will be replaced by CRLF the next time Git touches it
+[VectorDB] Using Transformers.js with model: multilingual-e5-base
+[VectorDB] Failed to initialize: 4645 |     if (offlineError(err)) {
+4646 |       throw new ChromaConnectionError(
+4647 |         "Failed to connect to chromadb. Make sure your server is running and try again. If you are running from a browser, make sure that your chromadb instance is configured to allow requests from the current origin using the CHROMA_SERVER_CORS_ALLOW_ORIGINS environment variable."
+4648 |       );
+4649 |     }
+4650 |     throw new ChromaConnectionError("Failed to connect to Chroma");
+                 ^
+ChromaConnectionError: Failed to connect to Chroma
+ cause: undefined,
+
+      at <anonymous> (C:\Users\jsanitareephon\.bun\install\cache\chromadb@3.4.0@@@1\dist\chromadb.mjs:4650:11)
+      at async <anonymous> (C:\Users\jsanitareephon\.bun\install\cache\chromadb@3.4.0@@@1\dist\chromadb.mjs:338:32)
+      at async getOrCreateCollection (C:\Users\jsanitareephon\.bun\install\cache\chromadb@3.4.0@@@1\dist\chromadb.mjs:5154:46)
+      at async initVectorDB (C:\Workspace\Dev\the-matrix\src\memory\vector-db.ts:501:33)
+      at async saveCurrentSession (C:\Workspace\Dev\the-matrix\scripts\memory\save-session.ts:723:11)
+
+$ bun run scripts/memory/index.ts learn "C:/Workspace/Dev/the-matrix/psi/memory/sessions/2026-03/2026-03-23_13.50_auto-pulse.md"
+[VectorDB] Using Transformers.js with model: multilingual-e5-base
+[VectorDB] Failed to initialize: 4645 |     if (offlineError(err)) {
+4646 |       throw new ChromaConnectionError(
+4647 |         "Failed to connect to chromadb. Make sure your server is running and try again. If you are running from a browser, make sure that your chromadb instance is configured to allow requests from the current origin using the CHROMA_SERVER_CORS_ALLOW_ORIGINS environment variable."
+4648 |       );
+4649 |     }
+4650 |     throw new ChromaConnectionError("Failed to connect to Chroma");
+                 ^
+ChromaConnectionError: Failed to connect to Chroma
+ cause: undefined,
+
+      at <anonymous> (C:\Users\jsanitareephon\.bun\install\cache\chromadb@3.4.0@@@1\dist\chromadb.mjs:4650:11)
+      at async <anonymous> (C:\Users\jsanitareephon\.bun\install\cache\chromadb@3.4.0@@@1\dist\chromadb.mjs:338:32)
+      at async getOrCreateCollection (C:\Users\jsanitareephon\.bun\install\cache\chromadb@3.4.0@@@1\dist\chromadb.mjs:5154:46)
+      at async initVectorDB (C:\Workspace\Dev\the-matrix\src\memory\vector-db.ts:501:33)
+      at async saveLearning (C:\Workspace\Dev\the-matrix\scripts\memory\learn.ts:578:11)
+      at async learnFromFile (C:\Workspace\Dev\the-matrix\scripts\memory\learn.ts:157:15)
+      at async main (C:\Workspace\Dev\the-matrix\scripts\memory\learn.ts:720:15)
+
+$ bun run scripts/memory/index.ts save "Auto-saved session via pulse hook"
+The system cannot find the path specified.
+The system cannot find the path specified.
+The system cannot find the path specified.
+The system cannot find the path specified.
+warning: in the working copy of 'psi/state/pulse/events.jsonl', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'psi/state/pulse/memory-errors.log', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'psi/state/pulse/events.jsonl', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'psi/state/pulse/memory-errors.log', LF will be replaced by CRLF the next time Git touches it
+[VectorDB] Using Transformers.js with model: multilingual-e5-base
+[VectorDB] Failed to initialize: 4645 |     if (offlineError(err)) {
+4646 |       throw new ChromaConnectionError(
+4647 |         "Failed to connect to chromadb. Make sure your server is running and try again. If you are running from a browser, make sure that your chromadb instance is configured to allow requests from the current origin using the CHROMA_SERVER_CORS_ALLOW_ORIGINS environment variable."
+4648 |       );
+4649 |     }
+4650 |     throw new ChromaConnectionError("Failed to connect to Chroma");
+                 ^
+ChromaConnectionError: Failed to connect to Chroma
+ cause: undefined,
+
+      at <anonymous> (C:\Users\jsanitareephon\.bun\install\cache\chromadb@3.4.0@@@1\dist\chromadb.mjs:4650:11)
+      at async <anonymous> (C:\Users\jsanitareephon\.bun\install\cache\chromadb@3.4.0@@@1\dist\chromadb.mjs:338:32)
+      at async getOrCreateCollection (C:\Users\jsanitareephon\.bun\install\cache\chromadb@3.4.0@@@1\dist\chromadb.mjs:5154:46)
+      at async initVectorDB (C:\Workspace\Dev\the-matrix\src\memory\vector-db.ts:501:33)
+      at async saveCurrentSession (C:\Workspace\Dev\the-matrix\scripts\memory\save-session.ts:723:11)
+
+$ bun run scripts/memory/index.ts learn "C:/Workspace/Dev/the-matrix/psi/memory/sessions/2026-03/2026-03-23_13.51_auto-pulse.md"
+[VectorDB] Using Transformers.js with model: multilingual-e5-base
+[VectorDB] Failed to initialize: 4645 |     if (offlineError(err)) {
+4646 |       throw new ChromaConnectionError(
+4647 |         "Failed to connect to chromadb. Make sure your server is running and try again. If you are running from a browser, make sure that your chromadb instance is configured to allow requests from the current origin using the CHROMA_SERVER_CORS_ALLOW_ORIGINS environment variable."
+4648 |       );
+4649 |     }
+4650 |     throw new ChromaConnectionError("Failed to connect to Chroma");
+                 ^
+ChromaConnectionError: Failed to connect to Chroma
+ cause: undefined,
+
+      at <anonymous> (C:\Users\jsanitareephon\.bun\install\cache\chromadb@3.4.0@@@1\dist\chromadb.mjs:4650:11)
+      at async <anonymous> (C:\Users\jsanitareephon\.bun\install\cache\chromadb@3.4.0@@@1\dist\chromadb.mjs:338:32)
+      at async getOrCreateCollection (C:\Users\jsanitareephon\.bun\install\cache\chromadb@3.4.0@@@1\dist\chromadb.mjs:5154:46)
+      at async initVectorDB (C:\Workspace\Dev\the-matrix\src\memory\vector-db.ts:501:33)
+      at async saveLearning (C:\Workspace\Dev\the-matrix\scripts\memory\learn.ts:578:11)
+      at async learnFromFile (C:\Workspace\Dev\the-matrix\scripts\memory\learn.ts:157:15)
+      at async main (C:\Workspace\Dev\the-matrix\scripts\memory\learn.ts:720:15)
+
+$ bun run scripts/memory/index.ts save "Auto-saved session via pulse hook"
+The system cannot find the path specified.
+The system cannot find the path specified.
+The system cannot find the path specified.
+The system cannot find the path specified.
+warning: in the working copy of 'psi/state/pulse/events.jsonl', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'psi/state/pulse/memory-errors.log', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'psi/state/pulse/events.jsonl', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'psi/state/pulse/memory-errors.log', LF will be replaced by CRLF the next time Git touches it
+[VectorDB] Using Transformers.js with model: multilingual-e5-base
+[VectorDB] Failed to initialize: 4645 |     if (offlineError(err)) {
+4646 |       throw new ChromaConnectionError(
+4647 |         "Failed to connect to chromadb. Make sure your server is running and try again. If you are running from a browser, make sure that your chromadb instance is configured to allow requests from the current origin using the CHROMA_SERVER_CORS_ALLOW_ORIGINS environment variable."
+4648 |       );
+4649 |     }
+4650 |     throw new ChromaConnectionError("Failed to connect to Chroma");
+                 ^
+ChromaConnectionError: Failed to connect to Chroma
+ cause: undefined,
+
+      at <anonymous> (C:\Users\jsanitareephon\.bun\install\cache\chromadb@3.4.0@@@1\dist\chromadb.mjs:4650:11)
+      at async <anonymous> (C:\Users\jsanitareephon\.bun\install\cache\chromadb@3.4.0@@@1\dist\chromadb.mjs:338:32)
+      at async getOrCreateCollection (C:\Users\jsanitareephon\.bun\install\cache\chromadb@3.4.0@@@1\dist\chromadb.mjs:5154:46)
+      at async initVectorDB (C:\Workspace\Dev\the-matrix\src\memory\vector-db.ts:501:33)
+      at async saveCurrentSession (C:\Workspace\Dev\the-matrix\scripts\memory\save-session.ts:723:11)
+
+$ bun run scripts/memory/index.ts learn "C:/Workspace/Dev/the-matrix/psi/memory/sessions/2026-03/2026-03-23_13.54_auto-pulse.md"
+[VectorDB] Using Transformers.js with model: multilingual-e5-base
+[VectorDB] Failed to initialize: 4645 |     if (offlineError(err)) {
+4646 |       throw new ChromaConnectionError(
+4647 |         "Failed to connect to chromadb. Make sure your server is running and try again. If you are running from a browser, make sure that your chromadb instance is configured to allow requests from the current origin using the CHROMA_SERVER_CORS_ALLOW_ORIGINS environment variable."
+4648 |       );
+4649 |     }
+4650 |     throw new ChromaConnectionError("Failed to connect to Chroma");
+                 ^
+ChromaConnectionError: Failed to connect to Chroma
+ cause: undefined,
+
+      at <anonymous> (C:\Users\jsanitareephon\.bun\install\cache\chromadb@3.4.0@@@1\dist\chromadb.mjs:4650:11)
+      at async <anonymous> (C:\Users\jsanitareephon\.bun\install\cache\chromadb@3.4.0@@@1\dist\chromadb.mjs:338:32)
+      at async getOrCreateCollection (C:\Users\jsanitareephon\.bun\install\cache\chromadb@3.4.0@@@1\dist\chromadb.mjs:5154:46)
+      at async initVectorDB (C:\Workspace\Dev\the-matrix\src\memory\vector-db.ts:501:33)
+      at async saveLearning (C:\Workspace\Dev\the-matrix\scripts\memory\learn.ts:578:11)
+      at async learnFromFile (C:\Workspace\Dev\the-matrix\scripts\memory\learn.ts:157:15)
+      at async main (C:\Workspace\Dev\the-matrix\scripts\memory\learn.ts:720:15)
+
