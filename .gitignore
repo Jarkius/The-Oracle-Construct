@@ -2,6 +2,9 @@
 # System Artifacts
 .DS_Store
 
+# ψ junction (local alias for psi/ — Oracle MCP uses Unicode path)
+ψ
+
 # Virtual Environments & Engines
 psi/active/piper_engine/
 venv/
