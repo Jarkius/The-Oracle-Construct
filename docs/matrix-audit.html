@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Matrix — System Audit Dashboard</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --green-bright: #00ff41;
+    --green-mid: #00cc33;
+    --green-dim: #008f11;
+    --green-dark: #003b00;
+    --green-glow: rgba(0, 255, 65, 0.15);
+    --green-glow-strong: rgba(0, 255, 65, 0.3);
+    --bg-deep: #0a0a0a;
+    --bg-panel: rgba(0, 20, 0, 0.85);
+    --amber: #ffaa00;
+    --amber-dim: #cc8800;
+    --red: #ff3333;
+    --red-dim: #992222;
+    --cyan: #00ffcc;
+    --blue: #4488ff;
+    --gray: #666666;
+    --font-mono: 'Share Tech Mono', 'Courier New', monospace;
+    --font-display: 'Orbitron', sans-serif;
+  }
+
+  body {
+    background: var(--bg-deep);
+    color: var(--green-bright);
+    font-family: var(--font-mono);
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  /* Digital rain canvas */
+  #rain-canvas {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 0;
+    opacity: 0.10;
+    pointer-events: none;
+  }
+
+  /* CRT scan line overlay */
+  body::after {
+    content: '';
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0, 0, 0, 0.12) 2px,
+      rgba(0, 0, 0, 0.12) 4px
+    );
+    z-index: 1000;
+    pointer-events: none;
+  }
+
+  /* CRT vignette */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.6) 100%);
+    z-index: 999;
+    pointer-events: none;
+  }
+
+  .container {
+    position: relative;
+    z-index: 10;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 30px 80px;
+  }
+
+  /* ── Header ────────────────────────────── */
+  .header {
+    text-align: center;
+    margin-bottom: 40px;
+    position: relative;
+  }
+
+  .header::before, .header::after {
+    content: '════════════════════════════════════════════════════════════════════════';
+    display: block;
+    color: var(--green-dim);
+    font-size: 12px;
+    letter-spacing: 2px;
+    overflow: hidden;
+  }
+  .header::before { margin-bottom: 20px; }
+  .header::after { margin-top: 20px; }
+
+  .title {
+    font-family: var(--font-display);
+    font-size: 36px;
+    font-weight: 900;
+    letter-spacing: 8px;
+    text-transform: uppercase;
+    color: var(--green-bright);
+    text-shadow:
+      0 0 10px var(--green-bright),
+      0 0 30px var(--green-mid),
+      0 0 60px var(--green-dark);
+    animation: titlePulse 4s ease-in-out infinite;
+  }
+
+  .subtitle {
+    font-family: var(--font-display);
+    font-size: 13px;
+    letter-spacing: 6px;
+    color: var(--green-dim);
+    margin-top: 10px;
+    text-transform: uppercase;
+  }
+
+  @keyframes titlePulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.85; }
+  }
+
+  /* ── Summary Bar ───────────────────────── */
+  .summary-bar {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+    padding: 18px 24px;
+    border: 1px solid var(--green-dim);
+    background: var(--bg-panel);
+  }
+
+  .summary-stat {
+    text-align: center;
+  }
+
+  .summary-stat .value {
+    font-family: var(--font-display);
+    font-size: 28px;
+    font-weight: 700;
+    display: block;
+    line-height: 1.2;
+  }
+
+  .summary-stat .label {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--green-dim);
+  }
+
+  .stat-total .value { color: var(--cyan); text-shadow: 0 0 8px var(--cyan); }
+  .stat-pass .value { color: var(--green-bright); text-shadow: 0 0 8px var(--green-bright); }
+  .stat-fail .value { color: var(--red); text-shadow: 0 0 8px var(--red); }
+  .stat-untested .value { color: var(--amber); text-shadow: 0 0 8px var(--amber); }
+  .stat-skip .value { color: var(--gray); }
+
+  /* ── Progress bar ──────────────────────── */
+  .progress-bar {
+    height: 4px;
+    background: rgba(255,255,255,0.05);
+    margin-bottom: 30px;
+    display: flex;
+    overflow: hidden;
+    border: 1px solid var(--green-dark);
+  }
+  .progress-segment {
+    height: 100%;
+    transition: width 0.3s ease;
+  }
+  .progress-pass { background: var(--green-bright); box-shadow: 0 0 6px var(--green-bright); }
+  .progress-fail { background: var(--red); box-shadow: 0 0 6px var(--red); }
+  .progress-skip { background: var(--gray); }
+  .progress-untested { background: var(--amber-dim); opacity: 0.4; }
+
+  /* ── Actions ───────────────────────────── */
+  .actions {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 8px 20px;
+    border: 1px solid var(--green-dim);
+    background: transparent;
+    color: var(--green-mid);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn:hover {
+    background: var(--green-glow);
+    border-color: var(--green-bright);
+    color: var(--green-bright);
+    box-shadow: 0 0 12px var(--green-glow);
+  }
+  .btn-danger { border-color: var(--red-dim); color: var(--red-dim); }
+  .btn-danger:hover {
+    border-color: var(--red);
+    color: var(--red);
+    background: rgba(255, 51, 51, 0.1);
+    box-shadow: 0 0 12px rgba(255, 51, 51, 0.2);
+  }
+
+  /* ── Layer sections ────────────────────── */
+  .layer {
+    border: 1px solid var(--green-dim);
+    background: var(--bg-panel);
+    margin-bottom: 16px;
+    transition: border-color 0.2s;
+  }
+
+  .layer:hover {
+    border-color: var(--green-mid);
+  }
+
+  .layer-header {
+    padding: 14px 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: rgba(0, 255, 65, 0.03);
+    border-bottom: 1px solid transparent;
+    user-select: none;
+    transition: background 0.2s;
+  }
+
+  .layer-header:hover {
+    background: rgba(0, 255, 65, 0.06);
+  }
+
+  .layer.open .layer-header {
+    border-bottom-color: var(--green-dark);
+  }
+
+  .layer-chevron {
+    font-size: 14px;
+    color: var(--green-dim);
+    transition: transform 0.2s;
+    width: 16px;
+    text-align: center;
+  }
+  .layer.open .layer-chevron { transform: rotate(90deg); }
+
+  .layer-id {
+    font-family: var(--font-display);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    min-width: 40px;
+  }
+
+  .layer-name {
+    font-size: 14px;
+    letter-spacing: 2px;
+    flex: 1;
+  }
+
+  .layer-badge {
+    font-size: 11px;
+    color: var(--green-dim);
+    letter-spacing: 1px;
+  }
+
+  .layer-body {
+    display: none;
+    padding: 0;
+  }
+  .layer.open .layer-body { display: block; }
+
+  /* ── Component rows ────────────────────── */
+  .component-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .component-table th {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--green-dim);
+    text-align: left;
+    padding: 8px 16px;
+    border-bottom: 1px solid var(--green-dark);
+    background: rgba(0, 255, 65, 0.02);
+  }
+
+  .component-table th:first-child { width: 40px; text-align: center; }
+  .component-table th:last-child { width: 100px; text-align: center; }
+
+  .component-row {
+    transition: background 0.15s;
+  }
+  .component-row:hover {
+    background: rgba(0, 255, 65, 0.04);
+  }
+
+  .component-row td {
+    padding: 8px 16px;
+    border-bottom: 1px solid rgba(0, 60, 0, 0.4);
+    font-size: 13px;
+    vertical-align: middle;
+  }
+
+  .component-row:last-child td {
+    border-bottom: none;
+  }
+
+  .component-row td:first-child {
+    text-align: center;
+    color: var(--green-dim);
+    font-size: 11px;
+  }
+
+  .component-path {
+    color: var(--green-dim);
+    font-size: 11px;
+  }
+
+  .component-purpose {
+    color: var(--green-dim);
+    font-size: 11px;
+    font-style: italic;
+  }
+
+  /* ── Status buttons ────────────────────── */
+  .status-btn {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border: 1px solid;
+    background: transparent;
+    cursor: pointer;
+    min-width: 80px;
+    transition: all 0.15s;
+  }
+
+  .status-untested {
+    color: var(--amber);
+    border-color: var(--amber-dim);
+  }
+  .status-untested:hover { background: rgba(255, 170, 0, 0.1); }
+
+  .status-pass {
+    color: var(--green-bright);
+    border-color: var(--green-mid);
+    text-shadow: 0 0 6px var(--green-bright);
+    box-shadow: 0 0 6px var(--green-glow);
+  }
+
+  .status-fail {
+    color: var(--red);
+    border-color: var(--red-dim);
+    text-shadow: 0 0 6px var(--red);
+    box-shadow: 0 0 6px rgba(255, 51, 51, 0.2);
+  }
+
+  .status-skip {
+    color: var(--gray);
+    border-color: #444;
+  }
+
+  /* ── Layer color accents ───────────────── */
+  .layer[data-layer="L-1"] .layer-id { color: var(--gray); }
+  .layer[data-layer="L0"] .layer-id { color: var(--cyan); text-shadow: 0 0 6px var(--cyan); }
+  .layer[data-layer="L1"] .layer-id { color: var(--green-bright); }
+  .layer[data-layer="L2"] .layer-id { color: var(--green-mid); }
+  .layer[data-layer="L3"] .layer-id { color: var(--cyan); text-shadow: 0 0 6px var(--cyan); }
+  .layer[data-layer="L4"] .layer-id { color: var(--amber); text-shadow: 0 0 6px var(--amber); }
+  .layer[data-layer="L5"] .layer-id { color: var(--amber); }
+  .layer[data-layer="L6"] .layer-id { color: var(--red); text-shadow: 0 0 4px var(--red); }
+  .layer[data-layer="L7"] .layer-id { color: var(--cyan); text-shadow: 0 0 6px var(--cyan); }
+
+  /* ── Footer ────────────────────────────── */
+  .footer {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 11px;
+    color: var(--green-dark);
+    letter-spacing: 3px;
+  }
+
+  /* ── Print styles ──────────────────────── */
+  @media print {
+    body { background: #fff; color: #000; }
+    body::before, body::after, #rain-canvas { display: none !important; }
+    .container { padding: 10px; max-width: 100%; }
+    .header::before, .header::after { color: #ccc; }
+    .title { color: #000; text-shadow: none; animation: none; font-size: 24px; }
+    .subtitle { color: #666; }
+    .summary-bar { border-color: #ccc; background: #f9f9f9; }
+    .summary-stat .value { text-shadow: none; }
+    .stat-total .value { color: #333; }
+    .stat-pass .value { color: #228B22; }
+    .stat-fail .value { color: #cc0000; }
+    .stat-untested .value { color: #cc8800; }
+    .stat-skip .value { color: #999; }
+    .progress-bar { border-color: #ccc; }
+    .progress-pass { background: #228B22; box-shadow: none; }
+    .progress-fail { background: #cc0000; box-shadow: none; }
+    .progress-skip { background: #999; }
+    .progress-untested { background: #cc8800; }
+    .actions { display: none; }
+    .layer { border-color: #ccc; background: #fff; page-break-inside: avoid; }
+    .layer-header { background: #f5f5f5; }
+    .layer-chevron { display: none; }
+    .layer-body { display: block !important; }
+    .layer-id { text-shadow: none; }
+    .layer[data-layer] .layer-id { color: #333; }
+    .component-table th { border-bottom-color: #ccc; background: #fafafa; color: #666; }
+    .component-row td { border-bottom-color: #eee; color: #333; }
+    .component-path, .component-purpose { color: #666; }
+    .status-btn { text-shadow: none; box-shadow: none; }
+    .status-pass { color: #228B22; border-color: #228B22; }
+    .status-fail { color: #cc0000; border-color: #cc0000; }
+    .status-untested { color: #cc8800; border-color: #cc8800; }
+    .status-skip { color: #999; border-color: #999; }
+    .footer { color: #ccc; }
+  }
+</style>
+</head>
+<body>
+<canvas id="rain-canvas"></canvas>
+
+<div class="container">
+  <div class="header">
+    <div class="title">System Audit</div>
+    <div class="subtitle">The Matrix -- Full Stack Verification</div>
+  </div>
+
+  <div class="summary-bar" id="summary-bar">
+    <div class="summary-stat stat-total"><span class="value" id="stat-total">0</span><span class="label">Total</span></div>
+    <div class="summary-stat stat-pass"><span class="value" id="stat-pass">0</span><span class="label">Passed</span></div>
+    <div class="summary-stat stat-fail"><span class="value" id="stat-fail">0</span><span class="label">Failed</span></div>
+    <div class="summary-stat stat-untested"><span class="value" id="stat-untested">0</span><span class="label">Untested</span></div>
+    <div class="summary-stat stat-skip"><span class="value" id="stat-skip">0</span><span class="label">Skipped</span></div>
+  </div>
+
+  <div class="progress-bar" id="progress-bar"></div>
+
+  <div class="actions">
+    <button class="btn" onclick="expandAll()">Expand All</button>
+    <button class="btn" onclick="collapseAll()">Collapse All</button>
+    <button class="btn" onclick="exportJSON()">Export JSON</button>
+    <button class="btn btn-danger" onclick="resetAll()">Reset All</button>
+  </div>
+
+  <div id="layers-container"></div>
+
+  <div class="footer">MATRIX AUDIT DASHBOARD v1.0 -- KNOW THYSELF</div>
+</div>
+
+<script>
+// ── Audit Data ──────────────────────────────────────────────────────────
+const LAYERS = [
+  {
+    id: 'L-1', name: 'Platform Foundation', components: [
+      { name: 'bash available', path: 'bash', purpose: 'Shell runtime for hooks' },
+      { name: 'bun available', path: 'bun', purpose: 'TypeScript runtime' },
+      { name: 'git available', path: 'git', purpose: 'Version control' },
+      { name: 'python available', path: 'python', purpose: 'Python scripts/hooks' },
+      { name: 'PROJECT_ROOT detection', path: 'git rev-parse', purpose: 'Path foundation' },
+      { name: 'psi/ structure', path: 'psi/', purpose: 'Directory tree intact' },
+    ]
+  },
+  {
+    id: 'L0', name: 'Core Paths & Config', components: [
+      { name: 'Path auto-detect', path: 'src/core/paths.ts', purpose: 'Walks up to find CLAUDE.md' },
+      { name: 'Core config', path: 'src/core/config.ts', purpose: 'Environment configuration' },
+      { name: 'Core DB', path: 'src/core/db/core.ts', purpose: 'SQLite database layer' },
+      { name: 'Nerve registration', path: 'src/nerve/index.ts', purpose: '4 daemon paths registered correctly' },
+      { name: 'Rules files', path: '.claude/rules/*.md', purpose: 'Path references in rules valid' },
+      { name: 'Settings hooks', path: '.claude/settings.json', purpose: 'All hook paths exist' },
+    ]
+  },
+  {
+    id: 'L1', name: 'Event System', components: [
+      { name: 'Event writer', path: '.claude/hooks/pulse-event-writer.sh', purpose: 'Appends events to JSONL' },
+      { name: 'Events file', path: 'psi/state/pulse/events.jsonl', purpose: 'Valid JSONL format' },
+      { name: 'Post-action hook', path: '.claude/hooks/pulse-post-action.sh', purpose: 'Records git/bash actions' },
+      { name: 'Pre-compact hook', path: '.claude/hooks/pulse-pre-compact.sh', purpose: 'Logs compaction events' },
+      { name: 'Dispatch rules', path: 'psi/state/pulse/dispatch-rules.json', purpose: 'Valid JSON, paths correct' },
+      { name: 'Reminders', path: 'psi/state/pulse/reminders.json', purpose: 'Optional, valid if exists' },
+    ]
+  },
+  {
+    id: 'L2', name: 'Session Lifecycle', components: [
+      { name: 'Session start', path: '.claude/hooks/matrix-session-start.sh', purpose: 'Identity injection at boot' },
+      { name: 'Session end', path: '.claude/hooks/pulse-session-end.sh', purpose: 'Saves session on exit' },
+      { name: 'Session save', path: '.claude/hooks/session-memory-save.sh', purpose: 'Creates session .md files' },
+      { name: 'Session continuity', path: '.claude/hooks/pulse-session-continuity.sh', purpose: 'Structured handoff generation' },
+      { name: 'Focus file', path: 'psi/state/focus.md', purpose: 'Current task state' },
+      { name: 'Active tasks', path: 'psi/memory/tasks/active.json', purpose: 'Task registry' },
+    ]
+  },
+  {
+    id: 'L3', name: 'Memory & Recall', components: [
+      { name: 'SQLite DB', path: 'src/core/db/core.ts', purpose: 'Database opens without error' },
+      { name: 'Memory recall', path: 'bun memory recall', purpose: 'Semantic search works' },
+      { name: 'Memory save', path: 'bun memory save', purpose: 'Can persist context' },
+      { name: 'Memory status', path: 'bun memory status', purpose: 'Health reporting' },
+      { name: 'ChromaDB', path: 'localhost:8100', purpose: 'Vector DB connection (needs Docker)' },
+      { name: 'Grep fallback', path: 'grep psi/memory/', purpose: 'Works when ChromaDB down' },
+      { name: 'Exporter', path: 'scripts/memory/memory-export.ts', purpose: 'Export uses psi/ paths' },
+    ]
+  },
+  {
+    id: 'L4', name: 'Agent Dispatch', components: [
+      { name: 'Spawn', path: '.claude/hooks/matrix-spawn.sh', purpose: 'Creates comm channel in psi/swarm/' },
+      { name: 'Comm', path: '.claude/hooks/matrix-comm.sh', purpose: 'Appends to agent comm file' },
+      { name: 'Artifact', path: '.claude/hooks/matrix-artifact.sh', purpose: 'Creates artifact in psi/swarm/' },
+      { name: 'Return', path: '.claude/hooks/matrix-return.sh', purpose: 'Updates comm on agent exit' },
+      { name: 'Dispatch', path: '.claude/hooks/matrix-dispatch.sh', purpose: 'Generates agent prompt' },
+      { name: 'Agent definitions', path: '.claude/agents/*.md', purpose: '8 agents with frontmatter' },
+      { name: 'Subagent hooks', path: 'matrix-subagent-start/complete.sh', purpose: 'Tracks agent lifecycle' },
+    ]
+  },
+  {
+    id: 'L5', name: 'Daemons & Self-Healing', components: [
+      { name: 'Heartbeat', path: 'src/daemons/heartbeat/heartbeat-daemon.ts', purpose: 'Periodic health checks' },
+      { name: 'Gateway', path: 'src/daemons/gateway/matrix-gateway.ts', purpose: 'Telegram bot bridge' },
+      { name: 'Hub', path: 'src/daemons/hub/matrix-hub.ts', purpose: 'Message hub' },
+      { name: 'Control Center', path: 'src/daemons/control-center/control-center.ts', purpose: 'Web dashboard' },
+      { name: 'Watcher', path: 'src/daemons/watcher/', purpose: 'File system watcher' },
+      { name: 'CDP Proxy', path: 'src/daemons/cdp-proxy/', purpose: 'Chrome DevTools proxy' },
+      { name: 'Nerve', path: 'src/nerve/index.ts', purpose: 'Daemon supervisor' },
+      { name: 'Services script', path: '.claude/hooks/matrix-services.sh', purpose: 'Service lifecycle manager' },
+      { name: 'Watchdog', path: '.claude/hooks/pulse-watchdog.sh', purpose: 'Background service monitor' },
+    ]
+  },
+  {
+    id: 'L6', name: 'Intelligence', components: [
+      { name: 'Event dispatcher', path: '.claude/hooks/pulse-event-dispatcher.sh', purpose: 'Event-to-action routing' },
+      { name: 'Pattern scanner', path: '.claude/hooks/pulse-pattern-scanner.sh', purpose: 'Session rhythm detection' },
+      { name: 'Proactive intel', path: '.claude/hooks/pulse-proactive-intel.sh', purpose: 'Anomaly detection + suggestions' },
+      { name: 'Smart router', path: '.claude/hooks/pulse-smart-router.sh', purpose: 'Performance-based task routing' },
+      { name: 'Dispatch learner', path: '.claude/hooks/pulse-dispatch-learner.sh', purpose: 'Self-tuning dispatch rules' },
+      { name: 'Auto-evolve', path: '.claude/hooks/pulse-auto-evolve.sh', purpose: 'Safe system evolution' },
+      { name: 'Self-heal', path: '.claude/hooks/pulse-self-heal.sh', purpose: 'Hook/JSON/PID repair' },
+      { name: 'Morning brief', path: '.claude/hooks/morning-brief.py', purpose: 'Synthesized intelligence at boot' },
+      { name: 'Notification intel', path: '.claude/hooks/pulse-notification-intel.sh', purpose: 'Adaptive alert filtering' },
+      { name: 'Dashboard', path: '.claude/hooks/pulse-dashboard.sh', purpose: 'HTML health dashboard' },
+      { name: 'Metrics', path: '.claude/hooks/pulse-metrics.sh', purpose: 'Historical performance data' },
+      { name: 'Git ops', path: '.claude/hooks/pulse-auto-git.sh', purpose: 'PR readiness + stale branches' },
+      { name: 'Context compressor', path: '.claude/hooks/pulse-context-compressor.sh', purpose: 'Smart pre-compact' },
+      { name: 'Skill discovery', path: '.claude/hooks/pulse-skill-discovery.sh', purpose: 'Auto-scan + validate skills' },
+    ]
+  },
+  {
+    id: 'L7', name: 'Skills & Workflows', components: [
+      { name: '/recap', path: '~/.claude/skills/recap/recap-rich.ts', purpose: 'Session recovery tool' },
+      { name: '/rrr', path: '~/.claude/skills/rrr/', purpose: 'Retrospective generator' },
+      { name: '/commit', path: '.agent/workflows/commit.md', purpose: 'Git commit workflow' },
+      { name: '/oracle', path: '.agent/workflows/oracle.md', purpose: 'Orchestration workflow' },
+      { name: 'Voice system', path: 'scripts/voice/voice.sh', purpose: 'TTS for agent voices' },
+      { name: 'Global skills', path: '~/.claude/skills/*/SKILL.md', purpose: 'All installed skills' },
+    ]
+  },
+];
+
+const STORAGE_KEY = 'matrix-audit-statuses';
+const STATUS_CYCLE = ['untested', 'pass', 'fail', 'skip'];
+const STATUS_LABELS = { untested: 'Untested', pass: 'Pass', fail: 'Fail', skip: 'Skip' };
+
+// ── State ───────────────────────────────────────────────────────────────
+let statuses = {};
+
+function loadStatuses() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) statuses = JSON.parse(raw);
+  } catch(e) { statuses = {}; }
+}
+
+function saveStatuses() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(statuses));
+}
+
+function getKey(layerId, idx) {
+  return layerId + ':' + idx;
+}
+
+function getStatus(layerId, idx) {
+  return statuses[getKey(layerId, idx)] || 'untested';
+}
+
+function cycleStatus(layerId, idx) {
+  const key = getKey(layerId, idx);
+  const current = statuses[key] || 'untested';
+  const next = STATUS_CYCLE[(STATUS_CYCLE.indexOf(current) + 1) % STATUS_CYCLE.length];
+  statuses[key] = next;
+  saveStatuses();
+  renderStatusBtn(layerId, idx);
+  updateSummary();
+}
+
+// ── Rendering ───────────────────────────────────────────────────────────
+function renderStatusBtn(layerId, idx) {
+  const btn = document.getElementById('status-' + layerId + '-' + idx);
+  if (!btn) return;
+  const s = getStatus(layerId, idx);
+  btn.className = 'status-btn status-' + s;
+  btn.textContent = STATUS_LABELS[s];
+}
+
+function renderLayers() {
+  const container = document.getElementById('layers-container');
+  container.innerHTML = '';
+
+  LAYERS.forEach(layer => {
+    const layerDiv = document.createElement('div');
+    layerDiv.className = 'layer';
+    layerDiv.setAttribute('data-layer', layer.id);
+
+    const counts = getLayerCounts(layer);
+    const badge = counts.pass + '/' + layer.components.length;
+
+    layerDiv.innerHTML = `
+      <div class="layer-header" onclick="toggleLayer(this)">
+        <span class="layer-chevron">&#9654;</span>
+        <span class="layer-id">${layer.id}</span>
+        <span class="layer-name">${layer.name}</span>
+        <span class="layer-badge">[${badge} passed] (${layer.components.length} components)</span>
+      </div>
+      <div class="layer-body">
+        <table class="component-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Component</th>
+              <th>Path</th>
+              <th>Purpose</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${layer.components.map((c, i) => `
+              <tr class="component-row">
+                <td>${i + 1}</td>
+                <td>${c.name}</td>
+                <td class="component-path">${c.path}</td>
+                <td class="component-purpose">${c.purpose}</td>
+                <td style="text-align:center">
+                  <button id="status-${layer.id}-${i}" class="status-btn" onclick="cycleStatus('${layer.id}', ${i})"></button>
+                </td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      </div>
+    `;
+
+    container.appendChild(layerDiv);
+
+    // Render status buttons
+    layer.components.forEach((_, i) => renderStatusBtn(layer.id, i));
+  });
+}
+
+function getLayerCounts(layer) {
+  const counts = { pass: 0, fail: 0, untested: 0, skip: 0 };
+  layer.components.forEach((_, i) => {
+    counts[getStatus(layer.id, i)]++;
+  });
+  return counts;
+}
+
+function updateSummary() {
+  let total = 0, pass = 0, fail = 0, untested = 0, skip = 0;
+  LAYERS.forEach(layer => {
+    layer.components.forEach((_, i) => {
+      total++;
+      const s = getStatus(layer.id, i);
+      if (s === 'pass') pass++;
+      else if (s === 'fail') fail++;
+      else if (s === 'skip') skip++;
+      else untested++;
+    });
+  });
+
+  document.getElementById('stat-total').textContent = total;
+  document.getElementById('stat-pass').textContent = pass;
+  document.getElementById('stat-fail').textContent = fail;
+  document.getElementById('stat-untested').textContent = untested;
+  document.getElementById('stat-skip').textContent = skip;
+
+  // Update progress bar
+  const bar = document.getElementById('progress-bar');
+  bar.innerHTML = '';
+  if (total > 0) {
+    const segments = [
+      { cls: 'progress-pass', count: pass },
+      { cls: 'progress-fail', count: fail },
+      { cls: 'progress-skip', count: skip },
+      { cls: 'progress-untested', count: untested },
+    ];
+    segments.forEach(seg => {
+      if (seg.count > 0) {
+        const div = document.createElement('div');
+        div.className = 'progress-segment ' + seg.cls;
+        div.style.width = (seg.count / total * 100) + '%';
+        bar.appendChild(div);
+      }
+    });
+  }
+
+  // Update layer badges
+  LAYERS.forEach(layer => {
+    const counts = getLayerCounts(layer);
+    const badge = layer.id;
+    const el = document.querySelector(`.layer[data-layer="${layer.id}"] .layer-badge`);
+    if (el) el.textContent = `[${counts.pass}/${layer.components.length} passed] (${layer.components.length} components)`;
+  });
+}
+
+// ── Interactions ─────────────────────────────────────────────────────────
+function toggleLayer(header) {
+  header.parentElement.classList.toggle('open');
+}
+
+function expandAll() {
+  document.querySelectorAll('.layer').forEach(l => l.classList.add('open'));
+}
+
+function collapseAll() {
+  document.querySelectorAll('.layer').forEach(l => l.classList.remove('open'));
+}
+
+function resetAll() {
+  if (!confirm('Reset all audit statuses to UNTESTED?')) return;
+  statuses = {};
+  saveStatuses();
+  LAYERS.forEach(layer => {
+    layer.components.forEach((_, i) => renderStatusBtn(layer.id, i));
+  });
+  updateSummary();
+}
+
+function exportJSON() {
+  const result = {
+    exported: new Date().toISOString(),
+    summary: {
+      total: 0, pass: 0, fail: 0, untested: 0, skip: 0
+    },
+    layers: {}
+  };
+
+  LAYERS.forEach(layer => {
+    result.layers[layer.id] = {
+      name: layer.name,
+      components: layer.components.map((c, i) => {
+        const s = getStatus(layer.id, i);
+        result.summary.total++;
+        result.summary[s]++;
+        return {
+          name: c.name,
+          path: c.path,
+          purpose: c.purpose,
+          status: s
+        };
+      })
+    };
+  });
+
+  const blob = new Blob([JSON.stringify(result, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'matrix-audit-' + new Date().toISOString().slice(0, 10) + '.json';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+// ── Digital Rain ────────────────────────────────────────────────────────
+function initRain() {
+  const canvas = document.getElementById('rain-canvas');
+  const ctx = canvas.getContext('2d');
+
+  function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  const chars = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789ABCDEF';
+  const fontSize = 14;
+  const columns = Math.floor(canvas.width / fontSize);
+  const drops = new Array(columns).fill(1);
+
+  function draw() {
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = '#00ff41';
+    ctx.font = fontSize + 'px monospace';
+
+    for (let i = 0; i < drops.length; i++) {
+      const char = chars[Math.floor(Math.random() * chars.length)];
+      ctx.fillText(char, i * fontSize, drops[i] * fontSize);
+      if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+        drops[i] = 0;
+      }
+      drops[i]++;
+    }
+    requestAnimationFrame(draw);
+  }
+  draw();
+}
+
+// ── Init ────────────────────────────────────────────────────────────────
+loadStatuses();
+renderLayers();
+updateSummary();
+initRain();
+</script>
+</body>
+</html>

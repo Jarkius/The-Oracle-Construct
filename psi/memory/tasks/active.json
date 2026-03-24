@@ -10,7 +10,16 @@
       "created": "2026-02-15T12:00:00Z",
       "updated": "2026-02-15T12:00:00Z",
       "context": "Main project mission. Infrastructure complete. Oracle Construct evolution phases done."
+    },
+    {
+      "id": "task-0014",
+      "task": "Matrix System Audit — L-1 through L7 layer validation",
+      "status": "in_progress",
+      "assignee": "Smith",
+      "created": "2026-03-24T10:42:00Z",
+      "updated": "2026-03-24T10:42:00Z",
+      "context": "67 components across 8 layers. Audit plan in docs/matrix-audit.html. Execute on other machine. Subtasks: L-1 Platform, L0 Core Paths, L1 Events, L2 Session, L3 Memory, L4 Dispatch, L5 Daemons, L6 Intelligence, L7 Skills."
     }
   ],
-  "lastUpdated": "2026-03-23T08:29:06Z"
+  "lastUpdated": "2026-03-24T10:42:00Z"
 }
